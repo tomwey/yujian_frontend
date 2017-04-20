@@ -35,7 +35,11 @@ $colors: (
   golden:     rgb(228,196,129),
 );
 
+// 自定义TabBar的选中颜色
 $tabs-tab-color-active: $theme-red;
+
+// 自定义导航条的背景颜色
+$toolbar-background: $theme-red;
 
 // App iOS Variables
 // --------------------------------------------------
