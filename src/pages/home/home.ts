@@ -1,8 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-
-declare var qq;
+// import { RedPacketsService } from '../../providers/red-packets-service';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +12,8 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, 
+              public geolocation: Geolocation) {
 
   }
 
@@ -50,6 +50,8 @@ export class HomePage {
 
     this.map = new qq.maps.Map(this.mapElement.nativeElement, mapOptions);
 
+    this.loadHongbao(latLng.lat, latLng.lng);
+
     let marker = new qq.maps.Marker({
           position: latLng,
           map: this.map
@@ -59,6 +61,14 @@ export class HomePage {
     let customZoomDiv = document.createElement("div");
     customZoomDiv.style.cssText = "padding:5px;border:2px solid #86acf2;background:#ffffff";
     this.map.controls[qq.maps.ControlPosition.LEFT_BOTTOM].push(customZoomDiv);
+  }
+
+  loadHongbao(lat, lng) {
+    console.log(lat + ', ' + lng);
+
+    // this.hbService.nearby(lat, lng).then(data => {
+    //   console.log(data);
+    // });
   }
 
 }

@@ -1,8 +1,13 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
+
+// 服务类导入
+// import { ApiService } from '../providers/api-service';
+// import { RedPacketsService } from '../providers/red-packets-service';
 
 import { ExplorePage } from '../pages/explore/explore';
 import { SettingPage } from '../pages/setting/setting';
@@ -22,6 +27,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -36,6 +42,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     Geolocation,
+    // ApiService,
+    // RedPacketsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
