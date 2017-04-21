@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-// import { RedPacketsService } from '../../providers/red-packets-service';
+import { RedPacketService } from '../../providers/red-packet-service';
 
 @Component({
   selector: 'page-home',
@@ -13,7 +13,8 @@ export class HomePage {
   map: any;
 
   constructor(public navCtrl: NavController, 
-              public geolocation: Geolocation) {
+              public geolocation: Geolocation,
+              private hbService: RedPacketService) {
 
   }
 
@@ -66,9 +67,18 @@ export class HomePage {
   loadHongbao(lat, lng) {
     console.log(lat + ', ' + lng);
 
-    // this.hbService.nearby(lat, lng).then(data => {
-    //   console.log(data);
-    // });
+    this.hbService.nearby(lat, lng).then(data => {
+      console.log(data);
+      for (let item of data) {
+        let latLng = new qq.maps.LatLng(item.lat, item.lng);
+        new qq.maps.Marker({
+          position: latLng,
+          map: this.map
+        })
+      }
+    }, err => {
+      console.log(err);
+    });
   }
 
 }
