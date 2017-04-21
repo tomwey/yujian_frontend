@@ -14,3 +14,4 @@
 declare module '*';
 
 declare var qq;
+declare var AMap;

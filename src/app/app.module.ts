@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 // 服务类导入
 import { ApiService } from '../providers/api-service';
 import { RedPacketService } from '../providers/red-packet-service';
+import { MapService } from '../providers/map-service';
 
 import { ExplorePage } from '../pages/explore/explore';
 import { SettingPage } from '../pages/setting/setting';
@@ -44,6 +45,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Geolocation,
     ApiService,
     RedPacketService,
+    MapService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
