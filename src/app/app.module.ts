@@ -9,6 +9,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ApiService } from '../providers/api-service';
 import { RedPacketService } from '../providers/red-packet-service';
 import { MapService } from '../providers/map-service';
+import { LocationService } from '../providers/location-service';
+import { ToolService } from '../providers/tool-service';
 
 import { ExplorePage } from '../pages/explore/explore';
 import { SettingPage } from '../pages/setting/setting';
@@ -29,7 +31,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {
+      mode: 'ios',
+      backButtonText: ''
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -46,6 +51,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ApiService,
     RedPacketService,
     MapService,
+    LocationService,
+    ToolService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

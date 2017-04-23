@@ -20,13 +20,14 @@ export class MapService {
    * 加载js, 动态创建dom到页面
    * @returns { Promise }
    */
-  private loadMapAPI(): Promise<any> {
+  // http://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=initMap
+  private loadMapAPI(url: string): Promise<any> {
     console.log('开始加载地图API');
 
     const _loadScript = () => {
       // <script charset="utf-8" src="http://webapi.amap.com/maps?v=1.3&key=023be450092b8590759a23775a77d9bb"></script>
       const script = document.createElement('script');
-      script.src   = 'http://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=initMap';
+      script.src   = url;
       script.type  = 'text/javascript';
       script.charset = 'utf-8';
       script.async   = true;
@@ -48,13 +49,15 @@ export class MapService {
    * 异步加载地图
    * @returns {Promise}
    */
-  private loadMap(): Promise<any> {
+  private loadMap(url: string): Promise<any> {
     console.log('异步开始加载地图');
     return new Promise( (resolve, reject) => {
       if ( (<any>window).qq ) {
         resolve();
+      } else if ( (<any>window).AMap ) {
+        resolve();
       } else {
-        this.loadMapAPI().then(() => resolve()).catch(error => {
+        this.loadMapAPI(url).then(() => resolve()).catch(error => {
           reject(error);
         });
       }
@@ -62,22 +65,48 @@ export class MapService {
   } // end loadMap()
 
   /**
-   * 创建地图
+   * 创建高德地图
    * @returns {Promise}
    */
-  public createMap(el, position): Promise<any> {
 
+  public createAMap(el, position): Promise<any> {
+    console.log(position);
     return new Promise((resolve, reject) => {
-      this.loadMap().then(() => {
+      this.loadMap('http://webapi.amap.com/maps?v=1.3&key=023be450092b8590759a23775a77d9bb&callback=initMap')
+        .then( () => {
+          console.log('高德地图加载成功');
+
+          // 创建高德地图
+          let map = new AMap.Map(el, {
+            center: [104.080021,30.720637],
+            zoom: 15,
+          });
+          this.map = map;
+          resolve(map);
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
+  }
+
+  /**
+   * 创建QQ地图
+   * @returns {Promise}
+   */
+  public createQQMap(el, position): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.loadMap('http://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=initMap').then(() => {
         console.log('地图加载成功');
         let gpsLatLng = new qq.maps.LatLng(position.lat,position.lng);
 
         qq.maps.convertor.translate(gpsLatLng, 1, (res) => {
           let mapOptions = {
             center: res[0],
-            zoom: 20,
+            zoom: 13,
             mapTypeId: qq.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
+            useNative: true,
           };
 
           let map = new qq.maps.Map(el, mapOptions);
@@ -89,4 +118,10 @@ export class MapService {
       });
     });
   }
+
+  /**
+   * 添加自定义控件
+   * 
+   */
+  
 }
