@@ -122,6 +122,10 @@ export class MapService {
           this.map = map;
           resolve(this.map);
         });
+
+        // qq.maps.event.addListener(this.map, 'center_changed', function() {
+        //   resolve(this.map);
+        // });
       }).catch(error => {
         reject(error);
       });

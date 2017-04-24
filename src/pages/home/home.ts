@@ -65,14 +65,6 @@ export class HomePage {
         } else {
           this.map = map;
           this.mapLoaded = true;
-
-          // qq.maps.event.addListener(this.map, 'center_changed', function() {
-          //       // centerDiv.innerHTML = "latlng:" + map.getCenter();
-          //     this.isLoading = true;
-
-          //     this.loadState = '拼命加载中...';
-          //     this.loadHongbao(this.map.getCenter().lat, this.map.getCenter().lng);
-          // });
         }
         
         // qq.maps.event.removeListener(this.map, 'center_changed');
@@ -82,6 +74,7 @@ export class HomePage {
         //   this.loadHongbao(this.map.getCenter().lat, this.map.getCenter().lng);
         // });
         
+        this.isLoading = true;
         this.loadState = '拼命加载中...';
         this.loadHongbao(this.map.getCenter().lat, this.map.getCenter().lng);
       })
@@ -192,10 +185,11 @@ export class HomePage {
       console.log(data);
       for (let item of data) {
         let latLng = new qq.maps.LatLng(item.lat, item.lng);
-        new qq.maps.Marker({
-          position: latLng,
-          map: this.map
-        })
+        // new qq.maps.Marker({
+        //   position: latLng,
+        //   map: this.map
+        // })
+        this.addInfoWindow(latLng);
       }
       this.isLoading = false;
       if (data.length > 0) {
