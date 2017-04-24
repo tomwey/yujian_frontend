@@ -87,95 +87,67 @@ export class HomePage {
       });
   }
 
-  addInfoWindow(position): void {
-    //声明类,opts为类属性，初始化时传入（非必须，看实际需求）
-    var MyOverlay = function(opts){
-	    qq.maps.Overlay.call(this, opts);
-    };
-
-    //继承Overlay基类
-    MyOverlay.prototype = new qq.maps.Overlay();
-    //实现构造方法
-    MyOverlay.prototype.construct = function() {
-	
-	 //创建了覆盖物的容器，这里我用了一个div，并且设置了样式
-	  this.dom = document.createElement('div');
-	  this.dom.style.cssText = 
-		  'background:#0f0;color:white;position:absolute;' + 
-		  'text-align:center;width:100px;height:30px';
-
-	  //将初始化的html填入到了窗口里，这根据您自己的需要决定是否加这属性
-	  this.dom.innerHTML = this.get('inithtml');
-
-	  //将dom添加到覆盖物层
-	  this.getPanes().overlayLayer.appendChild(this.dom);
-  };
-
-  //自定义的方法，用于设置myOverlay的html
-  MyOverlay.prototype.html=function(html){
-	  this.dom.innerHTML=html;
-  }
-  //实现绘制覆盖物的方法（覆盖物的位置在此控制）
-  MyOverlay.prototype.draw = function() {
-	  //获取地理经纬度坐标
-    var position = this.get('position');
-    if (position) {
-      var pixel = this.getProjection().fromLatLngToDivPixel(position);
-      this.dom.style.left = pixel.getX() + 'px';
-      this.dom.style.top = pixel.getY() + 'px';
+  addInfoWindow(position, item): void {
+    
+    function CustomOverlay(position, data) {
+        this.data = data;
+        this.position = position;
     }
-  };
-//实现析构方法（类生命周期结束时会自动调用，用于释放资源等）
-  MyOverlay.prototype.destroy = function() {
-	  //移除dom
-	  this.dom.parentNode.removeChild(this.dom);
-  };
-  //以上自定义Overlay代码结束 =================================================
+    CustomOverlay.prototype = new qq.maps.Overlay();
+    //定义construct,实现这个接口来初始化自定义的Dom元素
+    CustomOverlay.prototype.construct = function() {
+        var div = this.div = document.createElement("div");
+        var divStyle = this.div.style;
+        divStyle.position = "absolute";
+        divStyle.width = "36px";
+        divStyle.height = "48px";
+        divStyle.background = "url(assets/images/map_img_hb.png) no-repeat center center";
+        // divStyle.border = "1px solid #000000";
+        divStyle.textAlign = "center";
+        // divStyle.lineHeight = "24px";
+        divStyle.borderRadius = "6px";
+        divStyle.cursor = "pointer";
+        this.div.innerHTML = 
+          '<div class="hb-marker"><img src="' + this.data.owner.avatar + '"><p>' + this.data.quantity + '</p></div>';
+        // console.log('111111');
+        // console.log(this.data);
+        //将dom添加到覆盖物层
+        var panes = this.getPanes();
+        //设置panes的层级，overlayMouseTarget可接收点击事件
+        panes.overlayMouseTarget.appendChild(div);
+    
+        var self = this;
+        this.div.onclick = function() {
+            // alert(self.index);
+            alert(self.data);
+        }
+    }
 
-  let label = new MyOverlay({
-    map: this.map,
-    position: this.map.getCenter(),
-    inithtml: 'test',
-  });
+    //实现draw接口来绘制和更新自定义的dom元素
+    CustomOverlay.prototype.draw = function() {
+        var overlayProjection = this.getProjection();
+        //返回覆盖物容器的相对像素坐标
+        var pixel = overlayProjection.fromLatLngToDivPixel(this.position);
+        var divStyle = this.div.style;
+        divStyle.left = pixel.x - 12 + "px";
+        divStyle.top = pixel.y - 12 + "px";
+    }
+    //实现destroy接口来删除自定义的Dom元素，此方法会在setMap(null)后被调用
+    CustomOverlay.prototype.destroy = function() {
+        this.div.onclick = null;
+        this.div.parentNode.removeChild(this.div);
+        this.div = null
+    }
 
-  label.html = '<div class="custom-overlay">dddddddddd</div>';
-}
+    // var latlng = map.getCenter();
+    var overlay = new CustomOverlay(position, item);
+    // overlay.setContent('<h2>标题</h2>');
+    overlay.setMap(this.map);
 
-  addCurrentPositionMarker(position): void {
-    let gpsLatLng = new qq.maps.LatLng(position.lat,position.lng);
-
-     qq.maps.convertor.translate(gpsLatLng, 1, (res) => {
-      let marker = new qq.maps.Marker({
-        position: res[0],
-        map: this.map,
-      });
-      
-      var anchor = new qq.maps.Point(0, 0),
-         size = new qq.maps.Size(19, 29),
-         origin = new qq.maps.Point(0, 0),
-         markerIcon = new qq.maps.MarkerImage(
-     "assets/images/icon_ding.png",
-      size, 
-      origin,
-      anchor
-      );
-      marker.setIcon(markerIcon);
-
-    });
   }
 
   refresh() {
     this.startLocation();
-  }
-
-  addCustomControl(): void {
-    new qq.maps.Control(
-      {
-        content: '<h2>刷新</h2>',
-        align: qq.maps.ALIGN.BOTTOM_LEFT,
-        map: this.map
-      }
-    );
   }
 
   loadHongbao(lat, lng) {
@@ -189,8 +161,9 @@ export class HomePage {
         //   position: latLng,
         //   map: this.map
         // })
-        this.addInfoWindow(latLng);
+        this.addInfoWindow(latLng, item);
       }
+
       this.isLoading = false;
       if (data.length > 0) {
         this.loadState = '快快去抢吧!';

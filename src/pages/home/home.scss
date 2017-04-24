@@ -8,6 +8,29 @@
             height: 100%;
         }
 
+        .hb-marker {
+            // border-radius: 2px;
+            // -webkit-border-radius: 2px;
+            img {
+                width: 18px;
+                height: 18px;
+                margin: 0 auto;
+                display: block;
+                margin-top: 6px;
+                border: 1px solid rgb(252,208,11);
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+            }
+            p {
+                margin: 0;
+                padding: 0;
+                margin-top: 6px;
+                color: rgb(252,208,11);
+                font-size: 10px;
+                text-align: center;
+            }
+        }
+
         .scroll {
             height: 100%;
         }
