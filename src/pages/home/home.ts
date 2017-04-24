@@ -17,6 +17,7 @@ export class HomePage {
   isLoading: boolean = false;
   loadState: string = '';
   hbCount: number = 0;
+  mapLoaded: boolean = false;
 
   constructor(public navCtrl: NavController, 
               private hbService: RedPacketService,
@@ -59,8 +60,21 @@ export class HomePage {
     // this.toolService.showLoading('地图加载中...');
     this.mapService.createQQMap(this.mapElement.nativeElement, position)
       .then(map => {
-        this.map = map;
+        if (this.map) {
 
+        } else {
+          this.map = map;
+          this.mapLoaded = true;
+
+          // qq.maps.event.addListener(this.map, 'center_changed', function() {
+          //       // centerDiv.innerHTML = "latlng:" + map.getCenter();
+          //     this.isLoading = true;
+
+          //     this.loadState = '拼命加载中...';
+          //     this.loadHongbao(this.map.getCenter().lat, this.map.getCenter().lng);
+          // });
+        }
+        
         // qq.maps.event.removeListener(this.map, 'center_changed');
         // qq.maps.event.addListener(this.map, 'center_changed', function() {
         //   this.isLoading = true;

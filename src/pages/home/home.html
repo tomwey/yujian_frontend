@@ -7,7 +7,7 @@
 <ion-content>
   <div class="map-container">
     <div #map id="map"></div>
-    <div class="map-ding">
+    <div class="map-ding" *ngIf="mapLoaded">
       <div class="arrow_box">
         <div class="left-box">
           <div class="loading" *ngIf="isLoading">
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <div class="map-location">
+    <div class="map-location" *ngIf="mapLoaded">
       <button ion-button icon-only color="light" (click)="relocate();">
         <ion-icon name="ios-locate-outline"></ion-icon>
       </button>
