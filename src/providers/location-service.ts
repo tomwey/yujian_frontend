@@ -15,7 +15,7 @@ export class LocationService {
   }
 
   /**
-   * 获取位置
+   * 获取HTML5位置坐标
    * @returns {Promise}
    */
   public getPosition(): Promise<any> {

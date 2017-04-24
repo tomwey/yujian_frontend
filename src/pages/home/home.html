@@ -1,9 +1,32 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>遇见红包</ion-title>
+    <ion-title>遇遇</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <div #map id="map"></div>
+  <div class="map-container">
+    <div #map id="map"></div>
+    <div class="map-ding">
+      <div class="arrow_box">
+        <div class="left-box">
+          <div class="loading" *ngIf="isLoading">
+            <ion-spinner item-left="" name="dots" class="spinner spinner-ios spinner-dots spinner-ios-dots"><!----><svg viewBox="0 0 64 64" style="left: 9px; animation-delay: 0ms; animation-duration: 750ms;"><circle transform="translate(32,32)" r="6"></circle></svg><svg viewBox="0 0 64 64" style="left: 0px; animation-delay: -110ms; animation-duration: 750ms;"><circle transform="translate(32,32)" r="6"></circle></svg><svg viewBox="0 0 64 64" style="left: -9px; animation-delay: -220ms; animation-duration: 750ms;"><circle transform="translate(32,32)" r="6"></circle></svg><!----></ion-spinner>
+          </div>
+          <div class="hb-result" *ngIf="!isLoading">
+            <div class="quantity"><span class="digit">{{hbCount}}</span></div>
+            <div class="label">红包</div>
+          </div>
+        </div>
+        <div class="right-box">
+          <div class="message">{{loadState}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="map-location">
+      <button ion-button icon-only color="light" (click)="relocate();">
+        <ion-icon name="ios-locate-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
 </ion-content>

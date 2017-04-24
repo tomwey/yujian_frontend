@@ -95,6 +95,15 @@ export class MapService {
    * @returns {Promise}
    */
   public createQQMap(el, position): Promise<any> {
+    if (this.map) {
+      let gpsLatLng = new qq.maps.LatLng(position.lat,position.lng);
+      qq.maps.convertor.translate(gpsLatLng, 1, (res) => {
+        // this.map.setCenter(res[0]);
+        this.map.panTo(res[0]);
+        return Promise.resolve(this.map);
+      });
+    }
+
     return new Promise((resolve, reject) => {
       this.loadMap('http://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=initMap').then(() => {
         console.log('地图加载成功');
@@ -103,7 +112,7 @@ export class MapService {
         qq.maps.convertor.translate(gpsLatLng, 1, (res) => {
           let mapOptions = {
             center: res[0],
-            zoom: 13,
+            zoom: 14,
             mapTypeId: qq.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
             useNative: true,
