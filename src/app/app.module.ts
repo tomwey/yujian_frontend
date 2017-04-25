@@ -12,10 +12,12 @@ import { MapService } from '../providers/map-service';
 import { LocationService } from '../providers/location-service';
 import { ToolService } from '../providers/tool-service';
 
+// 页面导入
 import { ExplorePage } from '../pages/explore/explore';
 import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { HBDetailPage } from '../pages/hb-detail/hb-detail'; 
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,14 +28,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ExplorePage,
     SettingPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    HBDetailPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp, {
       mode: 'ios',
-      backButtonText: ''
+      backButtonText: '',
+      tabsHideOnSubPages: true,
     })
   ],
   bootstrap: [IonicApp],
@@ -42,7 +46,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     ExplorePage,
     SettingPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    HBDetailPage,
   ],
   providers: [
     StatusBar,

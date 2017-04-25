@@ -4,6 +4,7 @@ import { RedPacketService } from '../../providers/red-packet-service';
 import { MapService } from '../../providers/map-service';
 import { LocationService } from '../../providers/location-service';
 import { ToolService } from '../../providers/tool-service';
+import { HBDetailPage } from '../hb-detail/hb-detail';
 
 @Component({
   selector: 'page-home',
@@ -28,6 +29,11 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
+    document.addEventListener('hb.click', (e) => {
+      // console.log(e['detail']);
+      let item = e['detail'];
+      this.navCtrl.push(HBDetailPage, { item: item });
+    });
     this.startLocation();
   }
 
@@ -119,7 +125,9 @@ export class HomePage {
         var self = this;
         this.div.onclick = function() {
             // alert(self.index);
-            alert(self.data);
+            // alert(self.data);
+            var event = new CustomEvent('hb.click', { 'detail': self.data });
+            document.dispatchEvent(event);
         }
     }
 
