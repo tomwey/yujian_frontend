@@ -6,6 +6,26 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content style="background-color:rgb(242,241,241);">
+  <ion-card *ngFor="let hb of hbData" (tap)="gotoDetail(hb);">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-9><h2>{{hb.title}}</h2></ion-col>
+        <ion-col col-3>
+          <div class="hb-quantity">
+            <img src="assets/images/img_hb.png" />
+            <h2 class="num">{{hb.quantity >= 100 ? '99+' : hb.quantity}}</h2>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-list>
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="hb.owner.avatar" />
+        </ion-avatar>
+        <p>{{hb.owner.name}}</p>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>

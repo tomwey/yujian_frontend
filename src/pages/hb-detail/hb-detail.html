@@ -8,27 +8,50 @@
 
   <ion-navbar>
     <ion-title>{{item.title}}</ion-title>
-    <ion-buttons end>
+    <!--<ion-buttons end>
       <button ion-button icon-only (click)="refresh();">
         <ion-icon name="refresh"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons>-->
   </ion-navbar>
 
 </ion-header>
 
-<ion-content padding>
-
+<ion-content padding >
+  <!--<ion-slides pager *ngIf="!!hbItem">
+    <ion-slide *ngFor="let img of hbItem.owner_home_page.images">
+      <img [src]="img" />
+    </ion-slide>
+  </ion-slides>-->
+  <div class="base-info" *ngIf="!!hbItem">
+    <h2>{{hbItem.owner_home_page.title}}</h2>
+    <ion-item>
+      <ion-avatar item-left>
+        <img [src]="hbItem.owner.avatar" />
+      </ion-avatar>
+      <h2>{{hbItem.owner.name}}</h2>
+      <p>
+        阅读 {{hbItem.owner_home_page.hits}} 关注 {{hbItem.owner.flows_count}}
+      </p>
+    </ion-item>
+    <ion-slides pager>
+      <ion-slide *ngFor="let img of hbItem.owner_home_page.images">
+        <img [src]="img" />
+      </ion-slide>
+  </ion-slides>
+  </div>
+  
+  <div class="ad-contents" [innerHTML]="hbItem.owner_home_page.body" *ngIf="!!hbItem"></div>
 </ion-content>
 
-<ion-footer style="background-color: white">
+<ion-footer style="background-color: white" *ngIf="!!hbItem">
   <ion-grid no-margin no-padding>
     <ion-row no-margin no-padding>
       <ion-col>
-        <button class="footer-button follow">关注</button>
+        <button class="footer-button follow">{{ (hbItem && hbItem.followed) ? '取消关注': '关注' }}</button>
       </ion-col>
       <ion-col>
-        <button class="footer-button grab">抢红包</button>
+        <button class="footer-button grab">抢红包({{hbItem && hbItem.quantity}})</button>
       </ion-col>
     </ion-row>
   </ion-grid>

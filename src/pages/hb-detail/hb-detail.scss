@@ -7,7 +7,7 @@ page-hb-detail {
         display: block;
         border-top: 1px solid $theme-red;
         border-bottom: 1px solid $theme-red;
-        font-size: 14px;
+        font-size: 16px;
     }
     .follow {
         background-color: transparent;
@@ -16,5 +16,27 @@ page-hb-detail {
     .grab {
         background-color: $theme-red;
         color: white;
+    }
+    
+    ion-slides {
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+    }
+    ion-slide img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .ad-contents {
+        img {
+            text-align: center;
+            max-width: 100%;
+            height: auto;
+        }
+        p {
+            font-size: 14px;
+        }
+        margin-bottom: 60px;
     }
 }

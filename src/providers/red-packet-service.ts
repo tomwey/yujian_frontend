@@ -13,11 +13,19 @@ import { ApiService } from './api-service';
 export class RedPacketService {
 
   constructor(public http: Http, private api: ApiService) {
-    console.log('Hello RedPacketService Provider');
+    // console.log('Hello RedPacketService Provider');
   }
 
   nearby(lat, lng) {
     return this.api.get('hb/nearby', { lat: lat, lng: lng, scope: 100000 });
+  }
+
+  hbBody(token: string, hbID: number) {
+    return this.api.get('hb/body', { token: token, hbid: hbID });
+  }
+
+  hbList() {
+    return this.api.get('hb/list', {lat: 0, lng: 0});
   }
 
 }

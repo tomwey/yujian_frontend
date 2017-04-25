@@ -56,7 +56,7 @@ export class HomePage {
     }).catch(error => {
       console.log('定位失败：' + error);
       // this.toolService.hideLoading();
-      // this.toolService.showToast('定位失败');
+      this.toolService.showToast('定位失败');
       this.loadState = '获取位置失败';
       this.isLoading = false;
     });
