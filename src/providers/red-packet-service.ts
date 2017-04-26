@@ -28,4 +28,11 @@ export class RedPacketService {
     return this.api.get('hb/list', {lat: 0, lng: 0});
   }
 
+  follow(token: string, merchId: number) {
+    return this.api.post('follows', { token: token, merch_id: merchId });
+  }
+
+  unfollow(token: string, merchId: number) {
+    return this.api.post('follows/' + merchId + '/cancel', { token: token });
+  }
 }

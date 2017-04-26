@@ -18,7 +18,8 @@ export class HBDetailPage {
   item: any = null;
   hbItem: any = null;
   isLoading: boolean = false;
-
+  merchantIsFollowed: boolean = false;
+  followsCount: number = 0;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private toolService: ToolService,
@@ -43,6 +44,10 @@ export class HBDetailPage {
 
         this.toolService.hideLoading();
         this.isLoading = false;
+
+        this.merchantIsFollowed = this.hbItem.followed;
+        this.followsCount = this.hbItem.owner.follows_count;
+
       })
       .catch(err => {
         console.log(err);
@@ -56,6 +61,41 @@ export class HBDetailPage {
 
   refresh() {
     console.log('refresh...');
+  }
+
+  follow() {
+    let merchId = this.hbItem.owner.id;
+
+    this.toolService.showLoading();
+
+    if (this.merchantIsFollowed) {
+      this.hbService.unfollow('605c28475de649628bba70458145f1d0', merchId).then(data => {
+        this.merchantIsFollowed = false;
+
+        if (this.followsCount >= 1) {
+          this.followsCount -= 1;
+        }
+
+        this.toolService.hideLoading();
+
+        // this.toolService.showToast('取消关注成功!');
+      }).catch(error => {
+        this.toolService.hideLoading();
+        // this.toolService.showToast('取消关注失败!');
+      });
+    } else {
+      this.hbService.follow('605c28475de649628bba70458145f1d0', merchId).then(data => {
+        this.merchantIsFollowed = true;
+        this.toolService.hideLoading();
+        this.followsCount += 1;
+
+        // this.toolService.showToast('关注成功!');
+
+      }).catch(error => {
+        this.toolService.hideLoading();
+        // this.toolService.showToast('关注失败!');
+      });
+    }
   }
 
 }
