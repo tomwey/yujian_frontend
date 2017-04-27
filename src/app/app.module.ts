@@ -11,6 +11,7 @@ import { RedPacketService } from '../providers/red-packet-service';
 import { MapService } from '../providers/map-service';
 import { LocationService } from '../providers/location-service';
 import { ToolService } from '../providers/tool-service';
+import { QQMaps } from '../providers/qq-maps';
 
 // 页面导入
 import { ExplorePage } from '../pages/explore/explore';
@@ -53,6 +54,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     Geolocation,
+    QQMaps,
     ApiService,
     RedPacketService,
     MapService,
