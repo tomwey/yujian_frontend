@@ -18,6 +18,7 @@ export class HomePage {
   mapLoaded: boolean = false; // 地图是否已经加载
 
   loadedMarkers: any[] = []; // 保存已经添加的标记
+  hbIsLoading: boolean = false; // 是否正在加载红包
 
   constructor(public navCtrl: NavController, 
               private hbService: RedPacketService,
@@ -68,6 +69,8 @@ export class HomePage {
 
   // 加载附近红包
   loadData() {
+    this.hbIsLoading = true;
+
     // 清空所有的标记
     this.loadedMarkers.forEach(marker => {
       marker.setMap(null);
@@ -81,9 +84,14 @@ export class HomePage {
         
         this.hbCount = data.length;
 
+        this.hbIsLoading = false;
+        
         this.addMarkers(data);
       })
-      .catch(error => console.log(error));
+      .catch(error => { 
+        console.log(error);
+        this.hbIsLoading = false;
+      });
   }
 
   // 添加红包到地图上

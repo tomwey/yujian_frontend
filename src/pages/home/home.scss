@@ -54,6 +54,45 @@
             position: absolute;
             cursor: pointer;
         }
+        .result {
+            height: 25px;
+            line-height: 25px;
+            // text-align: center;
+            .message {
+                // background-color:red;
+                color: rgb(83,83,83);
+                display: block;
+                height: 25px;
+                line-height: 25px;
+                // margin-top: 3px;
+            }
+            .hb-count {
+                color: $theme-red;
+                font-size: 2rem;
+                padding: 5px;
+            }
+        }
+        .loading-container {
+            height: 25px;
+            // line-height: 30px;
+            // background-color: red;
+            clear: both;
+            ion-spinner {
+                float: left;
+                margin: 0;
+            }
+            .loading-text {
+                display: block;
+                height: 25px;
+                line-height: 25px;
+                float: left;
+                padding-left: 10px;
+                margin-left: 10px;
+                margin-top: 2px;
+                border-left: 1px solid rgba(245,245,245,1.0);
+                color: rgb(83,83,83);
+            }
+        }
         // .map-container {
         //     margin: 0;
         //     padding: 0;
