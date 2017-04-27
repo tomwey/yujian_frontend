@@ -36,6 +36,10 @@ export class HomePage {
     document.addEventListener('hb:click', (e) => {
       console.log(e);
     });
+    document.addEventListener('map:drag', (e) => {
+      this.loadHBData();
+    });
+
     this.platform.ready().then(() => {
       this.qqMaps.init(this.mapElement.nativeElement, null).then(map => {
         this.map = map;
@@ -85,7 +89,7 @@ export class HomePage {
         this.hbCount = data.length;
 
         this.hbIsLoading = false;
-        
+
         this.addMarkers(data);
       })
       .catch(error => { 

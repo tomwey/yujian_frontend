@@ -44,6 +44,13 @@ export class QQMaps {
           this.initMap()
             .then((map) => {
             this.map = map;
+
+            // 注册拖动地图事件
+            qq.maps.event.addListener(this.map, 'center_changed', function() {
+              var event = new CustomEvent('map:drag');
+              document.dispatchEvent(event);
+            });
+
             resolve(this.map);
             })
             .catch(error => {

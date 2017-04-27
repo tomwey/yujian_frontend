@@ -22,7 +22,7 @@
         <span class="loading-text">一大波红包正在赶来...</span>
       </div>
       <div class="result" *ngIf="!hbIsLoading">
-        <span *ngIf="hbCount === 0" class="message">当前位置附近暂无红包</span>
+        <span *ngIf="hbCount === 0" class="message no-result">当前位置附近暂无红包</span>
         <span *ngIf="hbCount > 0" class="message">当前位置附近有<span class="hb-count">{{hbCount}}</span>个红包</span>
       </div>
       <!--<div *ngIf="!isLoading">{{ hbCount === 0 ? '当前位置附近暂无红包' : '当前位置附近有' + hbCount + '个红包' }}</div>-->
