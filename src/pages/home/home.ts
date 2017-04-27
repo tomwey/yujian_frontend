@@ -34,7 +34,8 @@ export class HomePage {
 
   ionViewDidLoad() {
     document.addEventListener('hb:click', (e) => {
-      console.log(e);
+      // console.log(e);
+      this.navCtrl.push(HBDetailPage, { item: e['detail'] });
     });
     document.addEventListener('map:drag', (e) => {
       this.loadHBData();
