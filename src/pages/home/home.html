@@ -29,10 +29,11 @@
     </ion-card-content>
   </ion-card>
   <div class="pin" [hidden]="!mapLoaded">
-    <ion-icon name="ios-disc"></ion-icon>
+    <!--<ion-icon name="ios-disc"></ion-icon>-->
+    <div class="dot"></div>
   </div>
   <div class="locate-button" (tap)="relocate()" [hidden]="!mapLoaded">
-    <ion-icon name="ios-locate-outline"></ion-icon>
+    <ion-icon name="ios-locate-outline" class="locate-icon"></ion-icon>
   </div>
   <div #map id="map"></div>
 </ion-content>
