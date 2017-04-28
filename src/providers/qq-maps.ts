@@ -107,7 +107,7 @@ export class QQMaps {
         .then(position => {
           let mapOptions = {
             center: position,
-            zoom: 16,
+            zoom: 14,
             mapTypeId: qq.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
             useNative: true,

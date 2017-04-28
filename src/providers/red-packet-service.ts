@@ -17,7 +17,7 @@ export class RedPacketService {
   }
 
   nearby(lat, lng) {
-    return this.api.get('hb/nearby', { lat: lat, lng: lng, scope: 2000 });
+    return this.api.get('hb/nearby', { lat: lat, lng: lng, scope: 1500 });
   }
 
   hbBody(token: string, hbID: number) {
