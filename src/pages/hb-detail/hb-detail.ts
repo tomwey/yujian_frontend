@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { RedPacketService } from '../../providers/red-packet-service';
 
@@ -23,7 +23,8 @@ export class HBDetailPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private toolService: ToolService,
-              private hbService: RedPacketService) {
+              private hbService: RedPacketService,
+              private modalCtrl: ModalController) {
       this.item = this.navParams.get('item');
   }
 
@@ -61,6 +62,13 @@ export class HBDetailPage {
 
   refresh() {
     console.log('refresh...');
+  }
+
+  grab() {
+    let modal = this.modalCtrl.create('GrabWallPage', {
+      enableBackdropDismiss: false,
+    });
+    modal.present();
   }
 
   follow() {

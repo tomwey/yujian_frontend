@@ -51,7 +51,7 @@
         <button class="footer-button follow" (click)="follow();">{{ merchantIsFollowed ? '取消关注': '关注' }}</button>
       </ion-col>
       <ion-col>
-        <button class="footer-button grab">抢红包({{hbItem && hbItem.quantity}})</button>
+        <button class="footer-button grab" (click)="grab();">抢红包({{hbItem && hbItem.quantity}})</button>
       </ion-col>
     </ion-row>
   </ion-grid>
