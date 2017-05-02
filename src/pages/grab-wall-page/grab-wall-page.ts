@@ -1,6 +1,7 @@
 import { Component,ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
+import { ifvisible } from 'ifvisible.js';
 
 /**
  * Generated class for the GrabWallPage page.
@@ -18,7 +19,6 @@ export class GrabWallPage {
   @ViewChild('wallContent') wallContentEle: ElementRef;
 
   imageUrl: string = '';
-  hasAds: boolean = false;
   counter: number = 10;
   countDownTimer: any;
 
@@ -26,24 +26,26 @@ export class GrabWallPage {
               public navParams: NavParams,
               private viewController: ViewController, 
               private platform: Platform) {
-    this.hasAds = true;
+    
+    ifvisible.setIdleDuration(120);
 
-    window.addEventListener("focus", () => {
-      this.startTimer();
+    ifvisible.on('statusChanged', (e) => {
+      // console.log(e.status);
+      if (e.status === 'active') {
+        this.startTimer();
+      } else if (e.status === 'hidden') {
+        this.stopTimer();
+      }
     });
-    window.addEventListener("blur", () => {
-      this.stopTimer();
-    });
-
-    // this.platform.ready().then(()=>{
-    //   console.log('ready...');
-    // });
   }
 
   ionViewDidLoad() {
+
+    // 显示广告图片
     this.wallContentEle.nativeElement
       .style.backgroundImage = "url('../../assets/images/222.jpg')";
-
+    
+    // 启动定时器
     this.startTimer();
   }
 
@@ -51,10 +53,12 @@ export class GrabWallPage {
   {
     setTimeout(()=>{
       this.countDownTimer = setInterval(() => {
-        this.counter --;
-        if (this.counter == 0) {
-          this.stopTimer();
-          this.dismiss();
+        if (this.counter > 0) {
+          this.counter --;
+          if (this.counter == 0) {
+            this.stopTimer();
+            // this.dismiss();
+          }
         }
       }, 1000);
     }, 1000);
