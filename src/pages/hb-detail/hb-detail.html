@@ -23,7 +23,7 @@
       <img [src]="img" />
     </ion-slide>
   </ion-slides>-->
-  <div class="base-info" *ngIf="!!hbItem">
+  <div class="base-info" *ngIf="!!hbItem.owner_home_page">
     <h2 class="title">{{hbItem.owner_home_page.title}}</h2>
     <ion-item>
       <ion-avatar item-left>
@@ -41,17 +41,17 @@
   </ion-slides>
   </div>
   
-  <div class="ad-contents" [innerHTML]="hbItem.owner_home_page.body" *ngIf="!!hbItem"></div>
+  <div class="ad-contents" [innerHTML]="hbItem.owner_home_page && hbItem.owner_home_page.body"></div>
 </ion-content>
 
-<ion-footer style="background-color: white" *ngIf="!!hbItem">
+<ion-footer style="background-color: white">
   <ion-grid no-margin no-padding>
     <ion-row no-margin no-padding>
       <ion-col>
         <button class="footer-button follow" (click)="follow();">{{ merchantIsFollowed ? '取消关注': '关注' }}</button>
       </ion-col>
       <ion-col>
-        <button class="footer-button grab" (click)="grab();">抢红包({{hbItem && hbItem.quantity}})</button>
+        <button class="footer-button grab" (click)="grab();">抢红包({{remainCount}})</button>
       </ion-col>
     </ion-row>
   </ion-grid>

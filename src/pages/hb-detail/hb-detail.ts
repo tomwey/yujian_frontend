@@ -18,10 +18,12 @@ const USER_TOKEN = '605c28475de649628bba70458145f1d0';
 export class HBDetailPage {
 
   item: any = null;
-  hbItem: any = null;
+  hbItem: any = {};
   isLoading: boolean = false;
   merchantIsFollowed: boolean = false;
   followsCount: number = 0;
+  remainCount: number = 0;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private toolService: ToolService,
@@ -50,7 +52,7 @@ export class HBDetailPage {
 
         this.merchantIsFollowed = this.hbItem.followed;
         this.followsCount = this.hbItem.owner.follows_count;
-
+        this.remainCount = this.hbItem.quantity;
       })
       .catch(err => {
         console.log(err);
@@ -103,6 +105,10 @@ export class HBDetailPage {
       .then( (data) => {
         console.log(data);
         this.toolService.hideLoading();
+
+        if (this.remainCount > 0)
+          this.remainCount -= 1;
+
       })
       .catch(error => {
         this.toolService.hideLoading();
