@@ -9,6 +9,8 @@ import { RedPacketService } from '../../providers/red-packet-service';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
+const USER_TOKEN = '605c28475de649628bba70458145f1d0';
+
 @Component({
   selector: 'page-hb-detail',
   templateUrl: 'hb-detail.html',
@@ -37,7 +39,7 @@ export class HBDetailPage {
     this.isLoading = true;
 
     this.toolService.showLoading('拼命加载中...');
-    this.hbService.hbBody('605c28475de649628bba70458145f1d0', this.item.id)
+    this.hbService.hbBody(USER_TOKEN, this.item.id)
       .then(data => {
         console.log(data);
         
@@ -65,10 +67,47 @@ export class HBDetailPage {
   }
 
   grab() {
-    let modal = this.modalCtrl.create('GrabWallPage', {
+    this.toolService.showLoading();
+
+    this.hbService.grab(USER_TOKEN, this.item.id)
+      .then(data => {
+        // console.log(data);
+        this.toolService.hideLoading();
+        
+        this.showGrabWall(data);
+      })
+      .catch(error => {
+        this.toolService.hideLoading();
+        this.toolService.showToast(error);
+      });
+  }
+
+  showGrabWall(data) {
+    let modal = this.modalCtrl.create('GrabWallPage', data, {
       enableBackdropDismiss: false,
     });
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.openHB(data);
+      } else {
+
+      }
+    });
     modal.present();
+  }
+
+  openHB(data) {
+    this.toolService.showLoading('红包领取中...');
+
+    this.hbService.open(USER_TOKEN, data.hb.id, data.ad.id)
+      .then( (data) => {
+        console.log(data);
+        this.toolService.hideLoading();
+      })
+      .catch(error => {
+        this.toolService.hideLoading();
+        this.toolService.showToast(error);
+      });
   }
 
   follow() {
@@ -77,7 +116,7 @@ export class HBDetailPage {
     this.toolService.showLoading();
 
     if (this.merchantIsFollowed) {
-      this.hbService.unfollow('605c28475de649628bba70458145f1d0', merchId).then(data => {
+      this.hbService.unfollow(USER_TOKEN, merchId).then(data => {
         this.merchantIsFollowed = false;
 
         if (this.followsCount >= 1) {
@@ -92,7 +131,7 @@ export class HBDetailPage {
         // this.toolService.showToast('取消关注失败!');
       });
     } else {
-      this.hbService.follow('605c28475de649628bba70458145f1d0', merchId).then(data => {
+      this.hbService.follow(USER_TOKEN, merchId).then(data => {
         this.merchantIsFollowed = true;
         this.toolService.hideLoading();
         this.followsCount += 1;

@@ -35,4 +35,14 @@ export class RedPacketService {
   unfollow(token: string, merchId: number) {
     return this.api.post('follows/' + merchId + '/cancel', { token: token });
   }
+
+  // 抢红包
+  grab(token: string, hbid: number) {
+    return this.api.post('hb/grab', { token: token, hbid: hbid });
+  }
+
+  // 拆红包
+  open(token: string, hbid: number, adid: number = -1) {
+    return this.api.post('hb/open', { token: token, hbid: hbid, adid: adid });
+  }
 }

@@ -21,12 +21,20 @@ export class GrabWallPage {
   imageUrl: string = '';
   counter: number = 10;
   countDownTimer: any;
-
+  item: any = null;
+  adLoaded: boolean = false;
+  hasAds: boolean = false;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private viewController: ViewController, 
               private platform: Platform) {
     
+    // console.log(navParams);
+    this.item = navParams.data;
+
+    this.imageUrl = this.item.ad.file || '';
+    this.counter  = this.item.ad.duration || 10;
+
     ifvisible.setIdleDuration(120);
 
     ifvisible.on('statusChanged', (e) => {
@@ -43,10 +51,19 @@ export class GrabWallPage {
 
     // 显示广告图片
     this.wallContentEle.nativeElement
-      .style.backgroundImage = "url('../../assets/images/222.jpg')";
-    
-    // 启动定时器
-    this.startTimer();
+      .style.backgroundImage = "url('" + this.imageUrl + "')";
+
+    // 异步加载图片
+    let bgImg = new Image();
+    bgImg.src = this.imageUrl;
+    bgImg.addEventListener('load', (data) => {
+      // console.log(data);
+      this.adLoaded = true;
+      this.startTimer();
+    });
+    bgImg.addEventListener('error', (error) => {
+      console.log(error);
+    });
   }
 
   startTimer()
@@ -57,11 +74,11 @@ export class GrabWallPage {
           this.counter --;
           if (this.counter == 0) {
             this.stopTimer();
-            // this.dismiss();
+            this.dismiss(this.item);
           }
         }
       }, 1000);
-    }, 1000);
+    }, 200);
   }
 
   stopTimer() {
@@ -69,10 +86,10 @@ export class GrabWallPage {
     this.countDownTimer = null;
   }
 
-  dismiss() {
+  dismiss(data?: any) {
     this.stopTimer();
 
-    this.viewController.dismiss();
+    this.viewController.dismiss(data);
   }
 
   videoEnded() {

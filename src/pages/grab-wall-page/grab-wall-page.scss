@@ -14,6 +14,9 @@ page-grab-wall-page {
         background-position: center center;
         background-repeat: no-repeat;
         background-size: contain;
+        
+        clear: both;
+
         ion-icon {
             color: white;
         }
@@ -24,6 +27,22 @@ page-grab-wall-page {
             margin-right: 10px;
             // width: 300px;
             color: white;
+        }
+
+        .spinner-container {
+            // background-color: red;
+            // color: white;
+            margin: 0 auto;
+            width: 60px;
+            height: 60px;
+            margin-top: 25%;
+            text-align: center;
+            ion-spinner * {
+                stroke: white;
+                width: 28px;
+                height: 28px;
+                margin-top: 16px;
+            }
         }
     }
 }
