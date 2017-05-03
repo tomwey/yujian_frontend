@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { ApiService } from '../../providers/api-service';
+import { ToolService } from '../../providers/tool-service';
 
 /**
  * Generated class for the CommWeb page.
@@ -15,20 +16,37 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 })
 export class CommWeb {
 
-  title: string = '';
-  url:   string = '';
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-              private sanitizer: DomSanitizer) {
-    this.title = this.navParams.data.title;  
-    this.url   = this.navParams.data.url;
+  page: any = {
+    title: '',
+    body:  '',
+    slug:  '',
+  };
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private api: ApiService,
+              private toolService: ToolService) {
+    this.page.title = this.navParams.data.title;
+    this.page.slug  = this.navParams.data.slug;
   }
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad CommWeb');
+    this.loadPageData();
   }
 
-  updatePageUrl() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
+  loadPageData(): void {
+    this.toolService.showLoading('加载中...');
+    this.api.get('pages/' + this.page.slug, {}).then(data => {
+      // console.log(data);
+      this.page.body = data.body;
+      this.toolService.hideLoading();
+    }).catch(error => {
+      // console.log(error);
+      this.toolService.hideLoading();
+      setTimeout(() => {
+        this.toolService.showToast(error);
+      }, 100);
+    });
   }
 
 }
