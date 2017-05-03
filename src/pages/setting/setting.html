@@ -23,15 +23,15 @@
 
 <ion-content>
   <ion-item-group>
-    <button ion-item>
+    <button ion-item (click)="gotoWallet()">
       <ion-icon name="ios-card-outline" item-left></ion-icon> 我的钱包
       <ion-note class="balance" item-right>{{user.balance}} 元</ion-note>
     </button>
   </ion-item-group>
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
-    <button ion-item><ion-icon name="ios-list-outline" item-left></ion-icon> 红包历史</button>
-    <button ion-item><ion-icon name="ios-heart-outline" item-left></ion-icon> 关注的商家</button>
+    <button ion-item (click)="gotoHBHistory()"><ion-icon name="ios-list-outline" item-left></ion-icon> 红包历史</button>
+    <button ion-item (click)="gotoFollowedMerchants()"><ion-icon name="ios-heart-outline" item-left></ion-icon> 关注的商家</button>
   </ion-item-group>
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>

@@ -19,6 +19,7 @@ import { SettingPage } from '../pages/setting/setting';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { HBDetailPage } from '../pages/hb-detail/hb-detail'; 
+// import { WalletPage } from '../pages/wallet/wallet';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,6 +32,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     HBDetailPage,
+    // WalletPage,
   ],
   imports: [
     BrowserModule,
@@ -49,6 +51,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     HBDetailPage,
+    // WalletPage,
   ],
   providers: [
     StatusBar,

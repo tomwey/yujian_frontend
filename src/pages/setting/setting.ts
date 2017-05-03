@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { WalletPage } from '../wallet/wallet';
 
 @Component({
   selector: 'page-setting',
@@ -15,6 +16,18 @@ export class SettingPage {
 
   constructor(public navCtrl: NavController) {
 
+  }
+
+  gotoWallet(): void {
+    this.navCtrl.push('WalletPage');
+  }
+
+  gotoHBHistory(): void {
+    this.navCtrl.push('HBHistory');
+  }
+
+  gotoFollowedMerchants(): void {
+    this.navCtrl.push('MyMerchants');
   }
 
   gotoHelp(): void {
