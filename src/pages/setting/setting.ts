@@ -17,4 +17,16 @@ export class SettingPage {
 
   }
 
+  gotoHelp(): void {
+    this.openPage('http://cloud.yujian.afterwind.cn/p/help', '帮助中心');
+  }
+
+  gotoAbout(): void {
+    this.openPage('http://cloud.yujian.afterwind.cn/p/about', '关于');
+  }
+
+  private openPage(url: string, title: string): void {
+    this.navCtrl.push('CommWeb', { url: url, title: title });
+  }
+
 }

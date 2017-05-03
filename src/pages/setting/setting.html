@@ -35,8 +35,8 @@
   </ion-item-group>
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
-    <button ion-item>
+    <button ion-item (click)="gotoHelp()">
       <ion-icon name="ios-help-circle-outline" item-left></ion-icon> 帮助中心</button>
-    <button ion-item><ion-icon name="ios-information-circle-outline" item-left></ion-icon> 关于</button>
+    <button ion-item (click)="gotoAbout()"><ion-icon name="ios-information-circle-outline" item-left></ion-icon> 关于</button>
   </ion-item-group>
 </ion-content>
