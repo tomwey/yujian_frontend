@@ -1,3 +1,61 @@
 page-hb-result {
+    .hb-caption {
+        width: 100%;
+        height: 260px;
+        background-color: rgb(247, 247, 247);
+        .hb-header-bg {
+            display: block;
+            border: 0;
+            max-height: 120px;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .merchant-info {
+            margin-top: -30px;
+            text-align: center;
+            .avatar {
+                display: block;
+                width: 60px;
+                height: 60px;
+                margin: 0 auto;
+                border-radius: 30px;
+                border: 2px solid white;
+            }
+            .name {
+                margin: 0;
+                padding: 0;
+                font-weight: normal;
+                font-size: 14px;
+                margin-top: 10px;
+                color: rgb(133, 133, 133);
+            }
+        }
+        .user-hb-info {
+            text-align: center;
+            margin-top: 15px;
+            .title {
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+                font-weight: normal;
+                color: rgb(58,58,58);
+            }
+            .money {
+                margin: 0;
+                padding: 0;
+                font-size: 24px;
+                color: rgb(58,58,58);
+                margin-top: 15px;
+            }
+        }
+    }
 
+    .hb-stat {
+        font-size: 16px;
+        color: rgb(133, 133, 133);
+        margin-top: 15px;
+        margin-bottom: 20px;
+        padding-left: 15px;
+    }
 }
