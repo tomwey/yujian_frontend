@@ -2,22 +2,24 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
 
 // 服务类导入
-import { ApiService } from '../providers/api-service';
+import { ApiService }       from '../providers/api-service';
 import { RedPacketService } from '../providers/red-packet-service';
-import { MapService } from '../providers/map-service';
-import { LocationService } from '../providers/location-service';
-import { ToolService } from '../providers/tool-service';
-import { QQMaps } from '../providers/qq-maps';
+import { MapService }       from '../providers/map-service';
+import { LocationService }  from '../providers/location-service';
+import { ToolService }      from '../providers/tool-service';
+import { QQMaps }           from '../providers/qq-maps';
+import { UserService }      from '../providers/user-service';
 
 // 页面导入
-import { ExplorePage } from '../pages/explore/explore';
-import { SettingPage } from '../pages/setting/setting';
-import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
+import { ExplorePage }  from '../pages/explore/explore';
+import { SettingPage }  from '../pages/setting/setting';
+import { HomePage }     from '../pages/home/home';
+import { TabsPage }     from '../pages/tabs/tabs';
 import { HBDetailPage } from '../pages/hb-detail/hb-detail'; 
 // import { WalletPage } from '../pages/wallet/wallet';
 
@@ -37,6 +39,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   imports: [
     BrowserModule,
     HttpModule,
+    IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {
       mode: 'ios',
       backButtonText: '',
@@ -63,6 +66,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MapService,
     LocationService,
     ToolService,
+    UserService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

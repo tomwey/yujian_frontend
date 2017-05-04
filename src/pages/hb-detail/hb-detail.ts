@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { RedPacketService } from '../../providers/red-packet-service';
+import { UserService } from '../../providers/user-service';
 
 /**
  * Generated class for the HBDetail page.
@@ -9,7 +10,7 @@ import { RedPacketService } from '../../providers/red-packet-service';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-const USER_TOKEN = '605c28475de649628bba70458145f1d0';
+// const USER_TOKEN = '605c28475de649628bba70458145f1d0';
 
 @Component({
   selector: 'page-hb-detail',
@@ -28,7 +29,8 @@ export class HBDetailPage {
               public navParams: NavParams,
               private toolService: ToolService,
               private hbService: RedPacketService,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private userService: UserService) {
       this.item = this.navParams.get('item');
   }
 
@@ -41,27 +43,30 @@ export class HBDetailPage {
     this.isLoading = true;
 
     this.toolService.showLoading('拼命加载中...');
-    this.hbService.hbBody(USER_TOKEN, this.item.id)
-      .then(data => {
-        console.log(data);
-        
-        this.hbItem = data;
+    this.userService.token().then(token => {
+      this.hbService.hbBody(token, this.item.id)
+        .then(data => {
+          console.log(data);
+          
+          this.hbItem = data;
 
-        this.toolService.hideLoading();
-        this.isLoading = false;
+          this.toolService.hideLoading();
+          this.isLoading = false;
 
-        this.merchantIsFollowed = this.hbItem.followed;
-        this.followsCount = this.hbItem.owner.follows_count;
-        this.remainCount = this.hbItem.quantity;
-      })
-      .catch(err => {
-        console.log(err);
-        this.toolService.hideLoading();
+          this.merchantIsFollowed = this.hbItem.followed;
+          this.followsCount = this.hbItem.owner.follows_count;
+          this.remainCount = this.hbItem.quantity;
+        })
+        .catch(err => {
+          console.log(err);
+          this.toolService.hideLoading();
 
-        this.toolService.showToast(err);
+          this.toolService.showToast(err);
 
-        this.isLoading = false;
-      });
+          this.isLoading = false;
+        });
+    });
+    
   }
 
   refresh() {
@@ -71,17 +76,22 @@ export class HBDetailPage {
   grab() {
     this.toolService.showLoading();
 
-    this.hbService.grab(USER_TOKEN, this.item.id)
-      .then(data => {
-        // console.log(data);
-        this.toolService.hideLoading();
-        
-        this.showGrabWall(data);
-      })
-      .catch(error => {
-        this.toolService.hideLoading();
-        this.toolService.showToast(error);
-      });
+    this.userService.token().then(token => {
+
+      this.hbService.grab(token, this.item.id)
+        .then(data => {
+          // console.log(data);
+          this.toolService.hideLoading();
+          
+          this.showGrabWall(data);
+        })
+        .catch(error => {
+          this.toolService.hideLoading();
+          this.toolService.showToast(error);
+        });
+
+    });
+    
   }
 
   showGrabWall(data) {
@@ -101,19 +111,22 @@ export class HBDetailPage {
   openHB(data) {
     this.toolService.showLoading('红包领取中...');
 
-    this.hbService.open(USER_TOKEN, data.hb.id, data.ad.id)
-      .then( (data) => {
-        console.log(data);
-        this.toolService.hideLoading();
+    this.userService.token().then(token => {
+      this.hbService.open(token, data.hb.id, data.ad.id)
+        .then( (data) => {
+          console.log(data);
+          this.toolService.hideLoading();
 
-        if (this.remainCount > 0)
-          this.remainCount -= 1;
+          if (this.remainCount > 0)
+            this.remainCount -= 1;
 
-      })
-      .catch(error => {
-        this.toolService.hideLoading();
-        this.toolService.showToast(error);
-      });
+        })
+        .catch(error => {
+          this.toolService.hideLoading();
+          this.toolService.showToast(error);
+        });
+    });
+    
   }
 
   follow() {
@@ -122,32 +135,41 @@ export class HBDetailPage {
     this.toolService.showLoading();
 
     if (this.merchantIsFollowed) {
-      this.hbService.unfollow(USER_TOKEN, merchId).then(data => {
-        this.merchantIsFollowed = false;
 
-        if (this.followsCount >= 1) {
-          this.followsCount -= 1;
-        }
+      this.userService.token().then(token => {
+        this.hbService.unfollow(token, merchId).then(data => {
+          this.merchantIsFollowed = false;
 
-        this.toolService.hideLoading();
+          if (this.followsCount >= 1) {
+            this.followsCount -= 1;
+          }
 
-        // this.toolService.showToast('取消关注成功!');
-      }).catch(error => {
-        this.toolService.hideLoading();
-        // this.toolService.showToast('取消关注失败!');
+          this.toolService.hideLoading();
+
+          // this.toolService.showToast('取消关注成功!');
+          }).catch(error => {
+            this.toolService.hideLoading();
+            // this.toolService.showToast('取消关注失败!');
+          });
       });
+
+      
     } else {
-      this.hbService.follow(USER_TOKEN, merchId).then(data => {
-        this.merchantIsFollowed = true;
-        this.toolService.hideLoading();
-        this.followsCount += 1;
+      this.userService.token().then(token => {
+        this.hbService.follow(token, merchId)
+          .then(data => {
+            this.merchantIsFollowed = true;
+            this.toolService.hideLoading();
+            this.followsCount += 1;
 
         // this.toolService.showToast('关注成功!');
 
-      }).catch(error => {
-        this.toolService.hideLoading();
-        // this.toolService.showToast('关注失败!');
+          }).catch(error => {
+            this.toolService.hideLoading();
+            // this.toolService.showToast('关注失败!');
+          });
       });
+      
     }
   }
 

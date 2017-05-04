@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { UserService } from '../../providers/user-service';
+import { ToolService } from '../../providers/tool-service';
 
 /**
  * Generated class for the HBHistory page.
@@ -14,11 +16,39 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HBHistory {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  hbList: any = [];
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private userService: UserService,
+              private toolService: ToolService) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HBHistory');
+    // console.log('ionViewDidLoad HBHistory');
+    this.loadHBHistory();
+  }
+
+  loadHBHistory(): void {
+    this.toolService.showLoading('加载中...');
+
+    this.userService.getHBHistory()
+      .then(data => {
+        console.log(data);
+        this.toolService.hideLoading();
+
+        this.hbList = data;
+      })
+      .catch(error => {
+        console.log(error);
+        this.toolService.hideLoading();
+        setTimeout(() => {
+          this.toolService.showToast(error);
+        }, 100);
+      });
+  }
+
+  gotoHBResult(item): void {
+    this.navCtrl.push('HBResultPage', { hbid: item.hb.id });
   }
 
 }

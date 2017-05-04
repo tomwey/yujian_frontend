@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { ApiService } from './api-service';
+import { UserService } from './user-service';
 
 /*
   Generated class for the RedPacketService provider.
@@ -12,7 +13,9 @@ import { ApiService } from './api-service';
 @Injectable()
 export class RedPacketService {
 
-  constructor(public http: Http, private api: ApiService) {
+  constructor(public http: Http, 
+              private api: ApiService,
+              private userService: UserService) {
     // console.log('Hello RedPacketService Provider');
   }
 
@@ -44,5 +47,20 @@ export class RedPacketService {
   // 拆红包
   open(token: string, hbid: number, adid: number = -1) {
     return this.api.post('hb/open', { token: token, hbid: hbid, adid: adid });
+  }
+
+  // 获取红包详情
+  getHBResult(hbid: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.userService.token().then(token => {
+        this.api.get('hb/results', { token: token, hbid: hbid })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
   }
 }
