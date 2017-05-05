@@ -17,15 +17,18 @@
           <img src="assets/images/hbxq_btn_open.png" />
         </button>
 
-        <!--<p class="counter-text" *ngIf="hasAds">{{counter}}秒后自动领红包！</p>
-        <div class="spinner-container" *ngIf="adLoaded === false">
+        <button class="left-close-button" (click)="dismiss(null)" *ngIf="hasAds">
+          <ion-icon name="ios-close-outline"></ion-icon>
+        </button>
+        <p class="counter-text" *ngIf="hasAds">{{counter}}秒后自动领红包！</p>
+        <div class="spinner-container" *ngIf="hasAds && adLoaded === false">
           <ion-spinner item-left="" name="crescent" 
             class="spinner spinner-ios spinner-crescent spinner-ios-crescent">
             <svg viewBox="0 0 64 64" style="animation-duration: 750ms;">
               <circle transform="translate(32,32)" r="26"></circle>
             </svg>
           </ion-spinner>
-        </div>-->
+        </div>
 
       </div>
     </div>

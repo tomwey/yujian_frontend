@@ -45,17 +45,19 @@ export class GrabWallPage {
     }
 
     // 监控APP的状态，来处理广告的倒计时定时器
-    // this.monitorAppState();
+    if (this.hasAds) { 
+      this.monitorAppState();
+    }
   }
 
   ionViewDidLoad() {
 
+    // 显示广告图片
+    this.wallContentEle.nativeElement
+        .style.backgroundImage = "url('" + this.imageUrl + "')";
+
     if (this.hasAds) {
       this.wallContentEle.nativeElement.style.backgroundColor = "black";
-
-      // 显示广告图片
-      this.wallContentEle.nativeElement
-        .style.backgroundImage = "url('" + this.imageUrl + "')";
 
       // 异步加载图片
       let bgImg = new Image();
@@ -63,25 +65,13 @@ export class GrabWallPage {
       bgImg.addEventListener('load', (data) => {
         // console.log(data);
         this.adLoaded = true;
-        // this.startTimer();
+        this.startTimer();
       });
       bgImg.addEventListener('error', (error) => {
         console.log(error);
       });
 
     }
-  }
-
-  imageLoaded() {
-    // this.adLoaded = true;
-    console.log('图片加载成功');
-    this.toolService.showLoading('图片加载成功');
-  }
-
-  changeWallContentSize(): void {
-    let wallContentDiv = this.wallContentEle.nativeElement;
-    wallContentDiv.style.width = this.platform.width() * 0.9 + 'px';
-    wallContentDiv.style.height = ( this.platform.width() * 0.9 / 0.8374 ) + 'px';
   }
 
   monitorAppState(): void {
@@ -124,7 +114,7 @@ export class GrabWallPage {
   }
 
   openHB() {
-
+    this.dismiss(this.item);
   }
 
   videoEnded() {

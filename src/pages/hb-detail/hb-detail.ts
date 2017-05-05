@@ -112,7 +112,8 @@ export class HBDetailPage {
     this.toolService.showLoading('红包领取中...');
 
     this.userService.token().then(token => {
-      this.hbService.open(token, data.hb.id, data.ad.id)
+      let adID = data.ad ? data.ad.id : -1;
+      this.hbService.open(token, data.hb.id, adID)
         .then( (data) => {
           console.log(data);
           this.toolService.hideLoading();
@@ -120,6 +121,9 @@ export class HBDetailPage {
           if (this.remainCount > 0)
             this.remainCount -= 1;
 
+          setTimeout(() => {
+            this.navCtrl.push('HBResultPage', { hbid: data.id });
+          }, 10);
         })
         .catch(error => {
           this.toolService.hideLoading();

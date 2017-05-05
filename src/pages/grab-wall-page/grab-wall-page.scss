@@ -73,27 +73,45 @@ page-grab-wall-page {
                 }
             }
 
-            clear: both;
+            .left-close-button {
+                display: block;
+                width: 40px;
+                height: 40px;
+                border-radius: 20px;
+                background-color:rgba(0,0,0,0.6); 
 
-            ion-icon {
-                color: white;
+                position: absolute;
+                top: 5px;
+                left: 5px;
+                z-index: 1;
+                ion-icon {
+                    color: white;
+                    font-size: 32px;
+                }
             }
-
             .counter-text {
-                float: right;
-                text-align: right;
-                margin-right: 10px;
-                // width: 300px;
+                display: inline-block;
+                padding: 5px 10px;
+                // border-radius: 15px;
+                position: absolute;
+                top: 0px;
+                right: 5px;
+                z-index: 1;
+                // text-align: right;
                 color: white;
+                
+                // padding: 5px;
+                background-color: rgba(0,0,0,0.6);
+                border-radius: 4px;
             }
 
             .spinner-container {
-                // background-color: red;
-                // color: white;
-                margin: 0 auto;
+                position: absolute;
                 width: 60px;
                 height: 60px;
-                margin-top: 25%;
+                left: calc(50% - 30px);
+                top: calc(50% - 30px);
+
                 text-align: center;
                 ion-spinner * {
                     stroke: white;
