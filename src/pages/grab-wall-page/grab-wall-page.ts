@@ -2,6 +2,7 @@ import { Component,ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { ifvisible } from 'ifvisible.js';
+import { ToolService } from '../../providers/tool-service';
 
 /**
  * Generated class for the GrabWallPage page.
@@ -24,17 +25,66 @@ export class GrabWallPage {
   item: any = null;
   adLoaded: boolean = false;
   hasAds: boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private viewController: ViewController, 
-              private platform: Platform) {
+              private platform: Platform,
+              private toolService: ToolService) {
     
     // console.log(navParams);
     this.item = navParams.data;
 
-    this.imageUrl = this.item.ad.file || '../../assets/images/hbxq_img_hb_bg.png';
-    this.counter  = this.item.ad.duration || 10;
+    if (this.item && this.item.ad ) {
+      this.imageUrl = this.item.ad.file;
+      this.counter  = this.item.ad.duration;
+      this.hasAds   = true;
+    } else {
+      this.hasAds   = false;
+      this.imageUrl = 'assets/images/hbxq_img_hb_bg.png';
+    }
 
+    // 监控APP的状态，来处理广告的倒计时定时器
+    // this.monitorAppState();
+  }
+
+  ionViewDidLoad() {
+
+    if (this.hasAds) {
+      this.wallContentEle.nativeElement.style.backgroundColor = "black";
+
+      // 显示广告图片
+      this.wallContentEle.nativeElement
+        .style.backgroundImage = "url('" + this.imageUrl + "')";
+
+      // 异步加载图片
+      let bgImg = new Image();
+      bgImg.src = this.imageUrl;
+      bgImg.addEventListener('load', (data) => {
+        // console.log(data);
+        this.adLoaded = true;
+        // this.startTimer();
+      });
+      bgImg.addEventListener('error', (error) => {
+        console.log(error);
+      });
+
+    }
+  }
+
+  imageLoaded() {
+    // this.adLoaded = true;
+    console.log('图片加载成功');
+    this.toolService.showLoading('图片加载成功');
+  }
+
+  changeWallContentSize(): void {
+    let wallContentDiv = this.wallContentEle.nativeElement;
+    wallContentDiv.style.width = this.platform.width() * 0.9 + 'px';
+    wallContentDiv.style.height = ( this.platform.width() * 0.9 / 0.8374 ) + 'px';
+  }
+
+  monitorAppState(): void {
     ifvisible.setIdleDuration(120);
 
     ifvisible.on('statusChanged', (e) => {
@@ -44,25 +94,6 @@ export class GrabWallPage {
       } else if (e.status === 'hidden') {
         this.stopTimer();
       }
-    });
-  }
-
-  ionViewDidLoad() {
-
-    // 显示广告图片
-    this.wallContentEle.nativeElement
-      .style.backgroundImage = "url('" + this.imageUrl + "')";
-
-    // 异步加载图片
-    let bgImg = new Image();
-    bgImg.src = this.imageUrl;
-    bgImg.addEventListener('load', (data) => {
-      // console.log(data);
-      this.adLoaded = true;
-      this.startTimer();
-    });
-    bgImg.addEventListener('error', (error) => {
-      console.log(error);
     });
   }
 
@@ -90,6 +121,10 @@ export class GrabWallPage {
     this.stopTimer();
 
     this.viewController.dismiss(data);
+  }
+
+  openHB() {
+
   }
 
   videoEnded() {

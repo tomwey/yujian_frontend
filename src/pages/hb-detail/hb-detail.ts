@@ -74,7 +74,7 @@ export class HBDetailPage {
   }
 
   grab() {
-    this.toolService.showLoading();
+    this.toolService.showLoading('拼命抢红包中...');
 
     this.userService.token().then(token => {
 
