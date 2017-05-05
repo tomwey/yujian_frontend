@@ -32,7 +32,7 @@ export class GrabWallPage {
     // console.log(navParams);
     this.item = navParams.data;
 
-    this.imageUrl = this.item.ad.file || '';
+    this.imageUrl = this.item.ad.file || '../../assets/images/hbxq_img_hb_bg.png';
     this.counter  = this.item.ad.duration || 10;
 
     ifvisible.setIdleDuration(120);
