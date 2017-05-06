@@ -17,7 +17,7 @@
 
 </ion-header>
 
-<ion-content padding >
+<ion-content>
   <!--<ion-slides pager *ngIf="!!hbItem">
     <ion-slide *ngFor="let img of hbItem.owner_home_page.images">
       <img [src]="img" />
@@ -25,20 +25,23 @@
   </ion-slides>-->
   <div class="base-info" *ngIf="!!hbItem.owner_home_page">
     <h2 class="title">{{hbItem.owner_home_page.title}}</h2>
-    <ion-item>
-      <ion-avatar item-left>
-        <img [src]="hbItem.owner.avatar" />
-      </ion-avatar>
-      <h3 class="subtitle">{{hbItem.owner.name}}</h3>
-      <p>
-        阅读 {{hbItem.owner_home_page.hits}} 关注 {{followsCount}}
-      </p>
-    </ion-item>
-    <ion-slides pager>
+    <ion-list no-lines>
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="hbItem.owner.avatar" />
+        </ion-avatar>
+        <h3 class="subtitle">{{hbItem.owner.name}}</h3>
+        <p>
+          阅读 {{hbItem.owner_home_page.hits}} 关注 {{followsCount}}
+        </p>
+      </ion-item>
+    </ion-list>
+    
+    <!--<ion-slides pager>
       <ion-slide *ngFor="let img of hbItem.owner_home_page.images">
         <img [src]="img" />
       </ion-slide>
-  </ion-slides>
+    </ion-slides>-->
   </div>
   
   <div class="ad-contents" [innerHTML]="hbItem.owner_home_page && hbItem.owner_home_page.body"></div>

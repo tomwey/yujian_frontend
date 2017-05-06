@@ -136,7 +136,7 @@ export class HBDetailPage {
   follow() {
     let merchId = this.hbItem.owner.id;
 
-    this.toolService.showLoading('关注中...');
+    this.toolService.showLoading('加载中...');
 
     if (this.merchantIsFollowed) {
 
