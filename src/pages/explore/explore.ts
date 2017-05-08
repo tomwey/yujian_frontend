@@ -23,37 +23,44 @@ export class ExplorePage {
   }
 
   ionViewDidLoad() {
-    this.reload();
+    // this.reload();
+    this.doRefresh(null);
   }
 
-  doRefresh($event) {
-    $event.complete();
-  }
+  doRefresh(refresher) {
+    this.pageNo = 1;
 
-  reload() {
-    this.toolService.showLoading('拼命加载中...');
-    this.events.list(0,0,this.pageNo).then(data => {
-      this.eventsData = data;
-      console.log(data);
-      this.toolService.hideLoading();
-    }).catch(error => {
-      this.toolService.hideLoading();
-      setTimeout(() => {
-        this.toolService.showToast(error);
-      }, 20);
-    });
-    // this.hbService.hbList().then(data => {
-    //   this.hbData = data
-    //   this.toolService.hideLoading();
-    // }).catch(err => {
-    //   this.toolService.hideLoading();
-    //   this.toolService.showToast('加载失败了！');
-    // });
+    if (!refresher) {
+      this.toolService.showLoading('拼命加载中...');
+    }
+    
+    this.events.list(0,0,this.pageNo)
+      .then(data => {
+        this.eventsData = data;
+        console.log(data);
+        this.toolService.hideLoading();
+        if (refresher) {
+          // setTimeout( ()=>{
+            refresher.complete();
+          // }, 200);
+        }
+      }).catch(error => {
+        this.toolService.hideLoading();
+        if (refresher) {
+          // setTimeout( ()=>{
+            refresher.complete();
+          // }, 200);
+          // refresher.complete();
+        }
+        setTimeout(() => {
+          this.toolService.showToast(error);
+        }, 20);
+      });
   }
 
   gotoDetail(event) {
-    console.log(event);
-    // this.navCtrl.push(HBDetailPage, { item: hb });
+    // console.log(event);
+    this.navCtrl.push('EventDetailPage', event);
   }
 
 }
