@@ -21,4 +21,16 @@ page-event-detail {
             max-width: 100%;
         }
     }
+
+    .rule-box {
+        margin-bottom: 15px;
+
+        .content {
+            font-size: 16px;
+            margin-top: 10px;
+            color: rgb(58,58,58);
+            border: 2px dashed rgb(201,201,201);
+            padding: 10px;
+        }
+    }
 }

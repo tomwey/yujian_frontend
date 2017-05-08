@@ -16,6 +16,7 @@ import { ToolService } from '../../providers/tool-service';
 })
 export class EventDetailPage {
   event: any = null;
+  answer: string = '';
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private events: EventsService,
@@ -38,6 +39,7 @@ export class EventDetailPage {
       .then(data => {
         this.event = data;
         this.toolService.hideLoading();
+        console.log(data);
       })
       .catch(error => {
         this.toolService.hideLoading();
