@@ -7,7 +7,36 @@
 </ion-header>
 
 <ion-content style="background-color:rgb(242,241,241);">
-  <ion-card *ngFor="let hb of hbData" (tap)="gotoDetail(hb);">
+  <div class="events">
+    <div class="event" *ngFor="let event of eventsData" (tap)="gotoDetail(event)">
+      <ion-row>
+        <ion-col col-4>
+          <div class="thumbnail">
+            <img [src]="event.image" />
+          </div>
+        </ion-col>
+        <ion-col col-6>
+          <div class="base">
+            <h2>{{event.title}}</h2>
+            <div class="info">
+              <div class="grab alert">抢</div>
+              <div class="label">
+                ¥ {{event.hb.min_value == event.hb.max_value ? 
+                    event.hb.min_value : 
+                    event.hb.min_value + '-' + event.hb.max_value }}元
+              </div>
+            </div>
+            <div class="info">
+              <div class="limit alert">限</div>
+              <div class="label">以宜宾燃面为中心半径10公里内</div>
+            </div>
+          </div>
+        </ion-col>
+        <ion-col col-2></ion-col>
+      </ion-row>
+    </div>
+  </div>
+  <!--<ion-card *ngFor="let hb of hbData" (tap)="gotoDetail(hb);">
     <ion-grid>
       <ion-row>
         <ion-col col-9><h2>{{hb.title}}</h2></ion-col>
@@ -27,5 +56,5 @@
         <p>{{hb.owner.name}}</p>
       </ion-item>
     </ion-list>
-  </ion-card>
+  </ion-card>-->
 </ion-content>

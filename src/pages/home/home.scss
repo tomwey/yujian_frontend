@@ -62,11 +62,27 @@
             color: rgb(121,121,121);
         }
         .hb-marker {
-            width: 48px;
+            width: 33px;
             // height: 48px;
             // background-color: red;
+            height: 44px;
+            display: block;
             position: absolute;
             cursor: pointer;
+            background: transparent url('../../assets/images/map_img_hb.png') no-repeat center center;
+            background-size: contain;
+            .left-money {
+                color: color($colors, golden);
+                // position: absolute;
+                font-size: 0.6rem;
+                margin: 0;
+                padding: 0;
+                margin-top: 28px;
+                height: 20px;
+                // line-height: 20px;
+                text-align: center;
+                width: 100%;
+            } 
 
             .user {
                 width: 48px;

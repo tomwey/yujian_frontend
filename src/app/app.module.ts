@@ -14,6 +14,7 @@ import { LocationService }  from '../providers/location-service';
 import { ToolService }      from '../providers/tool-service';
 import { QQMaps }           from '../providers/qq-maps';
 import { UserService }      from '../providers/user-service';
+import { EventsService}     from '../providers/events-service';
 
 // 页面导入
 import { ExplorePage }  from '../pages/explore/explore';
@@ -67,6 +68,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     LocationService,
     ToolService,
     UserService,
+    EventsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

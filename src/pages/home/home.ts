@@ -5,6 +5,7 @@ import { ToolService } from '../../providers/tool-service';
 import { HBDetailPage } from '../hb-detail/hb-detail';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
+import { EventsService } from '../../providers/events-service';
 
 @Component({
   selector: 'page-home',
@@ -21,10 +22,11 @@ export class HomePage {
   hbIsLoading: boolean = false; // 是否正在加载红包
 
   constructor(public navCtrl: NavController, 
-              private hbService: RedPacketService,
+              // private hbService: RedPacketService,
               // private mapService: MapService,
               // private locationService: LocationService,
               // private geolocation: Geolocation,
+              private events: EventsService,
               private qqMaps: QQMaps,
               private platform: Platform,
               private toolService: ToolService) 
@@ -83,7 +85,7 @@ export class HomePage {
     this.loadedMarkers = [];
 
     let position = this.map.getCenter();
-    this.hbService.nearby(position.lat, position.lng)
+    this.events.nearby(position.lat, position.lng)
       .then(data => {
         console.log(data);
         

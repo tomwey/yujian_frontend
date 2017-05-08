@@ -147,7 +147,8 @@ export class QQMaps {
         // divStyle.borderRadius = "6px";
         // divStyle.cursor = "pointer";
         this.div.innerHTML = 
-          '<div class="user"><img src="' + this.data.owner.avatar + '"><span class="level level-'+ this.data.owner.type +'"></span></div>' + '<p class="digit">' + this.data.quantity + '</p>';
+        '<div class="left-money">¥' + this.data.hb.left_money + '</div';
+        //'<div class="user"><img src="' + this.data.owner.avatar + '"><span class="level level-'+ this.data.owner.type +'"></span></div>' + '<p class="digit">' + this.data.quantity + '</p>';
         // console.log('111111');
         // console.log(this.data);
         //将dom添加到覆盖物层
