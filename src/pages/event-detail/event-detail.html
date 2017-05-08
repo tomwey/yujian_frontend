@@ -7,12 +7,62 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>EventDetail</ion-title>
+    <ion-title>活动详情</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content class="event-content">
+  <!-- 活动信息 -->
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <h2>{{event.title}}</h2>
+        <p class="stats">
+          <span class="data">人气 {{event.view_count}}, 转发 {{event.share_count}}, 点赞 {{event.likes_count}}</span>
+          <button ion-button icon-left clear small class="like-btn">
+            <ion-icon name="ios-thumbs-up-outline"></ion-icon> 赞一下
+          </button>
+        </p>
+      </ion-item>
+    </ion-list>
+    <ion-card-content>
+      <div class="event-body" [innerHTML]="event.body"></div>
+    </ion-card-content>
+    <ion-item>
+      <p text-wrap>如果发现内容不实，欢迎举报！</p>
+      <button ion-button icon-left clear small item-right style="color: black;">
+          <ion-icon name="ios-warning-outline"></ion-icon> 举报
+      </button>
+    </ion-item>
+  </ion-card>
+  <!-- 活动规则 -->
+  <ion-card>
+    <ion-card-header>
+      答题抢红包
+    </ion-card-header>
+    <ion-card-content>
 
-<ion-content padding>
+    </ion-card-content>
+  </ion-card>
+  <!-- 活动结果 -->
+  <ion-card>
+    <ion-card-header>
+      共 {{event.hb.sent_money}} / {{event.hb.total_money}} 元
+    </ion-card-header>
 
+    <ion-list>
+      <ion-item>
+        <ion-avatar item-left>
+          <img src="assets/images/default_avatar.png" />
+        </ion-avatar>
+        <h2>昵称</h2>
+        <p>2017-01-01 12:30:30</p>
+        <ion-note item-right>
+          0.50元
+        </ion-note>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+  
 </ion-content>
