@@ -26,6 +26,10 @@ export class ExplorePage {
     this.reload();
   }
 
+  doRefresh($event) {
+    $event.complete();
+  }
+
   reload() {
     this.toolService.showLoading('拼命加载中...');
     this.events.list(0,0,this.pageNo).then(data => {
@@ -47,8 +51,9 @@ export class ExplorePage {
     // });
   }
 
-  gotoDetail(hb) {
-    this.navCtrl.push(HBDetailPage, { item: hb });
+  gotoDetail(event) {
+    console.log(event);
+    // this.navCtrl.push(HBDetailPage, { item: hb });
   }
 
 }

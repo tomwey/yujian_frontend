@@ -6,55 +6,31 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content style="background-color:rgb(242,241,241);">
+<ion-content style="background-color:rgb(247,247,247);">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="events">
-    <div class="event" *ngFor="let event of eventsData" (tap)="gotoDetail(event)">
-      <ion-row>
-        <ion-col col-4>
-          <div class="thumbnail">
-            <img [src]="event.image" />
-          </div>
-        </ion-col>
-        <ion-col col-6>
-          <div class="base">
-            <h2>{{event.title}}</h2>
-            <div class="info">
-              <div class="grab alert">抢</div>
-              <div class="label">
-                ¥ {{event.hb.min_value == event.hb.max_value ? 
-                    event.hb.min_value : 
-                    event.hb.min_value + '-' + event.hb.max_value }}元
-              </div>
-            </div>
-            <div class="info">
-              <div class="limit alert">限</div>
-              <div class="label">以宜宾燃面为中心半径10公里内</div>
-            </div>
-          </div>
-        </ion-col>
-        <ion-col col-2></ion-col>
-      </ion-row>
-    </div>
-  </div>
-  <!--<ion-card *ngFor="let hb of hbData" (tap)="gotoDetail(hb);">
-    <ion-grid>
-      <ion-row>
-        <ion-col col-9><h2>{{hb.title}}</h2></ion-col>
-        <ion-col col-3>
-          <div class="hb-quantity">
-            <img src="assets/images/img_hb.png" />
-            <h2 class="num">{{hb.quantity >= 100 ? '99+' : hb.quantity}}</h2>
-          </div>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-    <ion-list>
-      <ion-item>
-        <ion-avatar item-left>
-          <img [src]="hb.owner.avatar" />
-        </ion-avatar>
-        <p>{{hb.owner.name}}</p>
+    <ion-list no-lines>
+      <ion-item *ngFor="let event of eventsData" class="event" tappable (tap)="gotoDetail(event)">
+        <ion-thumbnail item-left>
+            <img [src]="event.image">
+          </ion-thumbnail>
+          <h2 class="title">{{event.title}}</h2>
+          <p><span class="alert">抢</span>
+            <span class="label">
+              ¥ {{ event.hb.min_value == event.hb.max_value ? 
+                   event.hb.min_value :
+                   event.hb.min_value + '-' + event.hb.max_value
+                }}
+            </span></p>
+          <p><span class="alert">限</span> 
+            <span class="label">
+              以宜宾燃面为中心半径为10公里范围以内
+            </span>
+          </p>
+          <ion-note item-right>¥{{event.hb.left_money}}</ion-note>
       </ion-item>
     </ion-list>
-  </ion-card>-->
+  </div>
 </ion-content>
