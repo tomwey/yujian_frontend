@@ -1,22 +1,22 @@
 page-explore {
     .events {
         // padding: 10px;
-        padding-top: 10px;
-        ion-list {
-            padding: 0 10px;
-            // border: 0;
-        }
+        // padding-top: 10px;
+        // ion-list {
+        //     padding: 0 10px;
+        //     // border: 0;
+        // }
         ion-item {
             border-radius: 6px;
             background-color: white;
             margin-bottom: 10px;
-            // padding: 0!important;
-            // padding-left: 5px!important;
+            padding: 0!important;
+            padding-left: 10px!important;
         }
-        .item-inner {
-            // padding-right: 0px!important;
-            // padding-top: 0px!important;
-        }
+        // .item-inner {
+        //     padding-right: 5px!important;
+        //     padding-left: 5px!important;
+        // }
         .event {
             ion-note {
                 color: color($colors, theme-red);

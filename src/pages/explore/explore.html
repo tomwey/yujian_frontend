@@ -9,17 +9,17 @@
 <ion-content style="background-color:rgb(247,247,247);">
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
-      pullingIcon="arrow-round-down"
+      pullingIcon="ios-arrow-round-down-outline"
       pullingText="下拉刷新"
       refreshingSpinner="crescent" 
       refreshingText="加载中...">
     </ion-refresher-content>
   </ion-refresher>
   <div class="events">
-    <ion-list no-lines>
-      <ion-item *ngFor="let event of eventsData" class="event" (tap)="gotoDetail(event)">
-        <ion-thumbnail item-left>
-            <img [src]="event.image">
+    <ion-list no-lines [virtualScroll]="eventsData" inset>
+      <ion-item *virtualItem="let event" class="event" (tap)="gotoDetail(event)">
+          <ion-thumbnail item-left>
+            <ion-img [src]="event.image"></ion-img>
           </ion-thumbnail>
           <h2 class="title">{{event.title}}</h2>
           <p><span class="alert">抢</span>

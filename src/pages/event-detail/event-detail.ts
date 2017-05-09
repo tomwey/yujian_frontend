@@ -29,7 +29,7 @@ export class EventDetailPage {
     // console.log('ionViewDidLoad EventDetail');
     setTimeout(() => {
       this.loadEvent();
-    }, 100);
+    }, 210);
   }
 
   loadEvent(): void {
