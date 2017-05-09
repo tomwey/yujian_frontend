@@ -13,10 +13,10 @@ page-explore {
             padding: 0!important;
             padding-left: 10px!important;
         }
-        // .item-inner {
-        //     padding-right: 5px!important;
+        .item-inner {
+            padding-right: 0px!important;
         //     padding-left: 5px!important;
-        // }
+        }
         .event {
             ion-note {
                 color: color($colors, theme-red);

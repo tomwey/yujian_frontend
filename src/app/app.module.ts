@@ -42,10 +42,10 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {
-      // mode: 'ios',
+      mode: 'ios',
       backButtonText: '',
       tabsHideOnSubPages: true,
-      pageTransition: 'ios-transition'
+      // pageTransition: 'ios-transition'
     })
   ],
   bootstrap: [IonicApp],

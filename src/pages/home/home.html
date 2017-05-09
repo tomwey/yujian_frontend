@@ -7,7 +7,7 @@
 <ion-content>
   <ion-card [hidden]="!mapLoaded">
     <ion-card-content>
-      <div class="loading-container" *ngIf="hbIsLoading">
+      <div class="loading-container" [hidden]="!hbIsLoading">
         <ion-spinner item-left="" name="dots" class="spinner spinner-ios spinner-dots spinner-ios-dots">
           <svg viewBox="0 0 64 64" style="left: 9px; animation-delay: 0ms; animation-duration: 750ms;">
             <circle transform="translate(32,32)" r="6"></circle>
@@ -21,9 +21,9 @@
         </ion-spinner> 
         <span class="loading-text">一大波红包正在赶来...</span>
       </div>
-      <div class="result" *ngIf="!hbIsLoading">
-        <span *ngIf="hbCount === 0" class="message no-result">当前位置附近暂无红包</span>
-        <span *ngIf="hbCount > 0" class="message">当前位置附近有<span class="hb-count">{{hbCount}}</span>个红包</span>
+      <div class="result" [hidden]="hbIsLoading">
+        <span [hidden]="hbCount !== 0" class="message no-result">当前位置附近暂无红包</span>
+        <span [hidden]="hbCount <= 0" class="message">当前位置附近有<span class="hb-count">{{hbCount}}</span>个红包</span>
       </div>
       <!--<div *ngIf="!isLoading">{{ hbCount === 0 ? '当前位置附近暂无红包' : '当前位置附近有' + hbCount + '个红包' }}</div>-->
     </ion-card-content>

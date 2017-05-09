@@ -16,10 +16,10 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="events">
-    <ion-list no-lines [virtualScroll]="eventsData" inset>
-      <ion-item *virtualItem="let event" class="event" (tap)="gotoDetail(event)">
+    <ion-list no-lines inset>
+      <ion-item *ngFor="let event of eventsData" class="event" (tap)="gotoDetail(event)">
           <ion-thumbnail item-left>
-            <ion-img [src]="event.image"></ion-img>
+            <img [src]="event.image" />
           </ion-thumbnail>
           <h2 class="title">{{event.title}}</h2>
           <p><span class="alert">抢</span>
