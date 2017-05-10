@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ToastController, LoadingController, AlertController } from 'ionic-angular';
+// import { ToastController, LoadingController, AlertController } from 'ionic-angular';
 
 /*
   Generated class for the Utils provider.

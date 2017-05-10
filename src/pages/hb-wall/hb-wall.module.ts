@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { MyMerchants } from './my-merchants';
+import { HBWallPage } from './hb-wall';
 
 @NgModule({
   declarations: [
-    MyMerchants,
+    HBWallPage,
   ],
   imports: [
-    IonicPageModule.forChild(MyMerchants),
+    IonicPageModule.forChild(HBWallPage),
   ],
   exports: [
-    MyMerchants
+    HBWallPage
   ]
 })
-export class MyMerchantsModule {}
+export class HBWallModule {}

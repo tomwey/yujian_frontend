@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
 
@@ -20,7 +20,8 @@ export class EventDetailPage {
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private events: EventsService,
-              private toolService: ToolService) {
+              private toolService: ToolService,
+              private modalCtrl: ModalController) {
     // console.log(this.navParams.data);
     this.event = this.navParams.data;
   }
@@ -49,4 +50,19 @@ export class EventDetailPage {
       });
   }
 
+  commit(): void {
+    if (this.event.rule_type === 'QuizRule' && this.answer === '') {
+      this.toolService.showToast('必须选择一个答案');
+      return;
+    } 
+
+    this.showGrabWall();
+  }
+
+  showGrabWall(): void {
+    let modal = this.modalCtrl.create('HBWallPage', this.event, {
+      enableBackdropDismiss: false,
+    });
+    modal.present();
+  }
 }

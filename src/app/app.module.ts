@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
+import { NewEventPage } from '../pages/new-event/new-event';
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -35,6 +36,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     HBDetailPage,
+    NewEventPage,
     // WalletPage,
   ],
   imports: [
@@ -56,6 +58,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     HomePage,
     TabsPage,
     HBDetailPage,
+    NewEventPage,
     // WalletPage,
   ],
   providers: [
