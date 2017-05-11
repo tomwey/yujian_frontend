@@ -1,13 +1,13 @@
 <ion-header>
   <div class="user-caption">
     <img [src]="user.avatar" class="avatar" />
-    <h2 class="uid">ID:{{user.uid}}</h2>
+    <h2 class="uid">ID: {{user.id}}</h2>
     <div class="earnings">
       <ion-row>
         <ion-col col-6>
           <div class="total">
             <p class="label">累计收入</p>
-            <p class="money">{{user.total_earn}}<span class="unit">元</span></p>
+            <p class="money">{{user.earn}}<span class="unit">元</span></p>
           </div>
         </ion-col>
         <ion-col col-6>
@@ -30,8 +30,12 @@
   </ion-item-group>
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>
-    <button ion-item (click)="gotoHBHistory()"><ion-icon name="ios-list-outline" item-left></ion-icon> 红包历史</button>
-    <button ion-item (click)="gotoFollowedMerchants()"><ion-icon name="ios-heart-outline" item-left></ion-icon> 关注的商家</button>
+    <button ion-item (click)="gotoHBHistory()">
+      <ion-icon name="ios-list-outline" item-left></ion-icon> 红包历史
+    </button>
+    <button ion-item (click)="gotoMyEvents()">
+      <ion-icon name="ios-heart-outline" item-left></ion-icon> 我的发布
+    </button>
   </ion-item-group>
   <ion-item-group>
     <ion-item-divider color="light"></ion-item-divider>

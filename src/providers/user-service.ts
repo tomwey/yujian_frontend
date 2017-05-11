@@ -44,6 +44,21 @@ export class UserService {
     });
   }
 
+  // 获取用户个人信息
+  loadUser(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        this.api.get('user/me', { token: token })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
+  }
+
   // 获取关注的商家
   getFollowedMerchants(): Promise<any> {
     return new Promise((resolve, reject) => {

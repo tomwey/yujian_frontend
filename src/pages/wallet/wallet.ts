@@ -13,10 +13,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'wallet.html',
 })
 export class WalletPage {
-  user: any = {
-    balance: '0.00',
-  };
+  user: any = null;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.user = this.navParams.data;
   }
 
   ionViewDidLoad() {
