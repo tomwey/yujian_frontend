@@ -70,17 +70,27 @@
     </ion-card-header>
 
     <ion-list>
-      <ion-item>
+      <ion-item *ngFor="let earn of earns">
         <ion-avatar item-left>
-          <img src="assets/images/default_avatar.png" />
+          <img [src]="earn.user.avatar" />
         </ion-avatar>
-        <h2>昵称</h2>
-        <p>2017-01-01 12:30:30</p>
+        <h2>{{earn.user.nickname}}</h2>
+        <p>{{earn.time}}</p>
         <ion-note item-right>
-          0.50元
+          {{earn.money}} 元
         </ion-note>
       </ion-item>
     </ion-list>
+
+    <div class="load-more" [hidden]="!needLoadMore">
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadEventEarns())">
+        <ion-infinite-scroll-content
+          loadingSpinner="bubbles"
+          loadingText="加载更多..."
+        ></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+
   </ion-card>
   
 </ion-content>

@@ -19,6 +19,13 @@ export class EventDetailPage {
   event: any = null;
   answer: string = '';
   position: any = null;
+  earns: any = [];
+  
+  pageNo: number = 1;
+  pageSize: number = 20;
+  totalPage: number = 1;
+  needLoadMore: boolean = false;
+  
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private events: EventsService,
@@ -42,6 +49,10 @@ export class EventDetailPage {
     setTimeout(() => {
       this.loadEvent();
     }, 20);
+
+    setTimeout(() => {
+      this.loadEventEarns();
+    }, 20);
   }
 
   loadEvent(): void {
@@ -61,6 +72,31 @@ export class EventDetailPage {
       });
   }
 
+  loadEventEarns(): Promise<any> 
+  {
+    return new Promise((resolve,reject) => {
+      if (this.pageNo <= this.totalPage) {
+        this.events.getEventEarns(this.event.id, this.pageNo, this.pageSize)
+          .then(data => {
+            if ( this.pageNo == 1 ) {
+              this.totalPage = ( data.total + this.pageSize - 1 ) / this.pageSize;
+              this.earns = data.data;
+            } else {
+              this.earns.push(data.data);
+            }
+            resolve(data);
+            // console.log(data);
+            this.pageNo ++;
+            this.needLoadMore = data.data.length == this.pageSize;
+          })
+          .catch(error => {
+            reject(error);
+          });
+      }
+    });
+    
+  }
+
   commit(): void {
     if (this.event.rule_type === 'QuizRule' && this.answer === '') {
       this.toolService.showToast('必须选择一个答案');
@@ -72,9 +108,16 @@ export class EventDetailPage {
 
   showGrabWall(): void {
     let loc = `${this.position.lat},${this.position.lng}`;
-    let answers = this.event.rule.answers;
+    
+    let payload;
+    if (this.event.rule_type === 'QuizRule') {
+      let answers = this.event.rule.answers;
     let answerOption = answers.indexOf(this.answer);
-    let payload = { event: this.event, answer: answerOption, location:  loc };
+      payload = { event: this.event, answer: answerOption, location:  loc };
+    } else if ( this.event.rule_type === 'CheckinRule' ) {
+      payload = { event: this.event, location:  loc };
+    }
+    
     let modal = this.modalCtrl.create('HBWallPage', payload, {
       enableBackdropDismiss: false,
     });

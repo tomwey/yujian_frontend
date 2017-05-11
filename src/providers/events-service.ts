@@ -29,6 +29,10 @@ export class EventsService {
     return this.api.get(`events/${eventId}/body`, {});
   }
 
+  getEventEarns(eventId: number, pageNo: number, pageSize: number): Promise<any> {
+    return this.api.get(`events/${eventId}/earns`, { page: pageNo, size: pageSize });
+  }
+
   commit(payload): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {

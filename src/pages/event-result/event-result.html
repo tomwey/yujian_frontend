@@ -7,12 +7,25 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>event-result</ion-title>
+    <ion-title>我的红包</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
-<ion-content padding>
-
+<ion-content class="event-content">
+  <div class="event-caption">
+    <img src="assets/images/hb_caption_bg.png" class="hb-header-bg" />
+    <div class="event-info">
+      <img [src]="event_earn.image" class="avatar" />
+      <h2 class="title">{{event_earn.title}}</h2>
+      <p class="zhufu">恭喜发财，大吉大利！</p>
+    </div>
+    <div class="user-hb-info">
+      <!--<h2 class="title">0</h2>-->
+      <p class="money">{{event_earn.money}} 元</p>
+    </div>
+  </div>
+  <div class="go-on-grab">
+    <button ion-button block color="theme-red" (click)="gogoGrab()">继续抢红包</button>
+  </div>
 </ion-content>

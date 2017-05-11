@@ -78,6 +78,9 @@ export class ApiService {
     let body = resp.json();
     console.log(`result: ${body}`);
     if (body.code == 0) {
+      if (body.total) {
+        return { total: body.total, data: body.data };
+      }
       return body.data || {};
     } else {
       return Promise.reject(body.message);

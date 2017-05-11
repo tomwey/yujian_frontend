@@ -36,7 +36,7 @@ export class ExplorePage {
     
     this.events.list(0,0,this.pageNo)
       .then(data => {
-        this.eventsData = data;
+        this.eventsData = data.data || data;
         console.log(data);
         this.toolService.hideLoading();
         if (refresher) {
