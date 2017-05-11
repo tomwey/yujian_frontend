@@ -9,9 +9,9 @@ import { NewEventPage } from '../pages/new-event/new-event';
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
-import { RedPacketService } from '../providers/red-packet-service';
+// import { RedPacketService } from '../providers/red-packet-service';
 import { MapService }       from '../providers/map-service';
-import { LocationService }  from '../providers/location-service';
+// import { LocationService }  from '../providers/location-service';
 import { ToolService }      from '../providers/tool-service';
 import { QQMaps }           from '../providers/qq-maps';
 import { UserService }      from '../providers/user-service';
@@ -22,7 +22,7 @@ import { ExplorePage }  from '../pages/explore/explore';
 import { SettingPage }  from '../pages/setting/setting';
 import { HomePage }     from '../pages/home/home';
 import { TabsPage }     from '../pages/tabs/tabs';
-import { HBDetailPage } from '../pages/hb-detail/hb-detail'; 
+// import { HBDetailPage } from '../pages/hb-detail/hb-detail'; 
 // import { WalletPage } from '../pages/wallet/wallet';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,7 +35,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SettingPage,
     HomePage,
     TabsPage,
-    HBDetailPage,
+    // HBDetailPage,
     NewEventPage,
     // WalletPage,
   ],
@@ -57,7 +57,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SettingPage,
     HomePage,
     TabsPage,
-    HBDetailPage,
+    // HBDetailPage,
     NewEventPage,
     // WalletPage,
   ],
@@ -67,9 +67,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     Geolocation,
     QQMaps,
     ApiService,
-    RedPacketService,
+    // RedPacketService,
     MapService,
-    LocationService,
+    // LocationService,
     ToolService,
     UserService,
     EventsService,
