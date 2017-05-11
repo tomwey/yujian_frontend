@@ -32,10 +32,10 @@ export class UserService {
   }
 
   // 获取红包历史
-  getHBHistory(): Promise<any> {
+  getHBHistory(pageNo: number, pageSize: number = 20): Promise<any> {
     return new Promise((resolve, reject) => {
       this.token().then(token => {
-        this.api.get('hb/histories', { token: token }).then(data => {
+        this.api.get('user/event_earns', { token: token, page: pageNo, size: pageSize }).then(data => {
           resolve(data);
         }).catch(error => {
           reject(error);
@@ -49,6 +49,20 @@ export class UserService {
     return new Promise((resolve, reject) => {
       this.token().then(token => {
         this.api.get('user/me', { token: token })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
+  }
+
+  loadTrades(pageNo: number, pageSize: number = 20): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        this.api.get('user/trades', { token: token, page: pageNo, size: pageSize })
           .then(data => {
             resolve(data);
           })

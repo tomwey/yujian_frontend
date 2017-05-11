@@ -31,12 +31,12 @@ export class HBHistory {
   loadHBHistory(): void {
     this.toolService.showLoading('加载中...');
 
-    this.userService.getHBHistory()
+    this.userService.getHBHistory(1)
       .then(data => {
         console.log(data);
         this.toolService.hideLoading();
 
-        this.hbList = data;
+        this.hbList = data.data;
       })
       .catch(error => {
         console.log(error);
@@ -48,7 +48,7 @@ export class HBHistory {
   }
 
   gotoHBResult(item): void {
-    this.navCtrl.push('HBResultPage', { hbid: item.hb.id });
+    this.navCtrl.push('EventDetailPage', item);
   }
 
 }

@@ -23,7 +23,7 @@ export class WalletPage {
   }
 
   gotoTradeList(): void {
-
+    this.navCtrl.push('TradeList');
   }
 
 }
