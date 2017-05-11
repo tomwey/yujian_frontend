@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
+import { QQMaps } from '../../providers/qq-maps';
 
 /**
  * Generated class for the EventDetail page.
@@ -17,20 +18,30 @@ import { ToolService } from '../../providers/tool-service';
 export class EventDetailPage {
   event: any = null;
   answer: string = '';
+  position: any = null;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private events: EventsService,
               private toolService: ToolService,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private qqMaps: QQMaps) {
     // console.log(this.navParams.data);
     this.event = this.navParams.data;
+
+    this.fetchUserLocation();
+  }
+
+  fetchUserLocation(): void {
+    this.qqMaps.startLocating().then(position => {
+      this.position = position;
+    });
   }
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad EventDetail');
     setTimeout(() => {
       this.loadEvent();
-    }, 210);
+    }, 20);
   }
 
   loadEvent(): void {
@@ -60,7 +71,11 @@ export class EventDetailPage {
   }
 
   showGrabWall(): void {
-    let modal = this.modalCtrl.create('HBWallPage', this.event, {
+    let loc = `${this.position.lat},${this.position.lng}`;
+    let answers = this.event.rule.answers;
+    let answerOption = answers.indexOf(this.answer);
+    let payload = { event: this.event, answer: answerOption, location:  loc };
+    let modal = this.modalCtrl.create('HBWallPage', payload, {
       enableBackdropDismiss: false,
     });
     modal.present();

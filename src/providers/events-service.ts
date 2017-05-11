@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api-service';
-import { Storage }    from '@ionic/storage';
+// import { Storage }    from '@ionic/storage';
+import { UserService } from './user-service';
 
 /*
   Generated class for the EventsService provider.
@@ -12,7 +13,7 @@ import { Storage }    from '@ionic/storage';
 export class EventsService {
 
   constructor(private api: ApiService,
-              private storage: Storage) {
+              private user: UserService) {
     
   }
 
@@ -26,6 +27,25 @@ export class EventsService {
 
   getEvent(eventId: number): Promise<any> {
     return this.api.get(`events/${eventId}/body`, {});
+  }
+
+  commit(payload): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        let payloadJson = JSON.stringify({ answer: payload.answer, location: payload.location });
+        console.log(payloadJson);
+        this.api.post(`events/${payload.event.id}/commit`, 
+                      { token: token, payload: payloadJson })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          })
+      }).catch(error => {
+        reject(error);
+      });
+    });
   }
 
 }
