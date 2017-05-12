@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
-import { HBDetailPage } from '../hb-detail/hb-detail';
+// import { HBDetailPage } from '../hb-detail/hb-detail';
 
 @Component({
   selector: 'page-explore',

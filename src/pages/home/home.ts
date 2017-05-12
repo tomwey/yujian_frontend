@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { RedPacketService } from '../../providers/red-packet-service';
+// import { RedPacketService } from '../../providers/red-packet-service';
 import { ToolService } from '../../providers/tool-service';
 import { HBDetailPage } from '../hb-detail/hb-detail';
 import { QQMaps } from '../../providers/qq-maps';
