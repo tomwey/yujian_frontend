@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { ToolService } from '../../providers/tool-service';
 import { HBDetailPage } from '../hb-detail/hb-detail';
@@ -7,6 +7,7 @@ import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

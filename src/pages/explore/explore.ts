@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 
+@IonicPage()
 @Component({
   selector: 'page-explore',
   templateUrl: 'explore.html'

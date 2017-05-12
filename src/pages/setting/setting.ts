@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, IonicPage } from 'ionic-angular';
 import { WalletPage } from '../wallet/wallet';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
 
+@IonicPage()
 @Component({
   selector: 'page-setting',
   templateUrl: 'setting.html'
