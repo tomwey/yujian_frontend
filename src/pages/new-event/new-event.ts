@@ -14,11 +14,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NewEventPage {
 
+  hbType: string = '0';
+  eventType: string = 'Quiz';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
+  }
+
+  changeEventType(): void {
+    // console.log(this.event_type);
   }
 
 }

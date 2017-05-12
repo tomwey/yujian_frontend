@@ -39,7 +39,8 @@ export class ToolService {
     if ( !this.loadingIsOpen ) {
       this.loadingIsOpen = true;
       this.loading = this.loadingCtrl.create({
-        content: content
+        content: content,
+        spinner: 'crescent',
       });
       this.loading.present();
       setTimeout( () => {
