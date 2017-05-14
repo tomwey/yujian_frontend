@@ -16,11 +16,18 @@ export class NewEventPage {
 
   hbType: string = '0';
   eventType: string = 'Quiz';
+  multiple: string = '';
+  btnIcon: string = 'ios-add-outline';
+  uploadTip: string = '选择文件';
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewEvent');
+  }
+
+  uploadFiles(event: Event): void {
+    console.log(event);
   }
 
   changeEventType(): void {

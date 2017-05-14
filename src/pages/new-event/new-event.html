@@ -27,7 +27,7 @@
     </ion-item>
     <ion-item>
       <ion-label>封面图片:</ion-label>
-      <input type="file" accept="image/*" id="upload-file" />
+      <upload-button [btnStyle]="btnIcon" [label]="uploadTip" [multiple]="multiple" (filesChanged)="uploadFiles($event)" item-right></upload-button>
     </ion-item>
     <ion-item>
       <ion-label>活动类型:</ion-label>
