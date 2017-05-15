@@ -19,7 +19,12 @@ export class NewEventPage {
   multiple: string = '';
   btnIcon: string = 'ios-add-outline';
   uploadTip: string = '选择文件';
+  editorOptions: any = {};
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.editorOptions = {
+      placeholderText: '输入活动内容，支持图文混排！',
+      charCounterCount: false,
+    };
   }
 
   ionViewDidLoad() {
