@@ -1,0 +1,29 @@
+<!--
+  Generated template for the NewHongbaoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>红包类型</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="hb-content">
+  <div class="center-box hb-header">
+    <h2>您想发哪种类型的红包？</h2>
+  </div>
+  <ion-list>
+    <button ion-item (click)="gotoHBDetail()">
+      <h2>随机红包</h2>
+      <p>用户会获得随机金额红包</p>
+    </button>
+    <button ion-item (click)="gotoHBDetail()">
+      <h2>固定红包</h2>
+      <p>用户会获得固定金额红包</p>
+    </button>
+  </ion-list>
+</ion-content>

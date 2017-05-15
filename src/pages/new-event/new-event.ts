@@ -58,6 +58,26 @@ export class NewEventPage {
     this.previewImage();
   }
 
+  openInput(): void {
+    this.navCtrl.push('InputPage', { title: '设置活动标题', text: '' })
+  }
+
+  openBodyInput(): void {
+    this.navCtrl.push('InputBodyPage');
+  }
+
+  openRule(): void {
+    this.navCtrl.push('NewRulePage');
+  }
+  
+  openHongbao(): void {
+    this.navCtrl.push('NewHongbaoPage');
+  }
+
+  openOption(): void {
+    this.navCtrl.push('OptionPage');
+  }
+
   previewImage(): void {
     let fr: FileReader = new FileReader();
     fr.readAsDataURL(this.imageCover);

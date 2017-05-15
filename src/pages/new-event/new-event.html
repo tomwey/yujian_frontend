@@ -23,23 +23,23 @@
     <!--<img *ngIf="!!selectedImage" [src]="selectedImage" class="cover-image" />-->
   </div>
   <ion-list class="item-list">
-    <button ion-item>
+    <button ion-item (click)="openInput()">
       <h2>设置活动标题</h2>
       <p>一句话描述活动</p>
     </button>
-    <button ion-item>
+    <button ion-item (click)="openBodyInput()">
       <h2>设置活动详情</h2>
       <p>详细描述您的活动</p>
     </button>
-    <button ion-item>
+    <button ion-item (click)="openRule()">
       <h2>设置活动类型</h2>
       <p>指定活动参与规则</p>
     </button>
-    <button ion-item>
+    <button ion-item (click)="openHongbao()">
       <h2>设置红包类型</h2>
       <p>不同的类型用户收益不一样哦</p>
     </button>
-    <button ion-item>
+    <button ion-item (click)="openOption()">
       <h2>选填信息</h2>
       <p>可以丰富您的活动内容</p>
     </button>
