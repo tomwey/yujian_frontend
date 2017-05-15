@@ -13,13 +13,14 @@
 </ion-header>
 
 <ion-content class="new-event-content">
-  <div class="event-image center-box" (tap)="uploadFile();">
+  <div id="event-image" class="event-image center-box" (tap)="uploadFile();">
     <input type="file" (change)="selectedFiles($event)" 
       style="display: none" #fileInput >
     <div class="add-image">
       <ion-icon name="ios-camera-outline"></ion-icon>
       <h2>添加图片</h2>
     </div>
+    <!--<img *ngIf="!!selectedImage" [src]="selectedImage" class="cover-image" />-->
   </div>
   <ion-list class="item-list">
     <button ion-item>

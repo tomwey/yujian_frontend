@@ -68,6 +68,24 @@ export class ApiService {
       .catch(this.handleError);
   } // end post
 
+  // 上传文件
+  upload(uri, body: FormData) {
+      let url = API_HOST + '/' + uri;
+
+      // 组装参数
+      let i  = new Date().getTime();
+      let ak = this.generateAccessKey(i);
+
+      body.append('i', i.toString());
+      body.append('ak', ak);
+
+      // let headers = new Headers({'Content-Type': 'multipart/form-data'});
+      return this.http.post(url, body, null)
+      .toPromise()
+      .then(this.handleSuccess)
+      .catch(this.handleError);
+  }
+
   // 生成MD5
   private generateAccessKey(i): string {
     return Md5.hashStr(API_KEY + i.toString(), false).toString();
