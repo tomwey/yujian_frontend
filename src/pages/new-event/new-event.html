@@ -8,142 +8,39 @@
 
   <ion-navbar>
     <ion-title>发布活动</ion-title>
-    <ion-buttons end>
-    <!--<button ion-button clear small>
-      确定发布
-    </button>-->
-    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content class="new-event-content">
-  <!-- 活动信息 -->
-  <ion-list>
-    <ion-list-header class="section-header">基本信息</ion-list-header>
-    <ion-item>
-      <ion-label>活动主题:</ion-label>
-      <ion-input placeholder="主题"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>封面图片:</ion-label>
-      <upload-button [btnStyle]="btnIcon" [label]="uploadTip" [multiple]="multiple" (filesChanged)="uploadFiles($event)" item-right></upload-button>
-    </ion-item>
-    <ion-item>
-      <ion-label>活动类型:</ion-label>
-      <ion-select [(ngModel)]="eventType" (ionChange)="changeEventType()">
-        <ion-option value="Quiz">答题类</ion-option>
-        <ion-option value="Checkin">签到类</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>红包类型:</ion-label>
-      <ion-select [(ngModel)]="hbType">
-        <ion-option value="0">随机红包</ion-option>
-        <ion-option value="1">固定红包</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item padding-top padding-bottom>
-      <ion-label>活动内容:</ion-label>
-        <ion-textarea [froalaEditor]="editorOptions">
-        </ion-textarea>
-    </ion-item>
-  </ion-list>
-  <!-- 红包 -->
-  <!-- 随机红包 -->
-  <ion-list *ngIf="hbType === '0'">
-    <ion-list-header class="section-header">随机金额红包</ion-list-header>
-    <ion-item>
-      <ion-label>红包金额:</ion-label>
-      <ion-input placeholder="红包总金额"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>最小红包:</ion-label>
-      <ion-input placeholder="红包最小值"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>最大红包:</ion-label>
-      <ion-input placeholder="红包最大值"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-  </ion-list>
-  <!-- 固定金额红包 -->
-  <ion-list *ngIf="hbType === '1'">
-    <ion-list-header class="section-header"> 固定金额红包</ion-list-header>
-    <ion-item>
-      <ion-label>单个红包金额:</ion-label>
-      <ion-input placeholder="单个红包金额"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>发出红包个数:</ion-label>
-      <ion-input placeholder="输入红包个数"></ion-input>
-    </ion-item>
-  </ion-list>
-  <!-- 活动限制 -->
-  <ion-list>
-    <ion-list-header class="section-header">活动限制</ion-list-header>
-    <ion-item>
-      <ion-label>活动位置:</ion-label>
-      <ion-input placeholder="详细地址"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>活动范围:</ion-label>
-      <ion-input placeholder="填写活动范围"></ion-input>
-      <ion-note item-right>公里</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>开抢时间:</ion-label>
-      <ion-input placeholder="例如：2017-07-01 16:00"></ion-input>
-    </ion-item>
-  </ion-list>
-  <!-- 活动规则 -->
-  <!-- 答题类活动 -->
-  <ion-list *ngIf="eventType === 'Quiz'">
-    <ion-list-header class="section-header">答题类活动</ion-list-header>
-    <ion-item>
-      <ion-label>题目:</ion-label>
-      <ion-input placeholder="答案要在内容中提示"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>答案A:</ion-label>
-      <ion-input placeholder="输入答案A"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>答案B:</ion-label>
-      <ion-input placeholder="输入答案B"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>答案C:</ion-label>
-      <ion-input placeholder="输入答案C"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>正确答案</ion-label>
-      <ion-input placeholder="输入正确答案选项"></ion-input>
-    </ion-item>
-  </ion-list>
-  <!-- 签到类活动 -->
-  <ion-list *ngIf="eventType === 'Checkin'">
-    <ion-list-header class="section-header">签到类活动</ion-list-header>
-    <ion-item>
-      <ion-label>签到地址:</ion-label>
-      <ion-input placeholder="输入详细签到地址"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>签到误差:</ion-label>
-      <ion-input placeholder="输入签到误差范围"></ion-input>
-      <ion-note item-right>米</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label>截止时间:</ion-label>
-      <ion-input placeholder="可选"></ion-input>
-    </ion-item>
-  </ion-list>
-  <div padding>
-    <button ion-button block color="theme-red">
-      确定发布
-    </button>
+  <div class="event-image center-box" (tap)="uploadFile();">
+    <input type="file" (change)="selectedFiles($event)" 
+      style="display: none" #fileInput >
+    <div class="add-image">
+      <ion-icon name="ios-camera-outline"></ion-icon>
+      <h2>添加图片</h2>
+    </div>
   </div>
+  <ion-list class="item-list">
+    <button ion-item>
+      <h2>设置活动标题</h2>
+      <p>一句话描述活动</p>
+    </button>
+    <button ion-item>
+      <h2>设置活动详情</h2>
+      <p>详细描述您的活动</p>
+    </button>
+    <button ion-item>
+      <h2>设置活动类型</h2>
+      <p>指定活动参与规则</p>
+    </button>
+    <button ion-item>
+      <h2>设置红包类型</h2>
+      <p>不同的类型用户收益不一样哦</p>
+    </button>
+    <button ion-item>
+      <h2>选填信息</h2>
+      <p>可以丰富您的活动内容</p>
+    </button>
+  </ion-list>
 </ion-content>
