@@ -29,6 +29,10 @@ export class NewEventPage {
     // console.log('ionViewDidLoad NewEvent');
   }
 
+  ionViewWillEnter() {
+    console.log('view will appear');
+  }
+
   uploadFile(): void {
     let clickEvent: MouseEvent = new MouseEvent('click', { bubbles: true });
     this.renderer.invokeElementMethod(
