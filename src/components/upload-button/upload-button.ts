@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, OnInit, ViewChild, Renderer } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, Renderer } from '@angular/core';
 
 /**
  * Generated class for the UploadButtonComponent component.
