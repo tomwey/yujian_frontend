@@ -2,7 +2,7 @@ import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { ToolService } from '../../providers/tool-service';
-import { HBDetailPage } from '../hb-detail/hb-detail';
+// import { HBDetailPage } from '../hb-detail/hb-detail';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
@@ -38,7 +38,8 @@ export class HomePage {
   ionViewDidLoad() {
     document.addEventListener('hb:click', (e) => {
       // console.log(e);
-      this.navCtrl.push(HBDetailPage, { item: e['detail'] });
+      // this.navCtrl.push(HBDetailPage, { item: e['detail'] });
+      this.navCtrl.push('EventDetailPage', e['detail']);
     });
     document.addEventListener('map:drag', (e) => {
       this.loadHBData();

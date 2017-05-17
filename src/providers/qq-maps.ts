@@ -91,6 +91,7 @@ export class QQMaps {
           });
         })
         .catch(error => {
+          console.log(`定位失败：${error}`);
           let mapError = { code: 101, message: '获取位置失败！' };
           reject(mapError);
         });
