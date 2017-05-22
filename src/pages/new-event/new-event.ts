@@ -15,7 +15,23 @@ export class NewEventPage {
   // addFileText: string = '添加图片';
   imageCover: File = null;
   selectedImage: any = null;
-
+  event: any = { title: '', 
+                 image: null, 
+                 body: '',
+                 hb: {
+                   min_value: 0,
+                   max_value: 0,
+                   total_money: 0,
+                   type: 0,
+                 },
+                 rule: null,
+                 started_at: '', 
+                 location: { 
+                   address: '', 
+                   latLng: '', 
+                  }, 
+                  range: 30
+                };
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private renderer: Renderer,
@@ -27,10 +43,6 @@ export class NewEventPage {
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad NewEvent');
-  }
-
-  ionViewWillEnter() {
-    console.log('view will appear');
   }
 
   uploadFile(): void {
@@ -57,29 +69,32 @@ export class NewEventPage {
     }
 
     this.imageCover = imageFile;
+
+    this.event.image = imageFile;
+    
     // this.selectedImage = true;
 
     this.previewImage();
   }
 
   openInput(): void {
-    this.navCtrl.push('InputPage', { title: '设置活动标题', text: '' })
+    this.navCtrl.push('InputPage', this.event);
   }
 
   openBodyInput(): void {
-    this.navCtrl.push('InputBodyPage');
+    this.navCtrl.push('InputBodyPage', this.event);
   }
 
   openRule(): void {
-    this.navCtrl.push('NewRulePage');
+    this.navCtrl.push('NewRulePage', this.event);
   }
   
   openHongbao(): void {
-    this.navCtrl.push('NewHongbaoPage');
+    this.navCtrl.push('NewHongbaoPage', this.event);
   }
 
   openOption(): void {
-    this.navCtrl.push('OptionPage');
+    this.navCtrl.push('OptionPage', this.event);
   }
 
   previewImage(): void {

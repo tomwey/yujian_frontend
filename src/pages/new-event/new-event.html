@@ -25,7 +25,7 @@
   <ion-list class="item-list">
     <button ion-item (click)="openInput()">
       <h2>设置活动标题</h2>
-      <p>一句话描述活动</p>
+      <p>{{!!event.title ? event.title : '一句话描述活动' }}</p>
     </button>
     <button ion-item (click)="openBodyInput()">
       <h2>设置活动详情</h2>

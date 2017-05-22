@@ -16,8 +16,11 @@
 // automatically applied to the <body> element in the app.
 
 .center-box {
+    display: -webkit-flex;
     display: flex;
     align-items: center;
     justify-content: center;
+    -webkit-align-items: center;
+    -webkit-justify-content: center;
     text-align: center;
 }

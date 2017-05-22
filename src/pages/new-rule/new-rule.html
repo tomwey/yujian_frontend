@@ -17,13 +17,13 @@
     <h2>您想发布什么类型的活动？</h2>
   </div>
   <ion-list>
-    <button ion-item (click)="gotoRuleDetail()">
+    <button ion-item (click)="gotoRuleDetail('Quiz')">
       <h2>答题类活动</h2>
-      <p>适合做一些活动宣传类的题目</p>
+      <p>{{quizDesc}}</p>
     </button>
-    <button ion-item (click)="gotoRuleDetail()">
+    <button ion-item (click)="gotoRuleDetail('Checkin')">
       <h2>签到类活动</h2>
-      <p>适合做一些到现场签到得活动</p>
+      <p>{{checkinDesc}}</p>
     </button>
   </ion-list>
 </ion-content>
