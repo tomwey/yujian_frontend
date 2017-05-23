@@ -94,7 +94,7 @@ export class NewEventPage {
   }
 
   openOption(): void {
-    this.navCtrl.push('OptionPage', this.event);
+    this.navCtrl.push('OptionInfoPage', this.event);
   }
 
   previewImage(): void {

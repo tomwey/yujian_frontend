@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { OptionPage } from './option';
+import { OptionInfoPage } from './option-info';
 
 @NgModule({
   declarations: [
-    OptionPage,
+    OptionInfoPage,
   ],
   imports: [
-    IonicPageModule.forChild(OptionPage),
+    IonicPageModule.forChild(OptionInfoPage),
   ],
   exports: [
-    OptionPage
+    OptionInfoPage
   ]
 })
 export class OptionPageModule {}

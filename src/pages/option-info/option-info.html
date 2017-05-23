@@ -14,7 +14,21 @@
 
 <ion-content class="option-content">
   <ion-list>
-    <button ion-item>
+    <ion-item>
+      <ion-label>开抢时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" 
+        pickerFormat="YYYY年MM月DD日 HH:mm" placeholder="设置红包开抢时间"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>活动地址</ion-label>
+      <ion-input placeholder="输入地址搜索"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>活动范围</ion-label>
+      <ion-input placeholder="填写活动现在范围"></ion-input>
+      <ion-note item-right>公里</ion-note>
+    </ion-item>
+    <!--<button ion-item>
       <h2>红包开抢时间</h2>
       <p>可以指定一个活动红包开抢时间</p>
     </button>
@@ -25,6 +39,6 @@
     <button ion-item>
       <h2>活动范围</h2>
       <p>可以现在活动的参与范围</p>
-    </button>
+    </button>-->
   </ion-list>
 </ion-content>
