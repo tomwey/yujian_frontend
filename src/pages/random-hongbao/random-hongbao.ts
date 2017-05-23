@@ -32,7 +32,7 @@ export class RandomHongbaoPage {
                       max_value: this.hb.max_value,
                       total_money: this.hb.total_money
                      };
-    this.navCtrl.pop();
+    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
 }

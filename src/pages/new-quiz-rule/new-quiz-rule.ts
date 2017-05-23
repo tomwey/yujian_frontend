@@ -43,7 +43,7 @@ export class NewQuizRulePage {
     this.rule.answer = this.checkedIdx;
     this.event.rule = this.rule;
 
-    this.navCtrl.pop();
+    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
     // console.log(this.rule);
   }
 

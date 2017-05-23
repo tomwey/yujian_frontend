@@ -14,11 +14,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NewCheckinRulePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  event: any = null;
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams) {
+    this.event = this.navParams.data;
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad NewCheckinRulePage');
+  saveRule(): void {
+    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
-
+  
 }

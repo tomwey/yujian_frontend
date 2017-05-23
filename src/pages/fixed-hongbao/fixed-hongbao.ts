@@ -34,7 +34,7 @@ export class FixedHongbaoPage {
                       total_money: this.hb.money * this.hb.total
                     }; 
     // console.log(this.event);
-    this.navCtrl.pop();
+    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
 }
