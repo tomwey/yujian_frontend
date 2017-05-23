@@ -41,6 +41,8 @@ export class EventDetailPage {
   fetchUserLocation(): void {
     this.qqMaps.startLocating().then(position => {
       this.position = position;
+    }).catch(error => {
+      console.log(error);
     });
   }
 
