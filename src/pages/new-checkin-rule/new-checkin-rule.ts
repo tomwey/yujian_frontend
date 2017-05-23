@@ -23,5 +23,13 @@ export class NewCheckinRulePage {
   saveRule(): void {
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
-  
+
+  searchLocation(): void {
+    this.navCtrl.push('SearchLocationPage', this.event);
+  }
+
+  gotoAccurcy(): void {
+
+  }
+
 }

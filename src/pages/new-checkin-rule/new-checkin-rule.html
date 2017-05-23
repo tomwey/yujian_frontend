@@ -19,14 +19,13 @@
 
 <ion-content>
   <ion-list>
-    <ion-item>
-      <ion-label>签到地址</ion-label>
-      <ion-input placeholder="输入地址"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>误差范围</ion-label>
-      <ion-input placeholder="误差范围"></ion-input>
-      <ion-note item-right>米</ion-note>
-    </ion-item>
+    <button ion-item (click)="searchLocation()">
+      <h2>签到地址</h2>
+      <p>用户到该地址完成签到获得抢红包机会</p>
+    </button>
+    <button ion-item (click)="gotoAccurcy()">
+      <h2>误差范围</h2>
+      <p>允许用户签到位置有一定的偏差，单位为米</p>
+    </button>
   </ion-list>
 </ion-content>
