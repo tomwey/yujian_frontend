@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { InputBodyPage } from './input-body';
+import { EventBodyPage } from './event-body';
 
 @NgModule({
   declarations: [
-    InputBodyPage,
+    EventBodyPage,
   ],
   imports: [
-    IonicPageModule.forChild(InputBodyPage),
+    IonicPageModule.forChild(EventBodyPage),
   ],
   exports: [
-    InputBodyPage
+    EventBodyPage
   ]
 })
-export class InputBodyPageModule {}
+export class EventBodyPageModule {}

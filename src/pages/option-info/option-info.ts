@@ -17,8 +17,8 @@ export class OptionInfoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OptionPage');
+  save(): void {
+    
   }
 
 }

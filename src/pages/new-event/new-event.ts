@@ -17,7 +17,7 @@ export class NewEventPage {
   selectedImage: any = null;
   event: any = { title: '', 
                  image: null, 
-                 body: '',
+                 body: [],
                  hb: {
                    min_value: 0,
                    max_value: 0,
@@ -82,7 +82,7 @@ export class NewEventPage {
   }
 
   openBodyInput(): void {
-    this.navCtrl.push('InputBodyPage', this.event);
+    this.navCtrl.push('EventBodyPage', this.event);
   }
 
   openRule(): void {
