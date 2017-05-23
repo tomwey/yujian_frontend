@@ -23,18 +23,17 @@ export class FixedHongbaoPage {
       this.hb.money = this.event.hb.min_value;
       this.hb.total = this.event.hb.min_value == 0 ? 0 : this.event.hb.total_money / this.event.hb.min_value;
     } else {
-      this.hb = { money: 0.00, total: 0 };
+      this.hb = { money: '', total: null };
     }
   }
 
   saveHB(): void {
-    this.event.hb.min_value = this.hb.money;
-    this.event.hb.max_value = this.hb.money;
-
-    this.event.hb.total_money = this.hb.money * this.hb.total;
-    this.event.hb.type = 1;
-    console.log(this.event);
-
+    this.event.hb = { type: 1, 
+                      min_value: this.hb.money,
+                      max_value: this.hb.money,
+                      total_money: this.hb.money * this.hb.total
+                    }; 
+    // console.log(this.event);
     this.navCtrl.pop();
   }
 

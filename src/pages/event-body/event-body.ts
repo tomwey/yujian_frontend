@@ -113,8 +113,9 @@ export class EventBodyPage {
   }
 
   save(): void {
-    console.log(this.bodyItems);
+    // console.log(this.bodyItems);
     this.event.body = this.bodyItems;
+    this.navCtrl.pop();
   }
 
 }

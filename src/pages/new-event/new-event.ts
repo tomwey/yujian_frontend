@@ -18,12 +18,7 @@ export class NewEventPage {
   event: any = { title: '', 
                  image: null, 
                  body: [],
-                 hb: {
-                   min_value: 0,
-                   max_value: 0,
-                   total_money: 0,
-                   type: 0,
-                 },
+                 hb: null,
                  rule: null,
                  started_at: '', 
                  location: { 
@@ -43,6 +38,10 @@ export class NewEventPage {
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad NewEvent');
+  }
+
+  ionViewWillEnter() {
+    console.log(this.event);
   }
 
   uploadFile(): void {

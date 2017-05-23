@@ -22,14 +22,16 @@ export class RandomHongbaoPage {
     if (this.event.hb && this.event.hb.type === 0) {
       this.hb = this.event.hb;
     } else {
-      this.hb = { total_money: 0.00, min_value: 0.00, max_value: 0.00 };
+      this.hb = { total_money: null, min_value: null, max_value: null };
     }
   }
 
   saveHB(): void {
-    this.event.hb = this.hb;
-    this.event.hb.type = 0;
-    console.log(this.event);
+    this.event.hb = { type: 0,
+                      min_value: this.hb.min_value,
+                      max_value: this.hb.max_value,
+                      total_money: this.hb.total_money
+                     };
     this.navCtrl.pop();
   }
 
