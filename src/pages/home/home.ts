@@ -21,7 +21,7 @@ export class HomePage {
 
   loadedMarkers: any[] = []; // 保存已经添加的标记
   hbIsLoading: boolean = false; // 是否正在加载红包
-
+  mapError: any = null;
   constructor(public navCtrl: NavController, 
               // private hbService: RedPacketService,
               // private mapService: MapService,
@@ -46,6 +46,19 @@ export class HomePage {
     });
 
     this.platform.ready().then(() => {
+      this.initMap();
+    });
+  }
+
+  // 初始化地图
+  initMap() {
+    if (this.map) {
+      this.relocate();
+    } else {
+      this.toolService.showLoading('位置定位中...');
+      
+      this.mapError = null;
+
       this.qqMaps.init(this.mapElement.nativeElement, null).then(map => {
         this.map = map;
 
@@ -53,12 +66,13 @@ export class HomePage {
 
         this.loadHBData();
 
+        this.toolService.hideLoading();
       }).catch(error => {
-        console.log(error);
+        this.toolService.hideLoading();
+        this.mapError = error;
       });
-    });
+    }
   }
-
   // 重新定位到当前位置
   relocate() {
     this.qqMaps.startLocating().then(position => {

@@ -35,5 +35,12 @@
   <div class="locate-button" (tap)="relocate()" [hidden]="!mapLoaded">
     <ion-icon name="ios-locate-outline" class="locate-icon"></ion-icon>
   </div>
+  <div class="center-box map-error-container" *ngIf="!!mapError">
+    <div class="map-error">
+      {{mapError.message}}
+      <br><button ion-button color="theme-red" (click)="initMap()">重新定位</button>
+    </div>
+    
+  </div>
   <div #map id="map"></div>
 </ion-content>

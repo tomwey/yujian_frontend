@@ -66,8 +66,12 @@ export class QQMaps {
 
         document.body.appendChild(script);
       } else {
-        // this.initMap();
-        // this.enableMap();
+        this.initMap().then(map => {
+          resolve(this.map);
+        }).catch(error => {
+          reject(error);
+        });
+        this.enableMap();
       }
     } );
     
@@ -119,8 +123,8 @@ export class QQMaps {
           resolve(this.map);
         })
         .catch(error => {
-          let mapError = { code: 100, message: '地图初始化失败' };
-          reject(mapError);
+          // let mapError = { code: 100, message: '地图初始化失败' };
+          reject(error);
         });
     } );
   } // end initMap
