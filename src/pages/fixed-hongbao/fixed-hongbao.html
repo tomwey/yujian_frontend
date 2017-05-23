@@ -1,0 +1,33 @@
+<!--
+  Generated template for the FixedHongbaoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>固定红包</ion-title>
+    <ion-buttons end>
+      <button ion-button clear (click)="saveHB()">
+        保存
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label>单个金额</ion-label>
+      <ion-input [(ngModel)]="hb.money" placeholder="0.00"></ion-input>
+      <ion-note item-right>元</ion-note>
+    </ion-item>
+    <ion-item>
+      <ion-label>红包个数</ion-label>
+      <ion-input [(ngModel)]="hb.total" placeholder="填写个数"></ion-input>
+      <ion-note item-right>个</ion-note>
+    </ion-item>
+  </ion-list>
+</ion-content>

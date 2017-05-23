@@ -14,11 +14,23 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class RandomHongbaoPage {
 
+  event: any = null;
+  hb: any = null;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.event = this.navParams.data;
+
+    if (this.event.hb && this.event.hb.type === 0) {
+      this.hb = this.event.hb;
+    } else {
+      this.hb = { total_money: 0.00, min_value: 0.00, max_value: 0.00 };
+    }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RandomHongbaoPage');
+  saveHB(): void {
+    this.event.hb = this.hb;
+    this.event.hb.type = 0;
+    console.log(this.event);
+    this.navCtrl.pop();
   }
 
 }
