@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { ApiService } from '../api-service';
 
 /*
   Generated class for the LocationSearchProvider provider.
@@ -11,14 +10,13 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LocationSearchProvider {
 
-  constructor(public http: Http) {
+  constructor(private api: ApiService) {
     // console.log('Hello LocationSearchProvider Provider');
   }
 
 // EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ
   getSuggestions(keyword: string, city: string = '成都'): Promise<any> {
-    let url = `http://apis.map.qq.com/ws/place/v1/suggestion/?region=${city}&keyword=${keyword}&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ`;
-    return this.http.get(url).toPromise();
+    return this.api.get('qq/suggestion', { city: city, keyword: keyword });
   }
 
 }

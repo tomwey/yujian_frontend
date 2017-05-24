@@ -15,21 +15,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class NewCheckinRulePage {
 
   event: any = null;
+  location: any = { address: '', latLng: '' };
+  accurcy: any = { value: '' };
   constructor(public navCtrl: NavController, 
               public navParams: NavParams) {
     this.event = this.navParams.data;
   }
 
   saveRule(): void {
+    this.event.rule = { type: 'Checkin', accurcy: this.accurcy.value, location: this.location };
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
   searchLocation(): void {
-    this.navCtrl.push('SearchLocationPage', this.event);
+    this.navCtrl.push('SearchLocationPage', this.location);
   }
 
   gotoAccurcy(): void {
-
+    this.navCtrl.push('CheckinAccurcyPage', this.accurcy);
   }
 
 }

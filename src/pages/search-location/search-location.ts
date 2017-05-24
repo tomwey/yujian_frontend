@@ -18,18 +18,31 @@ export class SearchLocationPage {
   shouldShowCancel: boolean = false;
   keyword: string = '';
   locations: any = [];
+
+  location: any = null;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private locationSearch: LocationSearchProvider) {
+    this.location = this.navParams.data;
+  }
+
+  selectLocation(loc): void {
+    this.location.address = loc.title;
+    this.location.latLng  = `${loc.location.lat},${loc.location.lng}`;
+    this.navCtrl.pop();
   }
 
   onInput(event): void {
     this.shouldShowCancel = true;
-    if (this.keyword.length == 0) return;
+    if (this.keyword.length == 0) {
+      this.locations = [];
+      return;
+    } 
     
     this.locationSearch.getSuggestions(this.keyword)
       .then(data => {
-        console.log(data);
+        // console.log(data);
+        this.locations = data.data || data;
       })
       .catch(error => {
         console.log(error);
@@ -38,6 +51,7 @@ export class SearchLocationPage {
 
   onCancel(event): void {
     this.shouldShowCancel = false;
+    this.locations = [];
   }
 
 }

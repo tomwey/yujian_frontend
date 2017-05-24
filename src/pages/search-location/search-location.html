@@ -12,15 +12,15 @@
       [showCancelButton]="shouldShowCancel"
       (ionInput)="onInput($event)"
       (ionCancel)="onCancel($event)"
-      placeholder="输入地址搜索"></ion-searchbar>
+      placeholder="输入地址搜索" color="white"></ion-searchbar>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let loc of locations">
-      {{loc.address}}
+    <button ion-item *ngFor="let loc of locations" (click)="selectLocation(loc)">
+      {{loc.title}}
     </button>
   </ion-list>
 </ion-content>
