@@ -37,8 +37,8 @@
   </div>
   <div class="center-box map-error-container" *ngIf="!!mapError">
     <div class="map-error">
-      {{mapError.message}}
-      <br><button ion-button outline color="theme-red" (click)="initMap()">重新定位</button>
+      {{mapError.message || mapError}}
+      <br><button ion-button outline color="theme-red" (click)="startLocation()">重新定位</button>
     </div>
     
   </div>

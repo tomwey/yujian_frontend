@@ -7,6 +7,8 @@ import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 
+import { LocationProvider } from '../../providers/location/location';
+
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -15,7 +17,7 @@ import { EventsService } from '../../providers/events-service';
 export class HomePage {
   
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
+  map: any = null;
   hbCount: number = 0; // 红包数量
   mapLoaded: boolean = false; // 地图是否已经加载
 
@@ -30,7 +32,8 @@ export class HomePage {
               private events: EventsService,
               private qqMaps: QQMaps,
               private platform: Platform,
-              private toolService: ToolService) 
+              private toolService: ToolService,
+              private location: LocationProvider) 
   {
     // this.startLocation();             
   }
@@ -42,46 +45,76 @@ export class HomePage {
       this.navCtrl.push('EventDetailPage', e['detail']);
     });
     document.addEventListener('map:drag', (e) => {
+      console.log('dddddddd');
       this.loadHBData();
     });
 
     this.platform.ready().then(() => {
-      this.initMap();
+      // this.initMap();
+      this.qqMaps.initSDK().then(() => {
+        this.startLocation();
+      }).catch(error => {
+        console.log(error);
+      });
+      
+      // this.locationService.startLocation();
     });
   }
 
-  // 初始化地图
-  initMap() {
-    if (this.map) {
-      this.relocate();
-    } else {
-      this.toolService.showLoading('位置定位中...');
-      
-      this.mapError = null;
+  startLocation(): void {
+    this.toolService.showLoading('位置定位中...');
+    
+    this.mapError = null;
 
-      this.qqMaps.init(this.mapElement.nativeElement, null).then(map => {
-        this.map = map;
-
-        this.mapLoaded = true;
-
-        this.loadHBData();
-
+    this.qqMaps.startLocating()
+      .then(pos => {
+        console.log(pos);
         this.toolService.hideLoading();
-      }).catch(error => {
+
+        if (this.map) {
+          this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
+          // this.loadHBData();
+        } else {
+          // console.log('开始初始化地图');
+          this.initMap(pos);
+        }
+
+      })
+      .catch(error => {
+        console.log(error);
         this.toolService.hideLoading();
-        this.mapError = error;
+        this.mapError = '位置获取失败！';
       });
-    }
+  }
+
+  // 初始化地图
+  initMap(pos) {
+    this.qqMaps.init(this.mapElement.nativeElement, null)
+      .then((map) => {
+        // console.log('123333');
+        this.map = map;
+        this.mapLoaded = true;
+        this.toolService.hideLoading();
+
+        this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
+
+        // this.loadHBData();
+      })
+      .catch(error => {
+        console.log(error);
+        // this.toolService.hideLoading();
+      });
   }
   // 重新定位到当前位置
   relocate() {
     this.qqMaps.startLocating().then(position => {
-      // 更新地图的中心点
-      this.map.panTo(position);
+      this.map.panTo(new qq.maps.LatLng(position.lat,position.lng));
 
       // 重新获取数据
       this.loadHBData();
-    });
+    }).catch(error => {
+
+    })
   }
 
   loadHBData() {

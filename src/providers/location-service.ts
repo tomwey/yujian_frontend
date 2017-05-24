@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation';
 
 /*
   Generated class for the LocationService provider.
@@ -10,7 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 @Injectable()
 export class LocationService {
 
-  constructor(private geolocation: Geolocation,) {
+  constructor() {
     // console.log('Hello LocationService Provider');
   }
 
@@ -18,17 +17,24 @@ export class LocationService {
    * 获取HTML5位置坐标
    * @returns {Promise}
    */
-  public getPosition(): Promise<any> {
+  public startLocation(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.geolocation.getCurrentPosition()
-        .then(position => {
-          resolve({ lat: position.coords.latitude,
-                    lng: position.coords.longitude 
-                  });
-        })
-        .catch(error => {
-        reject(error);
-        });
+      if (typeof qq == "undefined" || typeof qq.maps == "undefined") {
+        console.log("QQ maps JavaScript needs to be loaded.");
+
+        window['init'] = () => {
+          console.log(qq.maps.Geolocation);
+        };
+
+        let script = document.createElement("script");
+        script.id = "qqGeolocation";
+        script.src = "https://apis.map.qq.com/tools/geolocation/min?key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&referer=yujian&callback=init";
+        script.async = true;
+
+        document.body.appendChild(script);
+      } else {
+        console.log('has loaded');
+      }
     });
   }
 }

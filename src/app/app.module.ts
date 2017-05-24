@@ -9,7 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
 // import { RedPacketService } from '../providers/red-packet-service';
-import { MapService }       from '../providers/map-service';
+// import { MapService }       from '../providers/map-service';
 // import { LocationService }  from '../providers/location-service';
 import { ToolService }      from '../providers/tool-service';
 import { QQMaps }           from '../providers/qq-maps';
@@ -19,6 +19,7 @@ import { EventsService}     from '../providers/events-service';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationSearchProvider } from '../providers/location-search/location-search';
+import { LocationProvider } from '../providers/location/location';
 
 @NgModule({
   declarations: [
@@ -46,12 +47,12 @@ import { LocationSearchProvider } from '../providers/location-search/location-se
     QQMaps,
     ApiService,
     // RedPacketService,
-    MapService,
+    // MapService,
     // LocationService,
     ToolService,
     UserService,
     EventsService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider, LocationProvider,
   ]
 })
 export class AppModule {}

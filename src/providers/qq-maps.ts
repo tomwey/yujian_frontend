@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Geolocation } from '@ionic-native/geolocation';
+// import { Geolocation } from '@ionic-native/geolocation';
 
 export interface MapError {
   code: number;
   message?: string;
 }
+
+const APP_KEY  = "EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ";
+const APP_NAME = "yujian";
 
 @Injectable()
 export class QQMaps {
@@ -15,8 +18,40 @@ export class QQMaps {
   mapInitialised: boolean = false;
   mapLoaded: any;
 
-  constructor(private geolocation: Geolocation) {
-    
+  constructor(/*private geolocation: Geolocation*/) {
+    // this.initSDK();
+  }
+
+  /**
+   * 初始化QQ JS SDK
+   */
+  initSDK(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (typeof qq == "undefined" || typeof qq.maps == "undefined") {
+        window['mapInit'] = () => {
+          console.log('SDK加载成功');
+          resolve(true);
+        };
+
+        // 加载定位SDK
+        let geoScript = document.createElement("script");
+        geoScript.id = "qqGeolocation";
+        geoScript.src = "https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js";
+        // script.async = true;
+        document.body.appendChild(geoScript);
+
+        // 加载地图SDK
+        let script = document.createElement("script");
+        script.id = "qqMaps";
+        script.src = `http://map.qq.com/api/js?v=2.exp&key=${APP_KEY}&callback=mapInit`;
+        script.async = true;
+
+        document.body.appendChild(script);
+      } else {
+        console.log('QQ Map JS SDK has loaded.');
+        resolve(true);
+      }
+    });
   }
 
   /**
@@ -24,24 +59,26 @@ export class QQMaps {
    * @param mapElement 
    * @param pleaseConnect 
    */
-  init(mapElement: any, pleaseConnect: any): Promise<any> {
+  init(mapElement: any, position: any): Promise<any> {
     this.mapElement = mapElement;
-    this.pleaseConnect = pleaseConnect;
+    // this.pleaseConnect = pleaseConnect;
 
-    return this.loadQQMaps();
+    return this.initMap();
+    // return this.loadQQMaps();
   }
 
   /**
    * 加载地图
    */
-  loadQQMaps(): Promise<any> {
+  /*loadQQMaps(): Promise<any> {
     return new Promise( (resolve,reject) => {
-      if (typeof qq == "undefined" || typeof qq.maps == "undefined") {
+      if (typeof qq == "undefined" || typeof qq.maps == "undefined" || 
+          typeof qq.maps.Map == "undefined") {
         console.log("QQ maps JavaScript needs to be loaded.");
         this.disableMap();
 
         window['mapInit'] = () => {
-          this.initMap()
+          this.initMap(position)
             .then((map) => {
             this.map = map;
 
@@ -66,7 +103,7 @@ export class QQMaps {
 
         document.body.appendChild(script);
       } else {
-        this.initMap().then(map => {
+        this.initMap(position).then(map => {
           resolve(this.map);
         }).catch(error => {
           reject(error);
@@ -75,30 +112,30 @@ export class QQMaps {
       }
     } );
     
-  } // end loadQQMaps()
-
+  } // end loadQQMaps() //30.668620，104.073605
+*/
   /**
    * 获取位置，并进行HTML5纠偏
    * @returns {Promise}
    */
   startLocating(): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.geolocation.getCurrentPosition()
-        .then((position) => {
-          let lat = position.coords.latitude;
-          let lng = position.coords.longitude;
-
-          let latLng = new qq.maps.LatLng(lat,lng);
-
-          qq.maps.convertor.translate(latLng, 1, (res) => {
-            resolve(res[0]);
-          });
-        })
-        .catch(error => {
-          console.log(`定位失败：${error}`);
-          let mapError = { code: 101, message: '获取位置失败！' };
-          reject(mapError);
-        });
+      if ( typeof qq.maps.Geolocation == "undefined" ) {
+        reject({ code: -1, message: '定位SDK未加载成功' });
+      } else {
+        let geolocation = new qq.maps.Geolocation(APP_KEY, APP_NAME);
+        if (geolocation) {
+          geolocation.getLocation((pos) => {
+              console.log(`pos:${pos.lat},${pos.lng}`);
+              resolve(pos);
+            }, (error) => {
+              console.log(`e->pos:${error}`);
+              reject(error);
+            }, { timeout: 9000 });
+        } else {
+          reject({code: -1, message: '定位SDK初始化失败'});
+        }
+      }  
     });
   }
 
@@ -107,26 +144,40 @@ export class QQMaps {
    */
   initMap(): Promise<any> {
     this.mapInitialised = true;
-    return new Promise( (resolve, reject) => {
-      this.startLocating()
-        .then(position => {
-          let mapOptions = {
-            center: position,
-            zoom: 14,
-            mapTypeId: qq.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true,
-            useNative: true,
-          };
+    if (this.map) {
+      return new Promise((resolve, reject) => {
+        resolve(this.map);
+      });
+    }
 
-          let map = new qq.maps.Map(this.mapElement, mapOptions);
-          this.map = map;
-          resolve(this.map);
-        })
-        .catch(error => {
-          // let mapError = { code: 100, message: '地图初始化失败' };
-          reject(error);
+    return new Promise( (resolve, reject) => {
+      // console.log('ddddd');
+      // 默认设置地图为成都中心
+      let center = new qq.maps.LatLng(30.668620,104.073605);
+      let mapOptions = {
+        center: center,
+        zoom: 14,
+        mapTypeId: qq.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true,
+        useNative: true,
+      };
+      let map = new qq.maps.Map(this.mapElement, mapOptions);
+      if (map) {
+        this.map = map;
+        // console.log('ddddd123');
+        // 注册拖动地图事件
+        qq.maps.event.addListener(this.map, 'center_changed', function() {
+          let event = new CustomEvent('map:drag');
+          document.dispatchEvent(event);
         });
-    } );
+
+        // 回调上层接口
+        resolve(this.map);
+      } else {
+        let mapError = { code: -1, message: '地图初始化失败' };
+        reject(mapError);
+      }
+    });
   } // end initMap
 
   // 添加标记
