@@ -2,7 +2,13 @@
   <div class="user-caption">
     <img [src]="user.avatar" class="avatar" />
     <h2 class="uid">ID: {{user.id}}</h2>
-    <div class="earnings">
+    <div class="user-balance">
+      <p>余额<span class="money">{{user.balance}}</span>元</p>
+      <button ion-button outline small color="white" (click)="gotoCharge()">
+        立即充值
+      </button>
+    </div>
+    <!--<div class="earnings">
       <ion-row>
         <ion-col col-6>
           <div class="total">
@@ -17,14 +23,14 @@
           </div>
         </ion-col>
       </ion-row>
-    </div>
+    </div>-->
   </div>
 </ion-header>
 
 <ion-content>
   <ion-item-group>
     <button ion-item (click)="gotoWallet()">
-      <ion-icon name="ios-card-outline" item-left></ion-icon> 我的钱包
+      <ion-icon name="ios-card-outline" item-left></ion-icon> 钱包
       <ion-note class="balance" item-right>{{user.balance}} 元</ion-note>
     </button>
   </ion-item-group>

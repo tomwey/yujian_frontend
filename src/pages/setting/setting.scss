@@ -6,6 +6,19 @@ page-setting {
         text-align:center;
         padding-top: 20px;
         padding-bottom: 20px;
+        .user-balance {
+            margin-top: 20px;
+            color: white;
+            p {
+                margin: 0;
+                padding: 0;
+                font-size: 12px;
+                // color: color($colors, golden);
+            }
+            .money {
+                font-size: 28px;
+            }
+        }
         .avatar {
             display: block;
             width: 60px;
