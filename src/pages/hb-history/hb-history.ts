@@ -17,10 +17,12 @@ import { ToolService } from '../../providers/tool-service';
 export class HBHistory {
 
   hbList: any = [];
+  user: any   = null;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private userService: UserService,
               private toolService: ToolService) {
+    this.user = this.navParams.data;
   }
 
   ionViewDidLoad() {

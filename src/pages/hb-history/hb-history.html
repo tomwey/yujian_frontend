@@ -13,6 +13,24 @@
 </ion-header>
 
 <ion-content>
+  <div class="earnings">
+    <img [src]="user.avatar" class="avatar">
+    <h2 class="uid">ID: {{user.id}}</h2>
+    <ion-row>
+      <ion-col>
+        <div class="earn-item">
+          <h4><span class="money">{{user.earn}}</span>元</h4>
+          <p>累计收入</p>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="earn-item">
+          <h4><span class="money">{{user.today_earn}}</span>元</h4>
+          <p>今日收入</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
   <ion-list>
     <button ion-item *ngFor="let item of hbList" (click)="gotoHBResult(item.event)">
       <ion-thumbnail item-left>
