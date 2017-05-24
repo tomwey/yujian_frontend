@@ -23,7 +23,8 @@ export class UserService {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {
         if (!val) {
-          resolve('0c323d8d38744df5a2257a09442c755a');//resolve('605c28475de649628bba70458145f1d0');
+          //resolve('0c323d8d38744df5a2257a09442c755a');测试账号
+          resolve('605c28475de649628bba70458145f1d0');
         } else {
           resolve(val);
         }
