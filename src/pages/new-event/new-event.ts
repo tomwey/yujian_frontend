@@ -113,6 +113,10 @@ export class NewEventPage {
     return ext.indexOf(fileType) !== -1;
   }
 
+  send(): void {
+    console.log(this.event);
+  }
+
   uploadFileToServer(file: File): void {
     // 封装FormData数据
     let formData = new FormData();

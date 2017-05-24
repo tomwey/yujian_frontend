@@ -19,19 +19,17 @@
 
 <ion-content class="option-content">
   <ion-list>
-    <ion-item>
-      <ion-label>开抢时间</ion-label>
-      <ion-datetime displayFormat="YYYY-MM-DD HH:mm" 
-        pickerFormat="YYYY年MM月DD日 HH:mm" placeholder="设置红包开抢时间"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>活动地址</ion-label>
-      <ion-input placeholder="输入地址搜索"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>活动范围</ion-label>
-      <ion-input placeholder="填写活动限制范围"></ion-input>
-      <ion-note item-right>公里</ion-note>
-    </ion-item>
+    <button ion-item (click)="gotoHBTime()">
+      <h2>红包开抢时间</h2>
+      <p>{{startDateTime.date && startDateTime.time ? startDateTime.date + ' ' + startDateTime.time : '可以指定一个红包开抢的时间' }}</p>
+    </button>
+    <button ion-item (click)="gotoAddress()">
+      <h2>活动地址</h2>
+      <p>{{location.address ? location.address : '限定在某个地址内才可以参加该活动'}}</p>
+    </button>
+    <button ion-item (click)="gotoScope()">
+      <h2>活动范围</h2>
+      <p>{{range.value ? '以上面地址为中心' + range.value + '公里范围内' : '限定在以上面活动地址为中心，该范围为半径的才可以参加该活动'}}</p>
+    </button>
   </ion-list>
 </ion-content>
