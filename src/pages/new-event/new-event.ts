@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { ApiService } from '../../providers/api-service';
 import { UserService } from '../../providers/user-service';
+import { ToolService } from '../../providers/tool-service';
 
 @IonicPage()
 @Component({
@@ -25,14 +26,15 @@ export class NewEventPage {
                    address: '', 
                    latLng: '', 
                   }, 
-                  range: 30
+                  range: null,
                 };
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private renderer: Renderer,
               private api: ApiService,
               private users: UserService,
-              private alertCtrl: AlertController ) {
+              private alertCtrl: AlertController,
+              private tool: ToolService ) {
     
   }
 
@@ -114,7 +116,121 @@ export class NewEventPage {
   }
 
   send(): void {
-    console.log(this.event);
+    // console.log(this.event);
+
+    if (!this.event.image) {
+      this.tool.showToast('活动封面图不能为空');
+      return;
+    }
+
+    if (!this.event.title) {
+      this.tool.showToast('活动标题不能为空');
+      return;
+    }
+
+    if (this.event.body.length == 0) {
+      this.tool.showToast('活动详情不能为空');
+      return;
+    }
+
+    if (!this.event.hb) {
+      this.tool.showToast('活动红包不能为空');
+      return;
+    }
+
+    if (!this.event.rule) {
+      this.tool.showToast('活动规则不能为空');
+      return;
+    }
+
+    let formData = new FormData();
+    formData.append('image', this.event.image);
+
+    let rule: any = null;
+    if (this.event.rule.type === 'Quiz') {
+      let answerStr = '';
+      let answers = this.event.rule.answers;
+      for(let i=0; i<answers.length; i++) {
+        let item = answers[i];
+        answerStr += `${item.value}`;
+        if (i !== answers.length - 1) {
+          answerStr += ',';
+        }
+      }
+
+      rule = { type: 'Quiz',
+               question: this.event.rule.question,
+               answer: this.event.rule.answer,
+               answers: answerStr };
+    } else if ( this.event.rule.type === 'Checkin' ) {
+      rule = { type: 'Checkin',
+               address: this.event.rule.location.address,
+               location: this.event.rule.location.latLng,
+               accuracy: this.event.rule.accurcy 
+              };
+    }
+    let payload = {
+      title: this.event.title,
+      body: this.generateBody(),
+      started_at: this.event.started_at,
+      range: this.event.range,
+      location: this.event.location,
+      hb: this.event.hb,
+      rule: rule,
+    }
+
+    console.log(payload);
+
+    formData.append('payload', JSON.stringify(payload));
+
+    this.tool.showLoading('活动发布中...');
+
+    this.users.token().then(token => {
+      formData.append("token", token);
+      this.api.post2('events', formData).then(data => {
+        // console.log(data);
+        this.event = { title: '', 
+                 image: null, 
+                 body: [],
+                 hb: null,
+                 rule: null,
+                 started_at: '', 
+                 location: { 
+                   address: '', 
+                   latLng: '', 
+                  }, 
+                  range: 30
+                };
+        this.imageCover = null;
+        this.tool.hideLoading();
+        setTimeout(() => {
+          this.tool.showToast('发布成功');
+
+        }, 200);
+      }).catch(error => {
+        console.log(error);
+        this.tool.hideLoading();
+        setTimeout(() => {
+          this.tool.showToast('发布失败');
+
+        }, 200);
+      });
+    });
+  }
+
+  generateBody(): string {
+    if (this.event.body.length == 0) {
+      return '';
+    }
+
+    let string = '';
+    this.event.body.forEach(item => {
+      if (item.image)
+        string += `<img src="${item.image}">`
+      if (item.title)
+        string += `<p>${item.title}</p>`
+    });
+    return string;
   }
 
   uploadFileToServer(file: File): void {

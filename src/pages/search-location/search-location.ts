@@ -28,7 +28,7 @@ export class SearchLocationPage {
 
   selectLocation(loc): void {
     this.location.address = loc.title;
-    this.location.latLng  = `${loc.location.lat},${loc.location.lng}`;
+    this.location.latLng  = `${loc.location.lng} ${loc.location.lat}`;
     this.navCtrl.pop();
   }
 

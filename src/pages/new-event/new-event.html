@@ -42,7 +42,7 @@
     </button>
     <button ion-item (click)="openHongbao()">
       <h2>设置红包类型</h2>
-      <p>{{!!event.hb ? (event.hb.type === 0 ? '随机红包' : '固定红包') : '不同的类型用户收益不一样哦'}}</p>
+      <p>{{!!event.hb ? (event.hb._type === 0 ? '随机红包' : '固定红包') : '不同的类型用户收益不一样哦'}}</p>
     </button>
   </ion-list>
   <ion-list class="item-list">

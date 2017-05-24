@@ -19,7 +19,7 @@ export class FixedHongbaoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.event = this.navParams.data;
 
-    if (this.event.hb && this.event.hb.type === 1) {
+    if (this.event.hb && this.event.hb._type === 1) {
       this.hb.money = this.event.hb.min_value;
       this.hb.total = this.event.hb.min_value == 0 ? 0 : this.event.hb.total_money / this.event.hb.min_value;
     } else {
@@ -28,7 +28,7 @@ export class FixedHongbaoPage {
   }
 
   saveHB(): void {
-    this.event.hb = { type: 1, 
+    this.event.hb = { _type: 1, 
                       min_value: this.hb.money,
                       max_value: this.hb.money,
                       total_money: this.hb.money * this.hb.total

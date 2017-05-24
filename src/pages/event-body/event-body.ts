@@ -97,7 +97,7 @@ export class EventBodyPage {
         this.tool.hideLoading();
       }).catch(error => {
         this.tool.hideLoading();
-        setTimeout(function() {
+        setTimeout(() => {
           this.tool.showToast(error);
         }, 200);
         console.log(error);

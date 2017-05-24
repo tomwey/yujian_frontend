@@ -19,7 +19,7 @@ export class RandomHongbaoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.event = this.navParams.data;
 
-    if (this.event.hb && this.event.hb.type === 0) {
+    if (this.event.hb && this.event.hb._type === 0) {
       this.hb = this.event.hb;
     } else {
       this.hb = { total_money: null, min_value: null, max_value: null };
@@ -27,7 +27,7 @@ export class RandomHongbaoPage {
   }
 
   saveHB(): void {
-    this.event.hb = { type: 0,
+    this.event.hb = { _type: 0,
                       min_value: this.hb.min_value,
                       max_value: this.hb.max_value,
                       total_money: this.hb.total_money
