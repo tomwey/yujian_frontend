@@ -35,7 +35,7 @@ export class HomePage {
               private toolService: ToolService,
               private location: LocationProvider) 
   {
-    // this.startLocation();             
+    // this.startLocation();          
   }
 
   ionViewDidLoad() {
@@ -45,7 +45,7 @@ export class HomePage {
       this.navCtrl.push('EventDetailPage', e['detail']);
     });
     document.addEventListener('map:drag', (e) => {
-      console.log('dddddddd');
+      // console.log('dddddddd');
       this.loadHBData();
     });
 

@@ -35,6 +35,10 @@ $colors: (
   white:    white,
 );
 
+// 解决ios模式下面的android显示border隐藏的问题
+// $hairlines-width: 0.6px;
+// $list-border-color: #e0dfe4;
+
 // 自定义TabBar的选中颜色
 $tabs-tab-color-active: $theme-red;
 

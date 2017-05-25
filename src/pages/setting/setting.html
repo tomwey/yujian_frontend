@@ -27,26 +27,26 @@
   </div>
 </ion-header>
 
-<ion-content>
-  <ion-item-group>
+<ion-content style="background-color:rgb(239, 237, 236);">
+  <ion-list>
     <button ion-item (click)="gotoWallet()">
       <ion-icon name="ios-card-outline" item-left></ion-icon> 钱包
       <ion-note class="balance" item-right>{{user.balance}} 元</ion-note>
     </button>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-item-divider color="light"></ion-item-divider>
+  </ion-list>
+  <ion-list>
+    <!--<ion-item-divider color="light"></ion-item-divider>-->
     <button ion-item (click)="gotoHBHistory()">
       <ion-icon name="ios-list-outline" item-left></ion-icon> 红包历史
     </button>
     <button ion-item (click)="gotoMyEvents()">
       <ion-icon name="ios-heart-outline" item-left></ion-icon> 我的发布
     </button>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-item-divider color="light"></ion-item-divider>
+  </ion-list>
+  <ion-list>
+    <!--<ion-item-divider color="light"></ion-item-divider>-->
     <button ion-item (click)="gotoHelp()">
       <ion-icon name="ios-help-circle-outline" item-left></ion-icon> 帮助中心</button>
     <button ion-item (click)="gotoAbout()"><ion-icon name="ios-information-circle-outline" item-left></ion-icon> 关于</button>
-  </ion-item-group>
+  </ion-list>
 </ion-content>
