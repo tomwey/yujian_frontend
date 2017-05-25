@@ -41,8 +41,12 @@ export class SettingPage {
     this.navCtrl.push('HBHistory',this.user);
   }
 
-  gotoMyEvents(): void {
+  gotoCharge(): void {
 
+  }
+
+  gotoMyEvents(): void {
+    this.navCtrl.push('MyEventsPage')
   }
 
   gotoHelp(): void {

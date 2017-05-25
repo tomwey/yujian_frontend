@@ -1,0 +1,22 @@
+page-my-events {
+    .event {
+        .money {
+            font-size: 12px;
+
+            .total {
+                font-size: 18px;
+                color: color($colors, theme-red);
+            }
+            .left {
+                font-size: 14px;
+                color: color($colors, theme-red);
+                padding-left: 5px;
+            }
+
+            .small {
+                font-size: 12px;
+                color: rgb(168,168,168);
+            }
+        }
+    }
+}

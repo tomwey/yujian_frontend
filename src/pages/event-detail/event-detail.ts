@@ -57,12 +57,20 @@ export class EventDetailPage {
     }, 20);
   }
 
+  gotoReport(): void {
+    let modal = this.modalCtrl.create('ReportPage', { eventId: this.event.id });
+    modal.present();
+  }
+
   loadEvent(): void {
     this.toolService.showLoading();
 
     this.events.getEvent(this.event.id)
       .then(data => {
         this.event = data;
+        
+        this.event.view_count += 1;
+
         this.toolService.hideLoading();
         console.log(data);
       })
@@ -70,6 +78,22 @@ export class EventDetailPage {
         this.toolService.hideLoading();
         setTimeout(() => {
           this.toolService.showToast(error);
+        }, 200);
+      });
+  }
+
+  doLike(): void {
+    this.toolService.showLoading('点赞中...');
+
+    this.events.like(this.event.id, null)
+      .then(data => {
+        this.event.likes_count += 1;
+        this.toolService.hideLoading();
+      })
+      .catch(error => {
+        this.toolService.hideLoading();
+        setTimeout(() => {
+          this.toolService.showToast(error.message || error);
         }, 200);
       });
   }

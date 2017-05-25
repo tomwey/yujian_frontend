@@ -20,7 +20,7 @@
         <h2>{{event.title}}</h2>
         <p class="stats">
           <span class="data">人气 {{event.view_count}}, 转发 {{event.share_count}}, 点赞 {{event.likes_count}}</span>
-          <button ion-button icon-left clear small class="like-btn">
+          <button ion-button icon-left clear small class="like-btn" (click)="doLike()">
             <ion-icon name="ios-thumbs-up-outline"></ion-icon> 赞一下
           </button>
         </p>
@@ -31,7 +31,7 @@
     </ion-card-content>
     <ion-item>
       <p text-wrap>如果发现内容不实，欢迎举报！</p>
-      <button ion-button icon-left clear small item-right style="color: black;">
+      <button ion-button icon-left clear small item-right style="color: black;" (click)="gotoReport()">
           <ion-icon name="ios-warning-outline"></ion-icon> 举报
       </button>
     </ion-item>

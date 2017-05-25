@@ -25,12 +25,34 @@ export class EventsService {
     return this.api.get('events/list', { lat: lat, lng: lng, page: pageNo });
   }
 
+  getMyEvents(pageNo: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get('events', { token: token, page: pageNo }).then(data => {
+          resolve(data);
+        }).catch(error=>reject(error));
+      });
+    });
+  }
+
   getEvent(eventId: number): Promise<any> {
     return this.api.get(`events/${eventId}/body`, {});
   }
 
   getEventEarns(eventId: number, pageNo: number, pageSize: number): Promise<any> {
     return this.api.get(`events/${eventId}/earns`, { page: pageNo, size: pageSize });
+  }
+
+  like(eventId: number, loc: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.post(`events/${eventId}/like`, { token: token, loc: loc })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => reject(error));
+      });
+    });
   }
 
   commit(payload): Promise<any> {
