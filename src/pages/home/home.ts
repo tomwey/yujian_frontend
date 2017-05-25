@@ -9,7 +9,7 @@ import { EventsService } from '../../providers/events-service';
 
 import { LocationProvider } from '../../providers/location/location';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
