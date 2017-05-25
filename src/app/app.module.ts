@@ -33,7 +33,7 @@ import { LocationProvider } from '../providers/location/location';
       mode: 'ios',
       backButtonText: '',
       tabsHideOnSubPages: true,
-      // pageTransition: 'ios-transition'
+      // pageTransition: 'ios'
     })
   ],
   bootstrap: [IonicApp],
