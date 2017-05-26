@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, NavController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { UserService } from "../../providers/user-service";
 import { ToolService } from "../../providers/tool-service";
 import { TabsPage } from "../tabs/tabs";
