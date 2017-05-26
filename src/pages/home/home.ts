@@ -1,11 +1,12 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { ToolService } from '../../providers/tool-service';
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
+import { UserService } from '../../providers/user-service';
 
 import { LocationProvider } from '../../providers/location/location';
 
@@ -33,10 +34,12 @@ export class HomePage {
               private qqMaps: QQMaps,
               private platform: Platform,
               private toolService: ToolService,
-              private location: LocationProvider) 
+              private location: LocationProvider,
+              private users: UserService,
+              private modalCtrl: ModalController) 
   {
     // this.startLocation();      
-    console.log(wx);   
+    // console.log(wx);   
   }
 
   ionViewDidLoad() {

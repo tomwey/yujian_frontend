@@ -8,6 +8,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from "../pages/home/home";
+import { AccountBindPage } from "../pages/account-bind/account-bind";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -29,6 +30,7 @@ import { LocationProvider } from '../providers/location/location';
     MyApp,
     TabsPage,
     HomePage,
+    AccountBindPage,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +48,7 @@ import { LocationProvider } from '../providers/location/location';
     MyApp,
     TabsPage,
     HomePage,
+    AccountBindPage,
   ],
   providers: [
     StatusBar,

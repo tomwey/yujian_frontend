@@ -22,13 +22,26 @@ export class UserService {
   token(): Promise<any> {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {
-        if (!val) {
-          // resolve('0c323d8d38744df5a2257a09442c755a');//测试账号
-          resolve('605c28475de649628bba70458145f1d0');
-        } else {
-          resolve(val);
-        }
+        resolve(val);
+        // if (!val) {
+        //   // resolve('0c323d8d38744df5a2257a09442c755a');//测试账号
+        //   resolve('605c28475de649628bba70458145f1d0');
+        // } else {
+        //   resolve(val);
+        // }
       } );
+    });
+  }
+
+  bindAccount(code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.api.post('account/bind', { code: code })
+        .then(data => {
+          this.storage.set('token', data.token).then(data=>{
+            resolve(data);
+          }).catch(error=>reject(error));
+        })
+        .catch(error=>reject(error));
     });
   }
 
