@@ -35,7 +35,8 @@ export class HomePage {
               private toolService: ToolService,
               private location: LocationProvider) 
   {
-    // this.startLocation();          
+    // this.startLocation();      
+    console.log(wx);   
   }
 
   ionViewDidLoad() {

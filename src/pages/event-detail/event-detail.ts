@@ -138,7 +138,7 @@ export class EventDetailPage {
     let payload;
     if (this.event.rule_type === 'QuizRule') {
       let answers = this.event.rule.answers;
-    let answerOption = answers.indexOf(this.answer);
+      let answerOption = answers.indexOf(this.answer);
       payload = { event: this.event, answer: answerOption, location:  loc };
     } else if ( this.event.rule_type === 'CheckinRule' ) {
       payload = { event: this.event, location:  loc };
