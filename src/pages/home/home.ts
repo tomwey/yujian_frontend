@@ -8,7 +8,7 @@ import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 
-import { LocationProvider } from '../../providers/location/location';
+// import { LocationProvider } from '../../providers/location/location';
 
 // @IonicPage()
 @Component({
@@ -34,12 +34,13 @@ export class HomePage {
               private qqMaps: QQMaps,
               private platform: Platform,
               private toolService: ToolService,
-              private location: LocationProvider,
+              // private location: LocationProvider,
               private users: UserService,
               private modalCtrl: ModalController) 
   {
     // this.startLocation();      
-    // console.log(wx);   
+    // console.log(wx); 
+    // this.fetchUserLocation();  
   }
 
   ionViewDidLoad() {
@@ -65,16 +66,23 @@ export class HomePage {
     });
   }
 
-  startLocation(): void {
-    this.toolService.showLoading('位置定位中...');
-    
+  fetchUserLocation(): void {
     this.mapError = null;
 
-    this.qqMaps.startLocating()
-      .then(pos => {
-        console.log(pos);
+    this.toolService.showLoading('获取位置中...');
+
+    this.users.loadUser()
+      .then(user => {
         this.toolService.hideLoading();
 
+        console.log(user);
+        if (!user.current_location) {
+          this.mapError = { code: -1, message: '位置获取失败或未开启定位！' };
+          return;
+        }
+        // 初始化地图
+        let arr = user.current_location.split(',');
+        let pos = { lat: arr[0], lng: arr[1] };
         if (this.map) {
           this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
           // this.loadHBData();
@@ -82,13 +90,41 @@ export class HomePage {
           // console.log('开始初始化地图');
           this.initMap(pos);
         }
-
-      })
-      .catch(error => {
-        console.log(error);
+      }).catch(error => {
         this.toolService.hideLoading();
-        this.mapError = '位置获取失败！';
+
+        // setTimeout(() => {
+          this.mapError = error;
+          // this.toolService.showToast('位置获取失败!')
+        // }, 200);
       });
+  }
+
+  startLocation(): void {
+    // this.toolService.showLoading('位置获取中...');
+    
+    this.mapError = null;
+
+    this.fetchUserLocation();
+    // this.qqMaps.startLocating()
+    //   .then(pos => {
+    //     console.log(pos);
+    //     this.toolService.hideLoading();
+
+    //     if (this.map) {
+    //       this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
+    //       // this.loadHBData();
+    //     } else {
+    //       // console.log('开始初始化地图');
+    //       this.initMap(pos);
+    //     }
+
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     this.toolService.hideLoading();
+    //     this.mapError = '位置获取失败！';
+    //   });
   }
 
   // 初始化地图
@@ -110,16 +146,16 @@ export class HomePage {
       });
   }
   // 重新定位到当前位置
-  relocate() {
-    this.qqMaps.startLocating().then(position => {
-      this.map.panTo(new qq.maps.LatLng(position.lat,position.lng));
+  // relocate() {
+  //   this.qqMaps.startLocating().then(position => {
+  //     this.map.panTo(new qq.maps.LatLng(position.lat,position.lng));
 
-      // 重新获取数据
-      this.loadHBData();
-    }).catch(error => {
+  //     // 重新获取数据
+  //     this.loadHBData();
+  //   }).catch(error => {
 
-    })
-  }
+  //   })
+  // }
 
   loadHBData() {
     setTimeout(() => {

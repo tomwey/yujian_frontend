@@ -32,7 +32,7 @@
     <!--<ion-icon name="ios-disc"></ion-icon>-->
     <div class="dot"></div>
   </div>
-  <div class="locate-button" (tap)="relocate()" [hidden]="!mapLoaded">
+  <div class="locate-button" (tap)="startLocation()" [hidden]="!mapLoaded">
     <ion-icon name="ios-locate-outline" class="locate-icon"></ion-icon>
   </div>
   <div class="center-box map-error-container" *ngIf="!!mapError">
