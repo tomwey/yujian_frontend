@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content class="event-content">
-  <div class="event-caption">
+  <div class="event-caption" *ngIf="!!event_earn">
     <img src="assets/images/hb_caption_bg.png" class="hb-header-bg" />
     <div class="event-info">
       <img [src]="event_earn.image" class="avatar" />
@@ -26,6 +26,6 @@
     </div>
   </div>
   <div class="go-on-grab">
-    <button ion-button block color="theme-red" (click)="gogoGrab()">继续抢红包</button>
+    <button ion-button block color="theme-red" (click)="gotoGrab()">继续抢红包</button>
   </div>
 </ion-content>

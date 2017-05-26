@@ -20,7 +20,11 @@ export class SettingPage {
   constructor(public navCtrl: NavController,
               private users: UserService,
               private tool: ToolService) {
-      this.loadUserProfile();
+      // this.loadUserProfile();
+  }
+
+  ionViewWillEnter() {
+    this.loadUserProfile();
   }
 
   loadUserProfile(): void {

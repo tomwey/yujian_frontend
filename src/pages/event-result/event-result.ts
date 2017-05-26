@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+// import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the EventResult page.
@@ -15,17 +16,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class EventResult {
   event_earn: any = { title: '', image: '', money: '0.0' };
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.event_earn.title = this.navParams.data.event.title;
-    this.event_earn.image = this.navParams.data.event.image;
-    this.event_earn.money = this.navParams.data.money;
+      this.event_earn.title = this.navParams.data.event.title;
+      this.event_earn.image = this.navParams.data.event.image;
+      this.event_earn.money = this.navParams.data.money;
   }
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad EventResult');
   }
 
-  gogoGrab(): void {
-    this.navCtrl.setRoot('TabsPage');
+  gotoGrab(): void {
+    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
 }
