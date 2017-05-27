@@ -7,6 +7,7 @@ import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
+import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
 
 // import { LocationProvider } from '../../providers/location/location';
 
@@ -36,11 +37,35 @@ export class HomePage {
               private toolService: ToolService,
               // private location: LocationProvider,
               private users: UserService,
-              private modalCtrl: ModalController) 
+              private modalCtrl: ModalController,
+              private utils: UtilsServiceProvider) 
   {
     // this.startLocation();      
     // console.log(wx); 
     // this.fetchUserLocation();  
+    this.utils.getWXConfig('home_sign_url')
+      .then(data => {
+        // console.log(data);
+        wx.config(data);
+        wx.ready(() => {
+          console.log('ready...');
+          wx.getLocation({
+            type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success:  (res) => {
+              let lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+              let lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+              let speed = res.speed; // 速度，以米/每秒计
+              let accuracy = res.accuracy; // 位置精度
+              console.log(`lat:${lat},lng:${lng},speed:${speed},accuracy:${accuracy}`);
+            }
+          });
+        });
+        wx.error(res => {
+          console.log(`error:${res}`);
+        });
+      }).catch(error=>{
+        console.log(error);
+      });
   }
 
   ionViewDidLoad() {

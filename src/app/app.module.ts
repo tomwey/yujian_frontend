@@ -24,6 +24,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationSearchProvider } from '../providers/location-search/location-search';
 import { LocationProvider } from '../providers/location/location';
+import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,7 @@ import { LocationProvider } from '../providers/location/location';
     ToolService,
     UserService,
     EventsService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider, LocationProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider, LocationProvider, UtilsServiceProvider,
   ]
 })
 export class AppModule {}
