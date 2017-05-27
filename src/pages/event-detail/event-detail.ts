@@ -25,6 +25,8 @@ export class EventDetailPage {
   pageSize: number = 20;
   totalPage: number = 1;
   needLoadMore: boolean = false;
+
+  hasLoaded: boolean = false;
   
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -36,6 +38,13 @@ export class EventDetailPage {
     this.event = this.navParams.data;
 
     this.fetchUserLocation();
+
+    // this.loadEvent();
+
+    // setTimeout(() => {
+    //   this.loadEventEarns();
+    // }, 20);
+    
   }
 
   fetchUserLocation(): void {
@@ -48,13 +57,20 @@ export class EventDetailPage {
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad EventDetail');
-    setTimeout(() => {
-      this.loadEvent();
-    }, 20);
+    // setTimeout(() => {
+    //   this.loadEvent();
+    // }, 20);
 
-    setTimeout(() => {
-      this.loadEventEarns();
-    }, 20);
+    // setTimeout(() => {
+    //   this.loadEventEarns();
+    // }, 20);
+  }
+
+  ionViewDidEnter() {
+    if (!this.hasLoaded) {
+      this.hasLoaded = true;
+      this.loadEvent();
+    }
   }
 
   gotoReport(): void {
@@ -63,16 +79,18 @@ export class EventDetailPage {
   }
 
   loadEvent(): void {
-    this.toolService.showLoading();
+    this.toolService.showLoading('拼命加载中...');
 
     this.events.getEvent(this.event.id)
       .then(data => {
-        this.event = data;
+        setTimeout(() => {
+          this.event = data;
+          this.event.view_count += 1;
+          this.toolService.hideLoading();
+        }, 0);
         
-        this.event.view_count += 1;
-
-        this.toolService.hideLoading();
-        console.log(data);
+        this.loadEventEarns();
+        // console.log(data);
       })
       .catch(error => {
         this.toolService.hideLoading();
