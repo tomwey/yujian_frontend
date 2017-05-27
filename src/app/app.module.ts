@@ -25,6 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationSearchProvider } from '../providers/location-search/location-search';
 import { LocationProvider } from '../providers/location/location';
 import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
+import { ScriptLoadProvider } from '../providers/script-load/script-load';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
     ToolService,
     UserService,
     EventsService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider, LocationProvider, UtilsServiceProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider, LocationProvider, UtilsServiceProvider, ScriptLoadProvider,
   ]
 })
 export class AppModule {}

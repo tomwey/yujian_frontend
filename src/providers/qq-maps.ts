@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 // import { Geolocation } from '@ionic-native/geolocation';
+import { ScriptLoadProvider } from './script-load/script-load';
 
 export interface MapError {
   code: number;
@@ -18,7 +19,7 @@ export class QQMaps {
   mapInitialised: boolean = false;
   mapLoaded: any;
 
-  constructor(/*private geolocation: Geolocation*/) {
+  constructor(/*private geolocation: Geolocation*/private scriptLoad: ScriptLoadProvider) {
     // this.initSDK();
   }
 
@@ -120,22 +121,41 @@ export class QQMaps {
    */
   startLocating(): Promise<any> {
     return new Promise((resolve, reject) => {
-      if ( typeof qq.maps.Geolocation == "undefined" ) {
-        reject({ code: -1, message: '定位SDK未加载成功' });
-      } else {
-        let geolocation = new qq.maps.Geolocation(APP_KEY, APP_NAME);
-        if (geolocation) {
-          geolocation.getLocation((pos) => {
+      this.scriptLoad.load('qqLoc').then(data => {
+        let script = data[0];
+        if (!script.loaded) {
+          reject({ code: -1, message: '定位SDK加载失败！' });
+        } else {
+          let geolocation = new qq.maps.Geolocation();
+          if (geolocation) {
+            geolocation.getLocation((pos) => {
               console.log(`pos:${pos.lat},${pos.lng}`);
               resolve(pos);
             }, (error) => {
               console.log(`e->pos:${error}`);
               reject(error);
             }, { timeout: 9000 });
-        } else {
-          reject({code: -1, message: '定位SDK初始化失败'});
-        }
-      }  
+          } else {
+            reject({code: -1, message: '定位SDK初始化失败'});
+          }
+        } // end outer if
+      });
+      // if ( typeof qq.maps.Geolocation == "undefined" ) {
+      //   reject({ code: -1, message: '定位SDK未加载成功' });
+      // } else {
+      //   let geolocation = new qq.maps.Geolocation(APP_KEY, APP_NAME);
+        // if (geolocation) {
+        //   geolocation.getLocation((pos) => {
+        //       console.log(`pos:${pos.lat},${pos.lng}`);
+        //       resolve(pos);
+        //     }, (error) => {
+        //       console.log(`e->pos:${error}`);
+        //       reject(error);
+        //     }, { timeout: 9000 });
+        // } else {
+        //   reject({code: -1, message: '定位SDK初始化失败'});
+        // }
+      // }  
     });
   }
 
@@ -153,30 +173,40 @@ export class QQMaps {
     return new Promise( (resolve, reject) => {
       // console.log('ddddd');
       // 默认设置地图为成都中心
-      let center = new qq.maps.LatLng(30.668620,104.073605);
-      let mapOptions = {
-        center: center,
-        zoom: 14,
-        mapTypeId: qq.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true,
-        useNative: true,
-      };
-      let map = new qq.maps.Map(this.mapElement, mapOptions);
-      if (map) {
-        this.map = map;
-        // console.log('ddddd123');
-        // 注册拖动地图事件
-        qq.maps.event.addListener(this.map, 'center_changed', function() {
-          let event = new CustomEvent('map:drag');
-          document.dispatchEvent(event);
-        });
 
-        // 回调上层接口
-        resolve(this.map);
-      } else {
-        let mapError = { code: -1, message: '地图初始化失败' };
-        reject(mapError);
-      }
+      this.scriptLoad.load('qqMap').then(data => {
+        let script = data[0];
+        if (!script.loaded) {
+          reject({ code: -2, message: '地图SDK加载失败' });
+        } else {
+          // 创建地图
+          let center = new qq.maps.LatLng(30.668620,104.073605);
+          let mapOptions = {
+            center: center,
+            zoom: 14,
+            mapTypeId: qq.maps.MapTypeId.ROADMAP,
+            disableDefaultUI: true,
+            useNative: true,
+          };
+          let map = new qq.maps.Map(this.mapElement, mapOptions);
+          if (map) {
+            this.map = map;
+            // console.log('ddddd123');
+            // 注册拖动地图事件
+            qq.maps.event.addListener(this.map, 'center_changed', function() {
+              let event = new CustomEvent('map:drag');
+              document.dispatchEvent(event);
+            });
+
+            // 回调上层接口
+            resolve(this.map);
+          } else {
+            let mapError = { code: -2, message: '地图初始化失败' };
+            reject(mapError);
+          }
+        }
+      });
+
     });
   } // end initMap
 
