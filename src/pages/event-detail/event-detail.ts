@@ -38,13 +38,6 @@ export class EventDetailPage {
     this.event = this.navParams.data;
 
     this.fetchUserLocation();
-
-    // this.loadEvent();
-
-    // setTimeout(() => {
-    //   this.loadEventEarns();
-    // }, 20);
-    
   }
 
   fetchUserLocation(): void {

@@ -8,7 +8,7 @@ import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
-// import { ScriptLoadProvider } from '../../providers/script-load/script-load';
+import { ScriptLoadProvider } from '../../providers/script-load/script-load';
 // import { LocationProvider } from '../../providers/location/location';
 
 // @IonicPage()
@@ -38,37 +38,16 @@ export class HomePage {
               // private location: LocationProvider,
               private users: UserService,
               private modalCtrl: ModalController,
-              private utils: UtilsServiceProvider) 
+              private utils: UtilsServiceProvider,
+              private scriptLoader: ScriptLoadProvider) 
   {
-    // this.scriptLoad.load('qqLoc', 'qqMap').then(data => {
-    //   console.log(data);
+    // this.scriptLoader.load('qqLoc', 'qqMap').then(data => {
+    //   console.log(qq.maps);
+    //   // console.log(data);
+    //   // this.startLocation().then
+    // }).catch(error => {
+    //   console.log(error);
     // });
-    // this.startLocation();      
-    // console.log(wx); 
-    // this.fetchUserLocation();  
-    // this.utils.getWXConfig('home_sign_url')
-    //   .then(data => {
-    //     // console.log(data);
-    //     wx.config(data);
-    //     wx.ready(() => {
-    //       console.log('ready...');
-    //       wx.getLocation({
-    //         type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-    //         success:  (res) => {
-    //           let lat = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-    //           let lng = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-    //           let speed = res.speed; // 速度，以米/每秒计
-    //           let accuracy = res.accuracy; // 位置精度
-    //           console.log(`lat:${lat},lng:${lng},speed:${speed},accuracy:${accuracy}`);
-    //         }
-    //       });
-    //     });
-    //     wx.error(res => {
-    //       console.log(`error:${res}`);
-    //     });
-    //   }).catch(error=>{
-    //     console.log(error);
-    //   });
   }
 
   ionViewDidLoad() {
@@ -146,7 +125,9 @@ export class HomePage {
           // this.loadHBData();
         } else {
           // console.log('开始初始化地图');
-          this.initMap(pos);
+          setTimeout(() => {
+            this.initMap(pos);
+          }, 0);
         }
 
       })
@@ -165,13 +146,14 @@ export class HomePage {
         this.map = map;
         this.mapLoaded = true;
         this.toolService.hideLoading();
-
+        console.log(`lat:${pos.lat},lng:${pos.lng}`);
         this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
 
         // this.loadHBData();
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
+        this.toolService.showToast(error.message || error);
         // this.toolService.hideLoading();
       });
   }

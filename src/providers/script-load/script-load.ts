@@ -40,14 +40,15 @@ export class ScriptLoadProvider {
         let script = document.createElement('script');
         script.type = 'text/javascript';
         script.src  = this.scripts[name].src;
+        // script.async = true;
         script.onload = () => {
           this.scripts[name].loaded = true;
           resolve({script:name, loaded: true, status: 'Loaded'});
         };
 
         script.onerror = (error: any) => resolve({script:name, loaded: false, status: 'Loaded Failure'});
-        // document.getElementsByTagName('head')[0].appendChild(script);
-        document.body.appendChild(script);
+        document.getElementsByTagName('head')[0].appendChild(script);
+        // document.body.appendChild(script);
       }
     });
   }
