@@ -8,7 +8,7 @@ import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
-import { ScriptLoadProvider } from '../../providers/script-load/script-load';
+// import { ScriptLoadProvider } from '../../providers/script-load/script-load';
 // import { LocationProvider } from '../../providers/location/location';
 
 // @IonicPage()
@@ -38,8 +38,7 @@ export class HomePage {
               // private location: LocationProvider,
               private users: UserService,
               private modalCtrl: ModalController,
-              private utils: UtilsServiceProvider,
-              private scriptLoader: ScriptLoadProvider) 
+              private utils: UtilsServiceProvider) 
   {
     // this.scriptLoader.load('qqLoc', 'qqMap').then(data => {
     //   console.log(qq.maps);
@@ -134,7 +133,7 @@ export class HomePage {
       .catch(error => {
         // console.log(error);
         this.toolService.hideLoading();
-        this.mapError = '位置获取失败!';
+        this.mapError = '位置获取失败或未开启定位！';
       });
   }
 

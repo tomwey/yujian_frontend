@@ -7,7 +7,7 @@ export interface MapError {
   message?: string;
 }
 
-const APP_KEY  = "EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ";
+// const APP_KEY  = "EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ";
 // const APP_NAME = "yujian";
 
 @Injectable()

@@ -3,6 +3,7 @@ import { NavController, IonicPage } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
+import { QQMaps } from '../../providers/qq-maps';
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 
 @IonicPage()
@@ -19,6 +20,7 @@ export class ExplorePage {
               private toolService: ToolService,
               // private hbService: RedPacketService,
               private events: EventsService,
+              private qqMaps: QQMaps
               ) {
       
   }
@@ -35,7 +37,17 @@ export class ExplorePage {
       this.toolService.showLoading('拼命加载中...');
     }
     
-    this.events.list(0,0,this.pageNo)
+    this.qqMaps.startLocating()
+      .then(pos => {
+        this.startLoadEvents(pos.lat, pos.lng, refresher);
+      })
+      .catch(error => {
+        this.startLoadEvents(0,0, refresher);
+      });
+  }
+
+  startLoadEvents(lat, lng, refresher) {
+    this.events.list(lat,lng,this.pageNo)
       .then(data => {
         this.eventsData = data.data || data;
         console.log(data);
