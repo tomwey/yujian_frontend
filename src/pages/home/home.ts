@@ -139,9 +139,12 @@ export class HomePage {
 
   // 初始化地图
   initMap(pos) {
+    this.toolService.showLoading('地图加载中...');
     this.qqMaps.init(this.mapElement.nativeElement, null)
       .then((map) => {
         // console.log('123333');
+        this.toolService.hideLoading();
+
         this.map = map;
         this.mapLoaded = true;
         this.toolService.hideLoading();
@@ -152,8 +155,11 @@ export class HomePage {
       })
       .catch(error => {
         // console.log(error);
-        this.toolService.showToast(error.message || error);
-        // this.toolService.hideLoading();
+        this.toolService.hideLoading();
+
+        setTimeout(() => {
+          this.toolService.showToast(error.message || error);
+        }, 100);
       });
   }
   // 重新定位到当前位置

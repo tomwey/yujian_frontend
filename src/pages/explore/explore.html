@@ -16,7 +16,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="events">
-    <ion-list no-lines inset>
+    <ion-list>
       <button ion-item *ngFor="let event of eventsData" detail-none class="event" (click)="gotoDetail(event)">
           <ion-thumbnail item-left>
             <img [src]="event.image" />
