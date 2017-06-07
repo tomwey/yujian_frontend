@@ -17,23 +17,24 @@
   </ion-refresher>
   <div class="events">
     <ion-list>
-      <button ion-item *ngFor="let event of eventsData" detail-none class="event" (click)="gotoDetail(event)">
+      <button ion-item *ngFor="let event of eventsData" 
+          detail-none class="event" (click)="gotoDetail(event)">
           <ion-thumbnail item-left>
             <img [src]="event.image" />
           </ion-thumbnail>
           <h2 class="title">{{event.title}}</h2>
-          <p><span class="alert">抢</span>
-            <span class="label">
-              ¥ {{ event.hb.min_value == event.hb.max_value ? 
+          <p class="info">
+            <span class="rule-type">签</span>
+            <span class="hb-earn">
+              <span class="grab">抢</span>
+              <span class="moneys">{{ event.hb.min_value == event.hb.max_value ? 
                    event.hb.min_value :
                    event.hb.min_value + '-' + event.hb.max_value
-                }}
-            </span></p>
-          <p><span class="alert">限</span> 
-            <span class="label">
-              以宜宾燃面为中心半径为10公里范围以内
+                }} 元
+              </span>
             </span>
           </p>
+          <p class="address">成都市金牛区韦家碾一路24号</p>
           <ion-note item-right>¥{{event.hb.left_money}}</ion-note>
       </button>
     </ion-list>

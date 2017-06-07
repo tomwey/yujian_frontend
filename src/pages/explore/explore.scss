@@ -1,4 +1,73 @@
 page-explore {
+    .money-symbol {
+        font-size: 12px;
+        padding-right: 5px;
+    }
+    .circle {
+        display: block;
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        border-radius: 8px;
+        // line-height: 16px;
+        text-align: center;
+        background-color: color($colors, theme-red);
+        color: white;
+        font-size: 8px;
+    }
+
+    .outline {
+        background-color: transparent;
+        border: 1px solid color($colors, theme-red);
+        color: color($colors, theme-red);
+    }
+
+    .event {
+        .info {
+            margin-top: 6px;
+            margin-bottom: 6px;
+            // background-color: red;
+            // line-height: 100%;
+        }
+        .rule-type {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            // margin-top: -2px;
+            font-size: 8px;
+            // padding: 3px;
+            width: 16px;
+            height: 16px;
+            line-height: 14px;
+            // padding: 6px;
+            border-radius: 8px;
+            text-align: center;
+            background-color: transparent;
+            border: 1px solid color($colors, theme-red);
+            color: color($colors, theme-red);
+        }
+        .hb-earn {
+            display: inline-block;
+            margin-left: 5px;
+            // padding: 0;
+            // margin: 0;
+            // margin-top: 2px;
+            font-size: 12px;
+            border-radius: 2px;
+            padding-right: 5px;
+            border: 1px solid color($colors, theme-red);
+            color: color($colors, theme-red);
+            .grab {
+                background-color: color($colors, theme-red);
+                padding: 2px 6px;
+                color: white;
+            }
+            .moneys {
+                padding-left: 2px;
+            }
+        }
+    }
+
     .events-1 {
         // padding: 10px;
         // padding-top: 10px;
