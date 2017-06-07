@@ -71,11 +71,20 @@ export class EventsService {
   like(eventId: number, loc: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.api.post(`events/${eventId}/like`, { token: token, loc: loc })
+        this.qqMaps.startLocating().then(pos => {
+          this.api.post(`events/${eventId}/like`, { token: token, loc: `${pos.lng},${pos.lat}` })
           .then(data => {
             resolve(data);
           })
           .catch(error => reject(error));
+        })
+        .catch(error => {
+          this.api.post(`events/${eventId}/like`, { token: token, loc: null })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => reject(error));
+        });
       });
     });
   }
