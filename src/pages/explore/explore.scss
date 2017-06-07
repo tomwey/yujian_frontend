@@ -29,17 +29,25 @@ page-explore {
             // background-color: red;
             // line-height: 100%;
         }
+        .address {
+            font-size: 14px;
+            ion-icon {
+                font-size: 16px;
+            }
+        }
+        .title {
+            clear: left;
+        }
         .rule-type {
-            display: inline-block;
-            margin: 0;
-            padding: 0;
-            // margin-top: -2px;
+            display: block;
+            float: left;
+            margin-right: 5px;
+            margin-top: 2px;
             font-size: 8px;
             // padding: 3px;
             width: 16px;
             height: 16px;
             line-height: 14px;
-            // padding: 6px;
             border-radius: 8px;
             text-align: center;
             background-color: transparent;
