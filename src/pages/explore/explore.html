@@ -39,6 +39,7 @@
               <span class="money-symbol">¥</span>{{event.hb.left_money}}
             </div>
           </ion-note>
+          <div class="no-money" [hidden]="event.hb.left_money > 0.0">已抢完</div>
       </button>
     </ion-list>
   </div>

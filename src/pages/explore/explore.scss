@@ -13,6 +13,23 @@ page-explore {
         //         height: 70px;
         //     }
         // }
+        .no-money {
+            position: absolute;
+            z-index: 10;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            border-radius: 30px;
+            border: 2px dashed color($colors, theme-red);
+            color: color($colors, theme-red);
+            top: 18px;
+            right: 20px;
+            font-size: 14px;
+            -ms-transform: rotate(-30deg); /* IE 9 */
+            -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
+            transform: rotate(-30deg);
+        }
         .info {
             margin-top: 6px;
             margin-bottom: 6px;
