@@ -19,7 +19,7 @@
     <ion-list>
       <button ion-item *ngFor="let event of eventsData" 
           detail-none class="event" (click)="gotoDetail(event)">
-          <ion-thumbnail item-left>
+          <ion-thumbnail item-left class="cover">
             <img [src]="event.image" />
           </ion-thumbnail>
           <h2 class="title"><span class="rule-type">签</span> {{event.title}}</h2>
@@ -34,7 +34,11 @@
             </span>
           </p>
           <p class="address"><ion-icon name="ios-pin-outline"></ion-icon> 成都市金牛区韦家碾一路24号</p>
-          <ion-note item-right>¥{{event.hb.left_money}}</ion-note>
+          <ion-note item-right>
+            <div class="money">
+              <span class="money-symbol">¥</span>{{event.hb.left_money}}
+            </div>
+          </ion-note>
       </button>
     </ion-list>
   </div>
