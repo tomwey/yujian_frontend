@@ -106,7 +106,7 @@ export class EventsService {
               .catch(error => reject(error));
           })
           .catch(error => {
-            payload.location = `0,0`
+            payload.location = '0,0'
             this._commit(token, payload)
               .then(data => resolve(data))
               .catch(error => reject(error));
