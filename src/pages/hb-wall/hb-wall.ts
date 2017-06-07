@@ -22,7 +22,7 @@ export class HBWallPage {
               private viewController: ViewController,
               private app: App,
               private events: EventsService,
-              private tool: ToolService) {
+              private tool: ToolService,) {
     this.payload = this.navParams.data;
     // console.log(`payload: ${this.payload.location}`);
   }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 // import { Storage }    from '@ionic/storage';
 import { UserService } from './user-service';
+import { QQMaps } from './qq-maps';
 
 /*
   Generated class for the EventsService provider.
@@ -13,7 +14,8 @@ import { UserService } from './user-service';
 export class EventsService {
 
   constructor(private api: ApiService,
-              private user: UserService) {
+              private user: UserService,
+              private qqMaps: QQMaps) {
     
   }
 
@@ -35,8 +37,31 @@ export class EventsService {
     });
   }
 
+  private _loadEvent(eventId: number, token: string, lat, lng): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.api.get(`events/${eventId}/body`, { token: token, loc: `${lng},${lat}` })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => reject(error));
+    });
+  }
   getEvent(eventId: number): Promise<any> {
-    return this.api.get(`events/${eventId}/body`, {});
+    return new Promise( (resolve, reject) => {
+      this.user.token().then(token => {
+        this.qqMaps.startLocating()
+          .then(pos => {
+            this._loadEvent(eventId, token, pos.lat, pos.lng)
+              .then(data => resolve(data))
+              .catch(error => reject(error));
+          })
+          .catch(error => {
+            this._loadEvent(eventId, token, 0, 0)
+              .then(data => resolve(data))
+              .catch(error => reject(error));
+          });
+      }).catch(()=>{});
+    } );
   }
 
   getEventEarns(eventId: number, pageNo: number, pageSize: number): Promise<any> {
@@ -55,10 +80,9 @@ export class EventsService {
     });
   }
 
-  commit(payload): Promise<any> {
+  private _commit(token, payload): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.user.token().then(token => {
-        let payloadJson = JSON.stringify({ answer: payload.answer, location: payload.location });
+      let payloadJson = JSON.stringify({ answer: payload.answer, location: payload.location });
         console.log(payloadJson);
         this.api.post(`events/${payload.event.id}/commit`, 
                       { token: token, payload: payloadJson })
@@ -68,6 +92,25 @@ export class EventsService {
           .catch(error => {
             reject(error);
           })
+    });
+  }
+  commit(payload): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+
+        this.qqMaps.startLocating()
+          .then(pos => {
+            payload.location = `${pos.lng},${pos.lat}`
+            this._commit(token, payload)
+              .then(data => resolve(data))
+              .catch(error => reject(error));
+          })
+          .catch(error => {
+            payload.location = `0,0`
+            this._commit(token, payload)
+              .then(data => resolve(data))
+              .catch(error => reject(error));
+          });
       }).catch(error => {
         reject(error);
       });

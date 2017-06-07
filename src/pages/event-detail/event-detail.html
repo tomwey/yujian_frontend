@@ -60,7 +60,7 @@
         <div class="tip">请到如下地址完成签到，可以获得红包！<span style="color: red;">(位置误差不超过{{event.rule.accuracy}}米)</span></div>
         <div class="content"><ion-icon name="ios-pin-outline"></ion-icon> {{event.rule.address}}</div>
       </div>
-      <button ion-button block color="theme-red" (click)="commit()">{{event.rule.action}}</button>
+      <button ion-button block color="theme-red" (click)="commit()" [disabled]="disableCommit">{{commitButtonText}}</button>
     </ion-card-content>
   </ion-card>
   <!-- 活动结果 -->
