@@ -57,6 +57,10 @@ export class SettingPage {
     this.openPage('help', '帮助中心');
   }
 
+  gotoFeedback(): void {
+    this.navCtrl.push('FeedbackPage');
+  }
+
   gotoAbout(): void {
     this.openPage('about', '关于');
   }
