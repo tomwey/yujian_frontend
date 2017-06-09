@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, ModalController } from 'ionic-angular';
 // import { WalletPage } from '../wallet/wallet';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
@@ -19,7 +19,8 @@ export class SettingPage {
   
   constructor(public navCtrl: NavController,
               private users: UserService,
-              private tool: ToolService) {
+              private tool: ToolService,
+              private modalCtrl: ModalController) {
       // this.loadUserProfile();
   }
 
@@ -46,7 +47,8 @@ export class SettingPage {
   }
 
   gotoCharge(): void {
-
+    let modal = this.modalCtrl.create('ChargePage');
+    modal.present();
   }
 
   gotoMyEvents(): void {

@@ -21,12 +21,12 @@
   <ion-list>
     <ion-item>
       <ion-label>单个金额</ion-label>
-      <ion-input [(ngModel)]="hb.money" placeholder="0.00"></ion-input>
+      <ion-input [(ngModel)]="hb.money" type="number" placeholder="0.00"></ion-input>
       <ion-note item-right>元</ion-note>
     </ion-item>
     <ion-item>
       <ion-label>红包个数</ion-label>
-      <ion-input [(ngModel)]="hb.total" placeholder="填写个数"></ion-input>
+      <ion-input [(ngModel)]="hb.total" type="number" placeholder="填写个数"></ion-input>
       <ion-note item-right>个</ion-note>
     </ion-item>
   </ion-list>

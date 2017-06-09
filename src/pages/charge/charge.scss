@@ -1,0 +1,24 @@
+page-charge {
+    .other-money {
+        height: 44px;
+        margin-top: 4px;
+        // background-color: red;
+        padding: 0 10px;
+        border-radius: 3.5px;
+        border: 1px solid color($colors, theme-red);
+        color: color($colors, theme-red);
+    }
+
+    .charge-money-container {
+        padding: 10px;
+        .charge-money {
+            font-size: 14px;
+            color: rgb(58, 58, 58);
+            text-align: center;
+            .money {
+                font-size: 18px;
+                color: color($colors, theme-red);
+            }
+        }
+    }
+}
