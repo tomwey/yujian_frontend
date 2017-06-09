@@ -53,7 +53,9 @@ export class ToolService {
    * 关闭Loading
    */
   hideLoading(): void {
-    this.loadingIsOpen && this.loading.dismiss();
+    this.loadingIsOpen && this.loading.dismiss().catch(error => {
+      console.log(error);
+    });
     this.loadingIsOpen = false;
   }
 

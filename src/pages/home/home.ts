@@ -1,15 +1,11 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
-// import { RedPacketService } from '../../providers/red-packet-service';
 import { ToolService } from '../../providers/tool-service';
-// import { HBDetailPage } from '../hb-detail/hb-detail';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
-// import { ScriptLoadProvider } from '../../providers/script-load/script-load';
-// import { LocationProvider } from '../../providers/location/location';
 
 // @IonicPage()
 @Component({
@@ -27,15 +23,10 @@ export class HomePage {
   hbIsLoading: boolean = false; // 是否正在加载红包
   mapError: any = null;
   constructor(public navCtrl: NavController, 
-              // private hbService: RedPacketService,
-              // private mapService: MapService,
-              // private locationService: LocationService,
-              // private geolocation: Geolocation,
               private events: EventsService,
               private qqMaps: QQMaps,
               private platform: Platform,
               private toolService: ToolService,
-              // private location: LocationProvider,
               private users: UserService,
               private modalCtrl: ModalController,
               private utils: UtilsServiceProvider) 
@@ -51,13 +42,11 @@ export class HomePage {
 
   ionViewDidLoad() {
     document.addEventListener('hb:click', (e) => {
-      // console.log(e);
-      // this.navCtrl.push(HBDetailPage, { item: e['detail'] });
       this.navCtrl.push('EventDetailPage', e['detail']);
     });
     document.addEventListener('map:drag', (e) => {
-      // console.log('dddddddd');
-      this.loadHBData();
+      // console.log('开始加载数据...');
+      this.map && this.loadHBData(this.map.getCenter());
     });
 
     this.platform.ready().then(() => {
@@ -93,7 +82,6 @@ export class HomePage {
         let pos = { lat: arr[0], lng: arr[1] };
         if (this.map) {
           this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
-          // this.loadHBData();
         } else {
           // console.log('开始初始化地图');
           this.initMap(pos);
@@ -121,14 +109,13 @@ export class HomePage {
 
         if (this.map) {
           this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
-          // this.loadHBData();
+          this.loadHBData(pos);
         } else {
           // console.log('开始初始化地图');
           setTimeout(() => {
             this.initMap(pos);
           }, 0);
         }
-
       })
       .catch(error => {
         // console.log(error);
@@ -147,11 +134,12 @@ export class HomePage {
 
         this.map = map;
         this.mapLoaded = true;
-        this.toolService.hideLoading();
+
         console.log(`lat:${pos.lat},lng:${pos.lng}`);
+
         this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
 
-        // this.loadHBData();
+        this.loadHBData(pos);
       })
       .catch(error => {
         // console.log(error);
@@ -162,26 +150,15 @@ export class HomePage {
         }, 100);
       });
   }
-  // 重新定位到当前位置
-  // relocate() {
-  //   this.qqMaps.startLocating().then(position => {
-  //     this.map.panTo(new qq.maps.LatLng(position.lat,position.lng));
 
-  //     // 重新获取数据
-  //     this.loadHBData();
-  //   }).catch(error => {
-
-  //   })
-  // }
-
-  loadHBData() {
+  loadHBData(pos) {
     setTimeout(() => {
-      this.loadData();
-    }, 200);
+      this.loadData(pos);
+    }, 100);
   }
 
   // 加载附近红包
-  loadData() {
+  loadData(pos) {
     this.hbIsLoading = true;
 
     // 清空所有的标记
@@ -190,8 +167,8 @@ export class HomePage {
     });
     this.loadedMarkers = [];
 
-    let position = this.map.getCenter();
-    this.events.nearby(position.lat, position.lng)
+    // let position = this.map.getCenter();
+    this.events.nearby(pos.lat, pos.lng)
       .then(data => {
         console.log(data);
         
