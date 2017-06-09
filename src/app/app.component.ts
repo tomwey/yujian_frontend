@@ -23,8 +23,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
-      // this.setupBackButtonBehavior();
     });
 
     this.users.token().then(token => {
@@ -36,41 +34,5 @@ export class MyApp {
       }
     });
   }
-
-  private setupBackButtonBehavior(): void {
-    // If on web version (browser)
-    if (window.location.protocol !== "file:") {
-      // Register browser back button action(s)
-      window.onpopstate = (evt) => {
-        console.log('pop ... pop ...');
-        // Close menu if open
-        if (this._menu.isOpen()) {
-          this._menu.close();
-          return;
-        }
-
-        // Close any active modals or overlays
-        let activePortal = this._ionicApp._loadingPortal.getActive() ||
-          this._ionicApp._modalPortal.getActive() ||
-          this._ionicApp._toastPortal.getActive() ||
-          this._ionicApp._overlayPortal.getActive();
-
-        if (activePortal) {
-          activePortal.dismiss();
-          return;
-        }
-
-        // Navigate back
-        if (this._app.getRootNav().canGoBack()) {
-          this._app.getRootNav().pop();
-        }
-          
-      };
-
-      // Fake browser history on each view enter
-      this._app.viewDidEnter.subscribe((app) => {
-        history.pushState(null, null, "");
-      });
-    }
-  }
+  
 }
