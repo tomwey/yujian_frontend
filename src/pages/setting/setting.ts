@@ -53,6 +53,10 @@ export class SettingPage {
     this.navCtrl.push('MyEventsPage')
   }
 
+  gotoUserAgreement(): void {
+    this.openPage('user_agreement', '用户协议');
+  }
+
   gotoHelp(): void {
     this.openPage('help', '帮助中心');
   }

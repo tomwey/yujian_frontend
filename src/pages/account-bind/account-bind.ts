@@ -39,4 +39,8 @@ export class AccountBindPage {
       });
   }
 
+  gotoUserAgreement(): void {
+    this.navCtrl.push('CommWeb', { slug: 'user_agreement', title: "用户协议" });
+  }
+
 }

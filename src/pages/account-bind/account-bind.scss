@@ -11,4 +11,16 @@ page-account-bind {
             padding: 8px 15px;
         }
     }
+
+    .user-agreement {
+        text-align: center;
+        a {
+            cursor: pointer;
+            text-decoration: underline;
+            color: color($colors, theme-red);
+        }
+        .attention {
+            color: color($colors, theme-red);
+        }
+    }
 }
