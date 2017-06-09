@@ -23,7 +23,7 @@
       style="display: none" #fileInput >
     <div class="add-image">
       <ion-icon name="ios-camera-outline"></ion-icon>
-      <h2>添加图片</h2>
+      <h2>{{!event.image ? '添加封面图片' : '编辑封面图片'}}</h2>
     </div>
     <!--<img *ngIf="!!selectedImage" [src]="selectedImage" class="cover-image" />-->
   </div>
@@ -31,18 +31,23 @@
     <button ion-item (click)="openInput()">
       <h2>设置活动标题</h2>
       <p>{{!!event.title ? event.title : '一句话描述活动' }}</p>
+      <ion-icon [hidden]="event.title.length == 0" item-right name="ios-checkmark" color="theme-red"></ion-icon>
     </button>
     <button ion-item (click)="openBodyInput()">
       <h2>设置活动详情</h2>
-      <p>详细描述您的活动</p>
+      <p>{{event.body.length == 0 ? '详细描述您的活动' : 
+        event.body.length + '个活动详情图片'}}</p>
+      <ion-icon [hidden]="event.body.length == 0" item-right name="ios-checkmark" color="theme-red"></ion-icon>
     </button>
     <button ion-item (click)="openRule()">
       <h2>设置活动类型</h2>
       <p>{{!!event.rule ? (event.rule.type === 'Quiz' ? '答题抢红包': '签到抢红包' ) : '指定活动参与规则'}}</p>
+      <ion-icon [hidden]="!event.rule" item-right name="ios-checkmark" color="theme-red"></ion-icon>
     </button>
     <button ion-item (click)="openHongbao()">
       <h2>设置红包类型</h2>
       <p>{{!!event.hb ? (event.hb._type === 0 ? '随机红包' : '固定红包') : '不同的类型用户收益不一样哦'}}</p>
+      <ion-icon [hidden]="!event.hb" item-right name="ios-checkmark" color="theme-red"></ion-icon>
     </button>
   </ion-list>
   <ion-list class="item-list">

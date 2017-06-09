@@ -14,7 +14,7 @@ export class NewEventPage {
   @ViewChild('fileInput') nativeFileInputBtn: ElementRef;
 
   // addFileText: string = '添加图片';
-  imageCover: File = null;
+  // imageCover: File = null;
   selectedImage: any = null;
   event: any = { title: '', 
                  image: null, 
@@ -57,6 +57,8 @@ export class NewEventPage {
     let files: FileList = this.nativeFileInputBtn.nativeElement.files;
     // console.log(files);
     // console.log(event);
+    if (files.length == 0) return;
+
     let imageFile = files[0];
 
     if (!this.isImageType(imageFile)) {
@@ -69,7 +71,7 @@ export class NewEventPage {
       return;
     }
 
-    this.imageCover = imageFile;
+    // this.imageCover = imageFile;
 
     this.event.image = imageFile;
     
@@ -100,7 +102,7 @@ export class NewEventPage {
 
   previewImage(): void {
     let fr: FileReader = new FileReader();
-    fr.readAsDataURL(this.imageCover);
+    fr.readAsDataURL(this.event.image);
     fr.onload = (e) => {
       // console.log(e);
       // this.selectedImage = fr.result;
@@ -201,7 +203,7 @@ export class NewEventPage {
                   }, 
                   range: 30
                 };
-        this.imageCover = null;
+        // this.imageCover = null;
         this.tool.hideLoading();
         setTimeout(() => {
           this.tool.showToast('发布成功');
