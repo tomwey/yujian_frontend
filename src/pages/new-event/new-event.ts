@@ -213,7 +213,7 @@ export class NewEventPage {
         console.log(error);
         this.tool.hideLoading();
         setTimeout(() => {
-          this.tool.showToast('发布失败');
+          this.tool.showToast(error.message || error);
 
         }, 200);
       });
