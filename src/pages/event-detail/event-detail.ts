@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
 import { UserService } from '../../providers/user-service';
@@ -36,7 +36,8 @@ export class EventDetailPage {
               private events: EventsService,
               private toolService: ToolService,
               private modalCtrl: ModalController,
-              private users: UserService) {
+              private users: UserService,
+              private noti: Events) {
     // console.log(this.navParams.data);
     this.event = this.navParams.data;
 
@@ -60,6 +61,9 @@ export class EventDetailPage {
     // setTimeout(() => {
     //   this.loadEventEarns();
     // }, 20);
+    this.noti.subscribe('hb:opened', () => {
+      this.loadEvent();
+    });
   }
 
   ionViewDidEnter() {

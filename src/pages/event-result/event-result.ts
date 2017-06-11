@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, App } from 'ionic-angular';
 // import { TabsPage } from '../tabs/tabs';
 
 /**
@@ -15,7 +15,10 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class EventResult {
   event_earn: any = { title: '', image: '', money: '0.0' };
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              private events: Events,
+              private app: App) {
       this.event_earn.title = this.navParams.data.event.title;
       this.event_earn.image = this.navParams.data.event.image;
       this.event_earn.money = this.navParams.data.money;
@@ -26,6 +29,7 @@ export class EventResult {
   }
 
   gotoGrab(): void {
+    this.events.publish('hb:opened');
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
