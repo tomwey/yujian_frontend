@@ -24,7 +24,7 @@ export class SettingPage {
       // this.loadUserProfile();
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     this.loadUserProfile();
   }
 
