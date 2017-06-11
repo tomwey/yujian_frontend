@@ -37,4 +37,8 @@ export class FixedHongbaoPage {
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
+  calcMoney(n1, n2): string {
+    return (n1*n2).toString();
+  }
+
 }

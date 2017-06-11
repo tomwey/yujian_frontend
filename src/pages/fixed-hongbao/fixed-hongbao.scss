@@ -1,3 +1,15 @@
 page-fixed-hongbao {
+    .hb-tip {
+        padding: 0 15px;
+        p {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+        }
 
+        .red {
+            padding: 0 5px;
+            color: color($colors, theme-red);
+        }
+    }
 }

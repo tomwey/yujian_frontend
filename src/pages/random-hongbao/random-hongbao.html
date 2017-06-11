@@ -22,18 +22,23 @@
   <ion-list>
     <ion-item>
       <ion-label fixed>总金额</ion-label>
-      <ion-input [(ngModel)]="hb.total_money" type="number" placeholder="0.00"></ion-input>
+      <ion-input [(ngModel)]="hb.total_money" type="number" placeholder="最低10元"></ion-input>
       <ion-note item-right>元</ion-note>
     </ion-item>
     <ion-item>
       <ion-label fixed>最小金额</ion-label>
-      <ion-input [(ngModel)]="hb.min_value" type="number" placeholder="0.00"></ion-input>
+      <ion-input [(ngModel)]="hb.min_value" type="number" placeholder="最少0.01元"></ion-input>
       <ion-note item-right>元</ion-note>
     </ion-item>
     <ion-item>
       <ion-label fixed>最大金额</ion-label>
-      <ion-input [(ngModel)]="hb.max_value" type="number" placeholder="0.00"></ion-input>
+      <ion-input [(ngModel)]="hb.max_value" type="number" placeholder="最多不超过总金额"></ion-input>
       <ion-note item-right>元</ion-note>
     </ion-item>
   </ion-list>
+  <div class="hb-tip" *ngIf="hb.total_money && hb.min_value > 0 && hb.max_value > 0">
+    <p>红包总金额：<span class="red">{{hb.total_money}}</span>元</p>
+    <p>最少可领红包数约为：<span class="red">{{calcCount(hb.total_money, hb.max_value)}}</span>个</p>
+    <p>最多可领红包数约为：<span class="red">{{calcCount(hb.total_money, hb.min_value)}}</span>个</p>
+  </div>
 </ion-content>

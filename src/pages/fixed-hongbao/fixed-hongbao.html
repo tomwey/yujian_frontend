@@ -21,7 +21,7 @@
   <ion-list>
     <ion-item>
       <ion-label>单个金额</ion-label>
-      <ion-input [(ngModel)]="hb.money" type="number" placeholder="0.00"></ion-input>
+      <ion-input [(ngModel)]="hb.money" type="number" placeholder="最低金额0.01元"></ion-input>
       <ion-note item-right>元</ion-note>
     </ion-item>
     <ion-item>
@@ -30,4 +30,7 @@
       <ion-note item-right>个</ion-note>
     </ion-item>
   </ion-list>
+  <div class="hb-tip" *ngIf="hb.money > 0 && hb.total >= 0">
+    <p>红包总金额约为：<span class="red">{{calcMoney(hb.money, hb.total)}}</span>元</p>
+  </div>
 </ion-content>

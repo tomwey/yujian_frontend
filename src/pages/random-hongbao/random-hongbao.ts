@@ -35,4 +35,10 @@ export class RandomHongbaoPage {
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }
 
+  calcCount(n1, n2): string {
+    if (n2 <= 0) return '-';
+
+    return Math.floor(n1 / n2).toString();
+  }
+
 }
