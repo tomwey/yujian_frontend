@@ -47,10 +47,10 @@
         <div class="content">
           <ion-list radio-group [(ngModel)]="answer">
             <ion-list-header>
-              <h2>{{event.rule.question}}</h2>
+              <h2 class="question" text-wrap>{{event.rule.question}}</h2>
             </ion-list-header>
             <ion-item *ngFor="let answer of event.rule.answers">
-              <ion-label>{{answer}}</ion-label>
+              <ion-label class="answer-label" text-wrap>{{answer}}</ion-label>
               <ion-radio value="{{answer}}"></ion-radio>
             </ion-item>
           </ion-list>

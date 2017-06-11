@@ -22,7 +22,7 @@
           <ion-thumbnail item-left class="cover">
             <img [src]="event.image" />
           </ion-thumbnail>
-          <h2 class="title"><div class="circle outline"><span>{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span></div> {{event.title}}</h2>
+          <h2 class="title" text-wrap><div class="circle outline"><span>{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span></div> {{event.title}}</h2>
           <p class="info">
               <span class="circle"><span>抢</span></span>
               <span class="moneys">{{ event.hb.min_value == event.hb.max_value ? 
