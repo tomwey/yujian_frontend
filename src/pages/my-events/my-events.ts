@@ -34,6 +34,7 @@ export class MyEventsPage {
 
     this.events.getMyEvents(1)
       .then(data => {
+        console.log(data);
         this.eventsData = data.data || data;
         this.tool.hideLoading();
         if (this.eventsData.length === 0 ) {

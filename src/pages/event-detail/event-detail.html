@@ -64,7 +64,7 @@
     </ion-card-content>
   </ion-card>
   <!-- 活动结果 -->
-  <ion-card>
+  <ion-card [hidden]="earns.length == 0">
     <ion-card-header>
       共 {{event.hb.sent_money}} / {{event.hb.total_money}} 元
     </ion-card-header>

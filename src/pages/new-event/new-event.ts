@@ -207,7 +207,8 @@ export class NewEventPage {
         this.tool.hideLoading();
         setTimeout(() => {
           this.tool.showToast('发布成功');
-
+          document.getElementById('event-image')
+            .style.backgroundImage = null;
         }, 200);
       }).catch(error => {
         console.log(error);
