@@ -68,11 +68,12 @@ page-explore {
             span {
                 display: block;
                 float: left;
-                margin-top: 3px;
+                margin-top: 2px;
             }
         }
         .title {
             clear: both;
+            line-height: 1;
         }
         .money {
             color: color($colors, theme-red);
