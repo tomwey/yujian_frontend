@@ -78,6 +78,8 @@ export class WithdrawPage {
     this.pay.withdraw(money, accNo, accName, note)
       .then(data => {
         this.tool.hideLoading();
+        
+        this.user.balance = data.balance;
 
         setTimeout(() => {
           this.tool.showToast('提现申请成功');

@@ -23,7 +23,7 @@ export class WalletPage {
     this.user = this.navParams.data;
   }
 
-  ionViewWillEnter() {
+  ionViewDidLoad() {
     // console.log('ionViewDidLoad Wallet');
     this.loadUserProfile();
   }

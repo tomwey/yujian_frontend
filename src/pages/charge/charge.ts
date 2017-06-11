@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { PayService } from '../../providers/pay-service';
 
 /**
  * Generated class for the ChargePage page.
@@ -18,7 +19,8 @@ export class ChargePage {
   customMoney: number = null;
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
-              private viewController: ViewController) {
+              private viewController: ViewController,
+              private pay: PayService) {
   }
 
   ionViewDidLoad() {
