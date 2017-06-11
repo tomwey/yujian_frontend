@@ -22,19 +22,17 @@
           <ion-thumbnail item-left class="cover">
             <img [src]="event.image" />
           </ion-thumbnail>
-          <h2 class="title"><span class="rule-type">{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span> {{event.title}}</h2>
+          <h2 class="title"><div class="circle outline"><span>{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span></div> {{event.title}}</h2>
           <p class="info">
-            <!--<span class="hb-earn">-->
-              <span class="grab">抢</span>
+              <span class="circle"><span>抢</span></span>
               <span class="moneys">{{ event.hb.min_value == event.hb.max_value ? 
                    event.hb.min_value :
                    event.hb.min_value + '-' + event.hb.max_value
                 }} 元
               </span>
-            <!--</span>-->
           </p>
           <p class="address"><ion-icon name="ios-time-outline"></ion-icon>
-           {{event.grab_time ? event.grab_time + ' 准时开抢' : '抢红包进行中'}}</p>
+           <span>{{event.grab_time ? event.grab_time + ' 准时开抢' : '抢红包进行中'}}</span></p>
           <ion-note item-right *ngIf="event.hb.left_money > 0.0">
             <div class="money">
               <span class="money-symbol">¥</span>{{event.hb.left_money}}

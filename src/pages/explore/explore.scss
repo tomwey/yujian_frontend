@@ -4,15 +4,30 @@ page-explore {
         padding-right: 5px;
     }
 
+    .circle {
+        display: table;
+        float: left;
+        width: 18px;
+        height: 18px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 8px;
+        background-color: color($colors, theme-red); 
+        color: white; 
+        margin-right: 5px;
+        span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+
+    .outline {
+        border: 1px solid color($colors, theme-red);
+        color: color($colors, theme-red);
+        background-color: transparent;
+    }
+
     .event {
-        // .cover {
-        //     min-width: 70px;
-        //     min-height: 70px;
-        //     img {
-        //         width: 70px;
-        //         height: 70px;
-        //     }
-        // }
         .no-money {
             position: absolute;
             z-index: 10;
@@ -33,142 +48,35 @@ page-explore {
         .info {
             margin-top: 6px;
             margin-bottom: 6px;
-            // background-color: red;
-            // line-height: 100%;
             clear: both;
-            .grab {
-                display: block;
-                // width: 30px;
-                // height: 30px;
-                width: 16px;
-                height: 16px;
-                line-height: 16px;
-                border-radius: 8px;
-                font-size: 8px;
-                text-align: center;
-                // border-radius: 4px;
-                background-color: color($colors, theme-red);
-                color: white;
-                float: left;
-            }
-
             .moneys {
                 display: block;
                 float: left;
                 height: 18px;
                 line-height: 18px;
-                margin-left: 5px;
+                // margin-left: 5px;
             }
         }
         .address {
             font-size: 14px;
+            clear: both;
             ion-icon {
-                font-size: 16px;
+                font-size: 22px;
+                float: left;
+                margin-right: 5px;
+            }
+            span {
+                display: block;
+                float: left;
+                margin-top: 3px;
             }
         }
         .title {
-            clear: left;
+            clear: both;
         }
         .money {
             color: color($colors, theme-red);
             font-size: 18px;
         }
-        .rule-type {
-            display: block;
-            float: left;
-            margin-right: 5px;
-            margin-top: 2px;
-            font-size: 8px;
-            // padding: 3px;
-            width: 16px;
-            height: 16px;
-            line-height: 16px;
-            border-radius: 8px;
-            text-align: center;
-            background-color: transparent;
-            border: 1px solid color($colors, theme-red);
-            color: color($colors, theme-red);
-        }
-        // .hb-earn {
-        //     display: inline-block;
-        //     font-size: 12px;
-        //     border-radius: 2px;
-        //     padding-right: 5px;
-        //     border: 1px solid color($colors, theme-red);
-        //     color: color($colors, theme-red);
-        //     .grab {
-        //         background-color: color($colors, theme-red);
-        //         padding: 2px 6px;
-        //         color: white;
-        //     }
-        //     .moneys {
-        //         padding-left: 2px;
-        //     }
-        // }
     }
-
-    // .events-1 {
-    //     // padding: 10px;
-    //     // padding-top: 10px;
-    //     // ion-list {
-    //     //     padding: 0 10px;
-    //     //     // border: 0;
-    //     // }
-    //     // ion-item {
-    //     //     border-radius: 6px;
-    //     //     background-color: white;
-    //     //     margin-bottom: 10px;
-    //     //     padding: 0!important;
-    //     //     padding-left: 10px!important;
-    //     // }
-    //     .item-inner {
-    //         padding-right: 0px!important;
-    //     //     padding-left: 5px!important;
-    //     }
-    //     .event {
-    //         border-radius: 6px;
-    //         background-color: white;
-    //         margin-bottom: 10px;
-    //         padding: 0!important;
-    //         padding-left: 10px!important;
-            
-    //         ion-note {
-    //             color: color($colors, theme-red);
-    //             font-size: 16px;
-    //         }
-    //         .title {
-    //             font-size: 14px;
-    //             color: rgb(58,58,58);
-    //         }
-    //         .alert {
-    //             display: inline-block;
-    //             width: 16px;
-    //             height: 16px;
-    //             border-radius: 8px;
-    //             line-height: 16px;
-    //             text-align: center;
-    //             font-size: 8px;
-    //             color: white;
-    //             background-color: color($colors, theme-red);
-    //         }
-    //     }
-    // }
-    // .hb-quantity {
-    //     text-align:right;
-    //     color: color($colors, golden);
-    //     clear: right;
-    //     img {
-    //         float: right;
-    //         max-width: 18px;
-    //         display: block;
-    //     }
-    //     h2 {
-    //         // float: right;
-    //         margin: 0;
-    //         padding: 0;
-    //         margin-right: 25px;
-    //         padding-top: 4px;
-    //         color: color($colors, golden);
-    //     }
-    // }
 }
