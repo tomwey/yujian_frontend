@@ -18,14 +18,15 @@ import { ApiService }       from '../providers/api-service';
 import { ToolService }      from '../providers/tool-service';
 import { QQMaps }           from '../providers/qq-maps';
 import { UserService }      from '../providers/user-service';
+import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationSearchProvider } from '../providers/location-search/location-search';
-import { LocationProvider } from '../providers/location/location';
+// import { LocationProvider } from '../providers/location/location';
 import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
-import { ScriptLoadProvider } from '../providers/script-load/script-load';
+// import { ScriptLoadProvider } from '../providers/script-load/script-load';
 
 @NgModule({
   declarations: [
@@ -63,8 +64,11 @@ import { ScriptLoadProvider } from '../providers/script-load/script-load';
     // LocationService,
     ToolService,
     UserService,
+    PayService,
     EventsService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, LocationSearchProvider, LocationProvider, UtilsServiceProvider, ScriptLoadProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    LocationSearchProvider, 
+    UtilsServiceProvider,
   ]
 })
 export class AppModule {}

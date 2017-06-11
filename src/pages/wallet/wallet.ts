@@ -23,7 +23,7 @@ export class WalletPage {
     this.user = this.navParams.data;
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
     // console.log('ionViewDidLoad Wallet');
     this.loadUserProfile();
   }
@@ -32,7 +32,7 @@ export class WalletPage {
     this.tool.showLoading('加载中...');
     this.users.loadUser().then(data => {
       this.tool.hideLoading();
-      this.user = data;
+      this.user.balance = data.balance;
     }).catch(error => {
       this.tool.hideLoading();
     });
@@ -40,6 +40,10 @@ export class WalletPage {
 
   gotoTradeList(): void {
     this.navCtrl.push('TradeList');
+  }
+
+  gotoWithdraw(type: number): void {
+    this.navCtrl.push('WithdrawPage', { user: this.user, type: type });
   }
 
 }
