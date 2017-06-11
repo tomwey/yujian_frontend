@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ToolService } from '../../providers/tool-service';
 
 /**
  * Generated class for the FixedHongbaoPage page.
@@ -16,7 +17,8 @@ export class FixedHongbaoPage {
 
   event: any = null;
   hb: any = { money: '', total: null };
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private tool: ToolService) {
     this.event = this.navParams.data;
 
     if (this.event.hb && this.event.hb._type === 1) {
@@ -28,6 +30,22 @@ export class FixedHongbaoPage {
   }
 
   saveHB(): void {
+    if (this.hb.money < 0.01) {
+      this.tool.showToast('单个红包金额不能低于0.01元');
+      return;
+    }
+
+    if (this.hb.total < 1) {
+      this.tool.showToast('红包个数至少为1');
+      return;
+    }
+
+    let regex = /^\d+$/;
+    if (!regex.test(this.hb.total)) {
+      this.tool.showToast('红包个数必须为整数');
+      return;
+    }
+
     this.event.hb = { _type: 1, 
                       min_value: this.hb.money,
                       max_value: this.hb.money,
