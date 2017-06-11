@@ -32,7 +32,7 @@
               </span>
           </p>
           <p class="address"><ion-icon name="ios-time-outline"></ion-icon>
-           <span>{{event.grab_time ? event.grab_time + ' 准时开抢' : '抢红包进行中'}}</span></p>
+           <span>{{event.grab_time ? event.grab_time + ' 开抢' : '抢红包进行中'}}</span></p>
           <ion-note item-right *ngIf="event.hb.left_money > 0.0">
             <div class="money">
               <span class="money-symbol">¥</span>{{event.hb.left_money}}
