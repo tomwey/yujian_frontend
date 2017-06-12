@@ -16,11 +16,11 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="events">
-    <ion-list>
-      <button ion-item *ngFor="let event of eventsData" 
+    <ion-list [virtualScroll]="eventsData">
+      <button ion-item *virtualItem="let event"
           detail-none class="event" (click)="gotoDetail(event)">
           <ion-thumbnail item-left class="cover">
-            <img [src]="event.image" />
+            <ion-img [src]="event.image"></ion-img>
           </ion-thumbnail>
           <h2 class="title" text-wrap><div class="circle outline"><span>{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span></div> {{event.title}}</h2>
           <p class="info">

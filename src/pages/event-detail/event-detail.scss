@@ -28,6 +28,10 @@ page-event-detail {
     .event-body {
         img {
             max-width: 100%;
+            margin: 2px 0;
+        }
+        p {
+            padding: 5px 0;
         }
     }
 
