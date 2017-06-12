@@ -158,6 +158,7 @@ export class QQMaps {
             if (!data) {
               resolve({ lat: 0, lng: 0, addr: '' });
             } else {
+              console.log(data);
               resolve(JSON.parse(data));
             }
           })

@@ -18,8 +18,8 @@
       <ion-thumbnail item-left>
         <img [src]="event.image">
       </ion-thumbnail>
-      <h2 class="title">{{event.title}}</h2>
-      <p class="money">
+      <h2 class="title" text-wrap>{{event.title}}</h2>
+      <p class="money" text-wrap>
         <span class="small">共</span><span class="total">{{event.hb.total_money}}</span>元
         <span class="left"><span class="small">还剩</span>{{event.hb.left_money}}</span>元
       </p>
