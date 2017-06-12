@@ -16,7 +16,7 @@
     </ion-refresher-content>
   </ion-refresher>
   <div class="events">
-    <ion-list [virtualScroll]="eventsData">
+    <ion-list [virtualScroll]="eventsData" approxItemHeight="66px">
       <button ion-item *virtualItem="let event"
           detail-none class="event" (click)="gotoDetail(event)">
           <ion-thumbnail item-left class="cover">

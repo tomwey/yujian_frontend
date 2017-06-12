@@ -4,6 +4,10 @@ page-explore {
         padding-right: 5px;
     }
 
+    .list-ios > .item-block:first-child {
+        border-top: 0!important;
+    }
+    
     .circle {
         display: table;
         float: left;
