@@ -68,7 +68,7 @@ export class QQMaps {
 
         let script = document.createElement("script");
         script.id = "qqMaps";
-        script.src = "http://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=mapInit";
+        script.src = "https://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=mapInit";
         script.async = true;
 
         document.body.appendChild(script);
@@ -84,29 +84,58 @@ export class QQMaps {
     } );
     
   } // end loadQQMaps() //30.668620，104.073605
-
+  
   private loadQQLocSDK(): Promise<any> {
     return new Promise((resolve, reject) => {
-      let sdkUrl = 'https://apis.map.qq.com/tools/geolocation/min?key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&referer=yujian';
+      let sdkUrl = 'https://3gimg.qq.com/lightmap/components/geolocation/geolocation.min.js';
       if (typeof qq == "undefined" || typeof qq.maps == "undefined" || 
           typeof qq.maps.Geolocation == "undefined") {
         console.log("QQ Geolocation JavaScript needs to be loaded.");
-        window['locInit'] = () => {
-          console.log('加载loc sdk成功');
-          resolve(true);
-        };
+        // window['locInit'] = () => {
+        //   console.log('加载loc sdk成功');
+        //   resolve(true);
+        // };
 
         let script = document.createElement("script");
         script.id = "qqLoc";
-        script.src = sdkUrl + '&callback=locInit';
-        script.async = true;
-
+        script.src = sdkUrl;// + '&callback=locInit';
+        // script.async = true;
+        script.onerror = () => {
+          reject(false);
+        };
+        script.onload = () => {
+          console.log('加载loc sdk成功');
+          resolve(true);
+        };
         document.body.appendChild(script);
       } else {
         resolve(true);
       }
     });
   }
+
+  // private loadQQLocSDK(): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     let sdkUrl = 'https://apis.map.qq.com/tools/geolocation/min?key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&referer=yujian';
+  //     if (typeof qq == "undefined" || typeof qq.maps == "undefined" || 
+  //         typeof qq.maps.Geolocation == "undefined") {
+  //       console.log("QQ Geolocation JavaScript needs to be loaded.");
+  //       window['locInit'] = () => {
+  //         console.log('加载loc sdk成功');
+  //         resolve(true);
+  //       };
+
+  //       let script = document.createElement("script");
+  //       script.id = "qqLoc";
+  //       script.src = sdkUrl + '&callback=locInit';
+  //       script.async = true;
+
+  //       document.body.appendChild(script);
+  //     } else {
+  //       resolve(true);
+  //     }
+  //   });
+  // }
   /**
    * 获取位置，并进行HTML5纠偏
    * @returns {Promise}
@@ -115,7 +144,7 @@ export class QQMaps {
     return new Promise((resolve, reject) => {
       this.loadQQLocSDK()
         .then(data => {
-          let geolocation = new qq.maps.Geolocation();
+          let geolocation = new qq.maps.Geolocation("EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ", "yujian");
           if (geolocation) {
             geolocation.getLocation((pos) => {
               console.log(`pos:${pos.lat},${pos.lng}`);
@@ -130,32 +159,28 @@ export class QQMaps {
         }).catch(error => {
 
         });
-      // this.scriptLoad.load('qqLoc').then(data => {
-      //   let script = data[0];
-      //   if (!script.loaded) {
-      //     reject({ code: -1, message: '定位SDK加载失败！' });
-      //   } else {
-      //     let geolocation = new qq.maps.Geolocation();
-      //     if (geolocation) {
-      //       geolocation.getLocation((pos) => {
-      //         console.log(`pos:${pos.lat},${pos.lng}`);
-      //         resolve(pos);
-      //       }, (error) => {
-      //         console.log(`e->pos:${error}`);
-      //         reject(error);
-      //       }, { timeout: 9000 });
-      //     } else {
-      //       reject({code: -1, message: '定位SDK初始化失败'});
-      //     }
-      //   } // end outer if
-      // }).catch(error => {
-      //   console.log(error);
-      // }); 
     });
   }
+  // startLocating(): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     this.loadQQLocSDK()
+  //       .then(data => {
+  //         let geolocation = new qq.maps.Geolocation();
+  //         if (geolocation) {
+  //           geolocation.getLocation((pos) => {
+  //             console.log(`pos:${pos.lat},${pos.lng}`);
+  //             resolve(pos);
+  //           }, (error) => {
+  //             console.log(`e->pos:${error}`);
+  //             reject(error);
+  //           }, { timeout: 9000 });
+  //         } else {
+  //           reject({code: -1, message: '定位SDK初始化失败'});
+  //         }
+  //       }).catch(error => {
 
-  // private createMap() {
-
+  //       });
+  //   });
   // }
 
   /**
