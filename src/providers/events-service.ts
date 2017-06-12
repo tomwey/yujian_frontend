@@ -106,8 +106,12 @@ export class EventsService {
   commit(payload): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-
-        this.qqMaps.startLocating()
+        let event = payload.event;
+        let reload: boolean = false;
+        if (event && event.rule_type === 'CheckinRule') {
+          reload = true;
+        }
+        this.qqMaps.startLocating(reload)
           .then(pos => {
             payload.location = `${pos.lng},${pos.lat}`
             this._commit(token, payload)

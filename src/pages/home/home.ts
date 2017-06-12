@@ -102,7 +102,7 @@ export class HomePage {
     this.mapError = null;
 
     // this.fetchUserLocation();
-    this.qqMaps.startLocating()
+    this.qqMaps.startLocating(true)
       .then(pos => {
         // console.log(pos);
         this.toolService.hideLoading();

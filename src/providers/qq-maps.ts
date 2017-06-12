@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage';
 // import { Geolocation } from '@ionic-native/geolocation';
 // import { ScriptLoadProvider } from './script-load/script-load';
 
@@ -19,7 +20,7 @@ export class QQMaps {
   mapInitialised: boolean = false;
   mapLoaded: any;
 
-  constructor(/*private geolocation: Geolocation*/) {
+  constructor(/*private geolocation: Geolocation*/private storage: Storage) {
     // this.initSDK();
   }
 
@@ -138,9 +139,47 @@ export class QQMaps {
   // }
   /**
    * 获取位置，并进行HTML5纠偏
+   * @param reload 是否强制重新获取位置
    * @returns {Promise}
    */
-  startLocating(): Promise<any> {
+  startLocating(reload: boolean = false): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (reload) {
+        this._loadPosition()
+          .then(pos => {
+            this._savePosition(pos);
+
+            resolve(pos);
+          })
+          .catch(error => reject(error));
+      } else {
+        this.storage.get('currentPosition')
+          .then(data => {
+            if (!data) {
+              resolve({ lat: 0, lng: 0, addr: '' });
+            } else {
+              resolve(JSON.parse(data));
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            reject(error);
+          });
+      }
+    });
+  }
+
+  private _savePosition(pos): void {
+    this.storage.set('currentPosition', JSON.stringify(pos))
+      .then(data => {
+        console.log('保存位置成功! ->: ' + data);
+      })
+      .catch(error => {
+        console.log('保存位置失败: ' + error);
+      });
+  }
+
+  private _loadPosition(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.loadQQLocSDK()
         .then(data => {
@@ -157,10 +196,11 @@ export class QQMaps {
             reject({code: -1, message: '定位SDK初始化失败'});
           }
         }).catch(error => {
-
+          reject({code: -1, message: '定位SDK加载失败'});
         });
     });
   }
+
   // startLocating(): Promise<any> {
   //   return new Promise((resolve, reject) => {
   //     this.loadQQLocSDK()
