@@ -18,6 +18,11 @@ export class HBHistory {
 
   hbList: any = [];
   user: any   = null;
+  hasMore: boolean = false;
+  pageNo: number = 1;
+  pageSize: number = 20;
+  totalPage: number = 1;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private userService: UserService,
@@ -30,27 +35,55 @@ export class HBHistory {
     this.loadHBHistory();
   }
 
-  loadHBHistory(): void {
-    this.toolService.showLoading('加载中...');
+  loadHBHistory(): Promise<any> {
+    return new Promise((resolve) => {
+      if (this.pageNo === 1) {
+        this.toolService.showLoading('加载中...');
+      }
 
-    this.userService.getHBHistory(1)
-      .then(data => {
-        console.log(data);
-        this.toolService.hideLoading();
+      this.userService.getHBHistory(this.pageNo, this.pageSize)
+        .then(data => {
+          // console.log(data);
+          this.toolService.hideLoading();
 
-        this.hbList = data.data;
-      })
-      .catch(error => {
-        console.log(error);
-        this.toolService.hideLoading();
-        setTimeout(() => {
-          this.toolService.showToast(error);
-        }, 100);
-      });
+          if (this.pageNo === 1) {
+            this.hbList = data.data;
+          } else {
+            let temp = this.hbList || [];
+            this.hbList = temp.concat(data.data);
+          }
+          
+          this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize); 
+          this.hasMore = this.totalPage > this.pageNo;
+
+          resolve();
+        })
+        .catch(error => {
+          console.log(error);
+          this.toolService.hideLoading();
+          setTimeout(() => {
+            this.toolService.showToast(error);
+          }, 100);
+
+          resolve();
+        });
+    });
+
   }
 
   gotoHBResult(item): void {
     this.navCtrl.push('EventDetailPage', item);
+  }
+
+  doInfinite(e): void {
+    if (this.pageNo < this.totalPage) {
+      this.pageNo ++;
+
+      this.loadHBHistory().then(() => {
+        e.complete();
+      });
+
+    }
   }
 
 }

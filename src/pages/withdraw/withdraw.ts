@@ -36,7 +36,7 @@ export class WithdrawPage {
     this.type = this.navParams.data.type;
 
     this.title = this.type === 0 ? '支付宝提现' : '微信提现';
-    this.namePlaceholder = this.type === 0 ? '支付宝实名认证的姓名' : '微信号所绑定银行卡的真是姓名';
+    this.namePlaceholder = this.type === 0 ? '支付宝实名认证的姓名' : '微信绑定的银行卡真实姓名';
 
     this.moneyOptions = [{
       label: '10元',

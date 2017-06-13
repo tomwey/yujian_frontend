@@ -16,6 +16,11 @@ import { ToolService } from '../../providers/tool-service';
 })
 export class TradeList {
   trades: any = [];
+  hasMore: boolean = false;
+  pageNo: number = 1;
+  totalPage: number = 1;
+  pageSize: number = 30;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private users: UserService,
@@ -24,15 +29,45 @@ export class TradeList {
     this.loadTrades();
   }
 
-  loadTrades() {
-    this.tool.showLoading('加载中...');
-    this.users.loadTrades(1).then(data => {
-      this.trades = data.data || data;
-      this.tool.hideLoading();
-    }).catch(error => {
-      this.tool.hideLoading();
-      this.tool.showToast(error);
+  loadTrades(): Promise<any> {
+    return new Promise((resolve) => {
+      if (this.pageNo === 1) {
+        this.tool.showLoading('加载中...');
+      }
+      
+      this.users.loadTrades(this.pageNo, this.pageSize).then(data => {
+        this.tool.hideLoading();
+
+        if (this.pageNo === 1) {
+          this.trades = data.data || data;
+        } else {
+          let temp = this.trades || [];
+          this.trades = temp.concat(data.data);
+        }
+
+        this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize);
+
+        this.hasMore = this.totalPage > this.pageNo;
+
+        resolve();
+      }).catch(error => {
+        this.tool.hideLoading();
+        this.tool.showToast(error);
+
+        resolve();
+      });
     });
+    
+  }
+
+  doInfinite(e): void {
+    if (this.pageNo < this.totalPage) {
+      this.pageNo ++;
+
+      this.loadTrades().then(() => {
+        e.complete();
+      });
+    }
   }
 
   ionViewDidLoad() {

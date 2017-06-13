@@ -24,7 +24,7 @@ export class EventDetailPage {
   pageNo: number = 1;
   pageSize: number = 20;
   totalPage: number = 1;
-  needLoadMore: boolean = false;
+  hasMore: boolean = false;
 
   hasLoaded: boolean = false;
   
@@ -124,26 +124,48 @@ export class EventDetailPage {
   loadEventEarns(): Promise<any> 
   {
     return new Promise((resolve,reject) => {
-      if (this.pageNo <= this.totalPage) {
+      // if (this.pageNo <= this.totalPage) {
         this.events.getEventEarns(this.event.id, this.pageNo, this.pageSize)
           .then(data => {
-            if ( this.pageNo == 1 ) {
-              this.totalPage = ( data.total + this.pageSize - 1 ) / this.pageSize;
+            if (this.pageNo === 1) {
               this.earns = data.data;
             } else {
-              this.earns.push(data.data);
+              let temp = this.earns || [];
+              this.earns = temp.concat(data.data);
             }
+
+            this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize);
+
+            this.hasMore = this.totalPage > this.pageNo;
+            // if ( this.pageNo === 1 ) {
+            //   this.totalPage = ( data.total + this.pageSize - 1 ) / this.pageSize;
+            //   this.earns = data.data;
+            // } else {
+            //   this.earns.push(data.data);
+            // }
             resolve(data);
             // console.log(data);
-            this.pageNo ++;
-            this.needLoadMore = data.data.length == this.pageSize;
+            // this.pageNo ++;
+            // this.needLoadMore = data.data.length == this.pageSize;
           })
           .catch(error => {
             reject(error);
           });
-      }
+      // }
     });
     
+  }
+
+  doInfinite(e): void {
+    if (this.pageNo < this.totalPage) {
+      this.pageNo ++;
+
+      this.loadEventEarns().then((data) => {
+        e.complete();
+      }).catch(error => {
+        e.complete();
+      });
+    }
   }
 
   commit(): void {

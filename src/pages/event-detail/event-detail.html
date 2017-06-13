@@ -82,12 +82,12 @@
       </ion-item>
     </ion-list>
 
-    <div class="load-more" [hidden]="!needLoadMore">
-      <ion-infinite-scroll (ionInfinite)="$event.waitFor(loadEventEarns())">
+    <div class="load-more" [hidden]="!hasMore">
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hasMore">
         <ion-infinite-scroll-content
           loadingSpinner="bubbles"
-          loadingText="加载更多..."
-        ></ion-infinite-scroll-content>
+          loadingText="正在加载...">
+        </ion-infinite-scroll-content>
       </ion-infinite-scroll>
     </div>
 

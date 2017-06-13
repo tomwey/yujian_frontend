@@ -20,4 +20,10 @@
       <ion-note item-right>{{item.money}} 元</ion-note>
     </ion-item>
   </ion-list>
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hasMore">
+      <ion-infinite-scroll-content
+        loadingSpinner="bubbles"
+        loadingText="正在加载...">
+      </ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

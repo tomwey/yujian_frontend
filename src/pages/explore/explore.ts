@@ -15,8 +15,8 @@ export class ExplorePage {
 
   hbData: any = [];
   pageNo: number = 1;
-  totalPage: number = 0;
-  pageSize: number = 8;
+  totalPage: number = 1;
+  pageSize: number = 30;
   eventsData: any = []; 
   hasMore: boolean = false;
   loadingMore: boolean = false;
@@ -44,11 +44,52 @@ export class ExplorePage {
     
     this.qqMaps.startLocating()
       .then(pos => {
-        this.startLoadEvents(pos.lat, pos.lng, refresher);
+        // this.startLoadEvents(pos.lat, pos.lng, refresher);
+        this.loadEvents(pos)
+          .then(data => {
+            if (refresher) {
+              refresher.complete();
+            }
+          });
       })
       .catch(error => {
-        this.startLoadEvents(0,0, refresher);
+        // this.startLoadEvents(0,0, refresher);
+        this.loadEvents()
+          .then(data => {
+            if (refresher) {
+              refresher.complete();
+            }
+        });
       });
+  }
+
+  private loadEvents(pos: any = { lat: 0, lng: 0 }): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.events.list(pos.lat, pos.lng, this.pageNo, this.pageSize)
+        .then(data => {
+          if (this.pageNo === 1) {
+            this.eventsData = data.data || data;
+          } else {
+            let temp = this.eventsData || [];
+            this.eventsData = temp.concat(data.data || data);
+          }
+
+          this.totalPage = Math.floor(( data.total + this.pageSize - 1 ) / this.pageSize);
+          this.hasMore = this.totalPage > this.pageNo;
+
+          this.toolService.hideLoading();
+
+          resolve(true);
+        })
+        .catch(error => {
+          // reject(error);
+          resolve(false);
+
+          setTimeout(() => {
+            this.toolService.showToast(error);
+          }, 20);
+        });
+    });
   }
 
   startLoadEvents(lat, lng, refresher) {
@@ -65,7 +106,7 @@ export class ExplorePage {
         
         // console.log(data);
         console.log(`page: ${this.pageNo}, array: ${this.eventsData}`);
-        
+
         this.totalPage = Math.floor(( data.total + this.pageSize - 1 ) / this.pageSize);
         // console.log(this.totalPage);
         // console.log(this.hasMore);
@@ -102,18 +143,26 @@ export class ExplorePage {
   }
 
   doInfinite(infiniteScroll): void {
-    if (!this.loadingMore && this.pageNo < this.totalPage) {
+    if (this.pageNo < this.totalPage) {
       this.pageNo ++;
-      this.loadingMore = true;
+      // this.loadingMore = true;
       console.log('loading more');
       this.qqMaps.startLocating()
         .then(pos => {
-          this.startLoadEvents(pos.lat, pos.lng, infiniteScroll);
+          // this.startLoadEvents(pos.lat, pos.lng, infiniteScroll);
+          this.loadEvents(pos)
+            .then(data => {
+              infiniteScroll.complete();
+            });
         })
         .catch(error => {
-          this.startLoadEvents(0,0, infiniteScroll);
+          // this.startLoadEvents(0,0, infiniteScroll);
+          this.loadEvents()
+            .then(data => {
+              infiniteScroll.complete();
+            });
         });
-    }
+    } 
   }
 
 }
