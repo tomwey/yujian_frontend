@@ -15,7 +15,12 @@ export class ExplorePage {
 
   hbData: any = [];
   pageNo: number = 1;
+  totalPage: number = 0;
+  pageSize: number = 8;
   eventsData: any = []; 
+  hasMore: boolean = false;
+  loadingMore: boolean = false;
+
   constructor(public navCtrl: NavController,
               private toolService: ToolService,
               // private hbService: RedPacketService,
@@ -47,17 +52,36 @@ export class ExplorePage {
   }
 
   startLoadEvents(lat, lng, refresher) {
-    this.events.list(lat,lng,this.pageNo)
+      this.events.list(lat,lng,this.pageNo, this.pageSize)
       .then(data => {
-        this.eventsData = data.data || data;
-        console.log(data);
+
+        if (this.pageNo === 1) {
+          this.eventsData = data.data || data;
+        } else {
+          let temp = this.eventsData || [];
+          // temp.concat(data.data || data);
+          this.eventsData = temp.concat(data.data || data);
+        }
+        
+        // console.log(data);
+        console.log(`page: ${this.pageNo}, array: ${this.eventsData}`);
+        
+        this.totalPage = Math.floor(( data.total + this.pageSize - 1 ) / this.pageSize);
+        // console.log(this.totalPage);
+        // console.log(this.hasMore);
         this.toolService.hideLoading();
         if (refresher) {
           // setTimeout( ()=>{
             refresher.complete();
           // }, 200);
         }
+
+        this.hasMore = this.totalPage > this.pageNo;
+
+        this.loadingMore = false;
       }).catch(error => {
+        this.loadingMore = false;
+
         this.toolService.hideLoading();
         if (refresher) {
           // setTimeout( ()=>{
@@ -65,6 +89,7 @@ export class ExplorePage {
           // }, 200);
           // refresher.complete();
         }
+
         setTimeout(() => {
           this.toolService.showToast(error);
         }, 20);
@@ -74,6 +99,21 @@ export class ExplorePage {
   gotoDetail(event) {
     // console.log(event);
     this.navCtrl.push('EventDetailPage', event);
+  }
+
+  doInfinite(infiniteScroll): void {
+    if (!this.loadingMore && this.pageNo < this.totalPage) {
+      this.pageNo ++;
+      this.loadingMore = true;
+      console.log('loading more');
+      this.qqMaps.startLocating()
+        .then(pos => {
+          this.startLoadEvents(pos.lat, pos.lng, infiniteScroll);
+        })
+        .catch(error => {
+          this.startLoadEvents(0,0, infiniteScroll);
+        });
+    }
   }
 
 }

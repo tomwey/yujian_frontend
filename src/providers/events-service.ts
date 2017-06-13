@@ -23,8 +23,8 @@ export class EventsService {
     return this.api.get('events/nearby', { lng: lng, lat: lat, scope: 1500 });
   }
 
-  list(lat, lng, pageNo: number): Promise<any> {
-    return this.api.get('events/list', { lat: lat, lng: lng, page: pageNo });
+  list(lat, lng, pageNo: number, pageSize: number = 15): Promise<any> {
+    return this.api.get('events/list', { lat: lat, lng: lng, page: pageNo, size: pageSize });
   }
 
   getMyEvents(pageNo: number): Promise<any> {

@@ -17,7 +17,7 @@
   <ion-card>
     <ion-list>
       <ion-item>
-        <h2>{{event.title}}</h2>
+        <h2 text-wrap>{{event.title}}</h2>
         <p class="stats">
           <span class="data">人气 {{event.view_count}}, <!--转发 {{event.share_count}}, -->点赞 {{event.likes_count}}</span>
           <button ion-button icon-left clear small class="like-btn" (click)="doLike()">
