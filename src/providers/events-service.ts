@@ -24,7 +24,13 @@ export class EventsService {
   }
 
   list(lat, lng, pageNo: number, pageSize: number = 15): Promise<any> {
-    return this.api.get('events/list', { lat: lat, lng: lng, page: pageNo, size: pageSize });
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get('events/list', { lat: lat, lng: lng, page: pageNo, size: pageSize, token: token })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      }).catch(error => reject(error));
+    });
   }
 
   getMyEvents(pageNo: number): Promise<any> {

@@ -73,7 +73,7 @@ export class ExplorePage {
             let temp = this.eventsData || [];
             this.eventsData = temp.concat(data.data || data);
           }
-
+          console.log(data.data);
           this.totalPage = Math.floor(( data.total + this.pageSize - 1 ) / this.pageSize);
           this.hasMore = this.totalPage > this.pageNo;
 
@@ -90,51 +90,6 @@ export class ExplorePage {
           }, 20);
         });
     });
-  }
-
-  startLoadEvents(lat, lng, refresher) {
-      this.events.list(lat,lng,this.pageNo, this.pageSize)
-      .then(data => {
-
-        if (this.pageNo === 1) {
-          this.eventsData = data.data || data;
-        } else {
-          let temp = this.eventsData || [];
-          // temp.concat(data.data || data);
-          this.eventsData = temp.concat(data.data || data);
-        }
-        
-        // console.log(data);
-        console.log(`page: ${this.pageNo}, array: ${this.eventsData}`);
-
-        this.totalPage = Math.floor(( data.total + this.pageSize - 1 ) / this.pageSize);
-        // console.log(this.totalPage);
-        // console.log(this.hasMore);
-        this.toolService.hideLoading();
-        if (refresher) {
-          // setTimeout( ()=>{
-            refresher.complete();
-          // }, 200);
-        }
-
-        this.hasMore = this.totalPage > this.pageNo;
-
-        this.loadingMore = false;
-      }).catch(error => {
-        this.loadingMore = false;
-
-        this.toolService.hideLoading();
-        if (refresher) {
-          // setTimeout( ()=>{
-            refresher.complete();
-          // }, 200);
-          // refresher.complete();
-        }
-
-        setTimeout(() => {
-          this.toolService.showToast(error);
-        }, 20);
-      });
   }
 
   gotoDetail(event) {
