@@ -31,6 +31,10 @@ export class CommWeb {
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad CommWeb');
+    // this.loadPageData();
+  }
+
+  ionViewDidEnter() {
     this.loadPageData();
   }
 
