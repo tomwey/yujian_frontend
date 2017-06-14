@@ -26,6 +26,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationSearchProvider } from '../providers/location-search/location-search';
 // import { LocationProvider } from '../providers/location/location';
 import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
+import { WechatProvider } from '../providers/wechat/wechat';
 // import { ScriptLoadProvider } from '../providers/script-load/script-load';
 
 @NgModule({
@@ -68,7 +69,7 @@ import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
     EventsService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     LocationSearchProvider, 
-    UtilsServiceProvider,
+    UtilsServiceProvider, WechatProvider,
   ]
 })
 export class AppModule {}
