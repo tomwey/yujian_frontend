@@ -46,7 +46,7 @@ export class SettingPage {
   }
 
   gotoWallet(): void {
-    this.navCtrl.push('WalletPage',this.user);
+    this.navCtrl.push('wallet',this.user);
   }
 
   gotoHBHistory(): void {

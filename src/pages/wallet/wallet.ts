@@ -9,7 +9,10 @@ import { ToolService } from '../../providers/tool-service';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+@IonicPage({
+  name: 'wallet',
+  segment: 'wallet'
+})
 @Component({
   selector: 'page-wallet',
   templateUrl: 'wallet.html',

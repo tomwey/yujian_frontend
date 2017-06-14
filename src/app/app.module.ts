@@ -51,7 +51,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
       // preloadModules: true,
       mode: 'ios',
       backButtonText: '',
-      tabsHideOnSubPages: true,
+      // tabsHideOnSubPages: true,
       // pageTransition: 'ios'
     })
   ],
