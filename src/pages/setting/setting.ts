@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ModalController } from 'ionic-angular';
+import { NavController, IonicPage, ModalController, App } from 'ionic-angular';
 // import { WalletPage } from '../wallet/wallet';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
@@ -20,12 +20,17 @@ export class SettingPage {
   constructor(public navCtrl: NavController,
               private users: UserService,
               private tool: ToolService,
-              private modalCtrl: ModalController) {
+              private modalCtrl: ModalController,
+              private app: App) {
       // this.loadUserProfile();
   }
 
   ionViewDidLoad() {
     this.loadUserProfile();
+  }
+
+  ionViewDidEnter() {
+    this.app.setTitle('我的');
   }
 
   loadUserProfile(): void {
