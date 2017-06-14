@@ -4,11 +4,15 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
-import { Geolocation } from '@ionic-native/geolocation';
 
-import { TabsPage } from '../pages/tabs/tabs';
-import { HomePage } from "../pages/home/home";
-import { AccountBindPage } from "../pages/account-bind/account-bind";
+import { TabsPageModule } from '../pages/tabs/tabs.module';
+import { HomePageModule } from '../pages/home/home.module';
+import { AccountBindPageModule } from '../pages/account-bind/account-bind.module';
+// import { Geolocation } from '@ionic-native/geolocation';
+
+// import { TabsPage } from '../pages/tabs/tabs';
+// import { HomePage } from "../pages/home/home";
+// import { AccountBindPage } from "../pages/account-bind/account-bind";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -32,15 +36,19 @@ import { WechatProvider } from '../providers/wechat/wechat';
 @NgModule({
   declarations: [
     MyApp,
-    TabsPage,
-    HomePage,
-    AccountBindPage,
+    // TabsPage,
+    // HomePage,
+    // AccountBindPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
+    AccountBindPageModule,
+    TabsPageModule,
+    HomePageModule,
     IonicModule.forRoot(MyApp, {
+      // preloadModules: true,
       mode: 'ios',
       backButtonText: '',
       tabsHideOnSubPages: true,
@@ -50,14 +58,14 @@ import { WechatProvider } from '../providers/wechat/wechat';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    TabsPage,
-    HomePage,
-    AccountBindPage,
+    // TabsPage,
+    // HomePage,
+    // AccountBindPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    Geolocation,
+    // Geolocation,
     QQMaps,
     ApiService,
     // RedPacketService,

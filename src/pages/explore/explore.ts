@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, App } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
 import { QQMaps } from '../../providers/qq-maps';
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 
-@IonicPage()
+@IonicPage({
+    name: 'explore'
+  }
+)
 @Component({
   selector: 'page-explore',
   templateUrl: 'explore.html'
@@ -25,7 +28,8 @@ export class ExplorePage {
               private toolService: ToolService,
               // private hbService: RedPacketService,
               private events: EventsService,
-              private qqMaps: QQMaps
+              private qqMaps: QQMaps,
+              private app: App,
               ) {
       
   }
@@ -94,7 +98,7 @@ export class ExplorePage {
 
   gotoDetail(event) {
     // console.log(event);
-    this.navCtrl.push('EventDetailPage', event);
+    this.navCtrl.push('event-detail', event);
   }
 
   doInfinite(infiniteScroll): void {

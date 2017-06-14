@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Platform, IonicApp, App, MenuController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { TabsPage } from "../pages/tabs/tabs";
-import { AccountBindPage } from '../pages/account-bind/account-bind';
+// import { StatusBar } from '@ionic-native/status-bar';
+// import { SplashScreen } from '@ionic-native/splash-screen';
+// import { TabsPage } from "../pages/tabs/tabs";
+// import { AccountBindPage } from '../pages/account-bind/account-bind';
 import { UserService } from '../providers/user-service';
 
 @Component({
@@ -12,8 +12,9 @@ import { UserService } from '../providers/user-service';
 export class MyApp {
   rootPage:any;//TabsPage;//'TabsPage';
 
-  constructor(platform: Platform, statusBar: StatusBar, 
-              splashScreen: SplashScreen,
+  constructor(platform: Platform, 
+              //statusBar: StatusBar, 
+              //splashScreen: SplashScreen,
               private users: UserService,
               private _app: App, 
               private _ionicApp: IonicApp,
@@ -27,10 +28,10 @@ export class MyApp {
 
     this.users.token().then(token => {
       if (!token) {
-        this.rootPage = AccountBindPage;
+        this.rootPage = 'account-bind';
       } else {
         // this.nav.setRoot(TabsPage);
-        this.rootPage = TabsPage;
+        this.rootPage = 'tabs';
       }
     });
   }

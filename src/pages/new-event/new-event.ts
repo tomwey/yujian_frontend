@@ -4,7 +4,9 @@ import { ApiService } from '../../providers/api-service';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
 
-@IonicPage()
+@IonicPage({
+  name: 'new-event'
+})
 @Component({
   selector: 'page-new-event',
   templateUrl: 'new-event.html',

@@ -27,7 +27,7 @@ export class MyEventsPage {
   }
 
   gotoEventDetail(event): void {
-    this.navCtrl.push('EventDetailPage', event);
+    this.navCtrl.push('event-detail', event);
   }
   loadData(): void {
     this.tool.showLoading('拼命加载中...');

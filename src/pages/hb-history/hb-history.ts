@@ -72,7 +72,7 @@ export class HBHistory {
   }
 
   gotoHBResult(item): void {
-    this.navCtrl.push('EventDetailPage', item);
+    this.navCtrl.push('event-detail', item);
   }
 
   doInfinite(e): void {

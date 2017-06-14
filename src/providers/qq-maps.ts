@@ -69,7 +69,7 @@ export class QQMaps {
 
         let script = document.createElement("script");
         script.id = "qqMaps";
-        script.src = "https://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&libraries=convertor&callback=mapInit";
+        script.src = "https://map.qq.com/api/js?v=2.exp&key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&callback=mapInit";
         script.async = true;
 
         document.body.appendChild(script);
