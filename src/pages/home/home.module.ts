@@ -5,6 +5,9 @@ import { HomePage } from "./home";
 @NgModule({
     declarations: [HomePage],
     imports: [IonicPageModule.forChild(HomePage)],
+    entryComponents: [
+        HomePage,
+    ],
     exports: [HomePage]
 })
 export class HomePageModule {}

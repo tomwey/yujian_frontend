@@ -9,6 +9,9 @@ import { AccountBindPage } from './account-bind';
   imports: [
     IonicPageModule.forChild(AccountBindPage),
   ],
+  entryComponents: [
+    AccountBindPage,
+  ],
   exports: [
     AccountBindPage
   ]

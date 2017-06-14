@@ -5,6 +5,9 @@ import { TabsPage } from "./tabs";
 @NgModule({
     declarations: [TabsPage],
     imports: [IonicPageModule.forChild(TabsPage)],
+    entryComponents: [
+        TabsPage,
+    ],
     exports: [TabsPage]
 })
 export class TabsPageModule {}
