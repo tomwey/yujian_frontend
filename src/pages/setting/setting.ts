@@ -4,9 +4,7 @@ import { NavController, IonicPage, ModalController, App } from 'ionic-angular';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
 
-@IonicPage({
-  name: 'setting'
-})
+@IonicPage()
 @Component({
   selector: 'page-setting',
   templateUrl: 'setting.html'

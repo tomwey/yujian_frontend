@@ -10,10 +10,7 @@ import { UserService } from '../../providers/user-service';
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage({
-  name: 'event-detail',
-  segment: 'event-detail',
-})
+@IonicPage()
 @Component({
   selector: 'page-event-detail',
   templateUrl: 'event-detail.html',

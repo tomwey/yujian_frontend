@@ -3,10 +3,9 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { ApiService } from '../../providers/api-service';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
+import { QQMaps } from '../../providers/qq-maps';
 
-@IonicPage({
-  name: 'new-event'
-})
+@IonicPage()
 @Component({
   selector: 'page-new-event',
   templateUrl: 'new-event.html',
@@ -14,6 +13,8 @@ import { ToolService } from '../../providers/tool-service';
 export class NewEventPage {
 
   @ViewChild('fileInput') nativeFileInputBtn: ElementRef;
+
+  currentPosition: any = null;
 
   // addFileText: string = '添加图片';
   // imageCover: File = null;
@@ -36,8 +37,11 @@ export class NewEventPage {
               private api: ApiService,
               private users: UserService,
               private alertCtrl: AlertController,
-              private tool: ToolService ) {
-    
+              private tool: ToolService,
+              private qqMaps: QQMaps ) {
+    this.qqMaps.startLocating()
+      .then(pos => this.currentPosition = pos)
+      .catch(error => {});
   }
 
   ionViewDidLoad() {
@@ -173,6 +177,19 @@ export class NewEventPage {
                accuracy: this.event.rule.accurcy 
               };
     }
+
+    if (!this.event.location || !this.event.location.latLng) {
+      if (this.currentPosition && 
+          this.currentPosition.lat != 0 && 
+          this.currentPosition.lng != 0) {
+        this.event.location = `${this.currentPosition.lng} ${this.currentPosition.lat}`;
+      }
+    }
+
+    // if (!this.event.location.address) {
+    //   this.event.location.address = this.currentPosition.addr;
+    // }
+
     let payload = {
       title: this.event.title,
       body: this.generateBody(),

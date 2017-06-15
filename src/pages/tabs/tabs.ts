@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { IonicPage } from "ionic-angular";
-// import { HomePage } from '../home/home';
+// import { IonicPage } from "ionic-angular";
+import { HomePage } from '../home/home';
 
-@IonicPage({
-  name: 'tabs',
-})
+// @IonicPage({
+//   name: 'tabs',
+// })
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = 'home';
-  tab2Root = 'explore';
-  tab3Root = 'new-event';
-  tab4Root = 'setting';
+  tab1Root = HomePage;
+  tab2Root = 'ExplorePage';
+  tab3Root = 'NewEventPage';
+  tab4Root = 'SettingPage';
 
   constructor() {
 

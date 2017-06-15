@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { Platform, IonicApp, App, MenuController } from 'ionic-angular';
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
-// import { TabsPage } from "../pages/tabs/tabs";
-// import { AccountBindPage } from '../pages/account-bind/account-bind';
+import { TabsPage } from "../pages/tabs/tabs";
+import { AccountBindPage } from '../pages/account-bind/account-bind';
 import { UserService } from '../providers/user-service';
 
 @Component({
@@ -28,10 +28,10 @@ export class MyApp {
 
     this.users.token().then(token => {
       if (!token) {
-        this.rootPage = 'account-bind';
+        this.rootPage = AccountBindPage;//'account-bind';
       } else {
         // this.nav.setRoot(TabsPage);
-        this.rootPage = 'tabs';
+        this.rootPage = TabsPage;
       }
     });
   }

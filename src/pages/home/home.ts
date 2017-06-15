@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController, IonicPage } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
@@ -7,9 +7,9 @@ import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
 
-@IonicPage({
-  name: 'home',
-})
+// @IonicPage({
+//   name: 'home',
+// })
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -44,7 +44,10 @@ export class HomePage {
 
   ionViewDidLoad() {
     document.addEventListener('hb:click', (e) => {
-      this.navCtrl.push('event-detail', e['detail']);
+      this.navCtrl.push('EventDetailPage', e['detail']);
+      // this.app.getRootNav().push('EventDetailPage', e['detail']);
+      // console.log(this.navCtrl);
+      // console.log(this.app.getRootNav());
     });
     document.addEventListener('map:drag', (e) => {
       // console.log('开始加载数据...');
@@ -189,7 +192,9 @@ export class HomePage {
   // 添加红包到地图上
   addMarkers(data) {
     data.forEach(item => {
-      this.loadedMarkers.push(this.qqMaps.addMarker(item));
+      if (this.loadedMarkers) {
+        this.loadedMarkers.push(this.qqMaps.addMarker(item));
+      }
     });
   }
 

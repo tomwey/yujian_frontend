@@ -6,10 +6,7 @@ import { EventsService } from '../../providers/events-service';
 import { QQMaps } from '../../providers/qq-maps';
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 
-@IonicPage({
-    name: 'explore'
-  }
-)
+@IonicPage()
 @Component({
   selector: 'page-explore',
   templateUrl: 'explore.html'
@@ -98,7 +95,7 @@ export class ExplorePage {
 
   gotoDetail(event) {
     // console.log(event);
-    this.navCtrl.push('event-detail', event);
+    this.navCtrl.push('EventDetailPage', event);
   }
 
   doInfinite(infiniteScroll): void {
