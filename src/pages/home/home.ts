@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, IonicPage } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
@@ -7,9 +7,7 @@ import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
 
-// @IonicPage({
-//   name: 'home',
-// })
+@IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -40,6 +38,10 @@ export class HomePage {
     // }).catch(error => {
     //   console.log(error);
     // });
+  }
+
+  doTest() {
+    this.navCtrl.push('CommWeb', { slug: 'about', title: '关于' });
   }
 
   ionViewDidLoad() {
@@ -131,6 +133,7 @@ export class HomePage {
 
   // 初始化地图
   initMap(pos) {
+    console.log('ddddd');
     this.toolService.showLoading('地图加载中...');
     this.qqMaps.init(this.mapElement.nativeElement, null)
       .then((map) => {
@@ -181,7 +184,7 @@ export class HomePage {
 
         this.hbIsLoading = false;
 
-        this.addMarkers(data);
+        // this.addMarkers(data);
       })
       .catch(error => { 
         console.log(error);
