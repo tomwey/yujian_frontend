@@ -269,8 +269,21 @@ export class QQMaps {
   } // end initMap
 
   // 添加标记
-  addMarker(item): any {
+  addMarker(item, map): any {
+    let anchor = new qq.maps.Point(6,6);
+    let size = new qq.maps.Size(35,39);
+    let orgin = new qq.maps.Point(0,0);
+    let markerIcon = new qq.maps.MarkerImage('../assets/images/icon_hb.svg',size, orgin, anchor
+    );
+    let marker = new qq.maps.Marker({
+      icon: markerIcon,
+      map: map,
+      // animation:qq.maps.MarkerAnimation.DROP,
+      position: new qq.maps.LatLng(item.lat, item.lng)
+    });
+    return marker;
     // 自定义一个覆盖物类
+    /*
     function CustomOverlay(position, data) {
         this.data = data;
         this.position = position;
@@ -330,7 +343,7 @@ export class QQMaps {
     // overlay.setContent('<h2>标题</h2>');
     overlay.setMap(this.map);
 
-    return overlay;
+    return overlay;*/
   }
 
   disableMap(): void {

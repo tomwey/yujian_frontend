@@ -173,7 +173,8 @@ export class HomePage {
     this.loadedMarkers.forEach(marker => {
       marker.setMap(null);
     });
-    this.loadedMarkers = [];
+    this.loadedMarkers.length = 0;
+    // this.loadedMarkers = null;
 
     // let position = this.map.getCenter();
     this.events.nearby(pos.lat, pos.lng)
@@ -184,7 +185,7 @@ export class HomePage {
 
         this.hbIsLoading = false;
 
-        // this.addMarkers(data);
+        this.addMarkers(data);
       })
       .catch(error => { 
         console.log(error);
@@ -196,7 +197,7 @@ export class HomePage {
   addMarkers(data) {
     data.forEach(item => {
       if (this.loadedMarkers) {
-        this.loadedMarkers.push(this.qqMaps.addMarker(item));
+        this.loadedMarkers.push(this.qqMaps.addMarker(item, this.map));
       }
     });
   }
