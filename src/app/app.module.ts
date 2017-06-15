@@ -10,9 +10,12 @@ import { MyApp } from './app.component';
 // import { AccountBindPageModule } from '../pages/account-bind/account-bind.module';
 // import { Geolocation } from '@ionic-native/geolocation';
 
-// import { TabsPage } from '../pages/tabs/tabs';
-// import { HomePage } from "../pages/home/home";
-// import { AccountBindPage } from "../pages/account-bind/account-bind";
+import { TabsPage } from '../pages/tabs/tabs';
+import { HomePage } from "../pages/home/home";
+import { NewEventPage } from "../pages/new-event/new-event";
+import { ExplorePage } from "../pages/explore/explore";
+import { SettingPage } from "../pages/setting/setting";
+import { AccountBindPage } from "../pages/account-bind/account-bind";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -36,9 +39,12 @@ import { WechatProvider } from '../providers/wechat/wechat';
 @NgModule({
   declarations: [
     MyApp,
-    // TabsPage,
-    // HomePage,
-    // AccountBindPage,
+    TabsPage,
+    HomePage,
+    AccountBindPage,
+    ExplorePage,
+    NewEventPage,
+    SettingPage,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // TabsPageModule,
     // HomePageModule,
     IonicModule.forRoot(MyApp, {
-      preloadModules: true,
+      // preloadModules: true,
       mode: 'ios',
       backButtonText: '',
       tabsHideOnSubPages: true,
@@ -58,9 +64,12 @@ import { WechatProvider } from '../providers/wechat/wechat';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    // TabsPage,
-    // HomePage,
-    // AccountBindPage,
+    TabsPage,
+    HomePage,
+    AccountBindPage,
+    ExplorePage,
+    SettingPage,
+    NewEventPage,
   ],
   providers: [
     StatusBar,

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage, ModalController, App } from 'ionic-angular';
+import { NavController, ModalController, App } from 'ionic-angular';
 // import { WalletPage } from '../wallet/wallet';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-setting',
   templateUrl: 'setting.html'
@@ -21,7 +21,8 @@ export class SettingPage {
               private users: UserService,
               private tool: ToolService,
               private modalCtrl: ModalController,
-              private app: App) {
+              private app: App
+              ) {
       // this.loadUserProfile();
   }
 

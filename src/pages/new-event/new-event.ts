@@ -1,11 +1,11 @@
 import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { ApiService } from '../../providers/api-service';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-new-event',
   templateUrl: 'new-event.html',

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController, IonicPage } from 'ionic-angular';
+import { NavController, ModalController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
@@ -7,7 +7,7 @@ import { EventsService } from '../../providers/events-service';
 import { UserService } from '../../providers/user-service';
 import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { UserService } from "../../providers/user-service";
 import { ToolService } from "../../providers/tool-service";
-// import { TabsPage } from "../tabs/tabs";
+import { TabsPage } from "../tabs/tabs";
 
 /**
  * Generated class for the AccountBindPage page.
@@ -10,7 +10,7 @@ import { ToolService } from "../../providers/tool-service";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-account-bind',
   templateUrl: 'account-bind.html',
@@ -28,7 +28,7 @@ export class AccountBindPage {
     this.users.bindAccount(this.account.code)
       .then(data => {
         this.tool.hideLoading();
-        this.navCtrl.setRoot('TabsPage');
+        this.navCtrl.setRoot(TabsPage);
       })
       .catch(error => {
         this.tool.hideLoading();
