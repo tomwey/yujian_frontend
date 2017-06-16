@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
+import { Events } from 'ionic-angular';
 // import { Geolocation } from '@ionic-native/geolocation';
 // import { ScriptLoadProvider } from './script-load/script-load';
 
@@ -20,7 +21,9 @@ export class QQMaps {
   mapInitialised: boolean = false;
   mapLoaded: any;
 
-  constructor(/*private geolocation: Geolocation*/private storage: Storage) {
+  constructor(/*private geolocation: Geolocation*/private storage: Storage,
+    private events: Events) {
+      console.log(`events:${events}`);
     // this.initSDK();
   }
 
@@ -49,22 +52,12 @@ export class QQMaps {
 
         window['mapInit'] = () => {
           resolve(true);
-          // this.initMap(position)
-          //   .then((map) => {
-          //   this.map = map;
 
-          //   // 注册拖动地图事件
-          //   qq.maps.event.addListener(this.map, 'center_changed', function() {
-          //     var event = new CustomEvent('map:drag');
-          //     document.dispatchEvent(event);
-          //   });
-
-          //   resolve(this.map);
-          //   })
-          //   .catch(error => {
-          //     reject(error);
-          //   });
-          // this.enableMap();
+          // 注册拖动地图事件
+          console.log(qq.maps.event);
+          // qq.maps.event.addListener(this.map, 'center_changed', () => {
+          //   this.events.publish('map:drag');
+          // });
         };
 
         let script = document.createElement("script");
@@ -75,12 +68,6 @@ export class QQMaps {
         document.body.appendChild(script);
       } else {
         resolve(true);
-        // this.initMap(position).then(map => {
-        //   resolve(this.map);
-        // }).catch(error => {
-        //   reject(error);
-        // });
-        // this.enableMap();
       }
     } );
     
@@ -92,10 +79,6 @@ export class QQMaps {
       if (typeof qq == "undefined" || typeof qq.maps == "undefined" || 
           typeof qq.maps.Geolocation == "undefined") {
         console.log("QQ Geolocation JavaScript needs to be loaded.");
-        // window['locInit'] = () => {
-        //   console.log('加载loc sdk成功');
-        //   resolve(true);
-        // };
 
         let script = document.createElement("script");
         script.id = "qqLoc";
@@ -115,28 +98,6 @@ export class QQMaps {
     });
   }
 
-  // private loadQQLocSDK(): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     let sdkUrl = 'https://apis.map.qq.com/tools/geolocation/min?key=EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ&referer=yujian';
-  //     if (typeof qq == "undefined" || typeof qq.maps == "undefined" || 
-  //         typeof qq.maps.Geolocation == "undefined") {
-  //       console.log("QQ Geolocation JavaScript needs to be loaded.");
-  //       window['locInit'] = () => {
-  //         console.log('加载loc sdk成功');
-  //         resolve(true);
-  //       };
-
-  //       let script = document.createElement("script");
-  //       script.id = "qqLoc";
-  //       script.src = sdkUrl + '&callback=locInit';
-  //       script.async = true;
-
-  //       document.body.appendChild(script);
-  //     } else {
-  //       resolve(true);
-  //     }
-  //   });
-  // }
   /**
    * 获取位置，并进行HTML5纠偏
    * @param reload 是否强制重新获取位置
@@ -202,28 +163,6 @@ export class QQMaps {
     });
   }
 
-  // startLocating(): Promise<any> {
-  //   return new Promise((resolve, reject) => {
-  //     this.loadQQLocSDK()
-  //       .then(data => {
-  //         let geolocation = new qq.maps.Geolocation();
-  //         if (geolocation) {
-  //           geolocation.getLocation((pos) => {
-  //             console.log(`pos:${pos.lat},${pos.lng}`);
-  //             resolve(pos);
-  //           }, (error) => {
-  //             console.log(`e->pos:${error}`);
-  //             reject(error);
-  //           }, { timeout: 9000 });
-  //         } else {
-  //           reject({code: -1, message: '定位SDK初始化失败'});
-  //         }
-  //       }).catch(error => {
-
-  //       });
-  //   });
-  // }
-
   /**
    * 创建地图
    */
@@ -250,10 +189,13 @@ export class QQMaps {
         if (map) {
           this.map = map;
           // console.log('ddddd123');
+          console.log('dddd--------123333');
           // 注册拖动地图事件
-          qq.maps.event.addListener(this.map, 'center_changed', function() {
-            let event = new CustomEvent('map:drag');
-            document.dispatchEvent(event);
+          qq.maps.event.addListener(this.map, 'center_changed', () => {
+            // let event = new CustomEvent('map:drag');
+            // document.dispatchEvent(event);
+            console.log('dddd--------');
+            this.events.publish('map:drag');
           });
 
           // 回调上层接口
@@ -268,8 +210,25 @@ export class QQMaps {
     });
   } // end initMap
 
+  markCurrentLocation(map, pos): any {
+    console.log('map: ' + map);
+    let anchor = new qq.maps.Point(9,9);
+    let size = new qq.maps.Size(18,18);
+    let orgin = new qq.maps.Point(0,0);
+    let markerIcon = new qq.maps.MarkerImage('../assets/images/icon_loc.svg',size, orgin, anchor
+    );
+    let marker = new qq.maps.Marker({
+      icon: markerIcon,
+      map: map,
+      // animation:qq.maps.MarkerAnimation.DROP,
+      position: new qq.maps.LatLng(pos.lat, pos.lng)
+    });
+    console.log(`marker: ${marker}`);
+    return marker;
+  }
+
   // 添加标记
-  addMarker(item, map): any {
+  addMarker(item, map, callback): any {
     let anchor = new qq.maps.Point(6,6);
     let size = new qq.maps.Size(35,39);
     let orgin = new qq.maps.Point(0,0);
@@ -281,69 +240,13 @@ export class QQMaps {
       // animation:qq.maps.MarkerAnimation.DROP,
       position: new qq.maps.LatLng(item.lat, item.lng)
     });
+    // 添加事件
+    marker && qq.maps.event.addListener(marker, 'click', () => {
+      if (callback) {
+        callback(item);
+      };
+    });
     return marker;
-    // 自定义一个覆盖物类
-    /*
-    function CustomOverlay(position, data) {
-        this.data = data;
-        this.position = position;
-    }
-    CustomOverlay.prototype = new qq.maps.Overlay();
-    //定义construct,实现这个接口来初始化自定义的Dom元素
-    CustomOverlay.prototype.construct = function() {
-        var div = this.div = document.createElement("div");
-        this.div.classList.add("hb-marker");
-        // var divStyle = this.div.style;
-        // divStyle.position = "absolute";
-        // divStyle.width = "36px";
-        // divStyle.height = "48px";
-        // divStyle.background = "url(assets/images/map_img_hb.png) no-repeat center center";
-        // // divStyle.border = "1px solid #000000";
-        // divStyle.textAlign = "center";
-        // // divStyle.lineHeight = "24px";
-        // divStyle.borderRadius = "6px";
-        // divStyle.cursor = "pointer";
-        this.div.innerHTML = 
-        '<div class="left-money">¥' + this.data.hb.left_money + '</div';
-        //'<div class="user"><img src="' + this.data.owner.avatar + '"><span class="level level-'+ this.data.owner.type +'"></span></div>' + '<p class="digit">' + this.data.quantity + '</p>';
-        // console.log('111111');
-        // console.log(this.data);
-        //将dom添加到覆盖物层
-        var panes = this.getPanes();
-        //设置panes的层级，overlayMouseTarget可接收点击事件
-        panes.overlayMouseTarget.appendChild(div);
-    
-        var self = this;
-        this.div.onclick = function() {
-            // alert(self.index);
-            // alert(self.data);
-            var event = new CustomEvent('hb:click', { 'detail': self.data });
-            document.dispatchEvent(event);
-        }
-    }
-
-    //实现draw接口来绘制和更新自定义的dom元素
-    CustomOverlay.prototype.draw = function() {
-        var overlayProjection = this.getProjection();
-        //返回覆盖物容器的相对像素坐标
-        var pixel = overlayProjection.fromLatLngToDivPixel(this.position);
-        var divStyle = this.div.style;
-        divStyle.left = pixel.x - 12 + "px";
-        divStyle.top = pixel.y - 12 + "px";
-    }
-    //实现destroy接口来删除自定义的Dom元素，此方法会在setMap(null)后被调用
-    CustomOverlay.prototype.destroy = function() {
-        this.div.onclick = null;
-        this.div.parentNode.removeChild(this.div);
-        this.div = null
-    }
-
-    let position = new qq.maps.LatLng(item.lat, item.lng);
-    var overlay = new CustomOverlay(position, item);
-    // overlay.setContent('<h2>标题</h2>');
-    overlay.setMap(this.map);
-
-    return overlay;*/
   }
 
   disableMap(): void {

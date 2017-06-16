@@ -33,7 +33,7 @@
       <!--<div *ngIf="!isLoading">{{ hbCount === 0 ? '当前位置附近暂无红包' : '当前位置附近有' + hbCount + '个红包' }}</div>-->
     </ion-card-content>
   </ion-card>
-  <div class="pin" [hidden]="!mapLoaded">
+  <div class="pin" [hidden]="!mapLoaded || mapError">
     <!--<ion-icon name="ios-disc"></ion-icon>-->
     <div class="dot"></div>
   </div>

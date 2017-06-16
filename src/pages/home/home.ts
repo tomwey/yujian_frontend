@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, Events } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
 import { Platform } from 'ionic-angular';
@@ -22,6 +22,8 @@ export class HomePage {
   loadedMarkers: any[] = []; // 保存已经添加的标记
   hbIsLoading: boolean = false; // 是否正在加载红包
   mapError: any = null;
+
+  currentLocMarker: any = null;
   constructor(public navCtrl: NavController, 
               private events: EventsService,
               private qqMaps: QQMaps,
@@ -29,7 +31,8 @@ export class HomePage {
               private toolService: ToolService,
               private users: UserService,
               private modalCtrl: ModalController,
-              private utils: UtilsServiceProvider) 
+              private utils: UtilsServiceProvider,
+              private notiEvents: Events) 
   {
     // this.scriptLoader.load('qqLoc', 'qqMap').then(data => {
     //   console.log(qq.maps);
@@ -38,6 +41,9 @@ export class HomePage {
     // }).catch(error => {
     //   console.log(error);
     // });
+    this.notiEvents.subscribe('map:drag', () => {
+      this.map && this.loadHBData(this.map.getCenter());
+    })
   }
 
   doTest() {
@@ -45,62 +51,21 @@ export class HomePage {
   }
 
   ionViewDidLoad() {
-    document.addEventListener('hb:click', (e) => {
-      this.navCtrl.push('EventDetailPage', e['detail']);
-      // this.app.getRootNav().push('EventDetailPage', e['detail']);
-      // console.log(this.navCtrl);
-      // console.log(this.app.getRootNav());
-    });
-    document.addEventListener('map:drag', (e) => {
-      // console.log('开始加载数据...');
-      this.map && this.loadHBData(this.map.getCenter());
-    });
+    // document.addEventListener('hb:click', (e) => {
+    //   this.navCtrl.push('EventDetailPage', e['detail']);
+    //   // this.app.getRootNav().push('EventDetailPage', e['detail']);
+    //   // console.log(this.navCtrl);
+    //   // console.log(this.app.getRootNav());
+    // });
+    // document.addEventListener('map:drag', (e) => {
+    //   // console.log('开始加载数据...');
+    //   this.map && this.loadHBData(this.map.getCenter());
+    // });
 
     this.platform.ready().then(() => {
 
       this.startLocation();
-      // this.initMap();
-      // this.qqMaps.initSDK().then(() => {
-      //   this.startLocation();
-      // }).catch(error => {
-      //   console.log(error);
-      // });
-      
-      // this.locationService.startLocation();
     });
-  }
-
-  fetchUserLocation(): void {
-    this.mapError = null;
-
-    this.toolService.showLoading('获取位置中...');
-
-    this.users.loadUser()
-      .then(user => {
-        this.toolService.hideLoading();
-
-        console.log(user);
-        if (!user.current_location) {
-          this.mapError = { code: -1, message: '位置获取失败或未开启定位！' };
-          return;
-        }
-        // 初始化地图
-        let arr = user.current_location.split(',');
-        let pos = { lat: arr[0], lng: arr[1] };
-        if (this.map) {
-          this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
-        } else {
-          // console.log('开始初始化地图');
-          this.initMap(pos);
-        }
-      }).catch(error => {
-        this.toolService.hideLoading();
-
-        // setTimeout(() => {
-          this.mapError = error;
-          // this.toolService.showToast('位置获取失败!')
-        // }, 200);
-      });
   }
 
   startLocation(): void {
@@ -116,6 +81,10 @@ export class HomePage {
 
         if (this.map) {
           this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
+
+          // 标记中心点
+          this.markCurrentLocation(pos);
+
           this.loadHBData(pos);
         } else {
           // console.log('开始初始化地图');
@@ -133,19 +102,26 @@ export class HomePage {
 
   // 初始化地图
   initMap(pos) {
-    console.log('ddddd');
+    // console.log('ddddd');
     this.toolService.showLoading('地图加载中...');
     this.qqMaps.init(this.mapElement.nativeElement, null)
       .then((map) => {
         // console.log('123333');
         this.toolService.hideLoading();
 
+        // 监听地图中心点变化
+        // qq.maps.event.removeListener(this.map);
+        // qq.maps.event.addListener(this.map, 'center_changed', () => {
+        //     this.map && this.loadHBData(this.map.getCenter());
+        // });
+
         this.map = map;
         this.mapLoaded = true;
 
-        console.log(`lat:${pos.lat},lng:${pos.lng}`);
-
         this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
+
+        // 标记中心点
+        this.markCurrentLocation(pos);
 
         this.loadHBData(pos);
       })
@@ -159,7 +135,20 @@ export class HomePage {
       });
   }
 
+  private markCurrentLocation(pos) {
+    if (this.currentLocMarker) {
+      this.currentLocMarker.setMap(null);
+      this.currentLocMarker = null;
+    }
+    
+    this.currentLocMarker = this.qqMaps.markCurrentLocation(this.map, pos);
+  }
+
   loadHBData(pos) {
+    // 标记当前位置
+    // this.markCurrentLocation(pos);
+
+    // 加载活动数据
     setTimeout(() => {
       this.loadData(pos);
     }, 100);
@@ -167,16 +156,12 @@ export class HomePage {
 
   // 加载附近红包
   loadData(pos) {
+
+    if (this.hbIsLoading) return;
+
     this.hbIsLoading = true;
 
-    // 清空所有的标记
-    this.loadedMarkers.forEach(marker => {
-      marker.setMap(null);
-    });
-    this.loadedMarkers.length = 0;
-    // this.loadedMarkers = null;
-
-    // let position = this.map.getCenter();
+    // 加载数据
     this.events.nearby(pos.lat, pos.lng)
       .then(data => {
         console.log(data);
@@ -195,9 +180,20 @@ export class HomePage {
 
   // 添加红包到地图上
   addMarkers(data) {
+
+    // 清空所有的标记
+    this.loadedMarkers.forEach(marker => {
+      // qq.maps.event && qq.maps.event.removeListener(marker);
+      marker.setMap(null);
+    });
+    this.loadedMarkers.length = 0;
+
+    // 重新添加
     data.forEach(item => {
       if (this.loadedMarkers) {
-        this.loadedMarkers.push(this.qqMaps.addMarker(item, this.map));
+        this.loadedMarkers.push(this.qqMaps.addMarker(item, this.map, (data) => {
+          this.navCtrl.push('EventDetailPage', data);
+        }));
       }
     });
   }
