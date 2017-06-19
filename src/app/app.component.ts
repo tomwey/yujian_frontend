@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from "../pages/tabs/tabs";
 import { AccountBindPage } from '../pages/account-bind/account-bind';
 import { UserService } from '../providers/user-service';
+import { WechatProvider } from "../providers/wechat/wechat";
 
 @Component({
   templateUrl: 'app.html'
@@ -16,7 +17,8 @@ export class MyApp {
               statusBar: StatusBar, 
               splashScreen: SplashScreen,
               private users: UserService,
-              // private _app: App, 
+              private _app: App, 
+              private wechat: WechatProvider,
               // private _ionicApp: IonicApp,
               ) {
     platform.ready().then(() => {

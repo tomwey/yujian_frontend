@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ModalController, Events } from 'io
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
 import { UserService } from '../../providers/user-service';
+import { WechatProvider } from "../../providers/wechat/wechat";
 
 /**
  * Generated class for the EventDetail page.
@@ -37,11 +38,15 @@ export class EventDetailPage {
               private toolService: ToolService,
               private modalCtrl: ModalController,
               private users: UserService,
-              private noti: Events) {
+              private noti: Events,
+              private wechat: WechatProvider) {
     // console.log(this.navParams.data);
     this.event = this.navParams.data;
 
     // this.fetchUserLocation();
+    // setTimeout(() => {
+    //   this._addShare();
+    // }, 1000);
   }
 
   fetchUserLocation(): void {
@@ -50,6 +55,28 @@ export class EventDetailPage {
     // }).catch(error => {
     //   console.log(error);
     // });
+  }
+
+  private _addShare() {
+    this.users.token().then(token => {
+      let params = { title: this.event.title, 
+        desc: '', link: 'http://cloud.yujian.afterwind.cn/wx/events/'+ this.event.id +'/share?token=' + token, img_url: this.event.image };
+      this.wechat.config('event_share_url').then(data => {
+        if (data === true) {
+          this.wechat.shareAll(params).then(data => {
+            if (data) {
+              console.log('分享成功');
+            }
+          }).catch(error => {
+            console.log(`分享失败：${error}`);
+          });
+        } else {
+          console.log('config false');
+        }
+      }).catch(error => {
+        console.log(error);
+      });
+    });
   }
 
   ionViewDidLoad() {
@@ -70,7 +97,13 @@ export class EventDetailPage {
     if (!this.hasLoaded) {
       this.hasLoaded = true;
       this.loadEvent();
+
+      // setTimeout(() => {
+      // this._addShare();
+      // }, 100);
     }
+
+    this._addShare();
   }
 
   gotoReport(): void {

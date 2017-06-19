@@ -23,7 +23,7 @@ export class QQMaps {
 
   constructor(/*private geolocation: Geolocation*/private storage: Storage,
     private events: Events) {
-      console.log(`events:${events}`);
+      // console.log(`events:${events}`);
     // this.initSDK();
   }
 
@@ -54,7 +54,7 @@ export class QQMaps {
           resolve(true);
 
           // 注册拖动地图事件
-          console.log(qq.maps.event);
+          // console.log(qq.maps.event);
           // qq.maps.event.addListener(this.map, 'center_changed', () => {
           //   this.events.publish('map:drag');
           // });
@@ -189,12 +189,12 @@ export class QQMaps {
         if (map) {
           this.map = map;
           // console.log('ddddd123');
-          console.log('dddd--------123333');
+          // console.log('dddd--------123333');
           // 注册拖动地图事件
           qq.maps.event.addListener(this.map, 'center_changed', () => {
             // let event = new CustomEvent('map:drag');
             // document.dispatchEvent(event);
-            console.log('dddd--------');
+            // console.log('dddd--------');
             this.events.publish('map:drag');
           });
 
@@ -211,7 +211,7 @@ export class QQMaps {
   } // end initMap
 
   markCurrentLocation(map, pos): any {
-    console.log('map: ' + map);
+    // console.log('map: ' + map);
     let anchor = new qq.maps.Point(9,9);
     let size = new qq.maps.Size(18,18);
     let orgin = new qq.maps.Point(0,0);
@@ -223,7 +223,7 @@ export class QQMaps {
       // animation:qq.maps.MarkerAnimation.DROP,
       position: new qq.maps.LatLng(pos.lat, pos.lng)
     });
-    console.log(`marker: ${marker}`);
+    // console.log(`marker: ${marker}`);
     return marker;
   }
 
