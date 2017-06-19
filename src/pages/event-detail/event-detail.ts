@@ -59,23 +59,30 @@ export class EventDetailPage {
 
   private _addShare() {
     this.users.token().then(token => {
-      let params = { title: this.event.title, 
-        desc: '', link: 'http://cloud.yujian.afterwind.cn/wx/events/'+ this.event.id +'/share?token=' + token, img_url: this.event.image };
-      this.wechat.config('event_share_url').then(data => {
-        if (data === true) {
-          this.wechat.shareAll(params).then(data => {
-            if (data) {
-              console.log('分享成功');
-            }
-          }).catch(error => {
-            console.log(`分享失败：${error}`);
-          });
-        } else {
-          console.log('config false');
-        }
-      }).catch(error => {
-        console.log(error);
-      });
+      this.wechat.share('event_share_url', token, this.event.id)
+        .then(data => {
+          
+        })
+        .catch(error => {
+
+        });
+      // let params = { title: this.event.title, 
+      //   desc: '', link: 'http://cloud.yujian.afterwind.cn/wx/events/'+ this.event.id +'/share?token=' + token, img_url: this.event.image };
+      // this.wechat.config('event_share_url').then(data => {
+      //   if (data === true) {
+      //     this.wechat.shareAll(params).then(data => {
+      //       if (data) {
+      //         console.log('分享成功');
+      //       }
+      //     }).catch(error => {
+      //       console.log(`分享失败：${error}`);
+      //     });
+      //   } else {
+      //     console.log('config false');
+      //   }
+      // }).catch(error => {
+      //   console.log(error);
+      // });
     });
   }
 
@@ -136,6 +143,14 @@ export class EventDetailPage {
           this.toolService.showToast(error);
         }, 200);
       });
+  }
+
+  doShare(): void {
+    // let modal = this.modalCtrl.create('ShareTipPage', {
+    //   showBackdrop: true,
+    //   enableBackdropDismiss: false,
+    // });
+    // modal.present({animate: false});
   }
 
   doLike(): void {

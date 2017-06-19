@@ -36,6 +36,39 @@ export class WechatProvider {
     });
   }
 
+  share(url: string, token: string, eventId: number = 0): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.utils.getShareConfig(url, token, eventId)
+        .then(data => {
+          wx.config(data.config);
+          wx.ready(() => {
+            // console.log('ready...');
+            // resolve(true);
+            this.shareAll(data.content)
+              .then(res => {
+                // 写活动分享日志
+                if (res === true && eventId !== 0) {
+                  this.utils.postShareStat(token, eventId)
+                  .then(result => {
+
+                  })
+                  .catch(error => {
+                    // console.log()
+                  })
+                }
+                resolve(res);
+              })
+              .catch(error=>reject(error));
+          });
+          wx.error(error => {
+            // console.log('error ' + error);
+            reject(error);
+          });
+        })
+        .catch(error => reject(error));
+    });
+  }
+
   private _sendShareLog(type: string, state: string) {
     
   }

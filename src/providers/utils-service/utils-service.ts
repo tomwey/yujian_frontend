@@ -18,4 +18,12 @@ export class UtilsServiceProvider {
     return this.api.get('util/wx_config', { url: url });
   }
 
+  getShareConfig(url: string, token: string, eventId: number = 0): Promise<any> {
+    return this.api.get('share/config', { url: url, token: token, event_id: eventId });
+  }
+
+  postShareStat(token: string, eventId: number): Promise<any> {
+    return this.api.post('share/event', { token: token, event_id: eventId });
+  }
+
 }
