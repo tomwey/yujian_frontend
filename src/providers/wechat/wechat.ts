@@ -12,7 +12,8 @@ import { UtilsServiceProvider } from "../utils-service/utils-service";
 */
 @Injectable()
 export class WechatProvider {
-
+  eventId: number = 0;
+  token: string = null;
   constructor(private api: ApiService,
               private utils: UtilsServiceProvider) {
 
@@ -37,6 +38,8 @@ export class WechatProvider {
   }
 
   share(url: string, token: string, eventId: number = 0): Promise<any> {
+    this.eventId = eventId;
+    this.token = token;
     return new Promise((resolve, reject) => {
       this.utils.getShareConfig(url, token, eventId)
         .then(data => {
@@ -44,14 +47,6 @@ export class WechatProvider {
           wx.ready(() => {
             // console.log('ready...');
             // resolve(true);
-
-            if (eventId !== 0) {
-              // 发送分享日志
-              this.utils.postShareStat(token, eventId).then(d=>{
-
-              }).catch(e => {});
-            }
-
             this.shareAll(data.content)
               .then(result => {
                 resolve(result);
@@ -68,7 +63,13 @@ export class WechatProvider {
   }
 
   private _sendShareLog(type: string, state: string) {
-    
+    // alert(type + ' ' + state);
+    if (this.token && this.eventId !== 0) {
+      // 发送分享日志
+      this.utils.postShareStat(this.token, this.eventId).then(d=>{
+
+      }).catch(e => {});
+    }
   }
 
   /**
