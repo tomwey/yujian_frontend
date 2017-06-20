@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component} from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
@@ -42,59 +42,20 @@ export class EventDetailPage {
               private wechat: WechatProvider) {
     // console.log(this.navParams.data);
     this.event = this.navParams.data;
-
-    // this.fetchUserLocation();
-    // setTimeout(() => {
-    //   this._addShare();
-    // }, 1000);
-  }
-
-  fetchUserLocation(): void {
-    // this.qqMaps.startLocating().then(position => {
-    //   this.position = position;
-    // }).catch(error => {
-    //   console.log(error);
-    // });
   }
 
   private _addShare() {
     this.users.token().then(token => {
       this.wechat.share('event_share_url', token, this.event.id)
         .then(data => {
-          
         })
         .catch(error => {
 
         });
-      // let params = { title: this.event.title, 
-      //   desc: '', link: 'http://cloud.yujian.afterwind.cn/wx/events/'+ this.event.id +'/share?token=' + token, img_url: this.event.image };
-      // this.wechat.config('event_share_url').then(data => {
-      //   if (data === true) {
-      //     this.wechat.shareAll(params).then(data => {
-      //       if (data) {
-      //         console.log('分享成功');
-      //       }
-      //     }).catch(error => {
-      //       console.log(`分享失败：${error}`);
-      //     });
-      //   } else {
-      //     console.log('config false');
-      //   }
-      // }).catch(error => {
-      //   console.log(error);
-      // });
     });
   }
 
   ionViewDidLoad() {
-    // console.log('ionViewDidLoad EventDetail');
-    // setTimeout(() => {
-    //   this.loadEvent();
-    // }, 20);
-
-    // setTimeout(() => {
-    //   this.loadEventEarns();
-    // }, 20);
     this.noti.subscribe('hb:opened', () => {
       this.loadEvent();
     });
@@ -104,10 +65,6 @@ export class EventDetailPage {
     if (!this.hasLoaded) {
       this.hasLoaded = true;
       this.loadEvent();
-
-      // setTimeout(() => {
-      // this._addShare();
-      // }, 100);
     }
 
     this._addShare();
@@ -146,11 +103,11 @@ export class EventDetailPage {
   }
 
   doShare(): void {
-    // let modal = this.modalCtrl.create('ShareTipPage', {
-    //   showBackdrop: true,
-    //   enableBackdropDismiss: false,
-    // });
-    // modal.present({animate: false});
+    document.getElementById('share-tip-modal').style.display = "block";
+  }
+
+  closeModal(): void {
+    document.getElementById('share-tip-modal').style.display = "none";
   }
 
   doLike(): void {
@@ -185,16 +142,7 @@ export class EventDetailPage {
             this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize);
 
             this.hasMore = this.totalPage > this.pageNo;
-            // if ( this.pageNo === 1 ) {
-            //   this.totalPage = ( data.total + this.pageSize - 1 ) / this.pageSize;
-            //   this.earns = data.data;
-            // } else {
-            //   this.earns.push(data.data);
-            // }
             resolve(data);
-            // console.log(data);
-            // this.pageNo ++;
-            // this.needLoadMore = data.data.length == this.pageSize;
           })
           .catch(error => {
             reject(error);

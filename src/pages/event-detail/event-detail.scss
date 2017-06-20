@@ -49,4 +49,44 @@ page-event-detail {
             padding: 10px;
         }
     }
+
+    .share-tip-modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 10; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+        .modal-content {
+            clear: both;
+        }
+
+        .arrow {
+            width: 61.8%;
+            float: right;
+            // padding: 10px 15px;
+            // clear: both;
+            margin-top: 5px;
+            margin-right: 25px;
+            img {
+                // float: right;
+                // display: block;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+        .share-tip {
+            float: right;
+            text-align: center;
+            width: 100%;
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+        }
+    }
 }

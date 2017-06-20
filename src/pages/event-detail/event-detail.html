@@ -8,6 +8,11 @@
 
   <ion-navbar>
     <ion-title>活动详情</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="doShare()">
+        <ion-icon name="ios-share-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -20,9 +25,6 @@
         <h2 text-wrap>{{event.title}}</h2>
         <p class="stats">
           <span class="data">人气 {{event.view_count}}, 转发 {{event.share_count}}, 点赞 {{event.likes_count}}</span>
-          <button ion-button icon-left clear small class="like-btn" (click)="doShare()">
-            <ion-icon name="ios-share-outline"></ion-icon> 分享
-          </button>
           <button ion-button icon-left clear small class="like-btn" (click)="doLike()">
             <ion-icon name="ios-thumbs-up-outline"></ion-icon> 赞一下
           </button>
@@ -103,3 +105,12 @@
   </ion-card>
   
 </ion-content>
+
+<div id="share-tip-modal" class="share-tip-modal" (click)="closeModal();">
+  <div class="modal-content">
+    <div class="arrow">
+      <img src="../../assets/images/share_tip_arrow.jpg">
+    </div>
+    <div class="share-tip">点击右上角按钮，完成分享</div>
+  </div>
+</div>

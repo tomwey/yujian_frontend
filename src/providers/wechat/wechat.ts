@@ -44,19 +44,17 @@ export class WechatProvider {
           wx.ready(() => {
             // console.log('ready...');
             // resolve(true);
-            this.shareAll(data.content)
-              .then(res => {
-                // 写活动分享日志
-                if (res === true && eventId !== 0) {
-                  this.utils.postShareStat(token, eventId)
-                  .then(result => {
 
-                  })
-                  .catch(error => {
-                    // console.log()
-                  })
-                }
-                resolve(res);
+            if (eventId !== 0) {
+              // 发送分享日志
+              this.utils.postShareStat(token, eventId).then(d=>{
+
+              }).catch(e => {});
+            }
+
+            this.shareAll(data.content)
+              .then(result => {
+                resolve(result);
               })
               .catch(error=>reject(error));
           });
