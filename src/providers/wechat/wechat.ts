@@ -43,6 +43,16 @@ export class WechatProvider {
     return new Promise((resolve, reject) => {
       this.utils.getShareConfig(url, token, eventId)
         .then(data => {
+          this.shareAll(data.content)
+              .then(result => {
+                resolve(result);
+              })
+              .catch(error=>reject(error));
+        })
+        .catch(error => reject(error));
+
+      /*this.utils.getShareConfig(url, token, eventId)
+        .then(data => {
           wx.config(data.config);
           wx.ready(() => {
             // console.log('ready...');
@@ -58,7 +68,7 @@ export class WechatProvider {
             reject(error);
           });
         })
-        .catch(error => reject(error));
+        .catch(error => reject(error));*/
     });
   }
 

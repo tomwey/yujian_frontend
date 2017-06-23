@@ -26,6 +26,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+
+      this.initWXJSSDK();
     });
 
     this.users.token().then(token => {
@@ -35,6 +37,14 @@ export class MyApp {
         // this.nav.setRoot(TabsPage);
         this.rootPage = TabsPage;
       }
+    });
+  }
+
+  private initWXJSSDK() {
+    this.wechat.config('home_sign_url').then(data => {
+      console.log(`微信配置结果：${data}`);
+    }).catch(error => {
+      console.log(`微信配置结果：${error}`);
     });
   }
   

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { PayService } from '../../providers/pay-service';
+import { ToolService } from "../../providers/tool-service";
 
 /**
  * Generated class for the ChargePage page.
@@ -20,7 +21,8 @@ export class ChargePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private viewController: ViewController,
-              private pay: PayService) {
+              private pay: PayService,
+              private tool: ToolService) {
   }
 
   ionViewDidLoad() {
@@ -33,7 +35,44 @@ export class ChargePage {
   }
 
   doCharge(): void {
+    if (this.charge.money > 0) {
+      this.tool.showLoading('提交中...');
 
+      this.pay.payIn(this.charge.money)
+        .then(data => {
+          wx.chooseWXPay({
+            timestamp: data.timeStamp,
+            nonceStr: data.nonceStr,
+            package: data.package,
+            signType: data.signType,
+            paySign: data.paySign,
+            success: (res) => {
+              this.tool.hideLoading();
+
+              this.tool.showToast('支付成功');
+
+              this.close();
+            },
+            fail: (error) => { 
+              this.tool.hideLoading();
+
+              this.tool.showToast('支付失败，请重试: ' + error);
+            },
+            cancel: () => {
+              this.tool.hideLoading();
+
+              this.tool.showToast('支付未完成，请尽快支付');
+            }
+          });
+        })
+        .catch(error => {
+          this.tool.hideLoading();
+          
+          this.tool.showToast('发起微信支付失败，请重试');
+        });
+    } else {
+      this.tool.showToast('充值金额至少为1元');
+    }
   }
 
   close(): void {
