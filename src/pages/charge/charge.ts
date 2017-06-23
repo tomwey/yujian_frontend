@@ -40,6 +40,7 @@ export class ChargePage {
 
       this.pay.payIn(this.charge.money)
         .then(data => {
+          this.tool.hideLoading();
           wx.chooseWXPay({
             timestamp: data.timeStamp,
             nonceStr: data.nonceStr,
@@ -47,19 +48,18 @@ export class ChargePage {
             signType: data.signType,
             paySign: data.paySign,
             success: (res) => {
-              this.tool.hideLoading();
-
-              this.tool.showToast('支付成功');
+              
+              // this.tool.showToast('支付成功');
 
               this.close();
             },
             fail: (error) => { 
-              this.tool.hideLoading();
+              // this.tool.hideLoading();
 
               this.tool.showToast('支付失败，请重试: ' + error);
             },
             cancel: () => {
-              this.tool.hideLoading();
+              // this.tool.hideLoading();
 
               this.tool.showToast('支付未完成，请尽快支付');
             }
@@ -67,7 +67,7 @@ export class ChargePage {
         })
         .catch(error => {
           this.tool.hideLoading();
-          
+
           this.tool.showToast('发起微信支付失败，请重试');
         });
     } else {
