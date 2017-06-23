@@ -44,6 +44,9 @@ export class ApiService {
       searchParams.set(param, params[param]);
     }
 
+    // 参数签名
+    searchParams.set('sign', ApiService.signParams(params));
+
     return this.http.get(url, new RequestOptions({ search: searchParams }))
       .toPromise()
       .then(this.handleSuccess)
@@ -54,14 +57,15 @@ export class ApiService {
   post(uri, params) {
     let url = API_HOST + '/' + uri;
 
+    // 参数签名
+    params.sign = ApiService.signParams(params);
+
     // 组装参数
     let i  = new Date().getTime();
     let ak = this.generateAccessKey(i);
 
     params.i  = i;
     params.ak = ak; 
-
-    console.log(params);
 
     // 封装请求
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -126,6 +130,25 @@ export class ApiService {
       return Promise.reject(body.message);
     }
   } // end handle success
+
+  static signParams(params: any): string {
+    if (!params) return null;
+    // console.log(params);
+    let signStr = '';
+    let keys = Object.keys(params).sort();
+    // console.log(`keys:${keys}`);
+    if ( keys.length == 0 ) return null;
+
+    keys.forEach(key => {
+      let value = params[key];
+      // console.log(value + ':' + JSON.stringify(value));
+      signStr += value + ':';
+    })
+
+    signStr += API_KEY;
+
+    return Md5.hashStr(signStr, false).toString();
+  }
 
   // 处理请求失败的回调
   private handleError(error: Response | any) {

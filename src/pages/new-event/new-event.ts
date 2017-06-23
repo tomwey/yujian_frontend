@@ -208,6 +208,9 @@ export class NewEventPage {
 
     this.users.token().then(token => {
       formData.append("token", token);
+      // let signStr = `${token}:${JSON.stringify(payload)}:${ApiService.getAPIKey()}`;
+      formData.append("sign", ApiService.signParams({ token: token, payload: JSON.stringify(payload) }));
+
       this.api.post2('events', formData).then(data => {
         // console.log(data);
         this.event = { title: '', 
