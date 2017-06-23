@@ -18,6 +18,8 @@ export class ChargePage {
 
   charge: any = { money: 0.00 };
   customMoney: number = null;
+
+  chargeList: any = [];
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private viewController: ViewController,
@@ -27,6 +29,20 @@ export class ChargePage {
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad ChargePage');
+    this.tool.showLoading('加载中...');
+
+    this.pay.chargeList().then(data => {
+      // console.log('moneys: ' + data);
+      this.chargeList = data;
+
+      this.tool.hideLoading();
+    })
+    .catch(error => {
+      // console.log(error);
+      this.tool.hideLoading();
+
+      this.chargeList = [10, 20, 50, 100, 200];
+    })
   }
 
   changeMoney(money): void {

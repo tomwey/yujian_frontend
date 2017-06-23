@@ -19,23 +19,23 @@
 
 
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="chargeList.length > 0">
     <ion-row>
-      <ion-col col-6>
-        <button ion-button block outline color="theme-red" (click)="changeMoney(100);">100元</button>
+      <ion-col col-6 *ngFor="let money of chargeList">
+        <button ion-button block outline color="theme-red" (click)="changeMoney(money);">{{money}}元</button>
       </ion-col>
-      <ion-col col-6>
+      <!--<ion-col col-6>
         <button ion-button block outline color="theme-red" (click)="changeMoney(200);">200元</button>
       </ion-col>
       <ion-col col-6>
         <button ion-button block outline color="theme-red" (click)="changeMoney(500);">500元</button>
-      </ion-col>
+      </ion-col>-->
       <ion-col col-6>
         <div class="center-box other-money"><ion-input [(ngModel)]="customMoney" type="number" placeholder="输入其他金额"></ion-input>元</div>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="charge-money-container">
+  <div class="charge-money-container" *ngIf="chargeList.length > 0">
     <p class="charge-money">充值金额：<span class="money">{{customMoney || charge.money}}</span> 元</p>
     <button ion-button block color="theme-red" (click)="doCharge()">微信充值</button>
   </div>

@@ -46,4 +46,18 @@ export class PayService {
     });
   }
 
+  chargeList(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.users.token().then(token => {
+        this.api.get('pay/charge_list', { token: token })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
+  }
+
 }
