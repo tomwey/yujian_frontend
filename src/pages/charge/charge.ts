@@ -51,10 +51,12 @@ export class ChargePage {
   }
 
   doCharge(): void {
-    if (this.charge.money > 0) {
+    let money = this.customMoney || this.charge.money;
+
+    if (money > 0) {
       this.tool.showLoading('提交中...');
 
-      this.pay.payIn(this.charge.money)
+      this.pay.payIn(money)
         .then(data => {
           this.tool.hideLoading();
           wx.chooseWXPay({

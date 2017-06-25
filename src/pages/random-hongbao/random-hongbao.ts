@@ -29,8 +29,8 @@ export class RandomHongbaoPage {
   }
 
   saveHB(): void {
-    if (this.hb.total_money < 10) {
-      this.tool.showToast('红包总金额不能低于10元');
+    if (this.hb.total_money < 2) {
+      this.tool.showToast('红包总金额不能低于2元');
       return;
     }
 

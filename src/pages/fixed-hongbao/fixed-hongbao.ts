@@ -46,6 +46,12 @@ export class FixedHongbaoPage {
       return;
     }
 
+    let calc_total = this.hb.money * this.hb.total
+    if (calc_total < 2) {
+      this.tool.showToast('红包总金额不能低于2元');
+      return;
+    }
+    
     this.event.hb = { _type: 1, 
                       min_value: this.hb.money,
                       max_value: this.hb.money,
