@@ -72,7 +72,7 @@ export class ChargePage {
             fail: (error) => { 
               // this.tool.hideLoading();
 
-              this.tool.showToast('支付失败，请重试: ' + error);
+              this.tool.showToast('支付失败，请重试');
             },
             cancel: () => {
               // this.tool.hideLoading();

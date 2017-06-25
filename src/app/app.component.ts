@@ -31,7 +31,7 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      // this.initWXJSSDK();
+      this.initWXJSSDK();
     });
 
     this.users.token().then(token => {
@@ -66,12 +66,12 @@ export class MyApp {
     });
   }
 
-  // private initWXJSSDK() {
-  //   this.wechat.config('home_sign_url').then(data => {
-  //     console.log(`微信配置结果：${data}`);
-  //   }).catch(error => {
-  //     console.log(`微信配置结果：${error}`);
-  //   });
-  // }
+  private initWXJSSDK() {
+    this.wechat.config('wx_app_url').then(data => {
+      console.log(`微信配置结果：${data}`);
+    }).catch(error => {
+      console.log(`微信配置结果：${error}`);
+    });
+  }
   
 }
