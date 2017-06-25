@@ -11,7 +11,7 @@ import { Md5 } from 'ts-md5/dist/md5';
   for more info on providers and Angular 2 DI.
 */
 // 正式服务器和账号
-const API_HOST: string = "http://cloud.yujian.afterwind.cn/api/v1";
+const API_HOST: string = "http://b.hb.small-best.com/api/v1";
 const API_KEY:  string = "3bde7fa81ca14a5d9f829bcae9c72c67";
 
 // 测试账号和测试服务器

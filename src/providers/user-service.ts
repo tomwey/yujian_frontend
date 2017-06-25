@@ -19,6 +19,10 @@ export class UserService {
     
   }
 
+  saveToken(token: string) {
+    return this.storage.set('token', token);
+  }
+
   token(): Promise<any> {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {

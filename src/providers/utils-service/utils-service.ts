@@ -26,4 +26,26 @@ export class UtilsServiceProvider {
     return this.api.post('share/event', { token: token, event_id: eventId });
   }
 
+  getWXAuthUrl(url: string = ''): Promise<any> {
+    return this.api.get('util/wx_auth', { url: url });
+  }
+
+  handleWXAuth(code: string): Promise<any> {
+    return this.api.post('util/wx_bind', { code: code });
+  }
+
+  /**
+   * 获取地址栏参数
+   * @param name
+   * @returns {any}
+   */
+  static getQueryString(name): string {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+      return r[2];
+    }
+    return '';
+  }
+
 }

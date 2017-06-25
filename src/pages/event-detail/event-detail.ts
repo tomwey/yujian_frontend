@@ -67,7 +67,12 @@ export class EventDetailPage {
       this.loadEvent();
     }
 
-    this._addShare();
+    this.users.token().then(token => {
+      if (!token) {
+        
+      }
+    });
+    // this._addShare();
   }
 
   gotoReport(): void {
@@ -103,7 +108,10 @@ export class EventDetailPage {
   }
 
   doShare(): void {
-    document.getElementById('share-tip-modal').style.display = "block";
+    // document.getElementById('share-tip-modal').style.display = "block";
+    this.users.token().then(token => {
+      window.location.href = `http://b.hb.small-best.com/wx/share/event?id=${this.event.id}&token=${token}`;
+    });
   }
 
   closeModal(): void {
