@@ -2,7 +2,12 @@ page-home {
     .content {
         background-color: rgb(247, 247, 247);
     }
-
+    
+    // 处理ion-refresher显示bug
+    .has-refresher > .scroll-content {
+        top: -1px !important;
+    }
+    
     .latest-events {
         // margin-top: 5px;
         border-top: 1px solid #b8b8b8;

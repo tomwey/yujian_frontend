@@ -53,6 +53,9 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
+    if (this.slides)
+      this.slides.stopAutoplay();
+
     this.loadData(refresher);
   }
 
@@ -119,11 +122,13 @@ export class HomePage {
         if (this.slides) {
           this.slides.autoplayDisableOnInteraction = false;
           this.slides.update();
+          this.slides.startAutoplay();
         }
 
         if (refresher) {
           refresher.complete();
         }
+
         // console.log(this.bannersData);
         // console.log(this.eventsData);
 
