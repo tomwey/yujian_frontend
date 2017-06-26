@@ -44,16 +44,16 @@ export class EventDetailPage {
     this.event = this.navParams.data;
   }
 
-  private _addShare() {
-    this.users.token().then(token => {
-      this.wechat.share('event_share_url', token, this.event.id)
-        .then(data => {
-        })
-        .catch(error => {
+  // private _addShare() {
+  //   this.users.token().then(token => {
+  //     this.wechat.share('event_share_url', token, this.event.id)
+  //       .then(data => {
+  //       })
+  //       .catch(error => {
 
-        });
-    });
-  }
+  //       });
+  //   });
+  // }
 
   ionViewDidLoad() {
     this.noti.subscribe('hb:opened', () => {

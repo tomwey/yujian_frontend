@@ -80,10 +80,8 @@ export class HomePage {
     this.navCtrl.push('EventDetailPage', event);
   }
 
-  slideDidTap(event): void {
-    console.log(event);
-    let currentIndex = this.slides.getActiveIndex();
-    let banner = this.bannersData[currentIndex];
+  didTapBanner(banner): void {
+    console.log(11);
     console.log(banner);
     if (banner.link && banner.link.length !== 0) {
       window.location.href = banner.link;
@@ -94,8 +92,32 @@ export class HomePage {
     }
   }
 
-  slideDidChange(): void {
+  slideDidTap(): void {
+    let currentIndex = this.slides.getActiveIndex();
+    // 修复index问题
+    if (currentIndex > this.bannersData.length) {
+      currentIndex -= this.bannersData.length;
+    }
 
+    // index是从1开始的
+    currentIndex -= 1;
+
+    if (currentIndex >= 0 && currentIndex < this.bannersData.length) {
+      let banner = this.bannersData[currentIndex];
+      console.log(banner);
+      if (banner.link && banner.link.length !== 0) {
+        window.location.href = banner.link;
+      } else if ( banner.event ) {
+        this.gotoDetail(banner.event);
+      } else if ( banner.ad ) {
+        this.navCtrl.push('CommWeb', { slug: banner.ad.slug, title: banner.ad.title });
+      }
+    }
+
+  }
+
+  slideDidChange(): void {
+    // console.log(this.slides.getActiveIndex());
   }
 
   private _loadBannersAndEvents(refresher) {
