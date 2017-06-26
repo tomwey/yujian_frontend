@@ -1,200 +1,117 @@
-.ios, .md {
-    page-home {
-        .scroll {
-            height: 100%;
-        }
+page-home {
+    .content {
+        background-color: rgb(247, 247, 247);
+    }
 
-        #map {
-            width: 100%;
-            height: 100%;
+    .latest-events {
+        // margin-top: 5px;
+        border-top: 1px solid #b8b8b8;
+    }
+    // ion-refresher {
+    //     margin-bottom: 0;
+    //     padding-bottom: 0;
+    // }
+    .banners {
+        ion-slide {
+            background-color: rgb(247, 247, 247);
         }
-        .map-error-container {
-            width: 100%;
-            height: 100%;
-            .map-error {
-                text-align: center;
-            }
-        }
-        ion-card {
-            // max-height: 60px;
-            // overflow: scroll;
-            position: absolute;
-            z-index: 1;
-        }
-        .pin {
+        img {
             margin: 0;
             padding: 0;
-            position: absolute;
-            z-index: 1;
-            height: 50px;
-            width: 50px;
-            text-align:center;
-            // line-height: 58px;
-            top: calc(50% - 25px);
-            left:calc(50% - 25px);
-            font-size: 3rem;
-            // background-color: red;
-            .dot {
-                width: 28px;
-                height: 32px;
-                margin: 0 auto;
-                margin-top: -6px;
-                background-color: transparent;
-                background-image: url('../../assets/images/icon_pin.svg');
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-size: contain;
-                // width: 12px;
-                // height: 12px;
-                // margin: 0 auto;
-                // margin-top: 19px;
-                // background-color: color($colors, theme-red);
-                // border-radius: 6px;
-                // box-shadow: 0 0 6px rgba(187,64,42, 0.8);
-                // -moz-box-shadow: 0 0 6px rgba(187,64,42, 0.8);
-            }
-            // color: $theme-red;//rgb(52,121,252);
+            border: 0;
+            display: block;
+            max-width: 100%;
+            width: 100%;
         }
 
-        .locate-button {
-            display: block;
-            width: 34px;
-            height: 34px;
-            // line-height: 34px;
-            cursor: pointer;
+        .swiper-pagination-bullet-active {
+            background-color: color($colors, theme-red);
+        }
+    }
+
+    .money-symbol {
+        font-size: 10px;
+        padding-right: 5px;
+    }
+
+    .list-ios > .item-block:first-child {
+        border-top: 0!important;
+    }
+    
+    .circle {
+        display: table;
+        float: left;
+        width: 18px;
+        height: 18px;
+        text-align: center;
+        border-radius: 50%;
+        font-size: 8px;
+        background-color: color($colors, theme-red); 
+        color: white; 
+        margin-right: 5px;
+        span {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+
+    .outline {
+        border: 1px solid color($colors, theme-red);
+        color: color($colors, theme-red);
+        background-color: transparent;
+    }
+
+    .event {
+        .no-money {
             position: absolute;
-            z-index: 1;
-            right: 15px;
-            bottom: 15px;
-            background-color: white;//rgba(247,247,247,1.0);
-            font-size: 18px;
+            z-index: 10;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
             text-align: center;
-            border-radius: 2px;
-            // border: 0.55px solid rgb(201,201,201);
-            // border-radius: 25px;
-            // -webkit-border-radius: 25px;
-            box-shadow: 0 0 1px rgba(58,58,58,0.8);
-            // -moz-box-shadow: 0 0 2px rgba(58,58,58,0.8);
-            color: rgb(121,121,121);
-            .locate-icon {
-                margin-top: 6px;
-                // margin-left: 8px;
-            }
+            border-radius: 30px;
+            border: 2px dashed color($colors, theme-red);
+            color: color($colors, theme-red);
+            top: 18px;
+            right: 20px;
+            font-size: 14px;
+            -ms-transform: rotate(-30deg); /* IE 9 */
+            -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
+            transform: rotate(-30deg);
         }
-        .hb-marker {
-            width: 30px;
-            // height: 48px;
-            // background-color: red;
-            height: 30px;
-            display: block;
-            position: absolute;
-            cursor: pointer;
-            // background: transparent url('../../assets/images/map_img_hb.png') no-repeat center center;
-            background-color: white;
-            background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNDk3NDc5Njk5MjQxIiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjY4NjAiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNODU0LjU2IDBsLTY4OS4zNzYgMGMtMTA5LjAyNCAwLTEzMy4xODQgMzAuNTYtMTMzLjE4NCAxNDYuMTQ0bDAgNTcuMjE2YzcyLjIyNCAzNy42IDE2My4zMjggODUuNDQgMjY0Ljk2IDExNy43OTIgMjguMzItODkuMjE2IDExMi45MjgtMTUzLjk1MiAyMTIuODk2LTE1My45NTIgOTkuODQgMCAxODQuMzUyIDY0LjU3NiAyMTIuNzM2IDE1My41NjggMTAyLjUyOC0zMy42NjQgMTkyLjMyLTg0LjIyNCAyNjUuMTItMTI0LjA5NmwwLTUwLjU2YzAuMDMyLTExNS41NTItMjQuMTYtMTQ2LjExMi0xMzMuMTUyLTE0Ni4xMTJ6IiBmaWxsPSIjQkI0MDJBIiBwLWlkPSI2ODYxIj48L3BhdGg+PHBhdGggZD0iTTUwOS44NTYgNjA2LjA0OGMtMTE4LjQ5NiAwLTIxNS4xMzYtOTEuMDA4LTIyMi4zMDQtMjA1LjgyNC05Mi4wMzItMjkuMTUyLTE3OS4wMDgtNjkuNzkyLTI1NS41NTItMTA1LjQ0bDAgNjA0LjQ0OGMwIDExNS41NTIgMjQuMTYgMTI0Ljc2OCAxMzMuMTg0IDEyNC43NjhsNjg5LjM0NCAwYzEwOS4wMjQgMCAxMzMuMTg0LTkuMjE2IDEzMy4xODQtMTI0LjhsMC02MTAuMTQ0Yy03Ny43MjggMzcuOTItMTYzLjYxNiA4MC40MTYtMjU1LjU1MiAxMTAuNTYtNi44MTYgMTE1LjEwNC0xMDMuNTg0IDIwNi40MzItMjIyLjMwNCAyMDYuNDMyeiIgZmlsbD0iI0JCNDAyQSIgcC1pZD0iNjg2MiI+PC9wYXRoPjxwYXRoIGQ9Ik01NjYuMDQ4IDIzOC45NDRsLTQ1LjIxNiAxMDAuNjRjLTMuNzQ0IDguNDgtNi40OTYgMTQuOTc2LTguMjU2IDE5LjQ1NmwtMC44IDAtNTQuNjU2LTEyMC4xMjgtNjYuNzIgMCA3NC43NTIgMTM0LjAxNi01Ni42NzIgMCAwIDM4LjE3NiA2OS4xMiAwIDAgMzIuOTYtNjkuMTIgMCAwIDM4LjE3NiA2OS4xMiAwIDAgNTUuMzYgNjMuMzI4IDAgMC01NS4zMjggNjYuOTEyIDAgMC0zOC4xNzYtNjYuOTEyIDAgMC0zMi45NiA2Ni45MTIgMCAwLTM4LjE3Ni01NS40ODggMCA3Ni45Ni0xMzQuMDE2LTYzLjI2NCAweiIgZmlsbD0iI0JCNDAyQSIgcC1pZD0iNjg2MyI+PC9wYXRoPjwvc3ZnPg==');
-            background-position: center center;
-            background-size: contain;
-            .left-money {
-                text-indent: -9999px;
-                // color: color($colors, golden);
-                // // position: absolute;
-                // font-size: 0.6rem;
-                // margin: 0;
-                // padding: 0;
-                // margin-top: 28px;
-                // height: 20px;
-                // // line-height: 20px;
-                // text-align: center;
-                // width: 100%;
-            } 
-
-            .user {
-                width: 48px;
-                height: 48px;
-                margin: 0 auto;
-                position: relative;
-                img {
-                    width: 48px;
-                    height: 48px;
-                    display: block;
-                    background-color: rgb(241, 241, 241);
-                    border-radius: 24px;
-                    border: 2px solid $theme-red;
-                }
-                .level {
-                    position: absolute;
-                    z-index: 1;
-                    right: -5px;
-                    bottom: 4px;
-                    width: 20px;
-                    height: 20px;
-                    // background-color: red;
-                    display:block;
-                    // background: url('../../assets/images/icon_1.png') no-repeat center center;
-                    // background: url('../../assets/images/icon_ding.png') no-repeat left top;
-                }
-                .level-1 {
-                    background: url('../../assets/images/icon_1.png') no-repeat center center;
-                }
-                .level-2 {
-                    background: url('../../assets/images/icon_2.png') no-repeat center center;
-                }
-            }
-            .digit {
-                // float: right;
-                height: 20px;
-                line-height: 20px;
-                text-align:center;
-                margin: 0;
-                width: 40px;
-                // background-color: red;
-                margin-top: 5px;
-                color: $theme-red;
-                font-size: 1.2rem;
-            }
-        }
-        .result {
-            height: 25px;
-            line-height: 25px;
-            // text-align: center;
-            .message {
-                // background-color:red;
-                color: rgb(83,83,83);
-                display: block;
-                height: 25px;
-                line-height: 25px;
-                // margin-top: 3px;
-            }
-            .no-result {
-                margin-top: 3px;
-            }
-            .hb-count {
-                color: $theme-red;
-                font-size: 2rem;
-                padding: 5px;
-            }
-        }
-        .loading-container {
-            height: 25px;
-            // line-height: 30px;
-            // background-color: red;
+        .info {
+            margin-top: 6px;
+            margin-bottom: 6px;
             clear: both;
-            ion-spinner {
-                float: left;
-                margin: 0;
-            }
-            .loading-text {
+            .moneys {
                 display: block;
-                height: 25px;
-                line-height: 25px;
                 float: left;
-                padding-left: 10px;
-                margin-left: 10px;
-                margin-top: 2px;
-                border-left: 1px solid rgba(245,245,245,1.0);
-                color: rgb(83,83,83);
+                height: 18px;
+                line-height: 18px;
+                // margin-left: 5px;
             }
         }
-
+        .address {
+            font-size: 14px;
+            clear: both;
+            ion-icon {
+                font-size: 22px;
+                float: left;
+                margin-right: 5px;
+            }
+            span {
+                display: block;
+                float: left;
+                margin-top: 2px;
+            }
+        }
+        .title {
+            clear: both;
+            // line-height: 1;
+        }
+        .money {
+            color: color($colors, theme-red);
+            font-size: 18px;
+        }
     }
 }

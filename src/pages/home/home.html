@@ -1,51 +1,54 @@
 <ion-header no-border>
   <ion-navbar>
-    <ion-title>附近</ion-title>
-    <!--<ion-buttons end>
-      <button ion-button (click)="doTest()">
-        test
-      </button>
-    </ion-buttons>-->
+    <ion-title>小优大惠</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-card [hidden]="!mapLoaded">
-    <ion-card-content>
-      <div class="loading-container" [hidden]="!hbIsLoading">
-        <ion-spinner item-left="" name="dots" class="spinner spinner-ios spinner-dots spinner-ios-dots">
-          <svg viewBox="0 0 64 64" style="left: 9px; animation-delay: 0ms; animation-duration: 750ms;">
-            <circle transform="translate(32,32)" r="6"></circle>
-          </svg>
-          <svg viewBox="0 0 64 64" style="left: 0px; animation-delay: -110ms; animation-duration: 750ms;">
-            <circle transform="translate(32,32)" r="6"></circle>
-          </svg>
-          <svg viewBox="0 0 64 64" style="left: -9px; animation-delay: -220ms; animation-duration: 750ms;">
-            <circle transform="translate(32,32)" r="6"></circle>
-          </svg>
-        </ion-spinner> 
-        <span class="loading-text">一大波红包正在赶来...</span>
-      </div>
-      <div class="result" [hidden]="hbIsLoading">
-        <span [hidden]="hbCount !== 0" class="message no-result">当前位置附近暂无红包</span>
-        <span [hidden]="hbCount <= 0" class="message">当前位置附近有<span class="hb-count">{{hbCount}}</span>个红包</span>
-      </div>
-      <!--<div *ngIf="!isLoading">{{ hbCount === 0 ? '当前位置附近暂无红包' : '当前位置附近有' + hbCount + '个红包' }}</div>-->
-    </ion-card-content>
-  </ion-card>
-  <div class="pin" [hidden]="!mapLoaded || mapError">
-    <!--<ion-icon name="ios-disc"></ion-icon>-->
-    <div class="dot"></div>
+<ion-content class="content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="下拉刷新"
+      refreshingSpinner="crescent" 
+      refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- banner -->
+  <div class="banners">
+    <ion-slides *ngIf="bannersData.length > 0" (ionSlideDidChange)="slideDidChange()" (ionSlideTap)="slideDidTap($event);" pager loop="true" autoplay="3000">
+      <ion-slide *ngFor="let banner of bannersData">
+        <img [src]="banner.image">
+      </ion-slide>
+    </ion-slides>
   </div>
-  <div class="locate-button" (tap)="startLocation()" [hidden]="!mapLoaded">
-    <ion-icon name="ios-locate-outline" class="locate-icon"></ion-icon>
+
+  <!-- 最新活动 -->
+  <div class="latest-events">
+    <ion-list>
+      <button ion-item *ngFor="let event of eventsData"
+          detail-none class="event" (click)="gotoDetail(event)">
+          <ion-thumbnail item-left class="cover">
+            <img [src]="event.image">
+          </ion-thumbnail>
+          <h2 class="title" text-wrap><div class="circle outline"><span>{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span></div> {{event.title}}</h2>
+          <p class="info">
+              <span class="circle"><span>抢</span></span>
+              <span class="moneys">{{ event.hb.min_value == event.hb.max_value ? 
+                   event.hb.min_value :
+                   event.hb.min_value + '-' + event.hb.max_value
+                }} 元
+              </span>
+          </p>
+          <p class="address"><ion-icon name="ios-time-outline"></ion-icon>
+           <span>{{event.grab_time ? event.grab_time + ' 开抢' : '抢红包进行中'}}</span></p>
+          <ion-note item-right *ngIf="event.hb.left_money > 0.0">
+            <div class="money">
+              <span class="money-symbol">¥</span>{{event.hb.left_money}}
+            </div>
+          </ion-note>
+          <div class="no-money" [hidden]="event.hb.left_money > 0.0">已抢完</div>
+      </button>
+    </ion-list>
   </div>
-  <div class="center-box map-error-container" *ngIf="!!mapError">
-    <div class="map-error">
-      {{mapError.message || mapError}}
-      <br><button ion-button outline color="theme-red" (click)="startLocation()">重新定位</button>
-    </div>
-    
-  </div>
-  <div #map id="map"></div>
 </ion-content>

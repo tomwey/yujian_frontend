@@ -1,0 +1,51 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>附近</ion-title>
+    <!--<ion-buttons end>
+      <button ion-button (click)="doTest()">
+        test
+      </button>
+    </ion-buttons>-->
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card [hidden]="!mapLoaded">
+    <ion-card-content>
+      <div class="loading-container" [hidden]="!hbIsLoading">
+        <ion-spinner item-left="" name="dots" class="spinner spinner-ios spinner-dots spinner-ios-dots">
+          <svg viewBox="0 0 64 64" style="left: 9px; animation-delay: 0ms; animation-duration: 750ms;">
+            <circle transform="translate(32,32)" r="6"></circle>
+          </svg>
+          <svg viewBox="0 0 64 64" style="left: 0px; animation-delay: -110ms; animation-duration: 750ms;">
+            <circle transform="translate(32,32)" r="6"></circle>
+          </svg>
+          <svg viewBox="0 0 64 64" style="left: -9px; animation-delay: -220ms; animation-duration: 750ms;">
+            <circle transform="translate(32,32)" r="6"></circle>
+          </svg>
+        </ion-spinner> 
+        <span class="loading-text">一大波红包正在赶来...</span>
+      </div>
+      <div class="result" [hidden]="hbIsLoading">
+        <span [hidden]="hbCount !== 0" class="message no-result">当前位置附近暂无红包</span>
+        <span [hidden]="hbCount <= 0" class="message">当前位置附近有<span class="hb-count">{{hbCount}}</span>个红包</span>
+      </div>
+      <!--<div *ngIf="!isLoading">{{ hbCount === 0 ? '当前位置附近暂无红包' : '当前位置附近有' + hbCount + '个红包' }}</div>-->
+    </ion-card-content>
+  </ion-card>
+  <div class="pin" [hidden]="!mapLoaded || mapError">
+    <!--<ion-icon name="ios-disc"></ion-icon>-->
+    <div class="dot"></div>
+  </div>
+  <div class="locate-button" (tap)="startLocation()" [hidden]="!mapLoaded">
+    <ion-icon name="ios-locate-outline" class="locate-icon"></ion-icon>
+  </div>
+  <div class="center-box map-error-container" *ngIf="!!mapError">
+    <div class="map-error">
+      {{mapError.message || mapError}}
+      <br><button ion-button outline color="theme-red" (click)="startLocation()">重新定位</button>
+    </div>
+    
+  </div>
+  <div #map id="map"></div>
+</ion-content>

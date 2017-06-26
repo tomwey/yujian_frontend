@@ -27,6 +27,7 @@ import { QQMaps }           from '../providers/qq-maps';
 import { UserService }      from '../providers/user-service';
 import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
+import { BannersService}     from '../providers/banners-service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -84,6 +85,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     UserService,
     PayService,
     EventsService,
+    BannersService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     LocationSearchProvider, 
     UtilsServiceProvider, WechatProvider,

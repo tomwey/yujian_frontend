@@ -19,6 +19,10 @@ export class EventsService {
     
   }
 
+  latest(token: string = null, loc: string = null): Promise<any> {
+    return this.api.get('events/latest', { token: token, loc: loc });
+  }
+  
   nearby(lat, lng): Promise<any> {
     return this.api.get('events/nearby', { lng: lng, lat: lat, scope: 1500 });
   }

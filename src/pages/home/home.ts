@@ -1,11 +1,10 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController, ModalController, Events } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, Platform, Slides } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
-import { Platform } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
+import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
-import { UtilsServiceProvider } from '../../providers/utils-service/utils-service';
 
 // @IonicPage()
 @Component({
@@ -14,188 +13,129 @@ import { UtilsServiceProvider } from '../../providers/utils-service/utils-servic
 })
 export class HomePage {
   
-  @ViewChild('map') mapElement: ElementRef;
-  map: any = null;
-  hbCount: number = 0; // 红包数量
-  mapLoaded: boolean = false; // 地图是否已经加载
+  @ViewChild(Slides) slides: Slides;
 
-  loadedMarkers: any[] = []; // 保存已经添加的标记
-  hbIsLoading: boolean = false; // 是否正在加载红包
-  mapError: any = null;
+  bannersData: any = [];
+  eventsData:  any = [];
 
-  currentLocMarker: any = null;
+  token: string = null;
+  position: any = null;
+  
   constructor(public navCtrl: NavController, 
               private events: EventsService,
+              private banners: BannersService,
               private qqMaps: QQMaps,
               private platform: Platform,
               private toolService: ToolService,
-              private users: UserService,
-              private modalCtrl: ModalController,
-              private utils: UtilsServiceProvider,
-              private notiEvents: Events) 
+              private users: UserService
+              ) 
   {
-    // this.scriptLoader.load('qqLoc', 'qqMap').then(data => {
-    //   console.log(qq.maps);
-    //   // console.log(data);
-    //   // this.startLocation().then
-    // }).catch(error => {
-    //   console.log(error);
-    // });
-    this.notiEvents.subscribe('map:drag', () => {
-      this.map && this.loadHBData(this.map.getCenter());
-    })
-  }
 
-  doTest() {
-    this.navCtrl.push('CommWeb', { slug: 'about', title: '关于' });
   }
 
   ionViewDidLoad() {
-    // document.addEventListener('hb:click', (e) => {
-    //   this.navCtrl.push('EventDetailPage', e['detail']);
-    //   // this.app.getRootNav().push('EventDetailPage', e['detail']);
-    //   // console.log(this.navCtrl);
-    //   // console.log(this.app.getRootNav());
-    // });
-    // document.addEventListener('map:drag', (e) => {
-    //   // console.log('开始加载数据...');
-    //   this.map && this.loadHBData(this.map.getCenter());
-    // });
-
     this.platform.ready().then(() => {
-
-      this.startLocation();
+      // this.startLocation();
+      this.loadData(null);
     });
   }
 
-  startLocation(): void {
-    this.toolService.showLoading('定位中...');
-    
-    this.mapError = null;
+  ionViewDidEnter() {  
+    // console.log(this.slides);
+    if (this.slides) 
+      this.slides.startAutoplay();
+  }  
+  
+  //页面离开时停止自动播放  
+  ionViewDidLeave() {   
+    if (this.slides)
+      this.slides.stopAutoplay();  
+  }
 
-    // this.fetchUserLocation();
-    this.qqMaps.startLocating(true)
-      .then(pos => {
-        // console.log(pos);
-        this.toolService.hideLoading();
+  doRefresh(refresher) {
+    this.loadData(refresher);
+  }
 
-        if (this.map) {
-          this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
+  loadData(refresher) {
+    if (!refresher)
+      this.toolService.showLoading('拼命加载中...');
 
-          // 标记中心点
-          this.markCurrentLocation(pos);
+    let promises: any[] = [];
+    promises.push(this.users.token().then(token => this.token = token));
+    promises.push(this.qqMaps.startLocating(true).then(pos => this.position = pos).catch(error => {}));
 
-          this.loadHBData(pos);
-        } else {
-          // console.log('开始初始化地图');
-          setTimeout(() => {
-            this.initMap(pos);
-          }, 0);
-        }
+    Promise.all(promises)
+      .then(() => {
+        // console.log(this.token);
+        // console.log(this.position);
+        this._loadBannersAndEvents(refresher);
       })
-      .catch(error => {
+      .catch((error) => {
         // console.log(error);
-        this.toolService.hideLoading();
-        this.mapError = '位置获取失败或未开启定位！';
+        this._loadBannersAndEvents(refresher);
       });
   }
 
-  // 初始化地图
-  initMap(pos) {
-    // console.log('ddddd');
-    this.toolService.showLoading('地图加载中...');
-    this.qqMaps.init(this.mapElement.nativeElement, null)
-      .then((map) => {
-        // console.log('123333');
-        this.toolService.hideLoading();
-
-        // 监听地图中心点变化
-        // qq.maps.event.removeListener(this.map);
-        // qq.maps.event.addListener(this.map, 'center_changed', () => {
-        //     this.map && this.loadHBData(this.map.getCenter());
-        // });
-
-        this.map = map;
-        this.mapLoaded = true;
-
-        this.map.panTo(new qq.maps.LatLng(pos.lat,pos.lng));
-
-        // 标记中心点
-        this.markCurrentLocation(pos);
-
-        this.loadHBData(pos);
-      })
-      .catch(error => {
-        // console.log(error);
-        this.toolService.hideLoading();
-
-        setTimeout(() => {
-          this.toolService.showToast(error.message || error);
-        }, 100);
-      });
+  gotoDetail(event): void {
+    this.navCtrl.push('EventDetailPage', event);
   }
 
-  private markCurrentLocation(pos) {
-    if (this.currentLocMarker) {
-      this.currentLocMarker.setMap(null);
-      this.currentLocMarker = null;
+  slideDidTap(event): void {
+    console.log(event);
+    let currentIndex = this.slides.getActiveIndex();
+    let banner = this.bannersData[currentIndex];
+    console.log(banner);
+    if (banner.link && banner.link.length !== 0) {
+      window.location.href = banner.link;
+    } else if ( banner.event ) {
+      this.gotoDetail(banner.event);
+    } else if ( banner.ad ) {
+      this.navCtrl.push('CommWeb', { slug: banner.ad.slug, title: banner.ad.title });
     }
+  }
+
+  slideDidChange(): void {
+
+  }
+
+  private _loadBannersAndEvents(refresher) {
+    let promises: any[] = [];
     
-    this.currentLocMarker = this.qqMaps.markCurrentLocation(this.map, pos);
-  }
+    let loc = null;
+    if (this.position) {
+      loc = `${this.position.lng},${this.position.lat}`;
+    }
 
-  loadHBData(pos) {
-    // 标记当前位置
-    // this.markCurrentLocation(pos);
+    promises.push(this.events.latest(this.token, loc)
+      .then(data => this.eventsData = data).catch());
+    promises.push(this.banners.getBanners(this.token, loc)
+      .then(data => this.bannersData = data).catch());
 
-    // 加载活动数据
-    setTimeout(() => {
-      this.loadData(pos);
-    }, 100);
-  }
+    Promise.all(promises)
+      .then(() => {
+        this.toolService.hideLoading();
 
-  // 加载附近红包
-  loadData(pos) {
+        if (this.slides) {
+          this.slides.autoplayDisableOnInteraction = false;
+          this.slides.update();
+        }
 
-    if (this.hbIsLoading) return;
+        if (refresher) {
+          refresher.complete();
+        }
+        // console.log(this.bannersData);
+        // console.log(this.eventsData);
 
-    this.hbIsLoading = true;
+      }).catch((error) => {
+        if (refresher) {
+          refresher.complete();
+        }
 
-    // 加载数据
-    this.events.nearby(pos.lat, pos.lng)
-      .then(data => {
-        console.log(data);
-        
-        this.hbCount = data.length;
-
-        this.hbIsLoading = false;
-
-        this.addMarkers(data);
-      })
-      .catch(error => { 
-        console.log(error);
-        this.hbIsLoading = false;
+        this.toolService.hideLoading();
+        setTimeout(() => {
+          this.toolService.showToast('加载出错了，请重试！');
+        }, 200);
       });
-  }
-
-  // 添加红包到地图上
-  addMarkers(data) {
-
-    // 清空所有的标记
-    this.loadedMarkers.forEach(marker => {
-      // qq.maps.event && qq.maps.event.removeListener(marker);
-      marker.setMap(null);
-    });
-    this.loadedMarkers.length = 0;
-
-    // 重新添加
-    data.forEach(item => {
-      if (this.loadedMarkers) {
-        this.loadedMarkers.push(this.qqMaps.addMarker(item, this.map, (data) => {
-          this.navCtrl.push('EventDetailPage', data);
-        }));
-      }
-    });
   }
 
 }
