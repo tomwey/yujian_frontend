@@ -30,12 +30,14 @@
           </button>
         </p>
       </ion-item>
-      <ion-item *ngIf="event.owner">
+    <!--</ion-list>
+    <ion-list>-->
+      <button ion-item *ngIf="event.owner" (click)="openOwnerInfo()">
         <ion-avatar item-left>
           <img [src]="event.owner.avatar">
         </ion-avatar>
         <h2 text-wrap class="owner-nickname">{{event.owner.nickname}}</h2>
-      </ion-item>
+      </button>
     </ion-list>
     <ion-card-content>
       <div class="event-body" [innerHTML]="event.body"></div>

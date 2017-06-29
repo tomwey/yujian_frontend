@@ -47,6 +47,16 @@ export class EventsService {
     });
   }
 
+  getEventOwner(eventId: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get(`events/${eventId}/owner_info`, { token: token })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      })
+    });
+  }
+
   private _loadEvent(eventId: number, token: string, lat, lng): Promise<any> {
     return new Promise((resolve, reject) => {
       this.api.get(`events/${eventId}/body`, { token: token, loc: `${lng},${lat}` })

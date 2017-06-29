@@ -138,9 +138,9 @@ export class HomePage {
         }
 
         this.toolService.hideLoading();
-        setTimeout(() => {
-          this.toolService.showToast('加载出错了，请重试！');
-        }, 200);
+        // setTimeout(() => {
+        //   this.toolService.showToast('加载出错了，请重试！');
+        // }, 200);
       });
   }
 

@@ -67,12 +67,16 @@ export class EventDetailPage {
       this.loadEvent();
     }
 
-    this.users.token().then(token => {
-      if (!token) {
+    // this.users.token().then(token => {
+    //   if (!token) {
         
-      }
-    });
+    //   }
+    // });
     // this._addShare();
+  }
+
+  openOwnerInfo(): void {
+    this.navCtrl.push('EventOwnerPage', { owner: this.event.owner, eventId: this.event.id });
   }
 
   gotoReport(): void {
