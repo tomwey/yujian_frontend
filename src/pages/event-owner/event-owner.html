@@ -39,7 +39,7 @@
     </ion-row>
   </div>
   <ion-list>
-    <button ion-item *ngFor="let event of eventsData" (click)="gotoEventDetail(event)">
+    <button ion-item *ngFor="let event of eventsData" detail-none (click)="gotoEventDetail(event)">
       <ion-thumbnail item-left>
         <img [src]="event.image" />
       </ion-thumbnail>
