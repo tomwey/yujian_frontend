@@ -1,5 +1,5 @@
 import { Component,ElementRef, ViewChild, Renderer } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { UserService } from '../../providers/user-service'
 import { ApiService } from '../../providers/api-service';
 import { ToolService } from '../../providers/tool-service';
@@ -30,7 +30,8 @@ export class EventBodyPage {
               private users: UserService,
               private api: ApiService,
               private tool: ToolService,
-              private alertCtrl: AlertController) {
+              private alertCtrl: AlertController,
+              private modalCtrl: ModalController) {
     this.event = this.navParams.data;
     this.bodyItems = this.event.body;
   }
@@ -65,6 +66,18 @@ export class EventBodyPage {
       }]
     });
     alert.present();
+  }
+
+  addLink(item): void {
+    // let modal = this.modalCtrl.create('AddLinkPage');
+    // modal.onDidDismiss((data) => {
+    //   if (data) {
+    //     this.links.push(data);
+
+    //     item.title += `<a href="${data.url}" target="__blank">${data.text || data.url}</a>，`;
+    //   }  
+    // });
+    // modal.present();
   }
 
   doRemove(item): void {

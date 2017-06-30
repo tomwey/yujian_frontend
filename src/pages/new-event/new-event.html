@@ -9,8 +9,11 @@
   <ion-navbar>
     <ion-title>发布活动</ion-title>
     <ion-buttons end>
-      <button ion-button clear (click)="send()">
-        确认发布
+      <button ion-button clear [disabled]="!canPreview" (click)="preview()">
+        预览
+      </button>
+      <button ion-button clear [disabled]="!canSend" (click)="send()">
+        发布
       </button>
     </ion-buttons>
   </ion-navbar>

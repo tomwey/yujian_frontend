@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, ModalController, App } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, ModalController, App, Content, Platform } from 'ionic-angular';
 // import { WalletPage } from '../wallet/wallet';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
@@ -11,6 +11,8 @@ import { ToolService } from '../../providers/tool-service';
 })
 export class SettingPage {
 
+  @ViewChild(Content) content: Content;
+
   user: any = { id: '00000000', 
                 avatar: 'assets/images/default_avatar.png',
                 earn: '0.00',
@@ -21,12 +23,17 @@ export class SettingPage {
               private users: UserService,
               private tool: ToolService,
               private modalCtrl: ModalController,
-              private app: App
+              private app: App,
+              private platform: Platform,
               ) {
       // this.loadUserProfile();
   }
 
   ionViewDidLoad() {
+    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+      this.content.enableJsScroll();
+    }
+    
     this.loadUserProfile();
   }
 

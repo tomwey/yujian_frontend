@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild, Renderer } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { ApiService } from '../../providers/api-service';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
@@ -15,7 +15,9 @@ export class NewEventPage {
   @ViewChild('fileInput') nativeFileInputBtn: ElementRef;
 
   currentPosition: any = null;
-
+  
+  canPreview: boolean = false;
+  canSend: boolean = false;
   // addFileText: string = '添加图片';
   // imageCover: File = null;
   selectedImage: any = null;
@@ -38,7 +40,9 @@ export class NewEventPage {
               private users: UserService,
               private alertCtrl: AlertController,
               private tool: ToolService,
-              private qqMaps: QQMaps ) {
+              private qqMaps: QQMaps,
+              private modalCtrl: ModalController
+              ) {
     this.qqMaps.startLocating()
       .then(pos => this.currentPosition = pos)
       .catch(error => {});
@@ -49,7 +53,21 @@ export class NewEventPage {
   }
 
   ionViewWillEnter() {
-    console.log(this.event);
+    // console.log(this.event);
+    if (this.event.title.length > 0 && 
+        this.event.body.length > 0 &&
+        this.event.rule) {
+      this.canPreview = true;
+    }
+
+    if (this.event.image && 
+        this.event.title.length > 0 && 
+        this.event.body.length > 0 &&
+        this.event.hb && this.event.rule
+        ) 
+    {
+      this.canSend = true;
+    }
   }
 
   uploadFile(): void {
@@ -121,6 +139,11 @@ export class NewEventPage {
     let ext: any = ['image/png', 'image/jpeg', 'image/gif'];
     let fileType = file.type;
     return ext.indexOf(fileType) !== -1;
+  }
+
+  preview(): void {
+    let modal = this.modalCtrl.create('EventPreviewPage', this.event);
+    modal.present();
   }
 
   send(): void {
@@ -200,7 +223,7 @@ export class NewEventPage {
       rule: rule,
     }
 
-    console.log(payload);
+    // console.log(payload);
 
     formData.append('payload', JSON.stringify(payload));
 
@@ -225,6 +248,8 @@ export class NewEventPage {
                   }, 
                   range: 30
                 };
+
+        this.canPreview = this.canSend = false;
         // this.imageCover = null;
         this.tool.hideLoading();
         setTimeout(() => {

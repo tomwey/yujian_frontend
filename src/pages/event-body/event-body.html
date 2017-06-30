@@ -9,6 +9,9 @@
   <ion-navbar>
     <ion-title>活动内容</ion-title>
     <ion-buttons end>
+      <button ion-button icon-only *ngIf="bodyItems.length > 0" (click)="uploadFile()">
+        <ion-icon name="ios-add-outline"></ion-icon>
+      </button>
       <button ion-button clear (click)="save()">
         保存
       </button>
@@ -18,19 +21,29 @@
 </ion-header>
 
 <ion-content>
+  <div padding *ngIf="bodyItems.length === 0">
+    <p>可以上传多张图片来描述您的活动！<button ion-button (click)="uploadFile()" color="theme-red">添加图片</button></p> 
+  </div>
   <div class="event-body" #eventBody>
     <div *ngFor="let item of bodyItems; let i = index" id="item-{{i}}" class="body-item">
       <img [src]="item.image" />
-      <div padding>
-        <ion-input [(ngModel)]="item.title" placeholder="描述该图片（可选）"></ion-input>
-      </div>
+        <ion-list no-lines no-margin>
+          <ion-item>
+            <ion-input [(ngModel)]="item.title" placeholder="描述该图片（可选）"></ion-input>
+            <!--<button ion-button icon-only clear color="light-gray" item-right (click)="addLink(item)">
+              <ion-icon name="ios-link-outline"></ion-icon>
+            </button>-->
+          </ion-item>
+        </ion-list>
       <button ion-button icon-only clear class="remove-btn" (click)="remove(item)">
         <ion-icon name="ios-close-outline"></ion-icon>
       </button>
     </div>
   </div>
+  <input type="file" (change)="selectedFiles($event)" 
+      style="display: none" #fileInput multiple>
 </ion-content>
-<ion-footer class="footer">
+<!--<ion-footer class="footer">
   <div class="upload-image">
     <input type="file" (change)="selectedFiles($event)" 
       style="display: none" #fileInput multiple>
@@ -38,4 +51,4 @@
       添加活动图片
     </button>
   </div>
-</ion-footer>
+</ion-footer>-->
