@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Events, App } from 'ionic-angular';
+import { UserService } from "../../providers/user-service";
 // import { TabsPage } from '../tabs/tabs';
 
 /**
@@ -18,6 +19,7 @@ export class EventResult {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: Events,
+              private users: UserService,
               private app: App) {
       this.event_earn.title = this.navParams.data.event.title;
       this.event_earn.image = this.navParams.data.event.image;
@@ -31,6 +33,12 @@ export class EventResult {
   gotoGrab(): void {
     this.events.publish('hb:opened');
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
+  }
+
+  doShare(): void {
+    this.users.token().then(token => {
+      window.location.href = `http://b.hb.small-best.com/wx/share/event?id=${this.navParams.data.event.id}&token=${token}`;
+    });
   }
 
 }

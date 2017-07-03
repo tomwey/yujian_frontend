@@ -26,7 +26,7 @@ export class TradeList {
               private users: UserService,
               private tool: ToolService) {
   
-    this.loadTrades();
+    // this.loadTrades();
   }
 
   loadTrades(): Promise<any> {
@@ -72,6 +72,10 @@ export class TradeList {
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TradeList');
+  }
+
+  ionViewDidEnter() {
+    this.loadTrades();
   }
 
 }
