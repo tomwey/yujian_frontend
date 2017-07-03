@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EventsService } from "../../providers/events-service";
 import { ToolService } from "../../providers/tool-service";
 /**
@@ -19,11 +19,21 @@ export class MyEventsPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: EventsService,
-              private tool: ToolService) {
+              private tool: ToolService,
+              private modalCtrl: ModalController) {
   }
 
   ionViewDidLoad() {
     this.loadData();
+  }
+
+  republish(e, event): void {
+    e.stopPropagation();
+
+    // let modal = this.modalCtrl.create('EventRepublishPage', event);
+    // modal.present();
+    this.navCtrl.push('EventRepublishPage', event);
+    // console.log('ddd');
   }
 
   gotoEventDetail(event): void {

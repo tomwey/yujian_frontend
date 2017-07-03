@@ -36,6 +36,11 @@ export class NewQuizRulePage {
   }
 
   saveRule(): void {
+    if (this.rule.question.length === 0) {
+      this.tool.showToast('题目不能为空');
+      return;
+    }
+
     if (this.checkedIdx === -1) {
       this.tool.showToast('必须指定一个正确答案');
       return;

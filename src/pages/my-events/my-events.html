@@ -22,7 +22,10 @@
       <p class="money" text-wrap>
         <span class="label">共<span class="digit">{{event.hb.total_money}}</span>元，剩<span class="digit">{{event.hb.left_money}}</span>元</span>
       </p>
-      <ion-note item-right><p class="state-name">{{event.state_name}}</p></ion-note>
+      <ion-note item-right>
+        <p class="state-name" *ngIf="event.hb.left_money > 0">{{event.state_name}}</p>
+        <button ion-button small color="theme-red" outline (click)="republish($event, event)">再次发布</button>
+      </ion-note>
     </button>
   </ion-list>
 </ion-content>

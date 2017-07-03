@@ -1,0 +1,39 @@
+<!--
+  Generated template for the EventRepublishPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="close()">
+        <ion-icon name="ios-close-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>编辑活动</ion-title>
+    <ion-buttons end>
+      <button ion-button clear color="white" (click)="send()">
+        发布
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <button ion-item (click)="openRule()">
+      <h2>设置活动类型</h2>
+      <p>{{!!event.rule ? (event.rule.type === 'Quiz' ? '答题抢红包': '签到抢红包' ) : '指定活动参与规则'}}</p>
+      <ion-icon [hidden]="!event.rule" item-right name="ios-checkmark" color="theme-red"></ion-icon>
+    </button>
+    <button ion-item (click)="openHongbao()">
+      <h2>设置红包类型</h2>
+      <p>{{!!event.hb ? (event.hb._type === 0 ? '随机红包' : '固定红包') : '不同的类型用户收益不一样哦'}}</p>
+      <ion-icon [hidden]="!event.hb" item-right name="ios-checkmark" color="theme-red"></ion-icon>
+    </button>
+  </ion-list>
+</ion-content>
