@@ -19,6 +19,7 @@ export class EventOwnerPage {
   owner: any = null;
   eventsData: any = [];
   eventId: number = null;
+  hasLoaded: boolean = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -29,7 +30,15 @@ export class EventOwnerPage {
   }
 
   ionViewDidLoad() {
-    this.loadData();
+    // this.loadData();
+  }
+
+  ionViewDidEnter() {
+    if (!this.hasLoaded) {
+      this.hasLoaded = true;
+
+      this.loadData();
+    }
   }
 
   loadData(): void {
