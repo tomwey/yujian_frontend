@@ -37,6 +37,16 @@ export class EventsService {
     });
   }
 
+  republish(eventId, payload): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.post(`events/${eventId}/republish`, { token: token, payload: JSON.stringify(payload) })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      });
+    });
+  }
+
   getMyEvents(pageNo: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {

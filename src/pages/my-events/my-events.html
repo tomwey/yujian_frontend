@@ -24,7 +24,7 @@
       </p>
       <ion-note item-right>
         <p class="state-name" *ngIf="event.hb.left_money > 0">{{event.state_name}}</p>
-        <button ion-button small color="theme-red" outline (click)="republish($event, event)">再次发布</button>
+        <button ion-button *ngIf="event.hb.left_money <= 0.0" small color="theme-red" outline (click)="republish($event, event)">再次发布</button>
       </ion-note>
     </button>
   </ion-list>

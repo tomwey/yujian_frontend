@@ -30,9 +30,14 @@ export class MyEventsPage {
   republish(e, event): void {
     e.stopPropagation();
 
-    // let modal = this.modalCtrl.create('EventRepublishPage', event);
-    // modal.present();
-    this.navCtrl.push('EventRepublishPage', event);
+    let modal = this.modalCtrl.create('EventRepublishPage', event);
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.loadData();
+      }
+    });
+    modal.present();
+    // this.navCtrl.push('EventRepublishPage', event);
     // console.log('ddd');
   }
 
