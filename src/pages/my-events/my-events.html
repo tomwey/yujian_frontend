@@ -14,16 +14,15 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="let event of eventsData" class="event" (click)="gotoEventDetail(event)">
+    <button ion-item detail-none *ngFor="let event of eventsData" class="event" (click)="gotoEventDetail(event)">
       <ion-thumbnail item-left>
         <img [src]="event.image">
       </ion-thumbnail>
       <h2 class="title" text-wrap>{{event.title}}</h2>
       <p class="money" text-wrap>
-        <span class="small">共</span><span class="total">{{event.hb.total_money}}</span>元
-        <span class="left"><span class="small">还剩</span>{{event.hb.left_money}}</span>元
+        <span class="label">共<span class="digit">{{event.hb.total_money}}</span>元，剩<span class="digit">{{event.hb.left_money}}</span>元</span>
       </p>
-      <ion-badge item-right color="theme-red">{{event.state_name}}</ion-badge>
+      <ion-note item-right><p class="state-name">{{event.state_name}}</p></ion-note>
     </button>
   </ion-list>
 </ion-content>
