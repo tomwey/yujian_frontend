@@ -25,8 +25,14 @@
     </ion-slides>
   </div>
 
+  <div class="empty-result" *ngIf="!hasLoading && eventsData.length === 0">
+    <p>一大波红包正在赶来...</p>
+    <p>或者</p>
+    <p>您还可以自己去发布一个红包!</p>
+    <button ion-button color="theme-red" (click)="gotoNewEvent()">去发布</button>
+  </div>
   <!-- 最新活动 -->
-  <div class="latest-events">
+  <div class="latest-events" *ngIf="eventsData.length > 0">
     <ion-list>
       <button ion-item *ngFor="let event of eventsData"
           detail-none class="event" (click)="gotoDetail(event)">

@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, Slides } from 'ionic-angular';
+import { NavController, Platform, Slides, App } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { QQMaps } from '../../providers/qq-maps';
 import { EventsService } from '../../providers/events-service';
@@ -20,6 +20,8 @@ export class HomePage {
 
   token: string = null;
   position: any = null;
+
+  hasLoading: boolean = false;
   
   constructor(public navCtrl: NavController, 
               private events: EventsService,
@@ -27,7 +29,8 @@ export class HomePage {
               private qqMaps: QQMaps,
               private platform: Platform,
               private toolService: ToolService,
-              private users: UserService
+              private users: UserService,
+              private app: App,
               ) 
   {
 
@@ -38,6 +41,11 @@ export class HomePage {
       // this.startLocation();
       this.loadData(null);
     });
+  }
+
+  gotoNewEvent() {
+    if (this.app.getRootNav() && this.app.getRootNav().getActiveChildNav())
+      this.app.getRootNav().getActiveChildNav().select(2);
   }
 
   ionViewDidEnter() {  
@@ -60,6 +68,8 @@ export class HomePage {
   }
 
   loadData(refresher) {
+    this.hasLoading = true;
+
     if (!refresher)
       this.toolService.showLoading('拼命加载中...');
 
@@ -129,6 +139,7 @@ export class HomePage {
           refresher.complete();
         }
 
+        this.hasLoading = false;
         // console.log(this.bannersData);
         // console.log(this.eventsData);
 
@@ -138,6 +149,8 @@ export class HomePage {
         }
 
         this.toolService.hideLoading();
+
+        this.hasLoading = false;
         // setTimeout(() => {
         //   this.toolService.showToast('加载出错了，请重试！');
         // }, 200);

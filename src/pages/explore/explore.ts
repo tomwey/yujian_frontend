@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController,App } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
@@ -26,7 +26,7 @@ export class ExplorePage {
               // private hbService: RedPacketService,
               private events: EventsService,
               private qqMaps: QQMaps,
-              //private app: App,
+              private app: App,
               ) {
       
   }
@@ -96,6 +96,11 @@ export class ExplorePage {
   gotoDetail(event) {
     // console.log(event);
     this.navCtrl.push('EventDetailPage', event);
+  }
+
+  gotoNewEvent() {
+    if (this.app.getRootNav() && this.app.getRootNav().getActiveChildNav())
+      this.app.getRootNav().getActiveChildNav().select(2);
   }
 
   doInfinite(infiniteScroll): void {

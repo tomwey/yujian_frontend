@@ -24,3 +24,12 @@
     -webkit-justify-content: center;
     text-align: center;
 }
+
+.empty-result {
+    width: 100%;
+    padding: 60px 0;
+    text-align: center;
+    p {
+        color: rgb(58,58,58);
+    }
+}
