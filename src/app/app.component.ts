@@ -8,7 +8,7 @@ import { UserService } from '../providers/user-service';
 import { WechatProvider } from "../providers/wechat/wechat";
 import { UtilsServiceProvider } from "../providers/utils-service/utils-service";
 import { ToolService } from '../providers/tool-service';
-import { QQMaps } from "../providers/qq-maps";
+// import { QQMaps } from "../providers/qq-maps";
 
 @Component({
   templateUrl: 'app.html'
@@ -24,7 +24,7 @@ export class MyApp {
               private wechat: WechatProvider,
               private utils: UtilsServiceProvider,
               private tool: ToolService,
-              private qqMaps: QQMaps,
+              // private qqMaps: QQMaps,
               // private _ionicApp: IonicApp,
               ) {
     platform.ready().then(() => {
@@ -117,13 +117,22 @@ export class MyApp {
   }
 
   private _sendSession(action, network) {
-    this.qqMaps.startLocating(true)
-      .then(pos => {
-        this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
-      })
-      .catch(error => {
-        this._sendSessionReq(action, network, null);
-      });
+    wx.getLocation({
+        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+        success: (res) => {
+            this._sendSessionReq(action, network, `${res.longitude},${res.latitude}`);
+        },
+        fail: (error) => {
+          this._sendSessionReq(action, network, null);
+        }
+    });
+    // this.qqMaps.startLocating(true)
+    //   .then(pos => {
+    //     this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
+    //   })
+    //   .catch(error => {
+    //     this._sendSessionReq(action, network, null);
+    //   });
   }
 
   private _sendSessionReq(action, network, loc) {
