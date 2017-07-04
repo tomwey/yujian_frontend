@@ -36,13 +36,18 @@ export class MyApp {
       // this.initWXJSSDK();
       this.initWXAuth();
 
-      window.addEventListener("beforeunload", (e) => {
-        // console.log('will close...');
-        // e.returnValue = "\o/";
+      // window.addEventListener("beforeunload", (e) => {
+      //   // console.log('will close...');
+      //   // e.returnValue = "\o/";
 
-        this.sendUserSession('end');
+      //   this.sendUserSession('end');
 
-        e.returnValue = "确定要退出吗？";
+      //   e.returnValue = "确定要退出吗？";
+      // });
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState == 'hidden') {
+          this.sendUserSession('end');
+        }
       });
 
     });
