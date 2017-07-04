@@ -8,6 +8,7 @@ import { UserService } from '../providers/user-service';
 import { WechatProvider } from "../providers/wechat/wechat";
 import { UtilsServiceProvider } from "../providers/utils-service/utils-service";
 import { ToolService } from '../providers/tool-service';
+import { QQMaps } from "../providers/qq-maps";
 
 @Component({
   templateUrl: 'app.html'
@@ -23,6 +24,7 @@ export class MyApp {
               private wechat: WechatProvider,
               private utils: UtilsServiceProvider,
               private tool: ToolService,
+              private qqMaps: QQMaps,
               // private _ionicApp: IonicApp,
               ) {
     platform.ready().then(() => {
@@ -31,9 +33,22 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      this.initWXJSSDK();
-    });
+      // this.initWXJSSDK();
+      this.initWXAuth();
 
+      window.addEventListener("beforeunload", (e) => {
+        // console.log('will close...');
+        // e.returnValue = "\o/";
+
+        this.sendUserSession('end');
+
+        e.returnValue = "确定要退出吗？";
+      });
+
+    });
+  }
+
+  private initWXAuth() {
     this.users.token().then(token => {
       if (!token) {
         let code = UtilsServiceProvider.getQueryString('code');
@@ -48,6 +63,9 @@ export class MyApp {
                 .then(() => {
                   this.rootPage = TabsPage;
                 }).catch(error => {});
+              
+              this.initWXJSSDK();
+
             })
             .catch(error => {
               this.tool.hideLoading();
@@ -62,16 +80,56 @@ export class MyApp {
       } else {
         // this.nav.setRoot(TabsPage);
         this.rootPage = TabsPage;
+
+        this.initWXJSSDK();
       }
     });
   }
 
   private initWXJSSDK() {
     this.wechat.config('wx_app_url').then(data => {
-      console.log(`微信配置结果：${data}`);
+      // console.log(`微信配置结果：${data}`);
+      // this.initUserSession();
+      // wx.getNetworkType({
+      //   success: (res) => {
+      //     this.initUserSession('begin', res.networkType);
+      //   },
+      //   fail: (error) => {
+      //     this.initUserSession('begin', null);
+      //   },
+      // })
+      this.sendUserSession('begin');
     }).catch(error => {
-      console.log(`微信配置结果：${error}`);
+      // console.log(`微信配置结果：${error}`);
+      this.sendUserSession('begin');
     });
+  }
+
+  private sendUserSession(action: string) {
+    wx.getNetworkType({
+        success: (res) => {
+          this._sendSession(action, res.networkType);
+        },
+        fail: (error) => {
+          this._sendSession(action, null);
+        },
+    });
+  }
+
+  private _sendSession(action, network) {
+    this.qqMaps.startLocating(true)
+      .then(pos => {
+        this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
+      })
+      .catch(error => {
+        this._sendSessionReq(action, network, null);
+      });
+  }
+
+  private _sendSessionReq(action, network, loc) {
+    this.users.handleSession(action, loc, network)
+      .then(data => console.log(data) )
+      .catch(error => {});
   }
   
 }

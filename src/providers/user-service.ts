@@ -104,4 +104,39 @@ export class UserService {
     });
   }
 
+  // 处理用户会话
+  handleSession(action: string, loc: string = null, network: string = null): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        if (token) {
+          if (action === 'end') {
+            this.storage.get('session_id').then(sid => {
+              if (!sid) {
+                resolve(false);
+              } else {
+                this.api.post('user/session/end', { token: token, sid: sid, loc: loc, network: network })
+                  .then(data => {
+                    if (data.sid === sid)
+                      this.storage.remove('session_id');
+                    resolve(true);
+                  })
+                  .catch(error => reject(error));
+              }
+            });
+          } else {
+            this.api.post('user/session/begin', { token: token, loc: loc, network: network })
+              .then(data => {
+                if (data.sid)
+                  this.storage.set('session_id', data.sid);
+                resolve(true);
+              })
+              .catch(error => reject(error));
+          }
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  }
+
 }
