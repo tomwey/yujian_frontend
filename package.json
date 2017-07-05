@@ -24,6 +24,7 @@
     "@ionic-native/status-bar": "3.4.2",
     "@ionic/storage": "^2.0.1",
     "@types/core-js": "^0.9.41",
+    "ifvisible.js": "^1.0.6",
     "ionic-angular": "3.0.1",
     "ionicons": "3.0.0",
     "moment": "^2.18.1",

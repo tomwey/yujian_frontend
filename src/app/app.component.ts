@@ -8,7 +8,10 @@ import { UserService } from '../providers/user-service';
 import { WechatProvider } from "../providers/wechat/wechat";
 import { UtilsServiceProvider } from "../providers/utils-service/utils-service";
 import { ToolService } from '../providers/tool-service';
-// import { QQMaps } from "../providers/qq-maps";
+
+///<reference path="../node_modules/ifvisible.js/ifvisible.d.ts"/>
+import * as ifvisible from 'ifvisible.js';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -33,22 +36,15 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
+      // 每隔10秒发一次心跳请求
+      // console.log(ifvisible);
+      ifvisible.setIdleDuration(24 * 3600);
+      ifvisible.onEvery(10, () => {
+        this.sendUserSession('end');
+      });
+
       // this.initWXJSSDK();
       this.initWXAuth();
-
-      // window.addEventListener("beforeunload", (e) => {
-      //   // console.log('will close...');
-      //   // e.returnValue = "\o/";
-
-      //   this.sendUserSession('end');
-
-      //   e.returnValue = "确定要退出吗？";
-      // });
-      document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState == 'hidden') {
-          this.sendUserSession('end');
-        }
-      });
 
     });
   }
@@ -131,13 +127,6 @@ export class MyApp {
           this._sendSessionReq(action, network, null);
         }
     });
-    // this.qqMaps.startLocating(true)
-    //   .then(pos => {
-    //     this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
-    //   })
-    //   .catch(error => {
-    //     this._sendSessionReq(action, network, null);
-    //   });
   }
 
   private _sendSessionReq(action, network, loc) {

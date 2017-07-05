@@ -116,8 +116,8 @@ export class UserService {
               } else {
                 this.api.post('user/session/end', { token: token, sid: sid, loc: loc, network: network })
                   .then(data => {
-                    if (data.sid === sid)
-                      this.storage.remove('session_id');
+                    // if (data.sid === sid)
+                    //   this.storage.remove('session_id');
                     resolve(true);
                   })
                   .catch(error => reject(error));
