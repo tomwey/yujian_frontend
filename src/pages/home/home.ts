@@ -21,7 +21,7 @@ export class HomePage {
   token: string = null;
   position: any = null;
 
-  hasLoading: boolean = false;
+  needShowEmptyResult: boolean = false;
   
   constructor(public navCtrl: NavController, 
               private events: EventsService,
@@ -68,7 +68,6 @@ export class HomePage {
   }
 
   loadData(refresher) {
-    this.hasLoading = true;
 
     if (!refresher)
       this.toolService.showLoading('拼命加载中...');
@@ -135,13 +134,11 @@ export class HomePage {
           this.slides.startAutoplay();
         }
 
+        this.needShowEmptyResult = (this.eventsData.length === 0);
+
         if (refresher) {
           refresher.complete();
         }
-
-        this.hasLoading = false;
-        // console.log(this.bannersData);
-        // console.log(this.eventsData);
 
       }).catch((error) => {
         if (refresher) {
@@ -150,10 +147,6 @@ export class HomePage {
 
         this.toolService.hideLoading();
 
-        this.hasLoading = false;
-        // setTimeout(() => {
-        //   this.toolService.showToast('加载出错了，请重试！');
-        // }, 200);
       });
   }
 

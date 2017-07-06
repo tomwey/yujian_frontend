@@ -13,7 +13,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <div class="empty-result" *ngIf="needsShowEmptyResult">
+    <p>没有交易明细~</p>
+  </div>
+  <ion-list *ngIf="trades.length > 0">
     <ion-item *ngFor="let item of trades">
       <h2>{{item.title}}</h2>
       <p>{{item.time}}</p>

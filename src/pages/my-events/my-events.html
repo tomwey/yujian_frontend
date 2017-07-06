@@ -13,7 +13,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <div class="empty-result" *ngIf="needShowEmptyResult">
+    <p>您还未发布过活动，快去主页的发布页面发布一个活动吧！</p>
+  </div>
+  <ion-list *ngIf="eventsData.length > 0">
     <button ion-item detail-none *ngFor="let event of eventsData" class="event" (click)="gotoEventDetail(event)">
       <ion-thumbnail item-left>
         <img [src]="event.image">

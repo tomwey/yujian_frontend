@@ -16,7 +16,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <div class="empty-result" *ngIf="eventsData.length === 0">
+  <div class="empty-result" *ngIf="needsShowEmptyResult">
     <p>一大波红包正在赶来...</p>
     <p>或者</p>
     <p>您还可以自己去发布一个红包!</p>

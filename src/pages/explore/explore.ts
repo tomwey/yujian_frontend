@@ -21,6 +21,8 @@ export class ExplorePage {
   hasMore: boolean = false;
   loadingMore: boolean = false;
 
+  needsShowEmptyResult: boolean = false;
+
   constructor(public navCtrl: NavController,
               private toolService: ToolService,
               // private hbService: RedPacketService,
@@ -70,6 +72,8 @@ export class ExplorePage {
         .then(data => {
           if (this.pageNo === 1) {
             this.eventsData = data.data || data;
+
+            this.needsShowEmptyResult = this.eventsData.length === 0;
           } else {
             let temp = this.eventsData || [];
             this.eventsData = temp.concat(data.data || data);

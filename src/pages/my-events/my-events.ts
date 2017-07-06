@@ -16,6 +16,8 @@ import { ToolService } from "../../providers/tool-service";
 export class MyEventsPage {
 
   eventsData: any = [];
+  needShowEmptyResult: boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: EventsService,
@@ -49,14 +51,12 @@ export class MyEventsPage {
 
     this.events.getMyEvents(1)
       .then(data => {
-        console.log(data);
+        // console.log(data);
         this.eventsData = data.data || data;
+        
         this.tool.hideLoading();
-        if (this.eventsData.length === 0 ) {
-          setTimeout(() => {
-            this.tool.showToast('没有数据显示');
-          }, 200);
-        }
+
+        this.needShowEmptyResult = this.eventsData.length === 0;
       }).catch(error => {
         this.tool.hideLoading();
 

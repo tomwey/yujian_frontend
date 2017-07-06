@@ -21,6 +21,8 @@ export class TradeList {
   totalPage: number = 1;
   pageSize: number = 30;
 
+  needsShowEmptyResult: boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private users: UserService,
@@ -40,6 +42,9 @@ export class TradeList {
 
         if (this.pageNo === 1) {
           this.trades = data.data || data;
+
+          this.needsShowEmptyResult = this.trades.length === 0;
+          
         } else {
           let temp = this.trades || [];
           this.trades = temp.concat(data.data);

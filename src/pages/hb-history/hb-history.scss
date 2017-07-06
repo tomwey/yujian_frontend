@@ -1,8 +1,10 @@
 page-hb-history {
     .earnings {
         text-align: center;
-        background-color: rgb(249,249,247);
+        background-color: color($colors, theme-red);
         padding: 30px 0;
+        border-bottom: 1px solid #b8b8b8;
+        color: white;
         .avatar {
             display: block;
             width: 64px;
@@ -15,13 +17,13 @@ page-hb-history {
         .uid {
             font-size: 18px;
             font-weight: normal;
-            color: rgb(138, 138, 138);
+            // color: rgb(138, 138, 138);
         }
 
         .earn-item {
             padding-top: 20px;
             font-size: 15px;
-            color: rgb(138, 138, 138);
+            // color: rgb(138, 138, 138);
             h4 {
                 margin: 0;
                 padding: 0;
@@ -29,7 +31,7 @@ page-hb-history {
                 font-size: 15px;
                 .money {
                     font-size: 28px;
-                    color: rgb(58,58,58);
+                    // color: rgb(58,58,58);
                 }
             }
             p {

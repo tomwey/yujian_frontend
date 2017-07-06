@@ -15,23 +15,26 @@
 <ion-content style="background-color: rgb(249,249,247)">
   <div class="earnings">
     <img [src]="user.avatar" class="avatar">
-    <h2 class="uid">ID: {{user.id}}</h2>
+    <h2 class="uid">{{user.nickname}}</h2>
     <ion-row>
       <ion-col>
         <div class="earn-item">
-          <h4><span class="money">{{user.earn}}</span>元</h4>
+          <h4><span class="money">{{user.earn || 0.00}}</span>元</h4>
           <p>累计收入</p>
         </div>
       </ion-col>
       <ion-col>
         <div class="earn-item">
-          <h4><span class="money">{{user.today_earn}}</span>元</h4>
+          <h4><span class="money">{{user.today_earn || 0.00}}</span>元</h4>
           <p>今日收入</p>
         </div>
       </ion-col>
     </ion-row>
   </div>
-  <ion-list>
+  <div class="empty-result" *ngIf="needShowEmptyResult">
+    <p>您还未抢过红包，快去抢红包吧！</p>
+  </div>
+  <ion-list *ngIf="hbList.length > 0">
     <button ion-item *ngFor="let item of hbList" (click)="gotoHBResult(item.event)" detail-none>
       <ion-thumbnail item-left>
         <img [src]="item.event.image" />

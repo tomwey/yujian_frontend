@@ -23,6 +23,8 @@ export class HBHistory {
   pageSize: number = 20;
   totalPage: number = 1;
 
+  needShowEmptyResult: boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private userService: UserService,
@@ -47,10 +49,12 @@ export class HBHistory {
           this.toolService.hideLoading();
 
           if (this.pageNo === 1) {
-            this.hbList = data.data;
+            this.hbList = data.data || data;
+            // console.log(data.data);
+            this.needShowEmptyResult = this.hbList.length === 0;
           } else {
             let temp = this.hbList || [];
-            this.hbList = temp.concat(data.data);
+            this.hbList = temp.concat(data.data || data);
           }
           
           this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize); 
