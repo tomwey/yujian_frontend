@@ -50,8 +50,11 @@ export class HomePage {
 
   ionViewDidEnter() {  
     // console.log(this.slides);
-    if (this.slides) 
+    if (this.slides) {
+      // this.slides.loop = true;
       this.slides.startAutoplay();
+    }
+      
   }  
   
   //页面离开时停止自动播放  
@@ -61,8 +64,9 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-    if (this.slides)
+    if (this.slides) {
       this.slides.stopAutoplay();
+    }
 
     this.loadData(refresher);
   }
@@ -119,10 +123,13 @@ export class HomePage {
       loc = `${this.position.lng},${this.position.lat}`;
     }
 
+    if (!refresher) {
+      promises.push(this.banners.getBanners(this.token, loc)
+      .then(data => this.bannersData = data).catch());
+    }
+
     promises.push(this.events.latest(this.token, loc)
       .then(data => this.eventsData = data).catch());
-    promises.push(this.banners.getBanners(this.token, loc)
-      .then(data => this.bannersData = data).catch());
 
     Promise.all(promises)
       .then(() => {
@@ -130,8 +137,12 @@ export class HomePage {
 
         if (this.slides) {
           this.slides.autoplayDisableOnInteraction = false;
+          
           this.slides.update();
+
           this.slides.startAutoplay();
+
+          this.slides.slideTo(0, 300);
         }
 
         this.needShowEmptyResult = (this.eventsData.length === 0);
