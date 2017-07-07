@@ -56,7 +56,7 @@
     </ion-card-header>
     <ion-card-content>
       <div class="rule-box quiz" *ngIf="event.rule_type === 'QuizRule'">
-        <div class="tip" style="color: red;">题目的答案在上面的活动内容里面找</div>
+        <div class="tip" style="color: red;">题目的答案在上面的活动内容里面找，注意：只有一次答题的机会！</div>
         <div class="content">
           <ion-list radio-group [(ngModel)]="answer">
             <ion-list-header>

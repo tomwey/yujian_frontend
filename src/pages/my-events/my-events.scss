@@ -22,4 +22,9 @@ page-my-events {
             background-color: color($colors, theme-red);
         }
     }
+
+    .my-events-empty {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
 }

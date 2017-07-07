@@ -37,13 +37,13 @@
     </ion-item>
   </ion-list>-->
 
-  <ion-list>
+  <!--<ion-list>
     <ion-item>
       <div class="withdraw-tip" text-wrap>提现<span class="money">{{money}}</span>元，会从您的账户余额扣除<span class="money">{{(money | stringNumber) + 1}}</span>元</div>
     </ion-item>
-  </ion-list>
+  </ion-list>-->
 
   <div class="commit-btn">
-    <button ion-button block color="theme-red" (click)="commit();">提现</button>
+    <button ion-button block color="theme-red" (click)="commit();">提现{{money}}元</button>
   </div>
 </ion-content>

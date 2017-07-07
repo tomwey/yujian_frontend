@@ -27,7 +27,7 @@ export class ChargePage {
               private tool: ToolService) {
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     // console.log('ionViewDidLoad ChargePage');
     this.tool.showLoading('加载中...');
 
