@@ -36,10 +36,8 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
 
-      // 每隔10秒发一次心跳请求
-      // console.log(ifvisible);
-      ifvisible.setIdleDuration(24 * 3600);
-      ifvisible.onEvery(10, () => {
+      // 不确定能生效
+      ifvisible.on("blur", function(){
         this.sendUserSession('end');
       });
 
