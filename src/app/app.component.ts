@@ -37,7 +37,7 @@ export class MyApp {
       splashScreen.hide();
 
       // 不确定能生效
-      ifvisible.on("blur", function(){
+      ifvisible.on("blur", () => {
         this.sendUserSession('end');
       });
 
