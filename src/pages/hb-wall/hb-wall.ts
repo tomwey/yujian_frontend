@@ -45,14 +45,16 @@ export class HBWallPage {
       })
       .catch(error => {
         this.tool.hideLoading();
-        setTimeout(() => {
-          this.tool.showToast(error);
-        }, 100);
+        console.log(error);
+        this.gotoSuccessPage({ event: this.payload.event, code: -1001, message: error.message || error });
+        // setTimeout(() => {
+        //   this.tool.showToast(error);
+        // }, 100);
       });
   }
 
   gotoSuccessPage(data): void {
-    console.log(data);
+    // console.log(data);
 
     this.viewController.dismiss();
     this.app.getRootNav().push('EventResult', data);

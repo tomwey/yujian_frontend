@@ -54,6 +54,12 @@ page-event-result {
                 color: rgb(58,58,58);
                 margin-top: 15px;
             }
+            .error-message {
+                padding: 0 30px;
+                font-size: 16px;
+                text-align: center;
+                color: color($colors, theme-red);
+            }
         }
     }
 

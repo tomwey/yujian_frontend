@@ -90,7 +90,7 @@ export class EventDetailPage {
     this.events.getEvent(this.event.id)
       .then(data => {
         setTimeout(() => {
-          console.log(data);
+          // console.log(data);
           this.event = data;
           this.event.view_count += 1;
           this.toolService.hideLoading();

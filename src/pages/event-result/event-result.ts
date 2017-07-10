@@ -16,14 +16,37 @@ import { UserService } from "../../providers/user-service";
 })
 export class EventResult {
   event_earn: any = { title: '', image: '', money: '0.0' };
+  share_tip: string = '叫朋友来抢';
+  
+  error_message: string = null;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: Events,
               private users: UserService,
               private app: App) {
-      this.event_earn.title = this.navParams.data.event.title;
-      this.event_earn.image = this.navParams.data.event.image;
-      this.event_earn.money = this.navParams.data.money;
+
+      if (this.navParams.data.code && this.navParams.data.code === -1001) {
+        // 提交失败
+        this.error_message = this.navParams.data.message || '打开红包失败了！';
+      } else {
+        // 提交成功
+        if ( this.navParams.data.event ) {
+          this.event_earn.title = this.navParams.data.event.title;
+          this.event_earn.image = this.navParams.data.event.image;
+        }
+        
+        if ( this.navParams.data ) {
+          this.event_earn.money = this.navParams.data.money;
+        }
+        
+      }
+
+      if (this.navParams.data.event && 
+          this.navParams.data.event.share_hb &&
+          this.navParams.data.event.share_hb.left_money > 0.0) {
+          this.share_tip = "点击分享继续得红包，送完为止";
+      }
   }
 
   ionViewDidLoad() {
