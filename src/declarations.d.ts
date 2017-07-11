@@ -16,3 +16,5 @@ declare module '*';
 declare var qq;
 declare var AMap;
 declare var wx;
+
+declare var videojs;

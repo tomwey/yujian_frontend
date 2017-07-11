@@ -28,6 +28,20 @@ page-event-detail {
             color: black;
         }
     }
+    .sent-stat {
+        display: block;
+        height: 20px;
+        line-height: 20px;
+        float: right;
+        background-image: url('../../assets/images/icon_hb_event_detail.svg');
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        padding-left: 25px;
+        font-weight: normal;
+        font-size: 15px;
+        color: rgb(123,125,129);
+    }
     .event-body {
         img {
             max-width: 100%;
