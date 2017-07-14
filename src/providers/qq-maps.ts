@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Events } from 'ionic-angular';
-// import { Geolocation } from '@ionic-native/geolocation';
-// import { ScriptLoadProvider } from './script-load/script-load';
 
 export interface MapError {
   code: number;

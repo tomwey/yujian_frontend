@@ -5,25 +5,18 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 
-// import { TabsPageModule } from '../pages/tabs/tabs.module';
-// import { HomePageModule } from '../pages/home/home.module';
-// import { AccountBindPageModule } from '../pages/account-bind/account-bind.module';
-// import { Geolocation } from '@ionic-native/geolocation';
+// 初次导入页面
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from "../pages/home/home";
-// import { NewEventPage } from "../pages/new-event/new-event";
 import { MyEventsPage } from "../pages/my-events/my-events";
 import { ExplorePage } from "../pages/explore/explore";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
-// import { EventDetailPage } from "../pages/event-detail/event-detail";
+import { EventDetailPage } from "../pages/event-detail/event-detail";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
-// import { RedPacketService } from '../providers/red-packet-service';
-// import { MapService }       from '../providers/map-service';
-// import { LocationService }  from '../providers/location-service';
 import { ToolService }      from '../providers/tool-service';
 import { QQMaps }           from '../providers/qq-maps';
 import { UserService }      from '../providers/user-service';
@@ -31,13 +24,11 @@ import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
 import { BannersService}     from '../providers/banners-service';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+// import { StatusBar } from '@ionic-native/status-bar';
+// import { SplashScreen } from '@ionic-native/splash-screen';
 import { LocationSearchProvider } from '../providers/location-search/location-search';
-// import { LocationProvider } from '../providers/location/location';
 import { UtilsServiceProvider } from '../providers/utils-service/utils-service';
 import { WechatProvider } from '../providers/wechat/wechat';
-// import { ScriptLoadProvider } from '../providers/script-load/script-load';
 
 @NgModule({
   declarations: [
@@ -46,18 +37,14 @@ import { WechatProvider } from '../providers/wechat/wechat';
     HomePage,
     AccountBindPage,
     ExplorePage,
-    // NewEventPage,
     MyEventsPage,
     SettingPage,
-    // EventDetailPage,
+    EventDetailPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     IonicStorageModule.forRoot(),
-    // AccountBindPageModule,
-    // TabsPageModule,
-    // HomePageModule,
     IonicModule.forRoot(MyApp, {
       // preloadModules: true,
       mode: 'ios',
@@ -75,26 +62,23 @@ import { WechatProvider } from '../providers/wechat/wechat';
     ExplorePage,
     SettingPage,
     MyEventsPage,
-    // EventDetailPage,
-    // NewEventPage,
+    EventDetailPage,
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
-    // Geolocation,
+    // StatusBar,
+    // SplashScreen,
     QQMaps,
     ApiService,
-    // RedPacketService,
-    // MapService,
-    // LocationService,
     ToolService,
     UserService,
     PayService,
     EventsService,
     BannersService,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     LocationSearchProvider, 
-    UtilsServiceProvider, WechatProvider,
+    UtilsServiceProvider, 
+    WechatProvider,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    
   ]
 })
 export class AppModule {}

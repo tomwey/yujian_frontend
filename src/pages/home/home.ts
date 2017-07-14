@@ -6,7 +6,7 @@ import { EventsService } from '../../providers/events-service';
 import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
 
-// import { EventDetailPage } from "../event-detail/event-detail";
+import { EventDetailPage } from "../event-detail/event-detail";
 
 // @IonicPage()
 @Component({
@@ -95,8 +95,8 @@ export class HomePage {
   }
 
   gotoDetail(hb): void {
-    this.navCtrl.push('EventDetailPage', hb);
-    // this.navCtrl.push(EventDetailPage, hb);
+    // this.navCtrl.push('EventDetailPage', hb);
+    this.navCtrl.push(EventDetailPage, hb);
   }
 
   openBanner(banner) {

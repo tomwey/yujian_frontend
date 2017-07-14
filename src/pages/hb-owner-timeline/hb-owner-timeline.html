@@ -7,19 +7,19 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-title>{{owner.nickname}} 的主页</ion-title>
+    <ion-title>{{owner?.nickname}} 的主页</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content class="content">
   <div class="caption">
-    <img [src]="owner.avatar" class="avatar">
-    <h2 class="nickname">{{owner.nickname}}</h2>
+    <img [src]="owner?.avatar" class="avatar">
+    <h2 class="nickname">{{owner?.nickname}}</h2>
     <ion-row>
       <ion-col>
         <div class="total-sent money-item">
-          <h4><span class="money">{{owner.total_sent}}</span>
+          <h4><span class="money">{{owner?.total_sent || '0.00'}}</span>
               <span class="unit">元</span>
           </h4>
           <p>累计发红包</p>
@@ -27,7 +27,7 @@
       </ion-col>
       <ion-col>
         <div class="total-earn money-item">
-          <h4><span class="money">{{owner.total_earn}}</span>
+          <h4><span class="money">{{owner?.total_earn || '0.00'}}</span>
           <span class="unit">元</span>
           </h4>
           <p>累计收红包</p>

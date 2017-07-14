@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ToolService } from "../../providers/tool-service";
 import { EventsService } from "../../providers/events-service";
-// import { EventDetailPage } from "../event-detail/event-detail";
+import { EventDetailPage } from "../event-detail/event-detail";
 
 /**
  * Generated class for the HbOwnerTimelinePage page.
@@ -61,8 +61,8 @@ export class HBOwnerTimelinePage {
   }
 
   gotoEventDetail(event): void {
-    this.navCtrl.push('EventDetailPage', event);
-    // this.navCtrl.push(EventDetailPage, event);
+    // this.navCtrl.push('EventDetailPage', event);
+    this.navCtrl.push(EventDetailPage, event);
   }
 
 }

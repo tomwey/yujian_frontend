@@ -4,7 +4,7 @@ import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
 import { QQMaps } from '../../providers/qq-maps';
-// import { EventDetailPage } from "../event-detail/event-detail";
+import { EventDetailPage } from "../event-detail/event-detail";
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 
 // @IonicPage()
@@ -100,8 +100,8 @@ export class ExplorePage {
 
   gotoDetail(event) {
     // console.log(event);
-    this.navCtrl.push('EventDetailPage', event);
-    // this.navCtrl.push(EventDetailPage, event);
+    // this.navCtrl.push('EventDetailPage', event);
+    this.navCtrl.push(EventDetailPage, event);
   }
 
   gotoNewEvent() {

@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, Events } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Events } from 'ionic-angular';
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
 import { UserService } from '../../providers/user-service';
@@ -11,7 +11,7 @@ import { WechatProvider } from "../../providers/wechat/wechat";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-event-detail',
   templateUrl: 'event-detail.html',

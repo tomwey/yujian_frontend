@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform, App } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+// import { StatusBar } from '@ionic-native/status-bar';
+// import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from "../pages/tabs/tabs";
 import { AccountBindPage } from '../pages/account-bind/account-bind';
 import { UserService } from '../providers/user-service';
@@ -12,7 +12,6 @@ import { ToolService } from '../providers/tool-service';
 ///<reference path="../node_modules/ifvisible.js/ifvisible.d.ts"/>
 import * as ifvisible from 'ifvisible.js';
 
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -20,8 +19,8 @@ export class MyApp {
   rootPage:any;//TabsPage;//'TabsPage';
 
   constructor(platform: Platform, 
-              statusBar: StatusBar, 
-              splashScreen: SplashScreen,
+              // statusBar: StatusBar, 
+              // splashScreen: SplashScreen,
               private users: UserService,
               private _app: App, 
               private wechat: WechatProvider,
@@ -33,8 +32,8 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
+      // statusBar.styleDefault();
+      // splashScreen.hide();
 
       // 不确定能生效
       ifvisible.on("blur", () => {
@@ -87,16 +86,6 @@ export class MyApp {
 
   private initWXJSSDK() {
     this.wechat.config('wx_app_url').then(data => {
-      // console.log(`微信配置结果：${data}`);
-      // this.initUserSession();
-      // wx.getNetworkType({
-      //   success: (res) => {
-      //     this.initUserSession('begin', res.networkType);
-      //   },
-      //   fail: (error) => {
-      //     this.initUserSession('begin', null);
-      //   },
-      // })
       this.sendUserSession('begin');
     }).catch(error => {
       // console.log(`微信配置结果：${error}`);
