@@ -77,21 +77,24 @@ export class EventDetailPage {
 
   openOwnerInfo(): void {
 
-    this.toolService.showLoading('加载中...');
+     this.navCtrl.push('HBOwnerTimelinePage', { owner: this.hb.owner, 
+       hbId: this.hb.id });
 
-    this.events.getHBOwnerTimeline(this.hb.id)
-      .then(data => {
-        this.toolService.hideLoading();
+    // this.toolService.showLoading('加载中...');
 
-        this.navCtrl.push('HBOwnerTimelinePage', { owner: data.owner, hbData: data.hb_list });
-      })
-      .catch(error => {
-        this.toolService.hideLoading();
+    // this.events.getHBOwnerTimeline(this.hb.id)
+    //   .then(data => {
+    //     this.toolService.hideLoading();
 
-        setTimeout(() => {
-          this.toolService.showToast('加载出错了~');
-        }, 200);
-      });
+    //     this.navCtrl.push('HBOwnerTimelinePage', { owner: data.owner, hbData: data.hb_list });
+    //   })
+    //   .catch(error => {
+    //     this.toolService.hideLoading();
+
+    //     setTimeout(() => {
+    //       this.toolService.showToast('加载出错了~');
+    //     }, 200);
+    //   });
     
     // this.navCtrl.push('EventOwnerPage', { owner: this.hb.owner, eventId: this.hb.id });
   }

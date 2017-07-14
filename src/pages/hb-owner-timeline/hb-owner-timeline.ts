@@ -30,16 +30,17 @@ export class HBOwnerTimelinePage {
               private events: EventsService) {
     // this.hbId = this.navParams.data.hbId;
     this.owner = this.navParams.data.owner;
-    this.hbData = this.navParams.data.hbData;
+    this.hbId = this.navParams.data.hbId;
+    // this.hbData = this.navParams.data.hbData;
   }
 
-  // ionViewDidEnter() {
-  //   if (!this.hasLoaded) {
-  //     this.hasLoaded = true;
+  ionViewDidEnter() {
+    if (!this.hasLoaded) {
+      this.hasLoaded = true;
 
-  //     this.loadData();
-  //   }
-  // }
+      this.loadData();
+    }
+  }
 
   loadData(): void {
     this.tool.showLoading('拼命加载中...');
