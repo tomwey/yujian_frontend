@@ -7,13 +7,10 @@
 <ion-content class="wall-modal">
   <div class="wall-content-container" ion-fixed>
     <div class="wall-content-table-cell">
-      <div #wallContent id="wallContent" class="wall-content">
+      <div #wallContent id="wallContent" tappable class="wall-content" (click)="openHB()">
         <!--<ion-img [src]="imageUrl" class="image" (load)="imageLoaded()"></ion-img>-->
-        <button class="close-button" (click)="dismiss(null)">
+        <button class="close-button" (click)="close($event)">
           <img src="assets/images/hbxq_btn_close.png" />
-        </button>
-        <button class="open-button" (click)="openHB()">
-          <img src="assets/images/hbxq_btn_open.png" />
         </button>
       </div>
     </div>

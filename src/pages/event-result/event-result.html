@@ -6,8 +6,13 @@
 -->
 <ion-header no-border>
 
-  <ion-navbar>
-    <ion-title>抢红包结果</ion-title>
+  <ion-navbar hideBackButton>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="goBack()">
+        <ion-icon name="ios-arrow-back-outline"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>红包结果</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,12 +27,12 @@
     </div>
     <div class="user-hb-info">
       <!--<h2 class="title">0</h2>-->
-      <p class="money" *ngIf="!error_message">{{event_earn.money}} 元</p>
+      <p class="money" *ngIf="!error_message">{{event_earn.money}} <span class="unit">元</span></p>
       <p class="error-message" *ngIf="!!error_message">{{error_message}}</p>
     </div>
   </div>
   <div class="go-on-grab">
     <button ion-button block color="theme-red" (click)="gotoGrab()">继续抢红包</button>
-    <button ion-button block color="primary" style="margin-top: 20px;" (click)="doShare()">{{share_tip}}</button>
+    <!--<button ion-button block color="primary" style="margin-top: 20px;" (click)="doShare()">{{share_tip}}</button>-->
   </div>
 </ion-content>

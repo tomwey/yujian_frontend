@@ -35,6 +35,12 @@ export class HBWallPage {
     this.viewController.dismiss();
   }
 
+  close(event): void {
+    event.stopPropagation();
+
+    this.dismiss(null);
+  }
+
   openHB(): void {
     
     this.tool.showLoading('红包打开中...');

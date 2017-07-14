@@ -67,38 +67,14 @@ export class EventDetailPage {
       this.loadEvent();
     }
 
-    // this.users.token().then(token => {
-    //   if (!token) {
-        
-    //   }
-    // });
-    // this._addShare();
   }
 
   openOwnerInfo(): void {
 
      this.navCtrl.push('HBOwnerTimelinePage', { owner: this.hb.owner, 
        hbId: this.hb.id });
-
-    // this.toolService.showLoading('加载中...');
-
-    // this.events.getHBOwnerTimeline(this.hb.id)
-    //   .then(data => {
-    //     this.toolService.hideLoading();
-
-    //     this.navCtrl.push('HBOwnerTimelinePage', { owner: data.owner, hbData: data.hb_list });
-    //   })
-    //   .catch(error => {
-    //     this.toolService.hideLoading();
-
-    //     setTimeout(() => {
-    //       this.toolService.showToast('加载出错了~');
-    //     }, 200);
-    //   });
-    
-    // this.navCtrl.push('EventOwnerPage', { owner: this.hb.owner, eventId: this.hb.id });
   }
-// 
+
   gotoReport(): void {
     let modal = this.modalCtrl.create('ReportPage', { eventId: this.hb.id });
     modal.present();

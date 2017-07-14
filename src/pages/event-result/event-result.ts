@@ -26,20 +26,19 @@ export class EventResult {
               private users: UserService,
               private app: App) {
 
+      if ( this.navParams.data.hb ) {
+        this.event_earn.title = this.navParams.data.hb.title;
+        this.event_earn.image = this.navParams.data.hb.image;
+      }
+
       if (this.navParams.data.code && this.navParams.data.code === -1001) {
         // 提交失败
         this.error_message = this.navParams.data.message || '打开红包失败了！';
       } else {
         // 提交成功
-        if ( this.navParams.data.hb ) {
-          this.event_earn.title = this.navParams.data.hb.title;
-          this.event_earn.image = this.navParams.data.hb.image;
-        }
-        
         if ( this.navParams.data ) {
           this.event_earn.money = this.navParams.data.money;
         }
-        
       }
 
       // if (this.navParams.data.event && 
@@ -54,6 +53,11 @@ export class EventResult {
   }
 
   gotoGrab(): void {
+    this.events.publish('hb:opened');
+    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
+  }
+
+  goBack(): void {
     this.events.publish('hb:opened');
     this.navCtrl.popTo(this.navCtrl.getByIndex(0));
   }

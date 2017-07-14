@@ -50,9 +50,15 @@ page-event-result {
             .money {
                 margin: 0;
                 padding: 0;
-                font-size: 24px;
+                font-size: 36px;
+                // font-weight: bold;
+                font-family: 'PingFang SC Bold';
                 color: rgb(58,58,58);
                 margin-top: 15px;
+                .unit {
+                    font-weight: normal;
+                    font-size: 14px;
+                }
             }
             .error-message {
                 padding: 0 30px;
