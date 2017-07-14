@@ -45,8 +45,8 @@ export class HBWallPage {
       })
       .catch(error => {
         this.tool.hideLoading();
-        console.log(error);
-        this.gotoSuccessPage({ event: this.payload.event, code: -1001, message: error.message || error });
+        // console.log(error);
+        this.gotoSuccessPage({ hb: this.payload.hb, code: -1001, message: error.message || error });
         // setTimeout(() => {
         //   this.tool.showToast(error);
         // }, 100);

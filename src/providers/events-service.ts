@@ -20,7 +20,7 @@ export class EventsService {
   }
 
   latest(token: string = null, loc: string = null): Promise<any> {
-    return this.api.get('events/latest', { token: token, loc: loc });
+    return this.api.get(/*'events/latest'*/ 'hb/latest', { token: token, loc: loc });
   }
   
   nearby(lat, lng): Promise<any> {
@@ -30,7 +30,7 @@ export class EventsService {
   list(lat, lng, pageNo: number, pageSize: number = 15): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.api.get('events/list', { lat: lat, lng: lng, page: pageNo, size: pageSize, token: token })
+        this.api.get('hb/list', { loc: `${lng},${lat}`, page: pageNo, size: pageSize, token: token })
           .then(data => resolve(data))
           .catch(error => reject(error));
       }).catch(error => reject(error));
@@ -40,7 +40,7 @@ export class EventsService {
   republish(eventId, payload): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.api.post(`events/${eventId}/republish`, { token: token, payload: JSON.stringify(payload) })
+        this.api.post(`hb/${eventId}/republish`, { token: token, payload: JSON.stringify(payload) })
           .then(data => resolve(data))
           .catch(error => reject(error));
       });
@@ -50,7 +50,7 @@ export class EventsService {
   getMyEvents(pageNo: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.api.get('events', { token: token, page: pageNo }).then(data => {
+        this.api.get('hb/my_list', { token: token, page: pageNo }).then(data => {
           resolve(data);
         }).catch(error=>reject(error));
       });
@@ -60,16 +60,30 @@ export class EventsService {
   getEventOwner(eventId: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.api.get(`events/${eventId}/owner_info`, { token: token })
+        this.api.get(`events/eventId/owner_info`, { token: token })
           .then(data => resolve(data))
           .catch(error => reject(error));
       })
     });
   }
 
+  getHBOwnerTimeline(hbId: number): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get(`hb/${hbId}/owner_timeline`, { token: token })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
+  }
+
   private _loadEvent(eventId: number, token: string, lat, lng): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.api.get(`events/${eventId}/body`, { token: token, loc: `${lng},${lat}` })
+      this.api.get(`hb/${eventId}/body`, { token: token, loc: `${lng},${lat}` })
           .then(data => {
             resolve(data);
           })
@@ -95,21 +109,21 @@ export class EventsService {
   }
 
   getEventEarns(eventId: number, pageNo: number, pageSize: number): Promise<any> {
-    return this.api.get(`events/${eventId}/earns`, { page: pageNo, size: pageSize });
+    return this.api.get(`hb/${eventId}/earns`, { page: pageNo, size: pageSize });
   }
 
   like(eventId: number, loc: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
         this.qqMaps.startLocating().then(pos => {
-          this.api.post(`events/${eventId}/like`, { token: token, loc: `${pos.lng},${pos.lat}` })
+          this.api.post(`hb/${eventId}/like`, { token: token, loc: `${pos.lng},${pos.lat}` })
           .then(data => {
             resolve(data);
           })
           .catch(error => reject(error));
         })
         .catch(error => {
-          this.api.post(`events/${eventId}/like`, { token: token, loc: null })
+          this.api.post(`hb/${eventId}/like`, { token: token, loc: null })
           .then(data => {
             resolve(data);
           })
@@ -123,7 +137,7 @@ export class EventsService {
     return new Promise((resolve, reject) => {
       let payloadJson = JSON.stringify({ answer: payload.answer, location: payload.location });
         console.log(payloadJson);
-        this.api.post(`events/${payload.event.id}/commit`, 
+        this.api.post(`hb/${payload.hb.id}/commit`, 
                       { token: token, payload: payloadJson })
           .then(data => {
             resolve(data);
@@ -136,9 +150,9 @@ export class EventsService {
   commit(payload): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        let event = payload.event;
+        let hb = payload.hb;
         let reload: boolean = false;
-        if (event && event.rule_type === 'CheckinRule') {
+        if (hb && hb.rule_type === 'checkin') {
           reload = true;
         }
         this.qqMaps.startLocating(reload)

@@ -7,14 +7,14 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-title>我发布的活动</ion-title>
+    <ion-title>我发布的红包</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
   <div class="empty-result my-events-empty" *ngIf="needShowEmptyResult">
-    <p>您还未发布过活动，快去主页的发布页面发布一个活动吧！</p>
+    <p>您还未发布过红包！</p>
   </div>
   <ion-list *ngIf="eventsData.length > 0">
     <button ion-item detail-none *ngFor="let event of eventsData" class="event" (click)="gotoEventDetail(event)">

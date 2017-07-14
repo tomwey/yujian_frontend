@@ -6,6 +6,8 @@ import { EventsService } from '../../providers/events-service';
 import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
 
+// import { EventDetailPage } from "../event-detail/event-detail";
+
 // @IonicPage()
 @Component({
   selector: 'page-home',
@@ -16,7 +18,7 @@ export class HomePage {
   @ViewChild(Slides) slides: Slides;
 
   bannersData: any = [];
-  eventsData:  any = [];
+  hbData:  any = [];
 
   token: string = null;
   position: any = null;
@@ -92,8 +94,9 @@ export class HomePage {
       });
   }
 
-  gotoDetail(event): void {
-    this.navCtrl.push('EventDetailPage', event);
+  gotoDetail(hb): void {
+    this.navCtrl.push('EventDetailPage', hb);
+    // this.navCtrl.push(EventDetailPage, hb);
   }
 
   openBanner(banner) {
@@ -129,12 +132,12 @@ export class HomePage {
     }
 
     promises.push(this.events.latest(this.token, loc)
-      .then(data => this.eventsData = data).catch());
+      .then(data => this.hbData = data).catch());
 
     Promise.all(promises)
       .then(() => {
         this.toolService.hideLoading();
-
+        // console.log(this.eventsData);
         if (this.slides) {
           this.slides.autoplayDisableOnInteraction = false;
           
@@ -145,7 +148,7 @@ export class HomePage {
           this.slides.slideTo(0, 300);
         }
 
-        this.needShowEmptyResult = (this.eventsData.length === 0);
+        this.needShowEmptyResult = (this.hbData.length === 0);
 
         if (refresher) {
           refresher.complete();

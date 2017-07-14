@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { EventsService } from "../../providers/events-service";
 import { ToolService } from "../../providers/tool-service";
+
+// import { EventDetailPage } from "../event-detail/event-detail";
 /**
  * Generated class for the MyEventsPage page.
  *
@@ -45,6 +47,7 @@ export class MyEventsPage {
 
   gotoEventDetail(event): void {
     this.navCtrl.push('EventDetailPage', event);
+    // this.navCtrl.push(EventDetailPage, event);
   }
   loadData(): void {
     this.tool.showLoading('拼命加载中...');

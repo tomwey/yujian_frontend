@@ -18,9 +18,9 @@
 
   <div class="empty-result" *ngIf="needsShowEmptyResult">
     <p>一大波红包正在赶来...</p>
-    <p>或者</p>
+    <!--<p>或者</p>
     <p>您还可以自己去发布一个红包!</p>
-    <button ion-button color="theme-red" (click)="gotoNewEvent()">去发布</button>
+    <button ion-button color="theme-red" (click)="gotoNewEvent()">去发布</button>-->
   </div>
 
   <div class="events">
@@ -30,23 +30,23 @@
           <ion-thumbnail item-left class="cover">
             <img [src]="event.image">
           </ion-thumbnail>
-          <h2 class="title" text-wrap><div class="circle outline"><span>{{event.rule_type === 'QuizRule' ? '题' : '签'}}</span></div> {{event.title}}</h2>
+          <h2 class="title" text-wrap><div class="circle outline"><span>{{event.rule_type === 'quiz' ? '题' : '签'}}</span></div> {{event.title}}</h2>
           <p class="info">
               <span class="circle"><span>抢</span></span>
-              <span class="moneys">{{ event.hb.min_value == event.hb.max_value ? 
-                   event.hb.min_value :
-                   event.hb.min_value + '-' + event.hb.max_value
+              <span class="moneys">{{ event.min_value == event.max_value ? 
+                   event.min_value :
+                   event.min_value + '-' + event.max_value
                 }} 元
               </span>
           </p>
           <p class="address"><ion-icon name="ios-time-outline"></ion-icon>
            <span>{{event.grab_time ? event.grab_time + ' 开抢' : '抢红包进行中'}}</span></p>
-          <ion-note item-right *ngIf="event.hb.left_money > 0.0">
+          <ion-note item-right *ngIf="event.left_money > 0.0">
             <div class="money">
-              <span class="money-symbol">¥</span>{{event.hb.left_money}}
+              <span class="money-symbol">¥</span>{{event.left_money}}
             </div>
           </ion-note>
-          <div class="no-money" [hidden]="event.hb.left_money > 0.0">已抢完</div>
+          <div class="no-money" [hidden]="event.left_money > 0.0">已抢完</div>
       </button>
     </ion-list>
     <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hasMore">

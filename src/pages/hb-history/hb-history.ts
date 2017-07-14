@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
+// import { EventDetailPage } from "../event-detail/event-detail";
 
 /**
  * Generated class for the HBHistory page.
@@ -77,6 +78,7 @@ export class HBHistory {
 
   gotoHBResult(item): void {
     this.navCtrl.push('EventDetailPage', item);
+    // this.navCtrl.push(EventDetailPage, item);
   }
 
   doInfinite(e): void {

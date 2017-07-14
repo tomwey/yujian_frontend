@@ -31,9 +31,9 @@ export class EventResult {
         this.error_message = this.navParams.data.message || '打开红包失败了！';
       } else {
         // 提交成功
-        if ( this.navParams.data.event ) {
-          this.event_earn.title = this.navParams.data.event.title;
-          this.event_earn.image = this.navParams.data.event.image;
+        if ( this.navParams.data.hb ) {
+          this.event_earn.title = this.navParams.data.hb.title;
+          this.event_earn.image = this.navParams.data.hb.image;
         }
         
         if ( this.navParams.data ) {
@@ -42,11 +42,11 @@ export class EventResult {
         
       }
 
-      if (this.navParams.data.event && 
-          this.navParams.data.event.share_hb &&
-          this.navParams.data.event.share_hb.left_money > 0.0) {
-          this.share_tip = "点击分享继续得红包，送完为止";
-      }
+      // if (this.navParams.data.event && 
+      //     this.navParams.data.event.share_hb &&
+      //     this.navParams.data.event.share_hb.left_money > 0.0) {
+      //     this.share_tip = "点击分享继续得红包，送完为止";
+      // }
   }
 
   ionViewDidLoad() {
@@ -60,7 +60,7 @@ export class EventResult {
 
   doShare(): void {
     this.users.token().then(token => {
-      window.location.href = `http://b.hb.small-best.com/wx/share/event?id=${this.navParams.data.event.id}&token=${token}`;
+      window.location.href = `http://b.hb.small-best.com/wx/share/hb?id=${this.navParams.data.event.id}&token=${token}&is_hb=1`;
     });
   }
 

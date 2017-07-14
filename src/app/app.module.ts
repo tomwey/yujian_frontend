@@ -12,10 +12,12 @@ import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from "../pages/home/home";
-import { NewEventPage } from "../pages/new-event/new-event";
+// import { NewEventPage } from "../pages/new-event/new-event";
+import { MyEventsPage } from "../pages/my-events/my-events";
 import { ExplorePage } from "../pages/explore/explore";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
+// import { EventDetailPage } from "../pages/event-detail/event-detail";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -44,8 +46,10 @@ import { WechatProvider } from '../providers/wechat/wechat';
     HomePage,
     AccountBindPage,
     ExplorePage,
-    NewEventPage,
+    // NewEventPage,
+    MyEventsPage,
     SettingPage,
+    // EventDetailPage,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +74,9 @@ import { WechatProvider } from '../providers/wechat/wechat';
     AccountBindPage,
     ExplorePage,
     SettingPage,
-    NewEventPage,
+    MyEventsPage,
+    // EventDetailPage,
+    // NewEventPage,
   ],
   providers: [
     StatusBar,

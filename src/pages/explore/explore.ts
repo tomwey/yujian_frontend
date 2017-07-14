@@ -4,6 +4,7 @@ import { ToolService } from '../../providers/tool-service';
 // import { RedPacketService } from '../../providers/red-packet-service';
 import { EventsService } from '../../providers/events-service';
 import { QQMaps } from '../../providers/qq-maps';
+// import { EventDetailPage } from "../event-detail/event-detail";
 // import { HBDetailPage } from '../hb-detail/hb-detail';
 
 // @IonicPage()
@@ -78,7 +79,7 @@ export class ExplorePage {
             let temp = this.eventsData || [];
             this.eventsData = temp.concat(data.data || data);
           }
-          console.log(data.data);
+          // console.log(data.data);
           this.totalPage = Math.floor(( data.total + this.pageSize - 1 ) / this.pageSize);
           this.hasMore = this.totalPage > this.pageNo;
 
@@ -100,6 +101,7 @@ export class ExplorePage {
   gotoDetail(event) {
     // console.log(event);
     this.navCtrl.push('EventDetailPage', event);
+    // this.navCtrl.push(EventDetailPage, event);
   }
 
   gotoNewEvent() {

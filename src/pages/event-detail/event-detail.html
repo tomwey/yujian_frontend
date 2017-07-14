@@ -7,7 +7,7 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-title>活动详情</ion-title>
+    <ion-title>红包详情</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="doShare()">
         <ion-icon name="ios-share-outline"></ion-icon>
@@ -22,9 +22,9 @@
   <ion-card>
     <ion-list>
       <ion-item>
-        <h2 text-wrap>{{event.title}}</h2>
+        <h2 text-wrap>{{hb.title}}</h2>
         <p class="stats">
-          <span class="data">人气 {{event.view_count}}, 转发 {{event.share_count}}, 点赞 {{event.likes_count}}</span>
+          <span class="data">人气 {{hb.view_count}}, 转发 {{hb.share_count}}, 点赞 {{hb.likes_count}}</span>
           <button ion-button icon-left clear small class="like-btn" (click)="doLike()">
             <ion-icon name="ios-thumbs-up-outline"></ion-icon> 赞一下
           </button>
@@ -32,15 +32,15 @@
       </ion-item>
     <!--</ion-list>
     <ion-list>-->
-      <button ion-item *ngIf="event.owner" (click)="openOwnerInfo()">
+      <button ion-item *ngIf="hb.owner" (click)="openOwnerInfo()">
         <ion-avatar item-left>
-          <img [src]="event.owner.avatar">
+          <img [src]="hb.owner.avatar">
         </ion-avatar>
-        <h2 text-wrap class="owner-nickname">{{event.owner.nickname}}</h2>
+        <h2 text-wrap class="owner-nickname">{{hb.owner.nickname}}</h2>
       </button>
     </ion-list>
     <ion-card-content>
-      <div class="event-body" [innerHTML]="event.body"></div>
+      <div class="event-body" [innerHTML]="hb.body"></div>
     </ion-card-content>
     <ion-item>
       <p text-wrap>如果发现内容不实，欢迎举报！</p>
@@ -50,28 +50,28 @@
     </ion-item>
   </ion-card>
   <!-- 活动规则 -->
-  <ion-card *ngIf="event.rule">
+  <ion-card *ngIf="hb.rule">
     <ion-card-header>
-      {{event.rule.name}}
+      {{hb.rule.name}}
     </ion-card-header>
     <ion-card-content>
-      <div class="rule-box quiz" *ngIf="event.rule_type === 'QuizRule'">
+      <div class="rule-box quiz" *ngIf="hb.rule_type === 'quiz'">
         <div class="tip" style="color: red;">题目的答案在上面的活动内容里面找，注意：只有一次答题的机会！</div>
         <div class="content">
           <ion-list radio-group [(ngModel)]="answer">
             <ion-list-header>
-              <h2 class="question" text-wrap>{{event.rule.question}}</h2>
+              <h2 class="question" text-wrap>{{hb.rule.question}}</h2>
             </ion-list-header>
-            <ion-item *ngFor="let answer of event.rule.answers">
+            <ion-item *ngFor="let answer of hb.rule.answers">
               <ion-label class="answer-label" text-wrap>{{answer}}</ion-label>
               <ion-radio value="{{answer}}"></ion-radio>
             </ion-item>
           </ion-list>
         </div>
       </div>
-      <div class="rule-box checkin" [hidden]="event.rule_type !== 'CheckinRule'">
-        <div class="tip">请到如下地址完成签到，可以获得红包！<span style="color: red;">(位置误差不超过{{event.rule.accuracy}}米)</span></div>
-        <div class="content"><ion-icon name="ios-pin-outline"></ion-icon> {{event.rule.address}}</div>
+      <div class="rule-box checkin" [hidden]="hb.rule_type !== 'checkin'">
+        <div class="tip">请到如下地址完成签到，可以获得红包！<span style="color: red;">(位置误差不超过{{hb.rule.accuracy}}米)</span></div>
+        <div class="content"><ion-icon name="ios-pin-outline"></ion-icon> {{hb.rule.address}}</div>
       </div>
       <button ion-button block color="theme-red" (click)="commit()" [disabled]="disableCommit">{{commitButtonText}}</button>
     </ion-card-content>
@@ -80,8 +80,8 @@
   <ion-card [hidden]="earns.length == 0">
     <ion-card-header>
       <ion-row no-margin no-padding>
-        <ion-col col-8>共 {{event.hb.sent_money}} / {{event.hb.total_money}} 元</ion-col>
-        <ion-col col-4><span class="sent-stat">{{event.sent_hb_count}}</span></ion-col>
+        <ion-col col-8>共 {{hb.sent_money}} / {{hb.total_money}} 元</ion-col>
+        <ion-col col-4><span class="sent-stat">{{hb.sent_count}}</span></ion-col>
       </ion-row>
     </ion-card-header>
 

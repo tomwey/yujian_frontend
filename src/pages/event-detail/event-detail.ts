@@ -17,7 +17,7 @@ import { WechatProvider } from "../../providers/wechat/wechat";
   templateUrl: 'event-detail.html',
 })
 export class EventDetailPage {
-  event: any = null;
+  hb: any = null;
   answer: string = '';
   position: any = null;
   earns: any = [];
@@ -41,7 +41,7 @@ export class EventDetailPage {
               private noti: Events,
               private wechat: WechatProvider) {
     // console.log(this.navParams.data);
-    this.event = this.navParams.data;
+    this.hb = this.navParams.data;
   }
 
   // private _addShare() {
@@ -76,28 +76,45 @@ export class EventDetailPage {
   }
 
   openOwnerInfo(): void {
-    this.navCtrl.push('EventOwnerPage', { owner: this.event.owner, eventId: this.event.id });
-  }
 
+    this.toolService.showLoading('加载中...');
+
+    this.events.getHBOwnerTimeline(this.hb.id)
+      .then(data => {
+        this.toolService.hideLoading();
+
+        this.navCtrl.push('HBOwnerTimelinePage', { owner: data.owner, hbData: data.hb_list });
+      })
+      .catch(error => {
+        this.toolService.hideLoading();
+
+        setTimeout(() => {
+          this.toolService.showToast('加载出错了~');
+        }, 200);
+      });
+    
+    // this.navCtrl.push('EventOwnerPage', { owner: this.hb.owner, eventId: this.hb.id });
+  }
+// 
   gotoReport(): void {
-    let modal = this.modalCtrl.create('ReportPage', { eventId: this.event.id });
+    let modal = this.modalCtrl.create('ReportPage', { eventId: this.hb.id });
     modal.present();
   }
 
   loadEvent(): void {
     this.toolService.showLoading('拼命加载中...');
 
-    this.events.getEvent(this.event.id)
+    this.events.getEvent(this.hb.id)
       .then(data => {
         setTimeout(() => {
           // console.log(data);
-          this.event = data;
-          this.event.view_count += 1;
+          this.hb = data;
+          this.hb.view_count += 1;
           this.toolService.hideLoading();
 
-          this.disableCommit = !!this.event.disable_text
-          this.commitButtonText = this.event.disable_text ? 
-            this.event.disable_text : this.event.rule.action;
+          this.disableCommit = !!this.hb.disable_text
+          this.commitButtonText = this.hb.disable_text ? 
+            this.hb.disable_text : this.hb.rule.action;
         }, 0);
         
         this.loadEventEarns();
@@ -114,7 +131,7 @@ export class EventDetailPage {
   doShare(): void {
     // document.getElementById('share-tip-modal').style.display = "block";
     this.users.token().then(token => {
-      window.location.href = `http://b.hb.small-best.com/wx/share/event?id=${this.event.id}&token=${token}`;
+      window.location.href = `http://b.hb.small-best.com/wx/share/hb?id=${this.hb.id}&token=${token}&is_hb=1`;
     });
   }
 
@@ -125,9 +142,9 @@ export class EventDetailPage {
   doLike(): void {
     this.toolService.showLoading('点赞中...');
 
-    this.events.like(this.event.id, null)
+    this.events.like(this.hb.id, null)
       .then(data => {
-        this.event.likes_count += 1;
+        this.hb.likes_count += 1;
         this.toolService.hideLoading();
       })
       .catch(error => {
@@ -142,7 +159,7 @@ export class EventDetailPage {
   {
     return new Promise((resolve,reject) => {
       // if (this.pageNo <= this.totalPage) {
-        this.events.getEventEarns(this.event.id, this.pageNo, this.pageSize)
+        this.events.getEventEarns(this.hb.id, this.pageNo, this.pageSize)
           .then(data => {
             if (this.pageNo === 1) {
               this.earns = data.data;
@@ -177,7 +194,7 @@ export class EventDetailPage {
   }
 
   commit(): void {
-    if (this.event.rule_type === 'QuizRule' && this.answer === '') {
+    if (this.hb.rule_type === 'quiz' && this.answer === '') {
       this.toolService.showToast('必须选择一个答案');
       return;
     } 
@@ -189,12 +206,12 @@ export class EventDetailPage {
     // let loc = `${this.position.lat},${this.position.lng}`;
 
     let payload;
-    if (this.event.rule_type === 'QuizRule') {
-      let answers = this.event.rule.answers;
+    if (this.hb.rule_type === 'quiz') {
+      let answers = this.hb.rule.answers;
       let answerOption = answers.indexOf(this.answer);
-      payload = { event: this.event, answer: answerOption, location:  null };
-    } else if ( this.event.rule_type === 'CheckinRule' ) {
-      payload = { event: this.event, location:  null };
+      payload = { hb: this.hb, answer: answerOption, location:  null };
+    } else if ( this.hb.rule_type === 'checkin' ) {
+      payload = { hb: this.hb, location:  null };
     }
     
     let modal = this.modalCtrl.create('HBWallPage', payload, {
