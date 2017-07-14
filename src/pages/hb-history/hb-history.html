@@ -35,11 +35,11 @@
     <p>您还未抢过红包，快去抢红包吧！</p>
   </div>
   <ion-list *ngIf="hbList.length > 0">
-    <button ion-item *ngFor="let item of hbList" (click)="gotoHBResult(item.event)" detail-none>
+    <button ion-item *ngFor="let item of hbList" (click)="gotoHBResult(item.hb)" detail-none>
       <ion-thumbnail item-left>
-        <img [src]="item.event.image" />
+        <img [src]="item.hb.image" />
       </ion-thumbnail>
-      <h2 text-wrap>{{item.event.title}}</h2>
+      <h2 text-wrap>{{item.hb.title}}</h2>
       <p>{{item.time}}</p>
       <ion-note style="color: rgb(58,58,58);" item-right>{{item.money}} 元</ion-note>
     </button>

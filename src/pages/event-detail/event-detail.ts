@@ -162,10 +162,10 @@ export class EventDetailPage {
         this.events.getEventEarns(this.hb.id, this.pageNo, this.pageSize)
           .then(data => {
             if (this.pageNo === 1) {
-              this.earns = data.data;
+              this.earns = data.data || data;
             } else {
               let temp = this.earns || [];
-              this.earns = temp.concat(data.data);
+              this.earns = temp.concat(data.data || data);
             }
 
             this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize);

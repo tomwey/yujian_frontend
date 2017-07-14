@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { EventsService } from "../../providers/events-service";
 import { ToolService } from "../../providers/tool-service";
 
@@ -10,7 +10,7 @@ import { ToolService } from "../../providers/tool-service";
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-my-events',
   templateUrl: 'my-events.html',
