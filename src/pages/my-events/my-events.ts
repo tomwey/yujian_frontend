@@ -28,7 +28,11 @@ export class MyEventsPage {
   }
 
   ionViewDidLoad() {
-    this.loadData();
+    this.loadData(null);
+  }
+
+  doRefresh(refresher) {
+    this.loadData(refresher);
   }
 
   republish(e, event): void {
@@ -37,7 +41,7 @@ export class MyEventsPage {
     let modal = this.modalCtrl.create('EventRepublishPage', event);
     modal.onDidDismiss(data => {
       if (data) {
-        this.loadData();
+        this.loadData(null);
       }
     });
     modal.present();
@@ -49,8 +53,10 @@ export class MyEventsPage {
     // this.navCtrl.push('EventDetailPage', event);
     this.navCtrl.push(EventDetailPage, event);
   }
-  loadData(): void {
-    this.tool.showLoading('拼命加载中...');
+  loadData(refresher): void {
+
+    if (!refresher)
+      this.tool.showLoading('拼命加载中...');
 
     this.events.getMyEvents(1)
       .then(data => {
@@ -60,9 +66,17 @@ export class MyEventsPage {
         this.tool.hideLoading();
 
         this.needShowEmptyResult = this.eventsData.length === 0;
+
+        if (refresher) {
+          refresher.complete();
+        }
       }).catch(error => {
         this.tool.hideLoading();
 
+        if (refresher) {
+          refresher.complete();
+        }
+        
         setTimeout(() => {
           this.tool.showToast(error.message || error);
         }, 200);

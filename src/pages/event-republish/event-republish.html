@@ -12,19 +12,64 @@
         <ion-icon name="ios-close-outline"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>编辑活动</ion-title>
-    <ion-buttons end>
-      <button ion-button clear color="white" (click)="send()">
-        发布
-      </button>
-    </ion-buttons>
+    <ion-title>发布红包</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content>
+<ion-content style="background-color: rgb(249,249,247)">
   <ion-list>
+    <ion-item>
+      <ion-label>红包类型</ion-label>
+      <ion-select [(ngModel)]="hb.type" interface='popover'>
+        <ion-option value="0">随机金额</ion-option>
+        <ion-option value="1">固定金额</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="hb.type === '0'">
+      <ion-label fixed>总金额</ion-label>
+      <ion-input [(ngModel)]="hb.total_money" type="number" placeholder="输入金额"></ion-input>
+      <ion-note item-right>元</ion-note>
+    </ion-item>
+    <ion-item *ngIf="hb.type === '0'">
+      <ion-label fixed>最小金额</ion-label>
+      <ion-input [(ngModel)]="hb.min_value" type="number" placeholder="输入金额"></ion-input>
+      <ion-note item-right>元</ion-note>
+    </ion-item>
+    <ion-item *ngIf="hb.type === '0'">
+      <ion-label fixed>最大金额</ion-label>
+      <ion-input [(ngModel)]="hb.max_value" type="number" placeholder="输入金额"></ion-input>
+      <ion-note item-right>元</ion-note>
+    </ion-item>
+    <ion-item *ngIf="hb.type === '1'">
+      <ion-label fixed>红包个数</ion-label>
+      <ion-input [(ngModel)]="hb.total" type="number" placeholder="输入个数"></ion-input>
+      <ion-note item-right>个</ion-note>
+    </ion-item>
+    <ion-item *ngIf="hb.type === '1'">
+      <ion-label fixed>单个金额</ion-label>
+      <ion-input [(ngModel)]="hb.value" type="number" placeholder="输入金额"></ion-input>
+      <ion-note item-right>元</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      红包总金额：
+      <ion-note item-right color="theme-red">{{ calcuTotalMoney() }}</ion-note>
+    </ion-item>
+    <ion-item>
+      参与人数约：
+      <ion-note item-right color="theme-red">{{ calcuTotal() }}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <div padding-left padding-right>
+    <button ion-button block color="theme-red" (click)="commit()" [disabled]="calcuTotal() === '--' || calcuTotalMoney() === '--' ">提交发布</button>
+  </div>
+
+  <!--<ion-list>
     <button ion-item (click)="openRule()">
       <h2>设置活动类型</h2>
       <p>{{!!event.rule ? (event.rule.type === 'Quiz' ? '答题抢红包': '签到抢红包' ) : '指定活动参与规则'}}</p>
@@ -35,5 +80,5 @@
       <p>{{!!event.hb ? (event.hb._type === 0 ? '随机红包' : '固定红包') : '不同的类型用户收益不一样哦'}}</p>
       <ion-icon [hidden]="!event.hb" item-right name="ios-checkmark" color="theme-red"></ion-icon>
     </button>
-  </ion-list>
+  </ion-list>-->
 </ion-content>

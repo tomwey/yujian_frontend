@@ -17,93 +17,111 @@ import { EventsService } from "../../providers/events-service";
 })
 export class EventRepublishPage {
 
-  event: any = { 
-                 id: 0,
-                 hb: null,
-                 rule: null,
-                };
+  hbId: number = null;
+  hb: any = { type: '0', total_money: null, min_value: null, max_value: null, total: null, value: null };
+  canCommit: boolean = false;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private viewController: ViewController,
               private tool: ToolService,
               private events: EventsService,
               ) {
-    this.event.id = this.navParams.data.id;
+    this.hbId = this.navParams.data.id;
   }
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad EventRepublishPage');
   }
 
-  close(): void {
-    this.viewController.dismiss();
-  }
-
-  send(): void {
-    if (!this.event.rule) {
-      this.tool.showToast('必须要指定活动规则');
-      return;
+  commit(): void {
+    let hb;
+    if (this.hb.type === '0') {
+      hb = { type: 0, 
+             total_money: this.hb.total_money,
+             min_value: this.hb.min_value, 
+             max_value: this.hb.max_value };
+    } else {
+      hb = { type: 1, 
+             total: this.hb.total,
+             value: this.hb.value};
     }
 
-    if (!this.event.hb) {
-      this.tool.showToast('必须要设置红包');
-      return;
-    }
+    this.tool.showLoading('提交中...');
 
-    let rule: any = null;
-    if (this.event.rule.type === 'Quiz') {
-      let answerStr = '';
-      let answers = this.event.rule.answers;
-      for(let i=0; i<answers.length; i++) {
-        let item = answers[i];
-        answerStr += `${item.value}`;
-        if (i !== answers.length - 1) {
-          answerStr += ',';
-        }
-      }
-
-      rule = { type: 'Quiz',
-               question: this.event.rule.question,
-               answer: this.event.rule.answer,
-               answers: answerStr };
-    } else if ( this.event.rule.type === 'Checkin' ) {
-      rule = { type: 'Checkin',
-               address: this.event.rule.location.address,
-               location: this.event.rule.location.latLng,
-               accuracy: this.event.rule.accurcy 
-              };
-    }
-
-    let payload = {
-      hb: this.event.hb,
-      rule: rule
-    }
-
-    this.tool.showLoading('发布提交中...');
-    this.events.republish(this.event.id, payload)
+    this.events.republish(this.hbId, hb)
       .then(data => {
         this.tool.hideLoading();
 
-        this.tool.showToast('发布成功~~!');
+        // setTimeout(() => {
+        //   this.tool.showToast('发布成功');
+        // }, 200);
 
-        this.viewController.dismiss(true).catch(error => {});
+        this.viewController.dismiss(true).catch(()=>{});
       })
-      
       .catch(error => {
         this.tool.hideLoading();
 
+        this.resetForm();
+
         setTimeout(() => {
-          this.tool.showToast(error.message || error);
+          this.tool.showToast('提交失败');
         }, 200);
       });
   }
 
-  openRule(): void {
-    this.navCtrl.push('NewRulePage', this.event);
-  }
-  
-  openHongbao(): void {
-    this.navCtrl.push('NewHongbaoPage', this.event);
+  resetForm() {
+    this.hb = { type: '0', total_money: null, min_value: null, max_value: null, total: null, value: null };
   }
 
+  calcuTotalMoney(): string {
+    if (this.hb.type === '0') {
+      if (this.hb.total_money && this.hb.total_money > 0) {
+        return `${this.hb.total_money}元`;
+      } else {
+        return '--'
+      }
+    } else {
+      if (this.hb.total && this.hb.value) {
+        let totalValue = this.hb.total * this.hb.value;
+        return totalValue > 0 ? `${totalValue}元` : '--'; 
+      } else {
+        return '--';
+      }
+    }
+  }
+
+  calcuTotal(): string {
+    if (this.hb.type === '0') {
+      // 随机红包
+      if (this.hb.total_money && this.hb.total_money > 0 &&
+          this.hb.min_value && this.hb.min_value > 0 && 
+          this.hb.max_value && this.hb.max_value > 0 && 
+          this.hb.min_value < this.hb.max_value) {
+            let min = Math.floor(this.hb.total_money / this.hb.max_value);
+            let max = Math.floor(this.hb.total_money / this.hb.min_value);
+
+            if (min <= 0) {
+              return '--';
+            }
+
+            return `${min} - ${max}`;
+          } else {
+            return '--';
+          }
+    } else {
+      // 固定红包
+      if (this.hb.total && this.hb.total > 0) {
+
+        return this.hb.total.toString();
+      } else {
+
+        return '--';
+      }
+    }
+  }
+
+  close(): void {
+    this.viewController.dismiss();
+  }
 }

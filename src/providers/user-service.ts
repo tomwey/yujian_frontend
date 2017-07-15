@@ -26,14 +26,9 @@ export class UserService {
   token(): Promise<any> {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {
-        resolve('018c1807003a4602886b8761e28c0848');
-        //resolve(val);
-        // if (!val) {
-        //   // resolve('0c323d8d38744df5a2257a09442c755a');//测试账号
-        //   resolve('605c28475de649628bba70458145f1d0');
-        // } else {
-        //   resolve(val);
-        // }
+        // resolve('018c1807003a4602886b8761e28c0848');
+        // resolve('e2382c6a6a844e0e94330911cd4587f3');
+        resolve(val);
       } );
     });
   }
