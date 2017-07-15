@@ -64,12 +64,12 @@ export class EventResult {
 
   doShare(): void {
     this.users.token().then(token => {
-      window.location.href = `http://b.hb.small-best.com/wx/share/hb?id=${this.navParams.data.event.id}&token=${token}&is_hb=1`;
+      window.location.href = `http://b.hb.small-best.com/wx/share/hb?id=${this.navParams.data.hb.id}&token=${token}&is_hb=1`;
     });
   }
 
   shareDesc(): void {
-    
+    this.navCtrl.push('CommWeb', { slug: 'share_reward_tip', title: '分享红包奖励说明' });
   }
 
 }
