@@ -68,4 +68,8 @@ export class EventResult {
     });
   }
 
+  shareDesc(): void {
+    
+  }
+
 }
