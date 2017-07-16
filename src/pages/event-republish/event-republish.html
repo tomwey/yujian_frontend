@@ -19,51 +19,114 @@
 
 
 <ion-content style="background-color: rgb(249,249,247)">
-  <ion-list>
-    <ion-item>
-      <ion-label>红包类型</ion-label>
-      <ion-select [(ngModel)]="hb.type" interface='popover'>
-        <ion-option value="0">随机金额</ion-option>
-        <ion-option value="1">固定金额</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item *ngIf="hb.type === '0'">
-      <ion-label fixed>总金额</ion-label>
-      <ion-input [(ngModel)]="hb.total_money" type="number" placeholder="输入金额"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-    <ion-item *ngIf="hb.type === '0'">
-      <ion-label fixed>最小金额</ion-label>
-      <ion-input [(ngModel)]="hb.min_value" type="number" placeholder="输入金额"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-    <ion-item *ngIf="hb.type === '0'">
-      <ion-label fixed>最大金额</ion-label>
-      <ion-input [(ngModel)]="hb.max_value" type="number" placeholder="输入金额"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-    <ion-item *ngIf="hb.type === '1'">
-      <ion-label fixed>红包个数</ion-label>
-      <ion-input [(ngModel)]="hb.total" type="number" placeholder="输入个数"></ion-input>
-      <ion-note item-right>个</ion-note>
-    </ion-item>
-    <ion-item *ngIf="hb.type === '1'">
-      <ion-label fixed>单个金额</ion-label>
-      <ion-input [(ngModel)]="hb.value" type="number" placeholder="输入金额"></ion-input>
-      <ion-note item-right>元</ion-note>
-    </ion-item>
-  </ion-list>
 
-  <ion-list>
-    <ion-item>
-      红包总金额：
-      <ion-note item-right color="theme-red">{{ calcuTotalMoney() }}</ion-note>
-    </ion-item>
-    <ion-item>
-      参与人数约：
-      <ion-note item-right color="theme-red">{{ calcuTotal() }}</ion-note>
-    </ion-item>
-  </ion-list>
+  <ion-card>
+    <ion-card-header>
+      广告红包（必填）
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>红包类型</ion-label>
+        <ion-select [(ngModel)]="hb.type" interface='popover'>
+          <ion-option value="0">随机金额</ion-option>
+          <ion-option value="1">固定金额</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="hb.type === '0'">
+        <ion-label fixed>总金额</ion-label>
+        <ion-input [(ngModel)]="hb.total_money" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+      <ion-item *ngIf="hb.type === '0'">
+        <ion-label fixed>最小金额</ion-label>
+        <ion-input [(ngModel)]="hb.min_value" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+      <ion-item *ngIf="hb.type === '0'">
+        <ion-label fixed>最大金额</ion-label>
+        <ion-input [(ngModel)]="hb.max_value" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+      <ion-item *ngIf="hb.type === '1'">
+        <ion-label fixed>红包个数</ion-label>
+        <ion-input [(ngModel)]="hb.total" type="number" placeholder="输入个数"></ion-input>
+        <ion-note item-right>个</ion-note>
+      </ion-item>
+      <ion-item *ngIf="hb.type === '1'">
+        <ion-label fixed>单个金额</ion-label>
+        <ion-input [(ngModel)]="hb.value" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item>
+        红包总金额：
+        <ion-note item-right color="theme-red">{{ calcuTotalMoney() }}</ion-note>
+      </ion-item>
+      <ion-item>
+        参与人数约：
+        <ion-note item-right color="theme-red">{{ calcuTotal() }}</ion-note>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+  
+<!-- 分享红包  -->
+
+
+<ion-card>
+    <ion-card-header>
+      分享红包（非必填）<span class="shb-left-money">剩余{{leftMoney}}元</span>
+    </ion-card-header>
+    <ion-list>
+      <ion-item>
+        <ion-label>红包类型</ion-label>
+        <ion-select [(ngModel)]="share_hb.type" interface='popover'>
+          <ion-option value="0">随机金额</ion-option>
+          <ion-option value="1">固定金额</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="share_hb.type === '0'">
+        <ion-label fixed>总金额</ion-label>
+        <ion-input [(ngModel)]="share_hb.total_money" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+      <ion-item *ngIf="share_hb.type === '0'">
+        <ion-label fixed>最小金额</ion-label>
+        <ion-input [(ngModel)]="share_hb.min_value" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+      <ion-item *ngIf="share_hb.type === '0'">
+        <ion-label fixed>最大金额</ion-label>
+        <ion-input [(ngModel)]="share_hb.max_value" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+      <ion-item *ngIf="share_hb.type === '1'">
+        <ion-label fixed>红包个数</ion-label>
+        <ion-input [(ngModel)]="share_hb.total" type="number" placeholder="输入个数"></ion-input>
+        <ion-note item-right>个</ion-note>
+      </ion-item>
+      <ion-item *ngIf="share_hb.type === '1'">
+        <ion-label fixed>单个金额</ion-label>
+        <ion-input [(ngModel)]="share_hb.value" type="number" placeholder="输入金额"></ion-input>
+        <ion-note item-right>元</ion-note>
+      </ion-item>
+    </ion-list>
+
+    <ion-list>
+      <ion-item>
+        红包总金额：
+        <ion-note item-right color="theme-red">{{ calcuTotalMoney2() }}</ion-note>
+      </ion-item>
+      <ion-item>
+        参与人数约：
+        <ion-note item-right color="theme-red">{{ calcuTotal2() }}</ion-note>
+      </ion-item>
+    </ion-list>
+
+  </ion-card>
+  
 
   <div padding-left padding-right>
     <button ion-button block color="theme-red" (click)="commit()" [disabled]="calcuTotal() === '--' || calcuTotalMoney() === '--' ">提交发布</button>
