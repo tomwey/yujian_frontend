@@ -8,7 +8,7 @@
   <div class="wall-content-container" ion-fixed>
     <div class="wall-content-table-cell">
       <div #wallContent id="wallContent" tappable class="wall-content" (click)="openHB()">
-        <!--<ion-img [src]="imageUrl" class="image" (load)="imageLoaded()"></ion-img>-->
+        <h2 *ngIf="payload.hbTitle">{{payload.hbTitle}}</h2>
         <button class="close-button" (click)="close($event)">
           <img src="assets/images/hbxq_btn_close.png" />
         </button>

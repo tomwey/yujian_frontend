@@ -15,7 +15,7 @@ import { UserService } from "../../providers/user-service";
   templateUrl: 'event-result.html',
 })
 export class EventResult {
-  event_earn: any = { title: '', image: '', money: '0.0' };
+  event_earn: any = { title: '', image: '', money: '0.0', hb_type: 1 };
   share_tip: string = '叫朋友来抢';
   
   error_message: string = null;
@@ -29,6 +29,7 @@ export class EventResult {
       if ( this.navParams.data.hb ) {
         this.event_earn.title = this.navParams.data.hb.title;
         this.event_earn.image = this.navParams.data.hb.image;
+        this.event_earn.hb_type = this.navParams.data.hb.use_type;
       }
 
       if (this.navParams.data.code && this.navParams.data.code === -1001) {

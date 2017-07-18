@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, App } from 'ionic-angular';
+import { Platform, App, ModalController } from 'ionic-angular';
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from "../pages/tabs/tabs";
@@ -26,6 +26,7 @@ export class MyApp {
               private wechat: WechatProvider,
               private utils: UtilsServiceProvider,
               private tool: ToolService,
+              private modalCtrl: ModalController,
               // private qqMaps: QQMaps,
               // private _ionicApp: IonicApp,
               ) {
@@ -120,9 +121,19 @@ export class MyApp {
     this.users.handleSession(action, loc, network)
       .then(data => {
         // 返回签到的红包数据
-        console.log(data);
+        // console.log(data);
+        if (action === 'begin' && data.hb) {
+          this.openHBWall(data.hb);
+        }
       } )
       .catch(error => {});
   }
   
+  openHBWall(hb): void {
+    let payload = { hb: hb, hbTitle: '签到红包' };    
+    let modal = this.modalCtrl.create('HBWallPage', payload, {
+      enableBackdropDismiss: false,
+    });
+    modal.present();
+  }
 }
