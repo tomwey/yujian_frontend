@@ -1,6 +1,8 @@
 <ion-header no-border>
   <ion-navbar>
-    <ion-title>小优大惠</ion-title>
+    <ion-title>
+      <img src="assets/images/app_icon.jpg">
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -39,7 +41,7 @@
           <ion-thumbnail item-left class="cover">
             <img [src]="hb.image">
           </ion-thumbnail>
-          <h2 class="title" text-wrap><div class="circle outline"><span>{{hb.rule_type === 'quiz' ? '题' : '签'}}</span></div> {{hb.title}}</h2>
+          <h2 class="title" text-wrap><!-- div class="circle outline"><span>{{hb.rule_type === 'quiz' ? '题' : '签'}}</span></div -->{{hb.title}}</h2>
           <p class="info">
               <span class="circle"><span>抢</span></span>
               <span class="moneys">{{ hb.min_value == hb.max_value ? 
@@ -48,8 +50,8 @@
                 }} 元
               </span>
           </p>
-          <p class="address"><ion-icon name="ios-time-outline"></ion-icon>
-           <span>{{hb.grab_time ? hb.grab_time + ' 开抢' : '抢红包进行中'}}</span></p>
+          <p class="address">
+           <span class="hb-state-info">{{hbStateInfo(hb)}}</span></p>
           <ion-note item-right *ngIf="hb.left_money > 0.0">
             <div class="money">
               <span class="money-symbol">¥</span>{{hb.left_money}}

@@ -2,6 +2,13 @@ page-home {
     .content {
         background-color: rgb(247, 247, 247);
     }
+
+    ion-title {
+        img {
+            max-height: 24px;
+            margin-top: 5px;
+        }
+    }
     
     // 处理ion-refresher显示bug
     .has-refresher > .scroll-content {
@@ -109,7 +116,8 @@ page-home {
                 float: left;
                 margin-right: 5px;
             }
-            span {
+            .hb-state-info {
+                color: color($colors, theme-red);
                 display: block;
                 float: left;
                 margin-top: 2px;

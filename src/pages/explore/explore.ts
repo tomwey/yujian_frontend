@@ -67,6 +67,27 @@ export class ExplorePage {
       });
   }
 
+  hbStateInfo(hb): string {
+    if (!hb) {
+      return null;
+    }
+
+    if (hb.left_money <= 0.0) {
+      return '红包已经被抢完了~'
+    }
+
+    // hb.grab_time ? hb.grab_time + ' 开抢' : '抢红包进行中'
+    if (hb.grab_time && hb.grab_time.length > 0) {
+      return `${hb.grab_time} 开抢`;
+    }
+
+    if (hb.grabed) {
+      return '分享继续抢红包';
+    }
+
+    return '抢红包进行中';
+  }
+
   private loadEvents(pos: any = { lat: 0, lng: 0 }): Promise<any> {
     return new Promise((resolve, reject) => {
       this.events.list(pos.lat, pos.lng, this.pageNo, this.pageSize)

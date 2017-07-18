@@ -69,7 +69,8 @@ page-explore {
                 float: left;
                 margin-right: 5px;
             }
-            span {
+            .hb-state-info {
+                color: color($colors, theme-red);
                 display: block;
                 float: left;
                 margin-top: 2px;

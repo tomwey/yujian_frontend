@@ -73,6 +73,27 @@ export class HomePage {
     this.loadData(refresher);
   }
 
+    hbStateInfo(hb): string {
+    if (!hb) {
+      return null;
+    }
+
+    if (hb.left_money <= 0.0) {
+      return '红包已经被抢完了~'
+    }
+
+    // hb.grab_time ? hb.grab_time + ' 开抢' : '抢红包进行中'
+    if (hb.grab_time && hb.grab_time.length > 0) {
+      return `${hb.grab_time} 开抢`;
+    }
+
+    if (hb.grabed) {
+      return '分享继续抢红包';
+    }
+
+    return '抢红包进行中';
+  }
+
   loadData(refresher) {
 
     if (!refresher)

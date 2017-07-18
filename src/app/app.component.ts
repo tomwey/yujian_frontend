@@ -118,7 +118,10 @@ export class MyApp {
 
   private _sendSessionReq(action, network, loc) {
     this.users.handleSession(action, loc, network)
-      .then(data => console.log(data) )
+      .then(data => {
+        // 返回签到的红包数据
+        console.log(data);
+      } )
       .catch(error => {});
   }
   

@@ -32,6 +32,9 @@ export class EventDetailPage {
   disableCommit: boolean = false;
   commitButtonText: string = '';
 
+  // 提交按钮点击跳转去分享
+  commitToShare: boolean = false;
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private events: EventsService,
@@ -94,12 +97,22 @@ export class EventDetailPage {
           this.disableCommit = !!this.hb.disable_text
           this.commitButtonText = this.hb.disable_text ? 
             this.hb.disable_text : this.hb.rule.action;
+
+          this.commitToShare = false;
+          if (this.hb.opened && this.hb.grabed && this.hb.left_money > 0.0) {
+            this.disableCommit = false;
+            this.commitButtonText = '分享继续抢红包！';
+
+            this.commitToShare = true;
+          }
         }, 0);
         
         this.loadEventEarns();
         // console.log(data);
       })
       .catch(error => {
+        this.commitToShare = false;
+
         this.toolService.hideLoading();
         setTimeout(() => {
           this.toolService.showToast(error);
@@ -172,7 +185,17 @@ export class EventDetailPage {
     }
   }
 
+  openShare(): void {
+
+  }
+
   commit(): void {
+
+    if (this.commitToShare) {
+      this.doShare();
+      return;
+    }
+
     if (this.hb.rule_type === 'quiz' && this.answer === '') {
       this.toolService.showToast('必须选择一个答案');
       return;
