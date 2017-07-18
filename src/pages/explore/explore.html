@@ -40,7 +40,7 @@
               </span>
           </p>
           <p class="address">
-           <span class="hb-state-info">{{hbStateInfo(event)}}</span></p>
+           <span class="hb-state-info" [ngClass]="event.left_money <= 0 ? 'hb-done' : ''">{{hbStateInfo(event)}}</span></p>
           <ion-note item-right *ngIf="event.left_money > 0.0">
             <div class="money">
               <span class="money-symbol">¥</span>{{event.left_money}}

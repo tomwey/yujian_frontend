@@ -27,8 +27,8 @@ export class UserService {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {
         // resolve('018c1807003a4602886b8761e28c0848');
-        resolve('e2382c6a6a844e0e94330911cd4587f3'); // 本地测试
-        // resolve(val);
+        // resolve('e2382c6a6a844e0e94330911cd4587f3'); // 本地测试
+        resolve(val);
       } );
     });
   }
