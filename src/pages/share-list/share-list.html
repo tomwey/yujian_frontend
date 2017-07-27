@@ -3,18 +3,23 @@
     <ion-title>
       分享抢红包！
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="refresh();">
+        <ion-icon name="ios-refresh-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content style="background-color:rgb(249,249,249);">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="ios-arrow-round-down-outline"
       pullingText="下拉刷新"
       refreshingSpinner="crescent" 
       refreshingText="加载中...">
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
 
   <div class="empty-result" *ngIf="needsShowEmptyResult">
     <p>暂无数据</p>

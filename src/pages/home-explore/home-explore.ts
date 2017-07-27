@@ -40,9 +40,9 @@ export class HomeExplorePage {
   }
 
   ionViewDidLoad() {
-    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-    //   this.content.enableJsScroll();
-    // }
+    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+      this.content.enableJsScroll();
+    }
 
     this.platform.ready().then(() => {
       // this.startLocation();
@@ -97,6 +97,10 @@ export class HomeExplorePage {
     }
 
     return '抢红包进行中';
+  }
+
+  refresh() {
+    this.loadData(null);
   }
 
   loadData(refresher) {

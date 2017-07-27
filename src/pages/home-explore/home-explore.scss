@@ -28,7 +28,13 @@ page-home-explore {
         // margin-top: 5px;
         // border-top: 1px solid #b8b8b8;
         clear: both;
-        // padding-bottom: 20px;
+        padding-bottom: 20px;
+
+        .no-more-data {
+            text-align: center;
+            padding: 20px 0;
+            color: rgb(168, 168, 168);
+        }
     }
 
     .redbag {
@@ -44,6 +50,24 @@ page-home-explore {
         margin: 10px;
         width: calc(100% - 20px);
 
+        position: relative;
+        .grabed {
+            position: absolute;
+            z-index: 2;
+            bottom: 84px;
+            right: 10px;
+            width: 32px;
+            // height: 18px;
+            // line-height: 18px;
+            margin: 0;
+            padding: 0;
+            padding: 2px 0;
+            background-color: rgba(255,255,255,0.7);
+            border-radius: 2px;
+            text-align: center;
+            font-size: 10px;
+            color: rgb(88,88,88);
+        }
         // ion-card-title {
         //     clear: both;
         //     // padding-top: 10px;

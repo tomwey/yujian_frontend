@@ -1,13 +1,20 @@
 page-share-list {
     // 处理ion-refresher显示bug
-    .has-refresher > .scroll-content {
-        top: -1px !important;
-    }
+    // .has-refresher > .scroll-content {
+    //     top: -1px !important;
+    // }
     
+    ion-content {
+        padding-top: 10px;
+    }
     .latest-events {
         // margin-top: 5px;
         // border-top: 1px solid #b8b8b8;
         clear: both;
+        // margin: 0;
+        // padding: 0;
+
+        // padding-top: 1px;
     }
 
     .redbag {

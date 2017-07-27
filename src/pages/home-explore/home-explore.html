@@ -3,18 +3,23 @@
     <ion-title>
       <img src="assets/images/app_icon.jpg">
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="refresh();">
+        <ion-icon name="ios-refresh-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content class="content">
-  <ion-refresher (ionRefresh)="doRefresh($event)">
+  <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="ios-arrow-round-down-outline"
       pullingText="下拉刷新"
       refreshingSpinner="crescent" 
       refreshingText="加载中...">
     </ion-refresher-content>
-  </ion-refresher>
+  </ion-refresher> -->
 
   <!-- banner -->
   <div class="banners">
@@ -34,6 +39,7 @@
   <!-- 最新活动 -->
   <div class="latest-events" *ngIf="hbData.length > 0">
     <ion-card *ngFor="let hb of hbData" class="redbag" tappable (click)="gotoDetail(hb)">
+      <p class="grabed" *ngIf="hb.grabed === true">已抢</p>
       <img [src]="hb.cover_image" />
       <ion-card-content>
         <ion-card-title>
@@ -47,5 +53,6 @@
         </ion-card-title>
       </ion-card-content>
     </ion-card>
+    <!-- <div class="no-more-data" *ngIf="!needShowEmptyResult">没有更多内容了~</div> -->
   </div>
 </ion-content>

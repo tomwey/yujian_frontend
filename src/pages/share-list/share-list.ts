@@ -39,10 +39,14 @@ export class ShareListPage {
 
   ionViewDidLoad() {
 
-    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-    //   this.content.enableJsScroll();
-    // }
+    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+      this.content.enableJsScroll();
+    }
     // this.reload();
+    this.doRefresh(null);
+  }
+
+  refresh() {
     this.doRefresh(null);
   }
 
