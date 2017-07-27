@@ -1,0 +1,44 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      分享抢红包！
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content style="background-color:rgb(249,249,249);">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="下拉刷新"
+      refreshingSpinner="crescent" 
+      refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div class="empty-result" *ngIf="needsShowEmptyResult">
+    <p>暂无数据</p>
+    <!--<p>或者</p>
+    <p>您还可以自己去发布一个红包!</p>
+    <button ion-button color="theme-red" (click)="gotoNewEvent()">去发布</button>-->
+  </div>
+
+  <div class="latest-events" *ngIf="hbData.length > 0">
+    <ion-card *ngFor="let hb of hbData" class="redbag" tappable (click)="gotoDetail(hb)">
+      <img [src]="hb.cover_image" />
+      <ion-card-content>
+        <ion-card-title>
+          <div class="share-tip">分享继续抢红包</div>
+          {{hb.title}}
+          <!-- <div class="earn">
+            <span class="left-money"><span class="symbol">¥</span> {{hb.left_money}}</span><br>
+            <span class="hb-size">{{ hb.min_value == hb.max_value ? 
+                  hb.min_value : 
+                  hb.min_value + '-' + hb.max_value }} 元</span>
+          </div>
+          <div class="title">{{hb.title}}</div> -->
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,51 @@
+<ion-header no-border>
+  <ion-navbar>
+    <ion-title>
+      <img src="assets/images/app_icon.jpg">
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="ios-arrow-round-down-outline"
+      pullingText="下拉刷新"
+      refreshingSpinner="crescent" 
+      refreshingText="加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- banner -->
+  <div class="banners">
+    <ion-slides *ngIf="bannersData.length > 0" loop="true" pager autoplay="3000">
+      <ion-slide *ngFor="let banner of bannersData">
+        <div class="banner-btn" (tap)="openBanner(banner)">
+          <img [src]="banner.image">
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </div>
+  <div class="spliter"></div>
+  
+  <div class="empty-result" *ngIf="needShowEmptyResult">
+    <p>一大波红包正在赶来...</p>
+  </div>
+  <!-- 最新活动 -->
+  <div class="latest-events" *ngIf="hbData.length > 0">
+    <ion-card *ngFor="let hb of hbData" class="redbag" tappable (click)="gotoDetail(hb)">
+      <img [src]="hb.cover_image" />
+      <ion-card-content>
+        <ion-card-title>
+          <div class="earn">
+            <span class="left-money"><span class="symbol">¥</span> {{hb.left_money}}</span><br>
+            <span class="hb-size hb-bg-{{hb.rule_type}}">{{ hb.min_value == hb.max_value ? 
+                  hb.min_value : 
+                  hb.min_value + '-' + hb.max_value }} 元</span>
+          </div>
+          <div class="title">{{hb.title}}</div>
+        </ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

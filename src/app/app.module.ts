@@ -8,9 +8,10 @@ import { MyApp } from './app.component';
 // 初次导入页面
 
 import { TabsPage } from '../pages/tabs/tabs';
-import { HomePage } from "../pages/home/home";
+import { HomeExplorePage } from "../pages/home-explore/home-explore";
 import { MyEventsPage } from "../pages/my-events/my-events";
-import { ExplorePage } from "../pages/explore/explore";
+// import { ExplorePage } from "../pages/explore/explore";
+import { ShareListPage } from "../pages/share-list/share-list";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
 import { EventDetailPage } from "../pages/event-detail/event-detail";
@@ -34,9 +35,10 @@ import { WechatProvider } from '../providers/wechat/wechat';
   declarations: [
     MyApp,
     TabsPage,
-    HomePage,
+    HomeExplorePage,
     AccountBindPage,
-    ExplorePage,
+    // ExplorePage,
+    ShareListPage,
     MyEventsPage,
     SettingPage,
     EventDetailPage,
@@ -57,9 +59,10 @@ import { WechatProvider } from '../providers/wechat/wechat';
   entryComponents: [
     MyApp,
     TabsPage,
-    HomePage,
+    HomeExplorePage,
     AccountBindPage,
-    ExplorePage,
+    // ExplorePage,
+    ShareListPage,
     SettingPage,
     MyEventsPage,
     EventDetailPage,

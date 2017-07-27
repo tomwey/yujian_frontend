@@ -86,7 +86,7 @@ export class ChargePage {
         .catch(error => {
           this.tool.hideLoading();
 
-          this.tool.showToast('发起微信支付失败，请重试');
+          this.tool.showToast(error);
         });
     } else {
       this.tool.showToast('充值金额至少为1元');

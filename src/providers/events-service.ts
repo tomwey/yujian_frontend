@@ -22,6 +22,28 @@ export class EventsService {
   latest(token: string = null, loc: string = null): Promise<any> {
     return this.api.get(/*'events/latest'*/ 'hb/latest', { token: token, loc: loc });
   }
+
+  explore(loc: string = null): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get(/*'events/latest'*/ 'hb/explore', { token: token, loc: loc })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      }).catch(error => reject(error));
+    });
+    // return this.api.get(/*'events/latest'*/ 'hb/explore', { token: token, loc: loc });
+  }
+
+  share(loc: string = null): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get(/*'events/latest'*/ 'hb/share', { token: token, loc: loc })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      }).catch(error => reject(error));
+    });
+    // return this.api.get(/*'events/latest'*/ 'hb/share', { token: token, loc: loc });
+  }
   
   nearby(lat, lng): Promise<any> {
     return this.api.get('events/nearby', { lng: lng, lat: lat, scope: 1500 });
