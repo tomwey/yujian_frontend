@@ -44,10 +44,21 @@ export class EventsService {
     });
     // return this.api.get(/*'events/latest'*/ 'hb/share', { token: token, loc: loc });
   }
-  
+
   nearby(lat, lng): Promise<any> {
-    return this.api.get('events/nearby', { lng: lng, lat: lat, scope: 1500 });
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get(/*'events/latest'*/ 'hb/nearby', { token: token, lat: lat, lng: lng })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      }).catch(error => reject(error));
+    });
+    // return this.api.get(/*'events/latest'*/ 'hb/share', { token: token, loc: loc });
   }
+  
+  // nearby(lat, lng): Promise<any> {
+  //   return this.api.get('events/nearby', { lng: lng, lat: lat, scope: 1500 });
+  // }
 
   list(lat, lng, pageNo: number, pageSize: number = 15): Promise<any> {
     return new Promise((resolve, reject) => {

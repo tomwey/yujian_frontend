@@ -1,7 +1,7 @@
 <ion-header no-border>
   <ion-navbar>
     <ion-title>
-      <img src="assets/images/app_icon.jpg">
+      附近红包
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="refresh();">
@@ -22,23 +22,14 @@
   </ion-refresher> -->
 
   <!-- banner -->
-  <div class="banners">
-    <ion-slides *ngIf="bannersData.length > 0" loop="true" pager autoplay="3000">
-      <ion-slide *ngFor="let banner of bannersData">
-        <div class="banner-btn" (tap)="openBanner(banner)">
-          <img [src]="banner.image">
-        </div>
-      </ion-slide>
-    </ion-slides>
-  </div>
-  <div class="spliter"></div>
   
   <div class="empty-result" *ngIf="needShowEmptyResult">
-    <p>一大波红包正在赶来...</p>
+    <p>{{errorOrEmptyMessage}}</p>
   </div>
   <!-- 最新活动 -->
   <div class="latest-events" *ngIf="hbData.length > 0">
     <ion-card *ngFor="let hb of hbData" class="redbag" tappable (click)="gotoDetail(hb)">
+      <p class="bar locate"><ion-icon class="pin-icon" name="ios-pin-outline"></ion-icon> {{calcuDistance(hb.distance)}}</p>
       <div class="tool-mark">
         <p class="share-hb bar" *ngIf="hb.has_shb === true">有分享红包</p>
         <p class="grabed bar" *ngIf="hb.grabed === true">已抢</p>

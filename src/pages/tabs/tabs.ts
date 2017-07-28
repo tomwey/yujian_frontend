@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 // import { IonicPage } from "ionic-angular";
 import { HomeExplorePage } from '../home-explore/home-explore';
 // import { ExplorePage } from '../explore/explore';
-import { ShareListPage } from '../share-list/share-list';
+// import { ShareListPage } from '../share-list/share-list';
+import { NearbyPage } from "../nearby/nearby";
 import { SettingPage } from '../setting/setting';
 // import { NewEventPage } from '../new-event/new-event';
 import { MyEventsPage } from '../my-events/my-events';
@@ -14,7 +15,7 @@ import { MyEventsPage } from '../my-events/my-events';
 export class TabsPage {
 
   tab1Root = HomeExplorePage;
-  tab2Root = ShareListPage;//ExplorePage;
+  tab2Root = NearbyPage;//ShareListPage;//ExplorePage;
   tab3Root = MyEventsPage;
   tab4Root = SettingPage;
 
