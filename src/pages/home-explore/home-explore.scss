@@ -101,7 +101,7 @@ page-home-explore {
         .hb-size {
             font-size: 12px;
             color: rgb(168, 168, 168);
-            font-family: 'PingFang SC Bold';
+            font-family: 'PingFang SC';
             // background-image: url('../../assets/images/icon_quiz.svg');
             background-position: left center;
             background-repeat: no-repeat;
@@ -120,10 +120,10 @@ page-home-explore {
         .left-money {
             // font-size: 18px;
             color: color($colors, theme-red);
-           
-            .money2 {
-                font-family: 'PingFang SC Bold';
-            }
+           font-family: 'PingFang SC';
+            // .money2 {
+            //     font-family: 'PingFang SC';
+            // }
         }
 
         .symbol {
