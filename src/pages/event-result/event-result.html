@@ -31,7 +31,7 @@
       <p class="error-message" *ngIf="!!error_message">{{error_message}}</p>
     </div>
   </div>
-  <div class="go-on-grab" *ngIf="event_earn.hb_type === 1">
+  <div class="go-on-grab" *ngIf="event_earn.has_shb === true">
     <button ion-button block color="theme-red" (click)="doShare()">分享给朋友，继续抢红包！</button>
     <button ion-button block clear color="theme-red" style="margin-top: 20px;" (click)="shareDesc()">分享红包奖励说明</button>
   </div>

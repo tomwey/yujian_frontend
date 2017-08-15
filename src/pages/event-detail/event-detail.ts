@@ -105,7 +105,7 @@ export class EventDetailPage {
             this.hb.disable_text : this.hb.rule.action;
 
           this.commitToShare = false;
-          if (this.hb.opened && this.hb.grabed && this.hb.left_money > 0.0) {
+          if (this.hb.opened && this.hb.grabed && this.hb.left_money > 0.0 && this.hb.has_shb === true) {
             this.disableCommit = false;
             this.commitButtonText = '分享继续抢红包！';
 

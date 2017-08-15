@@ -10,7 +10,7 @@
     <ion-title>红包详情</ion-title>
     <ion-buttons end>
       <button ion-button small (click)="doShare()">
-        分享抢红包!
+        {{ hb.has_shb === true ? '分享抢红包!' : '分享' }} 
       </button>
     </ion-buttons>
   </ion-navbar>
