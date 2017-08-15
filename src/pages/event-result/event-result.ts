@@ -53,14 +53,9 @@ export class EventResult {
     // console.log('ionViewDidLoad EventResult');
   }
 
-  gotoGrab(): void {
-    this.events.publish('hb:opened');
-    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
-  }
-
   goBack(): void {
     this.events.publish('hb:opened');
-    this.navCtrl.popTo(this.navCtrl.getByIndex(0));
+    this.app.getRootNavs()[0].popToRoot();
   }
 
   doShare(): void {

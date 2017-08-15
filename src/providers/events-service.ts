@@ -114,26 +114,26 @@ export class EventsService {
     });
   }
 
-  private _loadEvent(eventId: number, token: string, lat, lng): Promise<any> {
+  private _loadEvent(eventId: number, token: string, lat, lng, needWriteViewLog:boolean): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.api.get(`hb/${eventId}/body`, { token: token, loc: `${lng},${lat}` })
+      this.api.get(`hb/${eventId}/body`, { token: token, loc: `${lng},${lat}`, t: needWriteViewLog ? 1 : 0 })
           .then(data => {
             resolve(data);
           })
           .catch(error => reject(error));
     });
   }
-  getEvent(eventId: number): Promise<any> {
+  getEvent(eventId: number, needWriteViewLog: boolean): Promise<any> {
     return new Promise( (resolve, reject) => {
       this.user.token().then(token => {
         this.qqMaps.startLocating()
           .then(pos => {
-            this._loadEvent(eventId, token, pos.lat, pos.lng)
+            this._loadEvent(eventId, token, pos.lat, pos.lng, needWriteViewLog)
               .then(data => resolve(data))
               .catch(error => reject(error));
           })
           .catch(error => {
-            this._loadEvent(eventId, token, 0, 0)
+            this._loadEvent(eventId, token, 0, 0, needWriteViewLog)
               .then(data => resolve(data))
               .catch(error => reject(error));
           });

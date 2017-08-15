@@ -60,8 +60,14 @@ export class EventDetailPage {
 
   ionViewDidLoad() {
     this.noti.subscribe('hb:opened', () => {
-      this.loadEvent();
+      this.loadEvent(false);
     });
+  }
+
+  ionViewWillUnload() {
+    // console.log('unload......');
+    // 取消事件监听
+    this.noti.unsubscribe('hb:opened');
   }
 
   ionViewDidEnter() {
@@ -69,7 +75,6 @@ export class EventDetailPage {
       this.hasLoaded = true;
       this.loadEvent();
     }
-
   }
 
   openOwnerInfo(): void {
@@ -83,15 +88,16 @@ export class EventDetailPage {
     modal.present();
   }
 
-  loadEvent(): void {
+  loadEvent(needAddViewCount: boolean = true): void {
     this.toolService.showLoading('拼命加载中...');
-
-    this.events.getEvent(this.hb.id)
+    this.events.getEvent(this.hb.id, needAddViewCount)
       .then(data => {
         setTimeout(() => {
           // console.log(data);
           this.hb = data;
-          this.hb.view_count += 1;
+          if (needAddViewCount) {
+            this.hb.view_count += 1;
+          }
           this.toolService.hideLoading();
 
           this.disableCommit = !!this.hb.disable_text

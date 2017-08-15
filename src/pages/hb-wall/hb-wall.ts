@@ -63,7 +63,7 @@ export class HBWallPage {
     // console.log(data);
 
     this.viewController.dismiss();
-    this.app.getRootNav().push('EventResult', data);
+    this.app.getRootNavs()[0].push('EventResult', data);
   }
 
 }
