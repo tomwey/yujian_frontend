@@ -14,4 +14,14 @@ page-task {
         font-family: 'PingFang SC';
         font-size: 18px;
     }
+
+    .grab-state {
+        background-color: color($colors, theme-red);
+        color: white;
+        font-size: 8px;
+        display: inline-block;
+        padding: 2px 3px;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+    }
 }

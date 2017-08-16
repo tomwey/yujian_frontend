@@ -31,7 +31,7 @@
         <h2 text-wrap>{{hb.title}}</h2>
         <p class="grab-money"><span class="symbol">¥</span> {{ hb.min_value == hb.max_value ? 
             hb.min_value : 
-            hb.min_value + '-' + hb.max_value }}</p>
+            hb.min_value + '-' + hb.max_value }} <span class="grab-state" *ngIf="hb.grabed === true">已抢</span></p>
         <ion-note item-right class="left-money"><span class="symbol">¥</span> {{hb.left_money}}</ion-note>
       </button>
     </ion-list>
