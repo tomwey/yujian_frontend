@@ -59,6 +59,10 @@ export class SettingPage {
     this.navCtrl.push('HBHistory',this.user);
   }
 
+  gotoSendHBHistory(): void {
+    this.navCtrl.push('MyEventsPage');
+  }
+
   gotoCharge(): void {
     let modal = this.modalCtrl.create('ChargePage');
     modal.present();
