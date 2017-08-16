@@ -9,13 +9,14 @@ import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { HomeExplorePage } from "../pages/home-explore/home-explore";
-import { MyEventsPage } from "../pages/my-events/my-events";
+// import { MyEventsPage } from "../pages/my-events/my-events";
 // import { ExplorePage } from "../pages/explore/explore";
 // import { ShareListPage } from "../pages/share-list/share-list";
 import { NearbyPage } from "../pages/nearby/nearby";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
 import { EventDetailPage } from "../pages/event-detail/event-detail";
+import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -41,7 +42,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // ExplorePage,
     // ShareListPage,
     NearbyPage,
-    MyEventsPage,
+    // MyEventsPage,
+    NewRedbagPage,
     SettingPage,
     EventDetailPage,
   ],
@@ -67,7 +69,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // ShareListPage,
     NearbyPage,
     SettingPage,
-    MyEventsPage,
+    // MyEventsPage,
+    NewRedbagPage,
     EventDetailPage,
   ],
   providers: [

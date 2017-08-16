@@ -70,6 +70,27 @@ export class EventsService {
     });
   }
 
+  send(payload): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+
+        this.qqMaps.startLocating(true)
+        .then(pos => {
+          payload.location = `${pos.lng},${pos.lat}`;
+          this.api.post('hb/user_send', { token: token, payload: JSON.stringify(payload) })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+        })
+        .catch(error => {
+          this.api.post('hb/user_send', { token: token, payload: JSON.stringify(payload) })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+        });
+        
+      });
+    });
+  }
+
   republish(eventId, payload): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
@@ -169,7 +190,7 @@ export class EventsService {
   private _commit(token, payload): Promise<any> {
     return new Promise((resolve, reject) => {
       let payloadJson = JSON.stringify({ answer: payload.answer, location: payload.location });
-        console.log(payloadJson);
+        // console.log(payloadJson);
         this.api.post(`hb/${payload.hb.id}/commit`, 
                       { token: token, payload: payloadJson })
           .then(data => {
