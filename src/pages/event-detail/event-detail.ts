@@ -201,11 +201,17 @@ export class EventDetailPage {
       this.doShare();
       return;
     }
+    // console.log(this.hb);
 
     if (this.hb.rule_type === 'quiz' && this.answer === '') {
       this.toolService.showToast('必须选择一个答案');
       return;
     } 
+
+    if (this.hb.rule_type === 'sign' && this.answer === '') {
+      this.toolService.showToast('口令不能为空');
+      return;
+    }
 
     this.showGrabWall();
   }
@@ -218,6 +224,8 @@ export class EventDetailPage {
       let answers = this.hb.rule.answers;
       let answerOption = answers.indexOf(this.answer);
       payload = { hb: this.hb, answer: answerOption, location:  null };
+    }  else if ( this.hb.rule_type === 'sign' ) { 
+      payload = { hb: this.hb, answer: this.answer, location:  null };
     } else if ( this.hb.rule_type === 'checkin' ) {
       payload = { hb: this.hb, location:  null };
     }

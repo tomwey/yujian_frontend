@@ -1,0 +1,17 @@
+page-task {
+    .grab-money {
+        color: color($colors, theme-red);
+        font-family: 'PingFang SC';
+        font-size: 12px;
+    }
+
+    .symbol {
+        font-size: 12px;
+    }
+
+    .left-money {
+        color: color($colors, theme-red);
+        font-family: 'PingFang SC';
+        font-size: 18px;
+    }
+}

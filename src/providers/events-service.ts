@@ -70,6 +70,16 @@ export class EventsService {
     });
   }
 
+  getTaskList(pageNo: number, pageSize: number = 15): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.user.token().then(token => {
+        this.api.get('hb/task_list', { page: pageNo, size: pageSize, token: token })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      }).catch(error => reject(error));
+    });
+  }
+
   send(payload): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {

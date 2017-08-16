@@ -16,7 +16,8 @@ import { NearbyPage } from "../pages/nearby/nearby";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
 import { EventDetailPage } from "../pages/event-detail/event-detail";
-import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
+import { TaskPage } from '../pages/task/task';
+// import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -43,7 +44,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // ShareListPage,
     NearbyPage,
     // MyEventsPage,
-    NewRedbagPage,
+    // NewRedbagPage,
+    TaskPage,
     SettingPage,
     EventDetailPage,
   ],
@@ -70,7 +72,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     NearbyPage,
     SettingPage,
     // MyEventsPage,
-    NewRedbagPage,
+    // NewRedbagPage,
+    TaskPage,
     EventDetailPage,
   ],
   providers: [

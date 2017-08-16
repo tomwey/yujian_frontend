@@ -69,6 +69,16 @@
           </ion-list>
         </div>
       </div>
+      <div class="rule-box sign" *ngIf="hb.rule_type === 'sign'">
+          <div class="tip" style="color: red;">{{hb.rule.grab_tip}}，注意：只有一次回答机会！</div>
+          <div class="content">
+            <!-- <ion-list> -->
+              <ion-item>
+                <ion-input [(ngModel)]="answer" placeholder="输入口令"></ion-input>
+              </ion-item>
+            <!-- </ion-list> -->
+          </div>
+        </div>
       <div class="rule-box checkin" [hidden]="hb.rule_type !== 'checkin'">
         <div class="tip">请到如下地址完成签到，可以获得红包！<span style="color: red;">(位置误差不超过{{hb.rule.accuracy}}米)</span></div>
         <div class="content"><ion-icon name="ios-pin-outline"></ion-icon> {{hb.rule.address}}</div>
