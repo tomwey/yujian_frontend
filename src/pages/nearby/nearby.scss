@@ -151,7 +151,9 @@ page-nearby {
         .left-money {
             // font-size: 18px;
             color: color($colors, theme-red);
-            font-family: 'PingFang SC';
+            .money2 {
+                font-family: 'PingFang SC';
+            }
         }
 
         .symbol {

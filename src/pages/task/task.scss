@@ -11,7 +11,9 @@ page-task {
 
     .left-money {
         color: color($colors, theme-red);
-        font-family: 'PingFang SC';
+        .money2 {
+            font-family: 'PingFang SC';
+        }
         font-size: 18px;
     }
 
