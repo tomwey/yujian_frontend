@@ -24,7 +24,8 @@ export class NearbyPage {
   errorOrEmptyMessage: string = '暂无数据';
 
   needShowEmptyResult: boolean = false;
-  
+  currentPositionDesc: string = '定位中';
+
   constructor(public navCtrl: NavController, 
               private events: EventsService,
               // private banners: BannersService,
@@ -61,6 +62,7 @@ export class NearbyPage {
     this.qqMaps.startLocating(true)
       .then(pos => {
         // this.startLoadEvents(pos.lat, pos.lng, refresher);
+        this.currentPositionDesc = pos.city;
         this.loadEvents(pos)
           .then(data => {
             if (refresher) {
@@ -70,7 +72,7 @@ export class NearbyPage {
       })
       .catch(error => {
         this.errorOrEmptyMessage = '获取位置失败，请重试！';
-
+        this.currentPositionDesc = '定位失败!';
         this.needShowEmptyResult = true;
         // this.startLoadEvents(0,0, refresher);
         // this.loadEvents()
