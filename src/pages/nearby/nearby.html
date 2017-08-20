@@ -34,7 +34,7 @@
   <!-- 最新活动 -->
   <div class="latest-events" *ngIf="hbData.length > 0">
     <ion-card *ngFor="let hb of hbData" class="redbag" tappable (click)="gotoDetail(hb)">
-      <p class="bar locate"><ion-icon class="pin-icon" name="ios-pin-outline"></ion-icon> {{calcuDistance(hb.distance)}}</p>
+      <span class="bar locate"><!-- ion-icon class="pin-icon" name="ios-pin-outline"></ion-icon --> {{calcuDistance(hb.distance)}}</span>
       <div class="tool-mark">
         <p class="share-hb bar" *ngIf="hb.has_shb === true">有分享红包</p>
         <p class="grabed bar" *ngIf="hb.grabed === true">已抢</p>
