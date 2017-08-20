@@ -43,12 +43,19 @@ page-event-detail {
         color: rgb(123,125,129);
     }
     .event-body {
+        // background-color: red;
+        // margin: 0;
+        // padding: 0;
         img {
+            // display: block;
+            // margin: 0 auto;
             max-width: 100%;
-            margin: 2px 0;
+            // margin: 2px 0;
+            margin: 0;
+            padding: 0;
         }
         p {
-            padding: 5px 0;
+            // padding: 5px 0;
         }
     }
 
