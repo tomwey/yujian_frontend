@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { NavController, NavParams, Slides } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { EventsService } from '../../providers/events-service';
 import { EventDetailPage } from "../event-detail/event-detail";
+import { OfferwallChannelService } from "../../providers/offerwall-channel-service";
+// import { DomSanitizer } from "@angular/platform-browser";
 
 /**
  * Generated class for the TaskPage page.
@@ -16,8 +18,8 @@ import { EventDetailPage } from "../event-detail/event-detail";
   templateUrl: 'task.html',
 })
 export class TaskPage {
-  hbList: any = [];
-
+  hbList: any  = [];
+  chnList: any = [];
   errorOrEmptyMessage: string = '暂无数据';
   needShowEmptyResult: boolean = false;
 
@@ -26,16 +28,68 @@ export class TaskPage {
   pageSize: number = 20;
   totalPage: number = 1;
 
+  @ViewChild('pageSlider') pageSlider: Slides;
+  tabs: any = '0';
+  selectTab(index) {
+    this.pageSlider.slideTo(index);
+  }
+
+  changeWillSlide($event) {
+    this.tabs = $event._snapIndex.toString();
+
+    this.startLoadData();
+
+  }
+   
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: EventsService,
               private toolService: ToolService,
-            ) {
+              private offerwall: OfferwallChannelService,
+              // private sanitizer: DomSanitizer,
+            ) 
+  {
+    // this.browser.secUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.browser.url);
   }
 
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TaskPage');
-    this.refresh();
+    // this.refresh();
+  }
+
+  ionViewDidEnter() {
+    this.loadChannels();
+  }
+
+  startLoadData() {
+    if (this.tabs === '0') {
+      this.loadChannels();      
+    } else if ( this.tabs === '1' ) {
+      this.refresh();
+    }
+  }
+
+  loadChannels(): void {
+    this.toolService.showLoading('拼命加载中...');
+    this.needShowEmptyResult = false;
+
+    this.offerwall.getChannels()
+      .then(data => {
+        this.chnList = data;
+
+        this.needShowEmptyResult = this.chnList.length === 0;
+        this.errorOrEmptyMessage = '暂无数据';
+
+        this.toolService.hideLoading();
+      })
+      .catch(error => {
+        this.toolService.hideLoading();
+
+        this.needShowEmptyResult = true;
+
+        this.errorOrEmptyMessage = error.message || error;
+
+      });
   }
 
   refresh(): void {
@@ -47,10 +101,15 @@ export class TaskPage {
     this.navCtrl.push(EventDetailPage, hb);
   }
 
+  gotoChannel(chn): void {
+    window.location.href = chn.task_url;
+  }
+
   loadTaskHB(): Promise<any> {
     return new Promise((resolve) => {
       if (this.pageNo === 1) {
         this.toolService.showLoading('拼命加载中...');
+        this.needShowEmptyResult = false;
       }
 
       this.events.getTaskList(this.pageNo, this.pageSize)
@@ -62,6 +121,8 @@ export class TaskPage {
             this.hbList = data.data || data;
             // console.log(data.data);
             this.needShowEmptyResult = this.hbList.length === 0;
+            this.errorOrEmptyMessage = '暂无数据';
+
           } else {
             let temp = this.hbList || [];
             this.hbList = temp.concat(data.data || data);
@@ -75,9 +136,16 @@ export class TaskPage {
         .catch(error => {
           // console.log(error);
           this.toolService.hideLoading();
-          setTimeout(() => {
-            this.toolService.showToast(error);
-          }, 100);
+
+          if (this.pageNo === 1) {
+            this.needShowEmptyResult = true;
+            
+            this.errorOrEmptyMessage = error;
+          }
+
+          // setTimeout(() => {
+          //   this.toolService.showToast(error);
+          // }, 100);
 
           resolve();
         });

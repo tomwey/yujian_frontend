@@ -27,6 +27,7 @@ import { UserService }      from '../providers/user-service';
 import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
 import { BannersService}     from '../providers/banners-service';
+import { OfferwallChannelService } from "../providers/offerwall-channel-service";
 
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
@@ -89,6 +90,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     LocationSearchProvider, 
     UtilsServiceProvider, 
     WechatProvider,
+    OfferwallChannelService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     
   ]
