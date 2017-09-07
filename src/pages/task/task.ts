@@ -30,17 +30,7 @@ export class TaskPage {
 
   @ViewChild('pageSlider') pageSlider: Slides;
   tabs: any = '0';
-  selectTab(index) {
-    this.pageSlider.slideTo(index);
-  }
-
-  changeWillSlide($event) {
-    this.tabs = $event._snapIndex.toString();
-
-    this.startLoadData();
-
-  }
-   
+  
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: EventsService,
@@ -55,10 +45,25 @@ export class TaskPage {
   ionViewDidLoad() {
     // console.log('ionViewDidLoad TaskPage');
     // this.refresh();
+    
   }
 
   ionViewDidEnter() {
+    // this.pageSlider.lockSwipes(true);
     this.loadChannels();
+  }
+
+  selectTab(index) {
+    // this.pageSlider.lockSwipes(false);
+    this.pageSlider.slideTo(index);
+    // this.pageSlider.lockSwipes(true);
+  }
+
+  changeWillSlide($event) {
+    this.tabs = $event._snapIndex.toString();
+
+    this.startLoadData();
+
   }
 
   startLoadData() {

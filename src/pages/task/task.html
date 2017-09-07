@@ -20,7 +20,7 @@
 
 <ion-content class="content">
   <ion-slides #pageSlider (ionSlideWillChange)="changeWillSlide($event)">
-    <ion-slide>
+    <ion-slide class="swiper-no-swiping">
       <div class="empty-result" *ngIf="needShowEmptyResult">
         <p>{{errorOrEmptyMessage}}</p>
       </div>
@@ -38,7 +38,7 @@
           </ion-card>
       </div>    
     </ion-slide>
-    <ion-slide>
+    <ion-slide class="swiper-no-swiping">
       <div class="empty-result" *ngIf="needShowEmptyResult">
         <p>{{errorOrEmptyMessage}}</p>
       </div>

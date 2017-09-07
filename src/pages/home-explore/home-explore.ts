@@ -57,6 +57,8 @@ export class HomeExplorePage {
 
   ionViewDidEnter() {  
     // console.log(this.slides);
+    this.app.setTitle('小优大惠');
+    
     if (this.slides) {
       // this.slides.loop = true;
       this.slides.startAutoplay();
