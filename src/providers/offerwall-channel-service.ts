@@ -21,7 +21,7 @@ export class OfferwallChannelService {
   getChannels(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.api.get('offerwall/channels', { token: token, os: 'iOS' })
+        this.api.get('offerwall/channels', { token: token })
           .then(data => resolve(data))
           .catch(error => reject(error));
       });
