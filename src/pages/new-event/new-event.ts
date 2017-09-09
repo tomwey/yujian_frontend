@@ -3,7 +3,8 @@ import { IonicPage, NavController, NavParams, AlertController, ModalController }
 import { ApiService } from '../../providers/api-service';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
-import { QQMaps } from '../../providers/qq-maps';
+// import { QQMaps } from '../../providers/qq-maps';
+import { LocationService } from "../../providers/location-service";
 
 @IonicPage()
 @Component({
@@ -40,10 +41,14 @@ export class NewEventPage {
               private users: UserService,
               private alertCtrl: AlertController,
               private tool: ToolService,
-              private qqMaps: QQMaps,
+              // private qqMaps: QQMaps,
+              private locService: LocationService,
               private modalCtrl: ModalController
               ) {
-    this.qqMaps.startLocating()
+    // this.qqMaps.startLocating()
+    //   .then(pos => this.currentPosition = pos)
+    //   .catch(error => {});
+    this.locService.getUserPosition(true)
       .then(pos => this.currentPosition = pos)
       .catch(error => {});
   }

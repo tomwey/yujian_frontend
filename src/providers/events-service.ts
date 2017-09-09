@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 // import { Storage }    from '@ionic/storage';
 import { UserService } from './user-service';
-import { QQMaps } from './qq-maps';
+// import { QQMaps } from './qq-maps';
+import { LocationService } from './location-service';
 
 /*
   Generated class for the EventsService provider.
@@ -15,7 +16,9 @@ export class EventsService {
 
   constructor(private api: ApiService,
               private user: UserService,
-              private qqMaps: QQMaps) {
+              // private qqMaps: QQMaps
+              private locService: LocationService
+            ) {
     
   }
 
@@ -84,18 +87,19 @@ export class EventsService {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
 
-        this.qqMaps.startLocating(true)
-        .then(pos => {
-          payload.location = `${pos.lng},${pos.lat}`;
-          this.api.post('hb/user_send', { token: token, payload: JSON.stringify(payload) })
-          .then(data => resolve(data))
-          .catch(error => reject(error));
-        })
-        .catch(error => {
-          this.api.post('hb/user_send', { token: token, payload: JSON.stringify(payload) })
-          .then(data => resolve(data))
-          .catch(error => reject(error));
-        });
+        // this.qqMaps.startLocating(true)
+        this.locService.getUserPosition(true)
+          .then(pos => {
+            payload.location = `${pos.lng},${pos.lat}`;
+            this.api.post('hb/user_send', { token: token, payload: JSON.stringify(payload) })
+            .then(data => resolve(data))
+            .catch(error => reject(error));
+          })
+          .catch(error => {
+            this.api.post('hb/user_send', { token: token, payload: JSON.stringify(payload) })
+            .then(data => resolve(data))
+            .catch(error => reject(error));
+          });
         
       });
     });
@@ -157,7 +161,8 @@ export class EventsService {
   getEvent(eventId: number, needWriteViewLog: boolean): Promise<any> {
     return new Promise( (resolve, reject) => {
       this.user.token().then(token => {
-        this.qqMaps.startLocating()
+        // this.qqMaps.startLocating()
+        this.locService.getUserPosition()
           .then(pos => {
             this._loadEvent(eventId, token, pos.lat, pos.lng, needWriteViewLog)
               .then(data => resolve(data))
@@ -179,20 +184,22 @@ export class EventsService {
   like(eventId: number, loc: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this.user.token().then(token => {
-        this.qqMaps.startLocating().then(pos => {
-          this.api.post(`hb/${eventId}/like`, { token: token, loc: `${pos.lng},${pos.lat}` })
-          .then(data => {
-            resolve(data);
+        // this.qqMaps.startLocating()
+        this.locService.getUserPosition()
+          .then(pos => {
+            this.api.post(`hb/${eventId}/like`, { token: token, loc: `${pos.lng},${pos.lat}` })
+            .then(data => {
+              resolve(data);
+            })
+            .catch(error => reject(error));
           })
-          .catch(error => reject(error));
-        })
-        .catch(error => {
-          this.api.post(`hb/${eventId}/like`, { token: token, loc: null })
-          .then(data => {
-            resolve(data);
-          })
-          .catch(error => reject(error));
-        });
+          .catch(error => {
+            this.api.post(`hb/${eventId}/like`, { token: token, loc: null })
+            .then(data => {
+              resolve(data);
+            })
+            .catch(error => reject(error));
+          });
       });
     });
   }
@@ -219,7 +226,8 @@ export class EventsService {
         if (hb && hb.rule_type === 'checkin') {
           reload = true;
         }
-        this.qqMaps.startLocating(reload)
+        // this.qqMaps.startLocating(reload)
+        this.locService.getUserPosition(reload)
           .then(pos => {
             payload.location = `${pos.lng},${pos.lat}`
             this._commit(token, payload)

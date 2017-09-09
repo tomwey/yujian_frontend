@@ -22,7 +22,8 @@ import { TaskPage } from '../pages/task/task';
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
 import { ToolService }      from '../providers/tool-service';
-import { QQMaps }           from '../providers/qq-maps';
+// import { QQMaps }           from '../providers/qq-maps';
+import { LocationService }  from '../providers/location-service';
 import { UserService }      from '../providers/user-service';
 import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
@@ -80,7 +81,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
   providers: [
     // StatusBar,
     // SplashScreen,
-    QQMaps,
+    // QQMaps,
+    LocationService,
     ApiService,
     ToolService,
     UserService,

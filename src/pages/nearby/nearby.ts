@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Platform, App, Content } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
-import { QQMaps } from '../../providers/qq-maps';
+// import { QQMaps } from '../../providers/qq-maps';
+import { LocationService } from "../../providers/location-service";
 import { EventsService } from '../../providers/events-service';
 // import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
@@ -29,7 +30,8 @@ export class NearbyPage {
   constructor(public navCtrl: NavController, 
               private events: EventsService,
               // private banners: BannersService,
-              private qqMaps: QQMaps,
+              // private qqMaps: QQMaps,
+              private locService: LocationService,
               private platform: Platform,
               private toolService: ToolService,
               private users: UserService,
@@ -59,28 +61,35 @@ export class NearbyPage {
       this.toolService.showLoading('拼命加载中...');
     }
     
-    this.qqMaps.startLocating(true)
+    this.locService.getUserPosition(true)
       .then(pos => {
-        // this.startLoadEvents(pos.lat, pos.lng, refresher);
-        this.currentPositionDesc = pos.city;
+        // 获取广告红包
         this.loadEvents(pos)
           .then(data => {
             if (refresher) {
               refresher.complete();
             }
           });
+        
+        // 解析用户位置
+        this.parseUserLocation(pos); 
       })
       .catch(error => {
         this.errorOrEmptyMessage = '获取位置失败，请重试！';
         this.currentPositionDesc = '定位失败!';
         this.needShowEmptyResult = true;
-        // this.startLoadEvents(0,0, refresher);
-        // this.loadEvents()
-        //   .then(data => {
-        //     if (refresher) {
-        //       refresher.complete();
-        //     }
-        // });
+      });
+  }
+
+  parseUserLocation(pos): void {
+    this.currentPositionDesc = '位置解析中';
+
+    this.locService.parseUserLocation(pos.lat, pos.lng)
+      .then(data => {
+        this.currentPositionDesc = data.address_2 || data.address_1;
+      })
+      .catch(error => {
+        this.currentPositionDesc = '位置解析失败';
       });
   }
 

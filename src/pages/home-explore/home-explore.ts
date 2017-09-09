@@ -1,7 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, Platform, Slides, App, Content } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
-import { QQMaps } from '../../providers/qq-maps';
+// import { QQMaps } from '../../providers/qq-maps';
+import { LocationService } from "../../providers/location-service";
 import { EventsService } from '../../providers/events-service';
 import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
@@ -29,7 +30,8 @@ export class HomeExplorePage {
   constructor(public navCtrl: NavController, 
               private events: EventsService,
               private banners: BannersService,
-              private qqMaps: QQMaps,
+              // private qqMaps: QQMaps,
+              private locService: LocationService,
               private platform: Platform,
               private toolService: ToolService,
               private users: UserService,
@@ -112,7 +114,8 @@ export class HomeExplorePage {
 
     let promises: any[] = [];
     promises.push(this.users.token().then(token => this.token = token));
-    promises.push(this.qqMaps.startLocating(true).then(pos => this.position = pos).catch(error => {}));
+    promises.push(this.locService.getUserPosition().then(pos => this.position = pos)
+                  .catch(error => {}));
 
     Promise.all(promises)
       .then(() => {
