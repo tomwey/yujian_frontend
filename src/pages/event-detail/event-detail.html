@@ -8,9 +8,10 @@
 
   <ion-navbar>
     <ion-title>红包详情</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="hb.has_shb === true">
       <button ion-button small (click)="doShare()">
-        {{ hb.has_shb === true ? '分享抢红包!' : '分享' }} 
+        分享抢红包!
+        <!-- {{ hb.has_shb === true ? '分享抢红包!' : '分享' }}  -->
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -24,7 +25,7 @@
       <ion-item>
         <h2 text-wrap>{{hb.title}}</h2>
         <p class="stats">
-          <span class="data">人气 {{hb.view_count}}, 分享 {{hb.share_count}}, 参与 {{hb.sent_count}}</span>
+          <span class="data">人气 {{hb.view_count}}, <span *ngIf="hb.has_shb === true">分享 {{hb.share_count}}, </span>参与 {{hb.sent_count}}</span>
           <!-- <button ion-button icon-left clear small class="like-btn" (click)="doLike()">
             <ion-icon name="ios-thumbs-up-outline"></ion-icon> 赞一下
           </button> -->
@@ -89,10 +90,11 @@
   <!-- 活动结果 -->
   <ion-card [hidden]="earns.length == 0">
     <ion-card-header>
-      <ion-row no-margin no-padding>
+      <!-- <ion-row no-margin no-padding>
         <ion-col col-8>共 {{hb.sent_money}} / {{hb.total_money}} 元</ion-col>
         <ion-col col-4><span class="sent-stat">{{hb.sent_count}}</span></ion-col>
-      </ion-row>
+      </ion-row> -->
+      共领取了{{hb.sent_count}}个红包
     </ion-card-header>
 
     <ion-list>
