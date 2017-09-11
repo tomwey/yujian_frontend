@@ -52,11 +52,11 @@ export class MyEventsPage {
   }
 
   doShare(e, hb): void {
-    console.log('123');
+    // console.log('123');
     e.stopPropagation();
 
     this.users.token().then(token => {
-      window.location.href = `http://b.hb.small-best.com/wx/share/hb?id=${hb.id}&token=${token}&osh=1`;
+      window.location.href = `http://b.hb.small-best.com/wx/share/hb2?id=${hb.id}&token=${token}`;
     });
   }
 
