@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, IonicPage } from 'ionic-angular';
 import { EventsService } from "../../providers/events-service";
 import { ToolService } from "../../providers/tool-service";
+import { UserService } from "../../providers/user-service";
 
 import { EventDetailPage } from "../event-detail/event-detail";
 /**
@@ -24,6 +25,7 @@ export class MyEventsPage {
               public navParams: NavParams,
               private events: EventsService,
               private tool: ToolService,
+              private users: UserService,
               private modalCtrl: ModalController) {
   }
 
@@ -47,6 +49,15 @@ export class MyEventsPage {
     modal.present();
     // this.navCtrl.push('EventRepublishPage', event);
     // console.log('ddd');
+  }
+
+  doShare(e, hb): void {
+    console.log('123');
+    e.stopPropagation();
+
+    this.users.token().then(token => {
+      window.location.href = `http://b.hb.small-best.com/wx/share/hb?id=${hb.id}&token=${token}&osh=1`;
+    });
   }
 
   gotoEventDetail(event): void {
