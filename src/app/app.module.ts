@@ -16,8 +16,12 @@ import { NearbyPage } from "../pages/nearby/nearby";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
 import { EventDetailPage } from "../pages/event-detail/event-detail";
-import { TaskPage } from '../pages/task/task';
+// import { TaskPage } from '../pages/task/task';
 // import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
+
+import { CardPage } from "../pages/card/card";
+
+import { CardDetailPageModule } from "../pages/card-detail/card-detail.module";
 
 // 服务类导入
 import { ApiService }       from '../providers/api-service';
@@ -27,8 +31,9 @@ import { LocationService }  from '../providers/location-service';
 import { UserService }      from '../providers/user-service';
 import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
+import { CardsService }    from '../providers/cards-service';
 import { BannersService}     from '../providers/banners-service';
-import { OfferwallChannelService } from "../providers/offerwall-channel-service";
+// import { OfferwallChannelService } from "../providers/offerwall-channel-service";
 
 // import { StatusBar } from '@ionic-native/status-bar';
 // import { SplashScreen } from '@ionic-native/splash-screen';
@@ -47,13 +52,15 @@ import { WechatProvider } from '../providers/wechat/wechat';
     NearbyPage,
     // MyEventsPage,
     // NewRedbagPage,
-    TaskPage,
+    // TaskPage,
     SettingPage,
     EventDetailPage,
+    CardPage,
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    CardDetailPageModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {
       // preloadModules: true,
@@ -75,8 +82,9 @@ import { WechatProvider } from '../providers/wechat/wechat';
     SettingPage,
     // MyEventsPage,
     // NewRedbagPage,
-    TaskPage,
+    // TaskPage,
     EventDetailPage,
+    CardPage,
   ],
   providers: [
     // StatusBar,
@@ -92,7 +100,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     LocationSearchProvider, 
     UtilsServiceProvider, 
     WechatProvider,
-    OfferwallChannelService,
+    CardsService,
+    // OfferwallChannelService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     
   ]

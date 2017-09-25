@@ -8,7 +8,8 @@ import { SettingPage } from '../setting/setting';
 // import { NewRedbagPage } from "../new-redbag/new-redbag";
 // import { NewEventPage } from '../new-event/new-event';
 // import { MyEventsPage } from '../my-events/my-events';
-import { TaskPage } from "../task/task";
+// import { TaskPage } from "../task/task";
+import { CardPage } from '../card/card';
 
 // @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class TabsPage {
 
   tab1Root = HomeExplorePage;
   tab2Root = NearbyPage;//ShareListPage;//ExplorePage;
-  tab3Root = TaskPage;
+  tab3Root = CardPage;//TaskPage;
   tab4Root = SettingPage;
 
   constructor() {
