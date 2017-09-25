@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, Platform, Content } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { CardsService } from '../../providers/cards-service';
 import { CardDetailPage } from '../card-detail/card-detail'; 
@@ -18,8 +18,11 @@ import { CardDetailPage } from '../card-detail/card-detail';
 export class CardPage {
 
   cardsData: any = [];
-  
-  @ViewChild(Content) content: Content;
+
+  hasMore: boolean  = false;
+  pageNo: number    = 1;
+  totalPage: number = 1;
+  pageSize: number  = 20;
 
   errorOrEmptyMessage: string = '暂无数据';
   needShowEmptyResult: boolean = false;
@@ -34,44 +37,70 @@ export class CardPage {
   ) {}
 
   ionViewDidLoad() {
-    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-      this.content.enableJsScroll();
-    }
+    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+    //   this.content.enableJsScroll();
+    // }
 
-    this.doRefresh(null);
+    this.loadCards();
   }
 
   refresh(): void {
-    this.doRefresh(null);
+    this.pageNo = 1;
+    this.loadCards();
   }
 
-  doRefresh(refresher): void {
-    if (!refresher) {
-      this.toolService.showLoading('拼命加载中...');
-    }
+  loadCards(): Promise<any> {
+    return new Promise((resolve) => {
+      if (this.pageNo === 1) {
+        this.toolService.showLoading('拼命加载中...');
+      }
 
-    this.cards.getUserCards()
-      .then(data => {
-        this.toolService.hideLoading();
+      this.cards.getUserCards(this.pageNo, this.pageSize)
+        .then(data => {
+          this.toolService.hideLoading();
 
-        let tmpData = data.data || data;
-        if (tmpData.length === 0) {
-          this.needShowEmptyResult = true;
-        } else {
-          this.needShowEmptyResult = false;
+          if (this.pageNo === 1) {
+            this.cardsData = data.data || data;
+            this.needShowEmptyResult = this.cardsData.length === 0;
+          } else {
+            let temp = this.cardsData || [];
+            this.cardsData = temp.concat(data.data || data);
 
-          this.cardsData = tmpData;
-        }
+            this.needShowEmptyResult = false;
+          }
 
-        console.log(tmpData);
-      })
-      .catch(error => {
-        this.errorOrEmptyMessage = error.message || error;
+          this.totalPage = Math.floor((data.total + this.pageSize - 1) / this.pageSize); 
+          this.hasMore = this.totalPage > this.pageNo;
 
-        this.needShowEmptyResult = true;
+          resolve();
+        })
+        .catch(error => {
+          this.toolService.hideLoading();
 
-        this.toolService.hideLoading();
+          if (this.pageNo === 1) {
+            this.needShowEmptyResult = true;
+            this.errorOrEmptyMessage = error.message || error;
+          } else {
+            this.needShowEmptyResult = false;
+            setTimeout(() => {
+              this.toolService.showToast(error.message || error);
+            }, 100);
+          }
+
+          resolve();
+        });
+    });
+  }
+
+  doInfinite(e): void {
+    if (this.pageNo < this.totalPage) {
+      this.pageNo ++;
+
+      this.loadCards().then(() => {
+        e.complete();
       });
+
+    }
   }
 
   gotoCardDetail(card): void {
