@@ -1,0 +1,14 @@
+page-my-card-detail {
+    .card-detail {
+        width: 100%;
+        background-color: white;
+
+        .heading {
+            padding: 15px;
+            img {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+}

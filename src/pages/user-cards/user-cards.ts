@@ -1,70 +1,70 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, IonicPage } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { CardsService } from '../../providers/cards-service';
-import { CardDetailPage } from '../card-detail/card-detail'; 
 
 /**
- * Generated class for the CardPage page.
+ * Generated class for the UserCardsPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-
+@IonicPage()
 @Component({
-  selector: 'page-card',
-  templateUrl: 'card.html',
+  selector: 'page-user-cards',
+  templateUrl: 'user-cards.html',
 })
-export class CardPage {
+export class UserCardsPage {
 
-  cardsData: any = [];
+  type: number;
+  cardID: number;
+  title: string;
 
+  usersData: any = [];
+  
   hasMore: boolean  = false;
   pageNo: number    = 1;
   totalPage: number = 1;
   pageSize: number  = 20;
-
+  
   errorOrEmptyMessage: string = '暂无数据';
   needShowEmptyResult: boolean = false;
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
-    // private platform: Platform,
-    // private content: Content,
-    private cards: CardsService,
     private toolService: ToolService,
-  ) {}
+    private cards: CardsService,
+  ) {
+    this.type = this.navParams.data.type;
+    this.title = this.type === 0 ? '领取记录' : '使用记录';
+    this.cardID = this.navParams.data.id;
+  }
 
   ionViewDidLoad() {
-    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-    //   this.content.enableJsScroll();
-    // }
-
-    this.loadCards();
+    // console.log('ionViewDidLoad UserCardsPage');
   }
 
-  refresh(): void {
-    this.pageNo = 1;
-    this.loadCards();
+  ionViewDidEnter() {
+    this.loadCardsUsers();
   }
 
-  loadCards(): Promise<any> {
+  loadCardsUsers(): Promise<any> {
     return new Promise((resolve) => {
       if (this.pageNo === 1) {
         this.toolService.showLoading('拼命加载中...');
       }
 
-      this.cards.getUserCards(this.pageNo, this.pageSize)
+      this.cards.getCardUsers(this.cardID, this.type, this.pageNo, this.pageSize)
         .then(data => {
           this.toolService.hideLoading();
 
           if (this.pageNo === 1) {
-            this.cardsData = data.data || data;
-            this.needShowEmptyResult = this.cardsData.length === 0;
+            this.usersData = data.data || data;
+            this.needShowEmptyResult = this.usersData.length === 0;
           } else {
-            let temp = this.cardsData || [];
-            this.cardsData = temp.concat(data.data || data);
+            let temp = this.usersData || [];
+            this.usersData = temp.concat(data.data || data);
 
             this.needShowEmptyResult = false;
           }
@@ -96,15 +96,10 @@ export class CardPage {
     if (this.pageNo < this.totalPage) {
       this.pageNo ++;
 
-      this.loadCards().then(() => {
+      this.loadCardsUsers().then(() => {
         e.complete();
       });
 
     }
   }
-
-  gotoCardDetail(card): void {
-    this.navCtrl.push(CardDetailPage, card);
-  }
-
 }

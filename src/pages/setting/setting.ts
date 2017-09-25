@@ -63,6 +63,10 @@ export class SettingPage {
     this.navCtrl.push('MyEventsPage');
   }
 
+  gotoMyCards(): void {
+    this.navCtrl.push('MyCardsPage');
+  }
+
   gotoCharge(): void {
     let modal = this.modalCtrl.create('ChargePage');
     modal.present();

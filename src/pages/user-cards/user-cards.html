@@ -1,0 +1,37 @@
+<!--
+  Generated template for the UserCardsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header no-border>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="empty-result" *ngIf="needShowEmptyResult">
+    <p>{{errorOrEmptyMessage}}</p>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let userCard of usersData">
+      <ion-avatar item-left>
+        <img [src]="userCard.user.avatar">
+      </ion-avatar>
+      <h2>{{userCard.user.nickname}}</h2>
+      <p>{{type === 0 ? userCard.get_time : userCard.use_time}} {{type === 0 ? '领取' : '使用'}}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hasMore">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="正在加载...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
