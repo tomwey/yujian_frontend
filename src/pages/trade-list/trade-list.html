@@ -18,7 +18,7 @@
   </div>
   <ion-list *ngIf="trades.length > 0">
     <ion-item *ngFor="let item of trades">
-      <h2>{{item.title}}</h2>
+      <h2 text-wrap>{{item.title}}</h2>
       <p>{{item.time}}</p>
       <ion-note item-right>{{item.money}} 元</ion-note>
     </ion-item>
