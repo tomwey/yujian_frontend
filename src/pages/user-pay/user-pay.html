@@ -4,18 +4,23 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<ion-header>
+<ion-header no-border>
 
   <ion-navbar>
-    <ion-title>设置抵扣金额</ion-title>
+    <ion-title>二维码付款</ion-title>
+    <ion-buttons end *ngIf="!!payData">
+      <button ion-button icon-only (click)="refresh();">
+        <ion-icon name="ios-refresh-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card *ngIf="!payData">
     <ion-card-header>
-      抵扣金额
+      设置抵扣金额
     </ion-card-header>
     <ion-item>
       <ion-input [(ngModel)]="user_pay.money" type="number" placeholder="输入金额，最低1元"></ion-input>
@@ -27,4 +32,11 @@
         [disabled]="!user_pay.money">确定</button>
     </div>
   </ion-card>
+
+  <iframe *ngIf="!!payData" id="iframe" class="iframe"
+  sandbox="allow-scripts allow-top-navigation allow-pointer-lock allow-same-origin allow-popups allow-forms"
+  [src]="secUrl"
+  (load)="loaded()">
+
+  </iframe>
 </ion-content>
