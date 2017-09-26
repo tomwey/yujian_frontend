@@ -45,6 +45,16 @@ export class UserService {
     });
   }
 
+  applyPay(money): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        this.api.post('user/apply_pay', { token: token, money: money })
+          .then(data => resolve(data))
+          .catch(error => reject(error));
+      }).catch(error => reject(error));
+    });
+  }
+
   // 获取红包历史
   getHBHistory(pageNo: number, pageSize: number = 20): Promise<any> {
     return new Promise((resolve, reject) => {

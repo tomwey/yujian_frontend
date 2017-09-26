@@ -1,0 +1,30 @@
+<!--
+  Generated template for the UserPayPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>设置抵扣金额</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      抵扣金额
+    </ion-card-header>
+    <ion-item>
+      <ion-input [(ngModel)]="user_pay.money" type="number" placeholder="输入金额，最低1元"></ion-input>
+      <ion-note item-right>元</ion-note>
+    </ion-item>
+    <div padding>
+      <button ion-button block (click)="commit()" 
+        color="theme-red" 
+        [disabled]="!user_pay.money">确定</button>
+    </div>
+  </ion-card>
+</ion-content>

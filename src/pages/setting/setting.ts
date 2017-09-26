@@ -72,6 +72,10 @@ export class SettingPage {
     modal.present();
   }
 
+  gotoUserPay(): void {
+    this.navCtrl.push('UserPayPage');
+  }
+
   gotoMyEvents(): void {
     this.navCtrl.push('MyEventsPage')
   }
