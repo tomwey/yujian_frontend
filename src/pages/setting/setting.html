@@ -33,19 +33,24 @@
     <h2 class="uid">{{user.nickname || user.id}}</h2>
     <div class="user-balance">
       <p>余额<span class="money">{{user.balance}}</span>元</p>
-      <!-- <button ion-button outline small color="white" (click)="gotoCharge()">
+      <button ion-button outline small color="white" (click)="gotoCharge()">
         立即充值
-      </button> -->
-      <button ion-button outline small color="white" (click)="gotoUserPay()">
-        余额抵扣
       </button>
+      <!-- <button ion-button outline small color="white" (click)="gotoUserPay()">
+        余额抵扣
+      </button> -->
     </div>
     </div>
   <ion-list>
     <button ion-item (click)="gotoWallet()">
-      <ion-icon name="ios-card-outline" item-left></ion-icon> 钱包
+      <ion-icon name="ios-custom-wallet-outline" item-left></ion-icon> 钱包
       <ion-note class="balance" item-right>{{user.balance}} 元</ion-note>
     </button>
+    <button ion-item (click)="gotoUserPay()">
+      <ion-icon name="ios-dikou-outline" item-left></ion-icon> 余额抵扣
+    </button>
+  </ion-list>
+  <ion-list>
     <button ion-item (click)="gotoHBHistory()">
       <ion-icon name="ios-list-outline" item-left></ion-icon> 红包历史
     </button>
