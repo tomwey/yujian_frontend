@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PayService } from '../../providers/pay-service';
 import { ToolService } from '../../providers/tool-service';
-import { UserService } from '../../providers/user-service';
+// import { UserService } from '../../providers/user-service';
 
 /**
  * Generated class for the WithdrawPage page.
@@ -31,7 +31,8 @@ export class WithdrawPage {
               public navParams: NavParams,
               private pay: PayService,
               private tool: ToolService,
-              private users: UserService) {
+              // private users: UserService
+            ) {
     this.user = this.navParams.data.user;
     this.type = this.navParams.data.type;
 

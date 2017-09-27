@@ -1,5 +1,5 @@
 import { Component,ElementRef, ViewChild, Renderer } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { UserService } from '../../providers/user-service'
 import { ApiService } from '../../providers/api-service';
 import { ToolService } from '../../providers/tool-service';
@@ -31,7 +31,8 @@ export class EventBodyPage {
               private api: ApiService,
               private tool: ToolService,
               private alertCtrl: AlertController,
-              private modalCtrl: ModalController) {
+              // private modalCtrl: ModalController
+            ) {
     this.event = this.navParams.data;
     this.bodyItems = this.event.body;
   }

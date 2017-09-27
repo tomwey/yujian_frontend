@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { UserService } from "../../providers/user-service";
-import { ToolService } from "../../providers/tool-service";
+// import { ToolService } from "../../providers/tool-service";
 
 /**
  * Generated class for the EventPreviewPage page.
@@ -23,7 +23,7 @@ export class EventPreviewPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private users: UserService,
-              private tool: ToolService,
+              // private tool: ToolService,
               private viewController: ViewController,
               ) {
     this.event = this.navParams.data;

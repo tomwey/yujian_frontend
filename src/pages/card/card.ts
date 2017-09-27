@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Events } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { CardsService } from '../../providers/cards-service';
 import { CardDetailPage } from '../card-detail/card-detail'; 
@@ -31,7 +31,7 @@ export class CardPage {
     private cards: CardsService,
     private toolService: ToolService,
     private badges: BadgesService,
-    private events: Events,
+    // private events: Events,
   ) {}
 
   ionViewDidLoad() {

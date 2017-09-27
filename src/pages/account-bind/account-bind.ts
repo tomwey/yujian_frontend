@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { UserService } from "../../providers/user-service";
+// import { UserService } from "../../providers/user-service";
 import { ToolService } from "../../providers/tool-service";
 // import { TabsPage } from "../tabs/tabs";
 import { ApiService } from "../../providers/api-service";
@@ -22,7 +22,7 @@ export class AccountBindPage {
   body: string = null;
   page: any = { body: '' };
   constructor(public navCtrl: NavController,
-              private users: UserService,
+              // private users: UserService,
               private tool: ToolService,
               private api: ApiService,
               private utils: UtilsServiceProvider) {

@@ -1,11 +1,11 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, App, Content } from 'ionic-angular';
+import { NavController, Platform, Content } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { QQMaps } from '../../providers/qq-maps';
 import { LocationService } from "../../providers/location-service";
 import { EventsService } from '../../providers/events-service';
 // import { BannersService } from '../../providers/banners-service';
-import { UserService } from '../../providers/user-service';
+// import { UserService } from '../../providers/user-service';
 
 import { EventDetailPage } from "../event-detail/event-detail";
 
@@ -34,8 +34,8 @@ export class NearbyPage {
               private locService: LocationService,
               private platform: Platform,
               private toolService: ToolService,
-              private users: UserService,
-              private app: App,
+              // private users: UserService,
+              // private app: App,
               ) 
   {
 

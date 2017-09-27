@@ -3,7 +3,7 @@ import { NavController, NavParams, ModalController, Events } from 'ionic-angular
 import { EventsService } from '../../providers/events-service';
 import { ToolService } from '../../providers/tool-service';
 import { UserService } from '../../providers/user-service';
-import { WechatProvider } from "../../providers/wechat/wechat";
+// import { WechatProvider } from "../../providers/wechat/wechat";
 
 /**
  * Generated class for the EventDetail page.
@@ -42,7 +42,8 @@ export class EventDetailPage {
               private modalCtrl: ModalController,
               private users: UserService,
               private noti: Events,
-              private wechat: WechatProvider) {
+              // private wechat: WechatProvider
+            ) {
     // console.log(this.navParams.data);
     this.hb = this.navParams.data;
   }

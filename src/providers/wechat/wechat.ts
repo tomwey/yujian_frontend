@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 // import { Http } from '@angular/http';
 // import 'rxjs/add/operator/map';
-import { ApiService } from "../api-service";
+// import { ApiService } from "../api-service";
 import { UtilsServiceProvider } from "../utils-service/utils-service";
 
 /*
@@ -14,8 +14,10 @@ import { UtilsServiceProvider } from "../utils-service/utils-service";
 export class WechatProvider {
   eventId: number = 0;
   token: string = null;
-  constructor(private api: ApiService,
-              private utils: UtilsServiceProvider) {
+  constructor(
+    //private api: ApiService,
+    private utils: UtilsServiceProvider
+  ) {
 
   }
 
