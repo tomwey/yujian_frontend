@@ -11,10 +11,10 @@
   For more info on type definition files, check out the Typescript docs here:
   https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html
 */
-declare module '*';
+// declare module '*'; // 会导致tslint报编译警告：all imports unused
 
 declare var qq;
-declare var AMap;
+// declare var AMap;
 declare var wx;
 
-declare var videojs;
+// declare var videojs;
