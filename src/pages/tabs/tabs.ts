@@ -33,7 +33,15 @@ export class TabsPage {
   ) {
 
     this.events.subscribe(this.badges.CARD_BADGES_UPDATED_TOPIC, (count: number) => {
-      this.cardBadges = count === 0 ? "" : count.toString();
+      if ( count === 0 ) {
+        this.cardBadges = "";
+      } else {
+        if ( count > 99 ) {
+          this.cardBadges = "99+";
+        } else {
+          this.cardBadges = count.toString();
+        }
+      }
     });
 
     // 初始加载总的领取的卡数

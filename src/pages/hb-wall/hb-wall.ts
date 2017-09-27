@@ -49,7 +49,9 @@ export class HBWallPage {
     this.events.commit(this.payload)
       .then(data => {
         
-        this.badges.incrementCurrentBadge();
+        if (data.card) {
+          this.badges.incrementCurrentBadge();
+        }
 
         this.gotoSuccessPage(data);
         this.tool.hideLoading();

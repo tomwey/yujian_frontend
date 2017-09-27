@@ -21,6 +21,8 @@ export class CardPage {
   errorOrEmptyMessage: string = '暂无数据';
   needShowEmptyResult: boolean = false;
 
+  firstLoaded: boolean = false;
+
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -37,17 +39,32 @@ export class CardPage {
     //   this.content.enableJsScroll();
     // }
     
-    this.events.subscribe(this.badges.CARD_BADGES_UPDATED_TOPIC, (count) => {
-      if (count > 0) {
-        this.loadCards();
-      }
-    });
+    // this.events.subscribe(this.badges.CARD_BADGES_UPDATED_TOPIC, (count) => {
+    //   if (count > 0) {
+    //     this.loadCards();
+    //   }
+    // });
     
-    this.loadCards();
+    // this.loadCards();
+
+    // this.firstLoaded = true;
   }
 
   ionViewDidEnter() {
-    this.badges.hideBadges();
+    if (!this.firstLoaded) {
+      this.firstLoaded = true;
+      this.badges.hideBadges();
+      
+      this.refresh();
+    } else {
+      this.badges.getCurrentBadges().then(badge => {
+        let currentBadge = parseInt(badge || 0);
+        if ( currentBadge > 0 ) {
+          this.refresh();
+        }
+        this.badges.hideBadges();
+      });
+    }
   }
 
   refresh(): void {

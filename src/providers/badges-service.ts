@@ -25,9 +25,9 @@ export class BadgesService {
     this._updateCurrentBadge(0);
   }
 
-  // getCurrentBadges(): Promise<any> {
-  //   return this.storage.get('card.current.badges');
-  // }
+  getCurrentBadges(): Promise<any> {
+    return this.storage.get('card.current.badges');
+  }
 
   incrementCurrentBadge(): void {
     this.storage.get('card.current.badges').then(data => {
