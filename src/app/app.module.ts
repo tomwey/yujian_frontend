@@ -33,6 +33,7 @@ import { PayService }      from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
 import { CardsService }    from '../providers/cards-service';
 import { BannersService}     from '../providers/banners-service';
+import { BadgesService}     from '../providers/badges-service';
 // import { OfferwallChannelService } from "../providers/offerwall-channel-service";
 
 // import { StatusBar } from '@ionic-native/status-bar';
@@ -101,6 +102,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     UtilsServiceProvider, 
     WechatProvider,
     CardsService,
+    BadgesService,
     // OfferwallChannelService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     

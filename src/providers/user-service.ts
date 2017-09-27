@@ -26,7 +26,7 @@ export class UserService {
   token(): Promise<any> {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {
-        resolve('c4d821384e6d4dcb9269f28c202f55fa'); // 后台wmarshx用户的Tokenaed672e8bbe94206995a78dc6cd6ed1b
+        resolve('aed672e8bbe94206995a78dc6cd6ed1b'); // 后台wmarshx用户的Token aed672e8bbe94206995a78dc6cd6ed1b
         // resolve('aa905ea8fca84485a7a4c2e1f0697cb5'); // 本地测试
         // resolve(val);
       } );

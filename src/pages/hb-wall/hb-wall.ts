@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { App } from 'ionic-angular';
-import { EventsService } from '../../providers/events-service' 
+import { EventsService } from '../../providers/events-service';
+import { BadgesService } from '../../providers/badges-service';
 
 /**
  * Generated class for the HBWall page.
@@ -22,6 +23,7 @@ export class HBWallPage {
               private viewController: ViewController,
               private app: App,
               private events: EventsService,
+              private badges: BadgesService,
               private tool: ToolService,) {
     this.payload = this.navParams.data;
     // console.log(`payload: ${this.payload.location}`);
@@ -46,6 +48,9 @@ export class HBWallPage {
     this.tool.showLoading('红包打开中...');
     this.events.commit(this.payload)
       .then(data => {
+        
+        this.badges.incrementCurrentBadge();
+
         this.gotoSuccessPage(data);
         this.tool.hideLoading();
       })

@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Events } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 import { CardsService } from '../../providers/cards-service';
 import { CardDetailPage } from '../card-detail/card-detail'; 
-
-/**
- * Generated class for the CardPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { BadgesService } from '../../providers/badges-service';
 
 @Component({
   selector: 'page-card',
@@ -34,14 +28,26 @@ export class CardPage {
     // private content: Content,
     private cards: CardsService,
     private toolService: ToolService,
+    private badges: BadgesService,
+    private events: Events,
   ) {}
 
   ionViewDidLoad() {
     // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
     //   this.content.enableJsScroll();
     // }
-
+    
+    this.events.subscribe(this.badges.CARD_BADGES_UPDATED_TOPIC, (count) => {
+      if (count > 0) {
+        this.loadCards();
+      }
+    });
+    
     this.loadCards();
+  }
+
+  ionViewDidEnter() {
+    this.badges.hideBadges();
   }
 
   refresh(): void {
@@ -62,6 +68,8 @@ export class CardPage {
           if (this.pageNo === 1) {
             this.cardsData = data.data || data;
             this.needShowEmptyResult = this.cardsData.length === 0;
+
+            this.badges.saveCurrentBadge(data.total);
           } else {
             let temp = this.cardsData || [];
             this.cardsData = temp.concat(data.data || data);
@@ -76,7 +84,7 @@ export class CardPage {
         })
         .catch(error => {
           this.toolService.hideLoading();
-
+          this.badges.saveCurrentBadge(0);
           if (this.pageNo === 1) {
             this.needShowEmptyResult = true;
             this.errorOrEmptyMessage = error.message || error;
