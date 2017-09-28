@@ -75,7 +75,7 @@ export class NearbyPage {
         this.parseUserLocation(pos); 
       })
       .catch(error => {
-        this.errorOrEmptyMessage = '获取位置失败，请重试！';
+        this.errorOrEmptyMessage = '无法获取位置，请开启定位重试！';
         this.currentPositionDesc = '定位失败!';
         this.needShowEmptyResult = true;
       });
