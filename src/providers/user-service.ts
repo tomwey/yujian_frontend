@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { Storage } from '@ionic/storage';
+import { APP_VERSION } from './api-service';
 // import { Http } from '@angular/http';
 // import 'rxjs/add/operator/map';
 
@@ -120,7 +121,7 @@ export class UserService {
               if (!sid) {
                 resolve(false);
               } else {
-                this.api.post('user/session/end', { token: token, sid: sid, loc: loc, network: network })
+                this.api.post('user/session/end', { token: token, sid: sid, loc: loc, network: network, version: APP_VERSION })
                   .then(data => {
                     // if (data.sid === sid)
                     //   this.storage.remove('session_id');
@@ -130,7 +131,7 @@ export class UserService {
               }
             });
           } else {
-            this.api.post('user/session/begin', { token: token, loc: loc, network: network, version: '3.0' })
+            this.api.post('user/session/begin', { token: token, loc: loc, network: network, version: APP_VERSION })
               .then(data => {
                 if (data.sid)
                   this.storage.set('session_id', data.sid);
