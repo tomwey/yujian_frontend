@@ -18,7 +18,7 @@ const API_KEY:  string = "3bde7fa81ca14a5d9f829bcae9c72c67";
 // const API_HOST: string = "http://10.19.0.121:3000/api/v1";
 // const API_KEY:  string = "1e3bb5a6e93148d7a6aa20ce181c1c46";
 
-export const APP_VERSION = '3.1';
+export const APP_VERSION = '3.2';
 
 @Injectable()
 export class ApiService {
