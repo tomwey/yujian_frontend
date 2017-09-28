@@ -130,7 +130,7 @@ export class UserService {
               }
             });
           } else {
-            this.api.post('user/session/begin', { token: token, loc: loc, network: network })
+            this.api.post('user/session/begin', { token: token, loc: loc, network: network, version: '3.0' })
               .then(data => {
                 if (data.sid)
                   this.storage.set('session_id', data.sid);
