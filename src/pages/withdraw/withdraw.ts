@@ -27,6 +27,8 @@ export class WithdrawPage {
 
   account: any = { no: '', name: '' };
 
+  withdrawData: any = null;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private pay: PayService,
@@ -38,24 +40,35 @@ export class WithdrawPage {
 
     this.title = this.type === 0 ? '支付宝提现' : '微信提现';
     this.namePlaceholder = this.type === 0 ? '支付宝实名认证的姓名' : '微信绑定的银行卡真实姓名';
+  }
 
-    this.moneyOptions = [{
-      label: '10元',
-      value: 10,
-    },
-    {
-      label: '30元',
-      value: 30,
-    },
-    {
-      label: '50元',
-      value: 50,
-    },
-    {
-      label: '100元',
-      value: 100,
-    },
-    ];
+  ionViewDidLoad(): void {
+    this.tool.showLoading('拼命加载中...');
+    this.pay.getWithdrawList()
+      .then(data => {
+        this.tool.hideLoading();
+        this.money = parseInt(data.items[0]);
+        
+        let arr = [];
+        data.items.forEach(item => {
+          arr.push({
+            label: `${item}元`,
+            value: item,
+          })
+        });
+
+        this.moneyOptions = arr;
+
+        this.withdrawData = data;
+      })
+      .catch(error => {
+        this.tool.hideLoading();
+
+        setTimeout(() => {
+          this.tool.showToast(error.message || error);
+        }, 200);
+
+      });
   }
 
   commit(): void {

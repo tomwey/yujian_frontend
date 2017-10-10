@@ -32,6 +32,20 @@ export class PayService {
     });
   }
 
+  getWithdrawList(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.users.token().then(token => {
+        this.api.get('pay/withdraw_list', { token: token })
+          .then(data => {
+            resolve(data);
+          })
+          .catch(error => {
+            reject(error);
+          });
+      });
+    });
+  }
+
   payIn(money: number): Promise<any> {
     return new Promise((resolve, reject) => {
       this.users.token().then(token => {
