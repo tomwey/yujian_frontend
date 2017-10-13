@@ -60,11 +60,13 @@ export class SettingPage {
   }
 
   gotoStats(): void {
-
+    this.navCtrl.push('StatsPage');
   }
 
   gotoInvite(): void {
-    
+    this.users.token().then(token => {
+      window.location.href = `http://b.hb.small-best.com/wx/share/invite?token=${token}`;
+    });
   }
 
   gotoSendHBHistory(): void {
