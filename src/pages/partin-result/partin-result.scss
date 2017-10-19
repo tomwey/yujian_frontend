@@ -38,6 +38,14 @@ page-partin-result {
             color: rgb(58,58,58);
             padding-left: 5px;
         }
+
+        .card {
+            max-width: 200px;
+            margin: 0 auto;
+            img {
+                max-width: 200px;
+            }
+        }
     }
 
     .share-box {
