@@ -4,10 +4,12 @@ import { ToolService } from '../../providers/tool-service';
 // import { QQMaps } from '../../providers/qq-maps';
 import { LocationService } from "../../providers/location-service";
 import { EventsService } from '../../providers/events-service';
+import { PartinsService } from "../../providers/partins-service";
 import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
 
 import { EventDetailPage } from "../event-detail/event-detail";
+import { PartinDetailPage } from '../partin-detail/partin-detail';
 
 // @IonicPage()
 @Component({
@@ -29,6 +31,7 @@ export class HomeExplorePage {
   
   constructor(public navCtrl: NavController, 
               private events: EventsService,
+              private partins: PartinsService,
               private banners: BannersService,
               // private qqMaps: QQMaps,
               private locService: LocationService,
@@ -74,34 +77,13 @@ export class HomeExplorePage {
       this.slides.stopAutoplay();  
   }
 
-  doRefresh(refresher) {
-    if (this.slides) {
-      this.slides.stopAutoplay();
-    }
+  // doRefresh(refresher) {
+  //   if (this.slides) {
+  //     this.slides.stopAutoplay();
+  //   }
 
-    this.loadData(refresher);
-  }
-
-    hbStateInfo(hb): string {
-    if (!hb) {
-      return null;
-    }
-
-    if (hb.left_money <= 0.0) {
-      return '红包已经被抢完了~'
-    }
-
-    // hb.grab_time ? hb.grab_time + ' 开抢' : '抢红包进行中'
-    if (hb.grab_time && hb.grab_time.length > 0) {
-      return `${hb.grab_time} 开抢`;
-    }
-
-    if (hb.grabed) {
-      return '分享继续抢红包';
-    }
-
-    return '抢红包进行中';
-  }
+  //   this.loadData(refresher);
+  // }
 
   refresh() {
     this.loadData(null);
@@ -131,7 +113,7 @@ export class HomeExplorePage {
 
   gotoDetail(hb): void {
     // this.navCtrl.push('EventDetailPage', hb);
-    this.navCtrl.push(EventDetailPage, hb);
+    this.navCtrl.push(PartinDetailPage, hb);
   }
 
   openBanner(banner) {
@@ -166,7 +148,7 @@ export class HomeExplorePage {
       .then(data => this.bannersData = data).catch());
     }
 
-    promises.push(this.events.explore(loc)
+    promises.push(this.partins.explore(loc)
       .then(data => {
         this.hbData = data ;
         this.needShowEmptyResult = (this.hbData.length === 0);

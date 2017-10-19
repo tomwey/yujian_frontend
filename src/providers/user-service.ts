@@ -28,8 +28,8 @@ export class UserService {
     return new Promise((resolve) => {
       this.storage.get('token').then( val => {
         // resolve('87461de26c89433fae1de7eea17320eb'); // 后台wmarshx用户的Token aed672e8bbe94206995a78dc6cd6ed1b
-        // resolve('aa905ea8fca84485a7a4c2e1f0697cb5'); // 本地测试
-        resolve(val);
+        resolve('aa905ea8fca84485a7a4c2e1f0697cb5'); // 本地测试
+        // resolve(val);
       } );
     });
   }

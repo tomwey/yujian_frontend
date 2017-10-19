@@ -16,6 +16,7 @@ import { NearbyPage } from "../pages/nearby/nearby";
 import { SettingPage } from "../pages/setting/setting";
 import { AccountBindPage } from "../pages/account-bind/account-bind";
 import { EventDetailPage } from "../pages/event-detail/event-detail";
+import { PartinDetailPage } from '../pages/partin-detail/partin-detail';
 // import { TaskPage } from '../pages/task/task';
 // import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
 
@@ -29,10 +30,11 @@ import { ToolService }      from '../providers/tool-service';
 // import { QQMaps }           from '../providers/qq-maps';
 import { LocationService }  from '../providers/location-service';
 import { UserService }      from '../providers/user-service';
-import { PayService }      from '../providers/pay-service';
+import { PayService }       from '../providers/pay-service';
 import { EventsService}     from '../providers/events-service';
-import { CardsService }    from '../providers/cards-service';
-import { BannersService}     from '../providers/banners-service';
+import { PartinsService }   from '../providers/partins-service';
+import { CardsService }     from '../providers/cards-service';
+import { BannersService}    from '../providers/banners-service';
 import { BadgesService}     from '../providers/badges-service';
 // import { OfferwallChannelService } from "../providers/offerwall-channel-service";
 
@@ -56,6 +58,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // TaskPage,
     SettingPage,
     EventDetailPage,
+    PartinDetailPage,
     CardPage,
   ],
   imports: [
@@ -85,6 +88,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // NewRedbagPage,
     // TaskPage,
     EventDetailPage,
+    PartinDetailPage,
     CardPage,
   ],
   providers: [
@@ -97,6 +101,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     UserService,
     PayService,
     EventsService,
+    PartinsService,
     BannersService,
     LocationSearchProvider, 
     UtilsServiceProvider, 
