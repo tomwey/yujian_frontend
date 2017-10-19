@@ -8,6 +8,12 @@
 
   <ion-navbar>
     <ion-title>详情</ion-title>
+    <ion-buttons end>
+      <button ion-button small (click)="doShare()">
+        <!-- 分享抢红包! -->
+        {{ partin.has_share_prize === true ? '分享得奖励' : '分享' }} 
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

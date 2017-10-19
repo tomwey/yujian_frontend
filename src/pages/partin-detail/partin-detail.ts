@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, ModalController, Content, Platform, App } from 'ionic-angular';
 import { PartinsService } from '../../providers/partins-service';
 import { ToolService } from '../../providers/tool-service';
-// import { UserService } from '../../providers/user-service';
+import { UserService } from '../../providers/user-service';
 import { BadgesService } from '../../providers/badges-service';
 
 @Component({
@@ -40,7 +40,7 @@ export class PartinDetailPage {
     private partins: PartinsService,
     private toolService: ToolService,
     private modalCtrl: ModalController,
-    // private users: UserService,
+    private users: UserService,
     private platform: Platform,
     private badges: BadgesService,
     private app: App,
@@ -68,6 +68,12 @@ export class PartinDetailPage {
 
      this.app.getRootNavs()[0].push('HBOwnerTimelinePage', { owner: this.partin.owner, 
        hbId: this.partin.id });
+  }
+
+  doShare(): void {
+    this.users.token().then(token => {
+      window.location.href = `http://b.hb.small-best.com/wx/share/partin?id=${this.partin.id}&token=${token}&flag=1`;
+    });
   }
 
   gotoReport(): void {
