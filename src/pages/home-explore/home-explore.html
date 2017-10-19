@@ -56,6 +56,7 @@
         <p>{{hb.owner.bio}}</p>
         <ion-note item-right>
           <img src="assets/images/icon_{{hb.prize}}.png" class="prize-icon">
+          <p *ngIf="hb.taked === true" class="take-state">已抢</p>
         </ion-note>
       </ion-item>
       <!-- <ion-card-content>

@@ -67,5 +67,19 @@ page-home-explore {
     .list-ios > .item-block:first-child {
         border-top: 0!important;
     }
+
+    .take-state {
+        // padding: 2px 4px;
+        background-color: color($colors, theme-red);
+        color: white;
+        font-size: 8px;
+        width: 27px;
+        height: 15px;
+        line-height: 15px;
+        border-radius: 2px;
+        text-align: center;
+        margin-top: 2px;
+        margin-left: 3px;
+    }
     
 }

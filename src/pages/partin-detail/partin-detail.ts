@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, Events, Content, Platform } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Events, Content, Platform, App } from 'ionic-angular';
 import { PartinsService } from '../../providers/partins-service';
 import { ToolService } from '../../providers/tool-service';
 import { UserService } from '../../providers/user-service';
@@ -49,6 +49,7 @@ export class PartinDetailPage {
     private noti: Events,
     private platform: Platform,
     private badges: BadgesService,
+    private app: App,
   ) {
     this.partin = this.navParams.data;
   }
@@ -133,8 +134,8 @@ export class PartinDetailPage {
     let payload;
     if (this.partin.rule_type === 'quiz') {
       let answers = this.partin.rule.answers;
-      let answerOption = answers.indexOf(this.answer);
-      payload = { hb: this.partin, answer: answerOption, location:  null };
+      // let answerOption = answers.indexOf(this.answer);
+      payload = { hb: this.partin, answer: this.answer, location:  null };
     }  else if ( this.partin.rule_type === 'sign' ) { 
       payload = { hb: this.partin, answer: this.answer, location:  null };
     } else if ( this.partin.rule_type === 'checkin' ) {
@@ -154,16 +155,14 @@ export class PartinDetailPage {
           this.badges.incrementCurrentBadge();
         }
 
-        this.gotoSuccessPage(data);
+        this.gotoSuccessPage({ code: 0, message: 'ok', result: data.result, partin: data.partin });
         this.toolService.hideLoading();
       })
       .catch(error => {
+
         this.toolService.hideLoading();
-        // console.log(error);
-        this.gotoSuccessPage({ hb: payload.hb, code: -1001, message: error.message || error });
-        // setTimeout(() => {
-        //   this.tool.showToast(error);
-        // }, 100);
+        this.gotoSuccessPage({ code: -1001, message: error.message || 'Oops, 服务器出错了, 我们正在处理...', 
+          result: null, partin: this.partin });
       });
   }
 
@@ -172,7 +171,8 @@ export class PartinDetailPage {
 
     // this.viewController.dismiss();
     // this.app.getRootNavs()[0].push('EventResult', data);
-    this.navCtrl.push('PartinResultPage', data);
+    // this.navCtrl.push('PartinResultPage', data);
+    this.app.getRootNavs()[0].push('PartinResultPage', data);
   }
 
 }

@@ -113,7 +113,8 @@ export class HomeExplorePage {
 
   gotoDetail(hb): void {
     // this.navCtrl.push('EventDetailPage', hb);
-    this.navCtrl.push(PartinDetailPage, hb);
+    // this.navCtrl.push(PartinDetailPage, hb);
+    this.app.getRootNavs()[0].push(PartinDetailPage, hb);
   }
 
   openBanner(banner) {

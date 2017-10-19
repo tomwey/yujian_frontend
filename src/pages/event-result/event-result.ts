@@ -19,7 +19,7 @@ export class EventResult {
   share_tip: string = '叫朋友来抢';
   
   error_message: string = null;
-
+  
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private events: Events,
