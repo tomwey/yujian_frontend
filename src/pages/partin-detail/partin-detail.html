@@ -9,7 +9,7 @@
   <ion-navbar>
     <ion-title>详情</ion-title>
     <ion-buttons end>
-      <button ion-button small (click)="doShare()">
+      <button ion-button small (click)="doShare()" *ngIf="partin.can_share === true">
         <!-- 分享抢红包! -->
         {{ partin.has_share_prize === true ? '分享得奖励' : '分享' }} 
       </button>
@@ -27,8 +27,9 @@
       <ion-item>
         <h2 text-wrap>{{partin.title}}</h2>
         <p class="stats">
-          <span class="data">人气 {{partin.view_count}}, 
-            <span *ngIf="partin.has_shb === true">分享 {{partin.share_count}}, </span>
+          <span class="data">
+            人气 {{partin.view_count}}, 
+            分享 {{partin.share_count}}, 
             参与 {{partin.take_count}}
           </span>
         </p>

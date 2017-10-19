@@ -33,7 +33,7 @@
       <img [src]="result.image">
     </div>
   </div>
-  <div class="share-box">
+  <div class="share-box" *ngIf="partin.can_share === true">
     <button ion-button block color="theme-red" (click)="doShare()">
       {{ partin.has_share_prize === true ? '分享给朋友，继续赚奖励！' : '偷偷告诉朋友' }}
     </button>
