@@ -112,8 +112,8 @@ export class HomeExplorePage {
   }
 
   gotoDetail(hb): void {
-    // this.navCtrl.push('EventDetailPage', hb);
-    // this.navCtrl.push(PartinDetailPage, hb);
+    console.log(hb);
+    console.log(1);
     this.app.getRootNavs()[0].push(PartinDetailPage, hb);
   }
 

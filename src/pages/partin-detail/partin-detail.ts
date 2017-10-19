@@ -1,16 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, Events, Content, Platform, App } from 'ionic-angular';
+import { NavController, NavParams, ModalController, Content, Platform, App } from 'ionic-angular';
 import { PartinsService } from '../../providers/partins-service';
 import { ToolService } from '../../providers/tool-service';
-import { UserService } from '../../providers/user-service';
+// import { UserService } from '../../providers/user-service';
 import { BadgesService } from '../../providers/badges-service';
-
-/**
- * Generated class for the PartinDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-partin-detail',
@@ -37,6 +30,8 @@ export class PartinDetailPage {
   // 提交按钮点击跳转去分享
   commitToShare: boolean = false;
 
+  oldPartin: any = null;
+
   @ViewChild(Content) content: Content;
 
   constructor(
@@ -45,13 +40,13 @@ export class PartinDetailPage {
     private partins: PartinsService,
     private toolService: ToolService,
     private modalCtrl: ModalController,
-    private users: UserService,
-    private noti: Events,
+    // private users: UserService,
     private platform: Platform,
     private badges: BadgesService,
     private app: App,
   ) {
     this.partin = this.navParams.data;
+    this.oldPartin = this.navParams.data;
   }
 
   ionViewDidLoad() {
@@ -60,16 +55,7 @@ export class PartinDetailPage {
       this.content.enableJsScroll();
     }
 
-    // this.noti.subscribe('hb:opened', () => {
-    //   this.loadEvent(false);
-    // });
   }
-
-  // ionViewWillUnload() {
-  //   // console.log('unload......');
-  //   // 取消事件监听
-  //   this.noti.unsubscribe('hb:opened');
-  // }
 
   ionViewDidEnter() {
     if (!this.hasLoaded) {
@@ -105,13 +91,8 @@ export class PartinDetailPage {
           this.commitButtonText = this.partin.disable_text ? 
             this.partin.disable_text : this.partin.rule.action;
         }, 0);
-        
-        // this.loadEventEarns();
-        // console.log(data);
       })
       .catch(error => {
-        // this.commitToShare = false;
-
         this.toolService.hideLoading();
         setTimeout(() => {
           this.toolService.showToast(error);
@@ -133,8 +114,7 @@ export class PartinDetailPage {
     // 准备参数
     let payload;
     if (this.partin.rule_type === 'quiz') {
-      let answers = this.partin.rule.answers;
-      // let answerOption = answers.indexOf(this.answer);
+      // let answers = this.partin.rule.answers;
       payload = { hb: this.partin, answer: this.answer, location:  null };
     }  else if ( this.partin.rule_type === 'sign' ) { 
       payload = { hb: this.partin, answer: this.answer, location:  null };
@@ -151,6 +131,8 @@ export class PartinDetailPage {
     this.partins.commit(payload)
       .then(data => {
         
+        this.oldPartin.taked = true;
+
         if (data.card) {
           this.badges.incrementCurrentBadge();
         }
@@ -159,19 +141,17 @@ export class PartinDetailPage {
         this.toolService.hideLoading();
       })
       .catch(error => {
-
+        // console.log(error);
+        let msg = error.message || error;
+        if (msg.indexOf('500') !== -1) {
+          msg = 'Oops, 服务器出错了, 我们正在处理...';
+        }
         this.toolService.hideLoading();
-        this.gotoSuccessPage({ code: -1001, message: error.message || 'Oops, 服务器出错了, 我们正在处理...', 
-          result: null, partin: this.partin });
+        this.gotoSuccessPage({ code: -1001, message: msg, result: null, partin: this.partin });
       });
   }
 
   gotoSuccessPage(data): void {
-    // console.log(data);
-
-    // this.viewController.dismiss();
-    // this.app.getRootNavs()[0].push('EventResult', data);
-    // this.navCtrl.push('PartinResultPage', data);
     this.app.getRootNavs()[0].push('PartinResultPage', data);
   }
 
