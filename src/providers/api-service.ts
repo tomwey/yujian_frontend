@@ -122,7 +122,7 @@ export class ApiService {
   // 处理请求成功的回调
   private handleSuccess(resp: Response) {
     let body = resp.json();
-    console.log(`result: ${body}`);
+    // console.log(`result: ${body}`);
     if (body.code == 0) {
       if (body.total) {
         return { total: body.total, data: body.data };

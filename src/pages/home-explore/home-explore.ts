@@ -112,8 +112,6 @@ export class HomeExplorePage {
   }
 
   gotoDetail(hb): void {
-    console.log(hb);
-    console.log(1);
     this.app.getRootNavs()[0].push(PartinDetailPage, hb);
   }
 

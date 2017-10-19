@@ -1,13 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, Content } from 'ionic-angular';
+import { NavController, Platform, Content, App } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { QQMaps } from '../../providers/qq-maps';
 import { LocationService } from "../../providers/location-service";
-import { EventsService } from '../../providers/events-service';
+import { PartinsService } from '../../providers/partins-service';
 // import { BannersService } from '../../providers/banners-service';
 // import { UserService } from '../../providers/user-service';
-
-import { EventDetailPage } from "../event-detail/event-detail";
+import { PartinDetailPage } from '../partin-detail/partin-detail'; 
+// import { EventDetailPage } from "../event-detail/event-detail";
 
 // @IonicPage()
 @Component({
@@ -28,14 +28,14 @@ export class NearbyPage {
   currentPositionDesc: string = '定位中';
 
   constructor(public navCtrl: NavController, 
-              private events: EventsService,
+              private partins: PartinsService,
               // private banners: BannersService,
               // private qqMaps: QQMaps,
               private locService: LocationService,
               private platform: Platform,
               private toolService: ToolService,
               // private users: UserService,
-              // private app: App,
+              private app: App,
               ) 
   {
 
@@ -48,6 +48,11 @@ export class NearbyPage {
     }
     // this.reload();
     this.doRefresh(null);
+  }
+
+  ionViewDidEnter() {  
+    // console.log(this.slides);
+    this.app.setTitle(this.currentPositionDesc);
   }
 
   refresh() {
@@ -104,7 +109,7 @@ export class NearbyPage {
 
   private loadEvents(pos: any = { lat: 0, lng: 0 }): Promise<any> {
     return new Promise((resolve, reject) => {
-      this.events.nearby(pos.lat,pos.lng)
+      this.partins.nearby(pos.lat, pos.lng)
         .then(data => {
           this.hbData = data;
 
@@ -136,9 +141,7 @@ export class NearbyPage {
   }
 
   gotoDetail(event) {
-    // console.log(event);
-    // this.navCtrl.push('EventDetailPage', event);
-    this.navCtrl.push(EventDetailPage, event);
+    this.app.getRootNavs()[0].push(PartinDetailPage, event);
   }
 
 }

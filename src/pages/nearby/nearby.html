@@ -28,25 +28,36 @@
   </div>
   <!-- 最新活动 -->
   <div class="latest-events" *ngIf="hbData.length > 0">
-    <ion-card *ngFor="let hb of hbData" class="redbag" tappable (click)="gotoDetail(hb)">
-      <span class="bar locate"><!-- ion-icon class="pin-icon" name="ios-pin-outline"></ion-icon --> {{calcuDistance(hb.distance)}}</span>
-      <div class="tool-mark">
-        <p class="share-hb bar" *ngIf="hb.has_shb === true">有分享红包</p>
-        <p class="grabed bar" *ngIf="hb.grabed === true">已抢</p>
-      </div>
-      <img [src]="hb.cover_image" />
-      <ion-card-content>
-        <ion-card-title>
-          <div class="earn">
-            <span class="left-money"><span class="symbol">¥</span> <span class="money2">{{hb.left_money}}</span></span>
-            <!-- <br><span class="hb-size hb-bg-{{hb.rule_type}}">{{ hb.min_value == hb.max_value ? 
-                  hb.min_value : 
-                  hb.min_value + '-' + hb.max_value }} 元</span> -->
-          </div>
-          <div class="title">{{hb.title}}</div>
-        </ion-card-title>
-      </ion-card-content>
-    </ion-card>
+      <ion-card *ngFor="let hb of hbData" class="partin" tappable (click)="gotoDetail(hb)">
+          <!-- <div class="tool-mark">
+            <p class="share-hb bar" *ngIf="hb.has_shb === true">有分享红包</p>
+            <p class="grabed bar" *ngIf="hb.grabed === true">已抢</p>
+          </div> -->
+          <img *ngIf="hb.cover_image" [src]="hb.cover_image">
+          <ion-card-header>
+            {{hb.title}}
+          </ion-card-header>
+          <ion-item>
+            <ion-avatar item-left>
+              <img [src]="hb.owner.avatar">
+            </ion-avatar>
+            <h2 text-wrap>{{hb.owner.name}}</h2>
+            <p>{{hb.owner.bio}}</p>
+            <ion-note item-right>
+              <img src="assets/images/icon_{{hb.prize}}.png" class="prize-icon">
+              <p *ngIf="hb.taked === true" class="take-state">已抢</p>
+            </ion-note>
+          </ion-item>
+          <!-- <ion-card-content>
+            <ion-card-title>
+              <div class="earn">
+                <span class="left-money"><span class="symbol">¥</span> <span class="money2">{{hb.left_money}}</span></span>
+                
+              </div>
+              <div class="title">{{hb.title}}</div>
+            </ion-card-title>
+          </ion-card-content> -->
+        </ion-card>
     <!-- <div class="no-more-data" *ngIf="!needShowEmptyResult">没有更多内容了~</div> -->
   </div>
 </ion-content>

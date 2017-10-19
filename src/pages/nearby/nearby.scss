@@ -15,13 +15,24 @@ page-nearby {
         top: -1px !important;
     }
 
-    .spliter {
-        width: 100%;
-        height: 16px;
-        background-image: url('../../assets/images/icon_spliter_bg.png');
-        background-position: center center;
-        background-size: contain;
-        background-repeat: repeat-x;
+    .partin {
+        .prize-icon {
+            max-width: 36px;
+        }
+    }
+    
+    .take-state {
+        // padding: 2px 4px;
+        background-color: color($colors, theme-red);
+        color: white;
+        font-size: 8px;
+        width: 27px;
+        height: 15px;
+        line-height: 15px;
+        border-radius: 2px;
+        text-align: center;
+        margin-top: 2px;
+        margin-left: 3px;
     }
     
     .latest-events {
