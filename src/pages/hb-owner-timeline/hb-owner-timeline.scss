@@ -2,6 +2,10 @@ page-hb-owner-timeline {
     .content {
         background-color: rgb(249, 249, 247);
     }
+    .prize-icon {
+        max-width: 36px;
+    }
+    
     .caption {
         position: relative;
         background-color: color($colors, theme-red);

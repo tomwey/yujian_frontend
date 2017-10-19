@@ -7,41 +7,45 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-title>红包历史</ion-title>
+    <ion-title>广告参与奖励</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content style="background-color: rgb(249,249,247)">
-  <div class="earnings">
+  <!-- <div class="earnings">
     <img [src]="user.avatar" class="avatar">
     <h2 class="uid">{{user.nickname}}</h2>
     <ion-row>
       <ion-col>
         <div class="earn-item">
-          <h4><span class="money">{{user.earn || 0.00}}</span>元</h4>
-          <p>累计收入</p>
+          <h4><span class="money">{{user.earn || 0.00}}</span>次</h4>
+          <p>累计参与</p>
         </div>
       </ion-col>
       <ion-col>
         <div class="earn-item">
-          <h4><span class="money">{{user.today_earn || 0.00}}</span>元</h4>
-          <p>今日收入</p>
+          <h4><span class="money">{{user.today_earn || 0.00}}</span>次</h4>
+          <p>今日参与</p>
         </div>
       </ion-col>
     </ion-row>
-  </div>
+  </div> -->
   <div class="empty-result" *ngIf="needShowEmptyResult">
-    <p>您还未抢过红包，快去抢红包吧！</p>
+    <p>您还未参与过，赶快去抢吧！</p>
   </div>
   <ion-list *ngIf="hbList.length > 0">
-    <button ion-item *ngFor="let item of hbList" (click)="gotoHBResult(item.hb)" detail-none>
+    <button ion-item *ngFor="let item of hbList" (click)="gotoHBResult(item.partin)" detail-none>
       <ion-thumbnail item-left>
-        <img [src]="item.hb.image" />
+        <img [src]="item.partin.image" />
       </ion-thumbnail>
-      <h2 text-wrap>{{item.hb.title}}</h2>
+      <h2 text-wrap>{{item.partin.title}}</h2>
       <p>{{item.time}}</p>
-      <ion-note style="color: rgb(58,58,58);" item-right>{{item.money}} 元</ion-note>
+      <ion-note style="color: rgb(58,58,58);" item-right>
+        <!-- {{!!item.result ? }} 元 -->
+        <span *ngIf="!item.result">无奖励</span>
+        <span *ngIf="!!item.result">{{ item.result.type === 'hb' ? (item.result.money.toString() + ' 元') : '优惠卡' }}</span>
+      </ion-note>
     </button>
   </ion-list>
   <ion-infinite-scroll (ionInfinite)="doInfinite($event)" [enabled]="hasMore">

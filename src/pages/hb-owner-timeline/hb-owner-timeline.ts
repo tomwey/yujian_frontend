@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { ToolService } from "../../providers/tool-service";
-import { EventsService } from "../../providers/events-service";
-import { EventDetailPage } from "../event-detail/event-detail";
+import { PartinsService } from '../../providers/partins-service';
+import { PartinDetailPage } from "../partin-detail/partin-detail";
+// import { EventsService } from "../../providers/events-service";
+// import { EventDetailPage } from "../event-detail/event-detail";
 
 /**
  * Generated class for the HbOwnerTimelinePage page.
@@ -27,7 +29,9 @@ export class HBOwnerTimelinePage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private tool: ToolService,
-              private events: EventsService) {
+              private partins: PartinsService,
+              private app: App,
+            ) {
     // this.hbId = this.navParams.data.hbId;
     this.owner = this.navParams.data.owner;
     this.hbId = this.navParams.data.hbId;
@@ -45,11 +49,11 @@ export class HBOwnerTimelinePage {
   loadData(): void {
     this.tool.showLoading('拼命加载中...');
 
-    this.events.getHBOwnerTimeline(this.hbId)
+    this.partins.getHBOwnerTimeline(this.hbId)
       .then(data => {
         this.tool.hideLoading();
         this.owner = data.owner;
-        this.hbData = data.hb_list;
+        this.hbData = data.list;
       })
       .catch(error => {
         this.tool.hideLoading();
@@ -62,7 +66,8 @@ export class HBOwnerTimelinePage {
 
   gotoEventDetail(event): void {
     // this.navCtrl.push('EventDetailPage', event);
-    this.navCtrl.push(EventDetailPage, event);
+    // this.navCtrl.push(EventDetailPage, event);
+    this.app.getRootNavs()[0].push(PartinDetailPage, event);
   }
 
 }

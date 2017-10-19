@@ -66,7 +66,7 @@ export class PartinDetailPage {
 
   openOwnerInfo(): void {
 
-     this.navCtrl.push('HBOwnerTimelinePage', { owner: this.partin.owner, 
+     this.app.getRootNavs()[0].push('HBOwnerTimelinePage', { owner: this.partin.owner, 
        hbId: this.partin.id });
   }
 

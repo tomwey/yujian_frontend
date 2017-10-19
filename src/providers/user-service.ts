@@ -69,6 +69,19 @@ export class UserService {
     });
   }
 
+    // 获取红包历史
+    getPartinHistory(pageNo: number, pageSize: number = 20): Promise<any> {
+      return new Promise((resolve, reject) => {
+        this.token().then(token => {
+          this.api.get('user/partin_earns', { token: token, page: pageNo, size: pageSize }).then(data => {
+            resolve(data);
+          }).catch(error => {
+            reject(error);
+          });
+        });
+      });
+    }
+
   // 获取用户个人信息
   loadUser(): Promise<any> {
     return new Promise((resolve, reject) => {

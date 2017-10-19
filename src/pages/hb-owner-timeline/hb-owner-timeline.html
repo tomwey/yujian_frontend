@@ -7,15 +7,15 @@
 <ion-header no-border>
 
   <ion-navbar>
-    <ion-title>{{owner?.nickname}} 的主页</ion-title>
+    <ion-title>{{owner?.name}} 的主页</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content class="content">
-  <div class="caption">
-    <img [src]="owner?.avatar" class="avatar">
-    <h2 class="nickname">{{owner?.nickname}}</h2>
+  <!-- <div class="caption">
+    <img [src]="owner?.logo" class="avatar">
+    <h2 class="nickname">{{owner?.name}}</h2>
     <ion-row>
       <ion-col>
         <div class="total-sent money-item">
@@ -34,7 +34,7 @@
         </div>
       </ion-col>
     </ion-row>
-  </div>
+  </div> -->
   <ion-list>
     <button ion-item *ngFor="let hb of hbData" detail-none (click)="gotoEventDetail(hb)">
       <ion-thumbnail item-left>
@@ -42,7 +42,9 @@
       </ion-thumbnail>
       <h2 text-wrap>{{hb.title}}</h2>
       <p>{{hb.time}}</p>
-      <ion-note style="color: rgb(58,58,58);" item-right>{{hb.total_money}} 元</ion-note>
+      <ion-note item-right>
+        <img src="assets/images/icon_{{hb.prize}}.png" class="prize-icon">
+      </ion-note>
     </button>
   </ion-list>
 </ion-content>

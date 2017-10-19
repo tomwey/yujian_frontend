@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from '../../providers/tool-service';
-import { EventDetailPage } from "../event-detail/event-detail";
+// import { EventDetailPage } from "../event-detail/event-detail";
+import { PartinDetailPage } from '../partin-detail/partin-detail';
 
 /**
  * Generated class for the HBHistory page.
@@ -44,7 +45,7 @@ export class HBHistory {
         this.toolService.showLoading('加载中...');
       }
 
-      this.userService.getHBHistory(this.pageNo, this.pageSize)
+      this.userService.getPartinHistory(this.pageNo, this.pageSize)
         .then(data => {
           // console.log(data);
           this.toolService.hideLoading();
@@ -78,7 +79,7 @@ export class HBHistory {
 
   gotoHBResult(item): void {
     // this.navCtrl.push('EventDetailPage', item);
-    this.navCtrl.push(EventDetailPage, item);
+    this.navCtrl.push(PartinDetailPage, item);
   }
 
   doInfinite(e): void {
