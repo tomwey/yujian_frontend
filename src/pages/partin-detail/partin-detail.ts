@@ -72,7 +72,7 @@ export class PartinDetailPage {
 
   doShare(): void {
     this.users.token().then(token => {
-      window.location.href = `http://b.hb.small-best.com/wx/share/partin?id=${this.partin.id}&token=${token}&is_hb=1`;
+      window.location.href = `http://b.hb.small-best.com/wx/share/partin?id=${this.partin.id}&f=${token}`;
     });
   }
 

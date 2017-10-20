@@ -35,7 +35,7 @@
   </div>
   <div class="share-box" *ngIf="partin.can_share === true">
     <button ion-button block color="theme-red" (click)="doShare()">
-      {{ partin.has_share_prize === true ? '分享给朋友，继续赚奖励！' : '偷偷告诉朋友' }}
+      {{ partin.has_share_prize === true ? '分享给朋友，继续赚奖励！' : '分享给朋友' }}
     </button>
     <button *ngIf="partin.has_share_prize === true" ion-button block clear color="theme-red" style="margin-top: 20px;" (click)="shareDesc()">分享奖励说明</button>
   </div>
