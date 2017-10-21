@@ -60,9 +60,9 @@
       </ion-card-header>
       <ion-card-content>
           <div class="rule-box quiz" *ngIf="partin.rule_type === 'quiz'">
-              <div class="tip" style="color: red;">题目的答案在上面的活动内容里面找，注意：只有一次答题的机会！</div>
+              <div class="tip" style="color: red;">{{partin.take_tip}}</div>
               <div class="content">
-                <ion-list radio-group [(ngModel)]="answer">
+                <ion-list radio-group [(ngModel)]="answer" *ngIf="partin.rule.answers.length > 0">
                   <ion-list-header>
                     <h2 class="question" text-wrap>{{partin.rule.question}}</h2>
                   </ion-list-header>
@@ -71,20 +71,13 @@
                     <ion-radio value="{{answer}}"></ion-radio>
                   </ion-item>
                 </ion-list>
-              </div>
-            </div>
-            <div class="rule-box sign" *ngIf="partin.rule_type === 'sign'">
-              <div class="tip" style="color: red;">{{partin.rule.grab_tip}}，注意：只有一次回答机会！</div>
-              <div class="content">
-                <!-- <ion-list> -->
-                  <ion-item>
-                    <ion-input [(ngModel)]="answer" placeholder="输入口令"></ion-input>
-                  </ion-item>
-                <!-- </ion-list> -->
+                <ion-item *ngIf="partin.rule.answers.length == 0">
+                  <ion-input [(ngModel)]="answer" placeholder="输入答案"></ion-input>
+                </ion-item>
               </div>
             </div>
             <div class="rule-box poster" *ngIf="partin.rule_type === 'poster'">
-              <div class="tip" style="color: red;">{{partin.rule.grab_tip}}</div>
+              <div class="tip" style="color: red;">{{partin.take_tip}}</div>
               <div class="content">
                 <img [src]="partin.share_poster_url">
                 <!-- <ion-list> -->
@@ -95,7 +88,7 @@
               </div>
             </div>
             <div class="rule-box checkin" [hidden]="partin.rule_type !== 'checkin'">
-              <div class="tip">请到如下地址完成签到，可以获得红包！<span style="color: red;">(位置误差不超过{{partin.rule.accuracy}}米)</span></div>
+              <div class="tip" style="color: red;">{{partin.take_tip}}</div>
               <div class="content"><ion-icon name="ios-pin-outline"></ion-icon> {{partin.rule.address}}</div>
             </div>
         <button ion-button block color="theme-red" (click)="commit()" [disabled]="disableCommit" *ngIf="partin.rule.action">{{commitButtonText}}</button>
