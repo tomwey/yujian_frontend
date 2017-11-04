@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Platform, ModalController } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+// import { StatusBar } from '@ionic-native/status-bar';
+// import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from "../pages/tabs/tabs";
 import { AccountBindPage } from '../pages/account-bind/account-bind';
 import { UserService } from '../providers/user-service';
@@ -20,8 +20,8 @@ export class MyApp {
   rootPage:any;//TabsPage;//'TabsPage';
 
   constructor(platform: Platform, 
-              statusBar: StatusBar, 
-              splashScreen: SplashScreen,
+              // statusBar: StatusBar, 
+              // splashScreen: SplashScreen,
               private users: UserService,
               // private _app: App, 
               private wechat: WechatProvider,
@@ -32,12 +32,12 @@ export class MyApp {
               // private qqMaps: QQMaps,
               // private _ionicApp: IonicApp,
               ) {
+                console.log('123');
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleLightContent();
-      splashScreen.hide();
-
+      // statusBar.styleLightContent();
+      // splashScreen.hide();
       // 不确定能生效
       ifvisible.on("blur", () => {
         this.sendUserSession('end');
@@ -51,6 +51,7 @@ export class MyApp {
 
   private initWXAuth() {
     this.users.token().then(token => {
+      console.log(token);
       if (!token) {
         let code = UtilsServiceProvider.getQueryString('code');
         if (code) {
