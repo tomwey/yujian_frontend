@@ -4,6 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { StatusBar } from '@ionic-native/status-bar';
 
 // 初次导入页面
 
@@ -92,8 +94,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     CardPage,
   ],
   providers: [
-    // StatusBar,
-    // SplashScreen,
+    StatusBar,
+    SplashScreen,
     // QQMaps,
     LocationService,
     ApiService,
