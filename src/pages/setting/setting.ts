@@ -52,15 +52,18 @@ export class SettingPage {
   }
 
   gotoWallet(): void {
-    this.navCtrl.push('wallet',this.user);
+    // this.navCtrl.push('wallet',this.user);
+    this.app.getRootNavs()[0].push('wallet',this.user);
   }
 
   gotoHBHistory(): void {
-    this.navCtrl.push('HBHistory',this.user);
+    // this.navCtrl.push('HBHistory',this.user);
+    this.app.getRootNavs()[0].push('HBHistory',this.user);
   }
 
   gotoStats(): void {
-    this.navCtrl.push('StatsPage');
+    // this.navCtrl.push('StatsPage');
+    this.app.getRootNavs()[0].push('StatsPage');
   }
 
   gotoInvite(): void {
@@ -70,11 +73,13 @@ export class SettingPage {
   }
 
   gotoSendHBHistory(): void {
-    this.navCtrl.push('MyEventsPage');
+    // this.navCtrl.push('MyEventsPage');
+    this.app.getRootNavs()[0].push('MyEventsPage');
   }
 
   gotoMyCards(): void {
-    this.navCtrl.push('MyCardsPage');
+    // this.navCtrl.push('MyCardsPage');
+    this.app.getRootNavs()[0].push('MyCardsPage');
   }
 
   gotoCharge(): void {
@@ -83,11 +88,13 @@ export class SettingPage {
   }
 
   gotoUserPay(): void {
-    this.navCtrl.push('UserPayPage');
+    // this.navCtrl.push('UserPayPage');
+    this.app.getRootNavs()[0].push('UserPayPage');
   }
 
   gotoMyEvents(): void {
-    this.navCtrl.push('MyEventsPage')
+    // this.navCtrl.push('MyEventsPage')
+    this.app.getRootNavs()[0].push('MyEventsPage');
   }
 
   gotoUserAgreement(): void {
@@ -99,7 +106,8 @@ export class SettingPage {
   }
 
   gotoFeedback(): void {
-    this.navCtrl.push('FeedbackPage');
+    // this.navCtrl.push('FeedbackPage');
+    this.app.getRootNavs()[0].push('FeedbackPage');
   }
 
   gotoAbout(): void {
@@ -107,7 +115,8 @@ export class SettingPage {
   }
 
   private openPage(slug: string, title: string): void {
-    this.navCtrl.push('CommWeb', { slug: slug, title: title });
+    // this.navCtrl.push('CommWeb', { slug: slug, title: title });
+    this.app.getRootNavs()[0].push('CommWeb',{ slug: slug, title: title });
   }
 
 }

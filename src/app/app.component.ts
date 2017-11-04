@@ -53,7 +53,7 @@ export class MyApp {
   private checkLogin(splashScreen) {
     this.users.token().then(token => {
       if (!token) {
-        this.rootPage = AccountBindPage;
+        this.rootPage = 'LoginPage';
       } else {
         this.rootPage = TabsPage;
       }
