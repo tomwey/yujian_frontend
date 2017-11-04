@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, NavParams, ModalController, Content, Platform, App } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, NavParams, ModalController, Platform, App } from 'ionic-angular';
 import { PartinsService } from '../../providers/partins-service';
 import { ToolService } from '../../providers/tool-service';
 import { UserService } from '../../providers/user-service';
@@ -32,7 +32,7 @@ export class PartinDetailPage {
 
   oldPartin: any = null;
 
-  @ViewChild(Content) content: Content;
+  // @ViewChild(Content) content: Content;
 
   constructor(
     public navCtrl: NavController, 
@@ -51,9 +51,9 @@ export class PartinDetailPage {
 
   ionViewDidLoad() {
 
-    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-      this.content.enableJsScroll();
-    }
+    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+    //   this.content.enableJsScroll();
+    // }
 
   }
 

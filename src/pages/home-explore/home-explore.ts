@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, Slides, App, Content } from 'ionic-angular';
+import { NavController, Platform, Slides, App } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { QQMaps } from '../../providers/qq-maps';
 import { LocationService } from "../../providers/location-service";
@@ -19,7 +19,7 @@ import { PartinDetailPage } from '../partin-detail/partin-detail';
 export class HomeExplorePage {
   
   @ViewChild(Slides) slides: Slides;
-  @ViewChild(Content) content: Content;
+  // @ViewChild(Content) content: Content;
 
   bannersData: any = [];
   hbData:  any = [];
@@ -45,9 +45,9 @@ export class HomeExplorePage {
   }
 
   ionViewDidLoad() {
-    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-      this.content.enableJsScroll();
-    }
+    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+    //   this.content.enableJsScroll();
+    // }
 
     this.platform.ready().then(() => {
       // this.startLocation();

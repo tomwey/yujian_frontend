@@ -36,16 +36,29 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
-      splashScreen.hide();
-
+      
       // 不确定能生效
-      ifvisible.on("blur", () => {
-        this.sendUserSession('end');
-      });
+      // ifvisible.on("blur", () => {
+      //   this.sendUserSession('end');
+      // });
 
       // this.initWXJSSDK();
-      this.initWXAuth();
+      // this.initWXAuth();
 
+      this.checkLogin(splashScreen);
+
+    });
+  }
+
+  private checkLogin(splashScreen) {
+    this.users.token().then(token => {
+      if (!token) {
+        this.rootPage = AccountBindPage;
+      } else {
+        this.rootPage = TabsPage;
+      }
+
+      splashScreen.hide();
     });
   }
 

@@ -1,5 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, Content, App } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { NavController, Platform, App } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { QQMaps } from '../../providers/qq-maps';
 import { LocationService } from "../../providers/location-service";
@@ -16,7 +16,7 @@ import { PartinDetailPage } from '../partin-detail/partin-detail';
 })
 export class NearbyPage {
   
-  @ViewChild(Content) content: Content;
+  // @ViewChild(Content) content: Content;
 
   hbData:  any = [];
   token: string = null;
@@ -43,9 +43,9 @@ export class NearbyPage {
 
   ionViewDidLoad() {
 
-    if (this.platform.is('mobileweb') && this.platform.is('ios')) {
-      this.content.enableJsScroll();
-    }
+    // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
+    //   this.content.enableJsScroll();
+    // }
     // this.reload();
     this.doRefresh(null);
   }
