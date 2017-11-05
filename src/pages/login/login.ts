@@ -10,7 +10,7 @@ import { ToolService } from "../../providers/tool-service";
  * on Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
@@ -107,7 +107,7 @@ export class LoginPage {
       return false;
     }
 
-    if (/\A1[3|4|5|8|7][0-9]\d{4,8}\z/.test(this.account.mobile)) {
+    if (/^1[3|4|5|8|7][0-9]\d{4,8}$/.test(this.account.mobile) === false) {
       this.tool.showToast('手机号不正确');
       return false;
     }

@@ -21,6 +21,7 @@ import { EventDetailPage } from "../pages/event-detail/event-detail";
 import { PartinDetailPage } from '../pages/partin-detail/partin-detail';
 // import { TaskPage } from '../pages/task/task';
 // import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
+import { LoginPage } from '../pages/login/login';
 
 import { CardPage } from "../pages/card/card";
 
@@ -52,6 +53,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     TabsPage,
     HomeExplorePage,
     AccountBindPage,
+    LoginPage,
     // ExplorePage,
     // ShareListPage,
     NearbyPage,
@@ -82,6 +84,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     TabsPage,
     HomeExplorePage,
     AccountBindPage,
+    LoginPage,
     // ExplorePage,
     // ShareListPage,
     NearbyPage,

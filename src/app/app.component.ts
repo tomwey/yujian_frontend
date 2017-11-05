@@ -9,6 +9,7 @@ import { WechatProvider } from "../providers/wechat/wechat";
 import { UtilsServiceProvider } from "../providers/utils-service/utils-service";
 import { ToolService } from '../providers/tool-service';
 import { LocationService } from "../providers/location-service";
+import { LoginPage } from '../pages/login/login';
 
 ///<reference path="../node_modules/ifvisible.js/ifvisible.d.ts"/>
 import * as ifvisible from 'ifvisible.js';
@@ -62,11 +63,10 @@ export class MyApp {
   private checkLogin(splashScreen) {
     this.users.token().then(token => {
       if (!token) {
-        this.rootPage = 'LoginPage';
+        this.rootPage = LoginPage;//'LoginPage';
       } else {
         this.rootPage = TabsPage;
       }
-
       splashScreen.hide();
     });
   }
