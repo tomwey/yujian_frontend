@@ -15,10 +15,12 @@
     <div class="input-control">
       <ion-row>
         <ion-col col-2>
-            <ion-icon name="ios-person-outline"></ion-icon>
+          <ion-icon name="ios-person-outline"></ion-icon>
         </ion-col>
         <ion-col col-10>
-          <ion-input type="number" placeholder="输入11位手机号" pattern="/^(\D)+$/" [(ngModel)]="user.mobile"></ion-input>
+          <ion-input type="number" 
+            placeholder="输入11位手机号"
+            [(ngModel)]="account.mobile"></ion-input>
         </ion-col>
       </ion-row>
     </div>
@@ -28,10 +30,14 @@
           <ion-icon name="ios-lock-outline"></ion-icon>
         </ion-col>
         <ion-col col-5>
-          <ion-input type="number" placeholder="输入4位验证码" [(ngModel)]="user.code"></ion-input>
+          <ion-input type="number" 
+            placeholder="输入4位验证码" 
+            [(ngModel)]="account.code"></ion-input>
         </ion-col>
         <ion-col col-5 class="get-check-code">
-          <button ion-button clear color="theme-red" (click)="getCode()">获取验证码</button>
+          <button ion-button clear color="theme-red" 
+            (click)="getCode()" 
+            [disabled]="countDown.started">{{countDown.counter}}</button>
         </ion-col>
       </ion-row>  
     </div>

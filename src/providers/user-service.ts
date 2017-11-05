@@ -20,7 +20,7 @@ export class UserService {
     
   }
 
-  saveToken(token: string) {
+  saveToken(token: string): Promise<any> {
     return this.storage.set('token', token);
   }
 
@@ -32,6 +32,31 @@ export class UserService {
         resolve(val);
       } );
     });
+  }
+
+  // 手机号登录
+  login(mobile, code, invite_code = null): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.api.post('account/signin', { mobile: mobile, 
+        code: code, 
+        invite_code: invite_code 
+       })
+       .then(data => {
+          if (data.token) {
+            this.saveToken(data.token)
+              .then(() => resolve(data))
+              .catch((error) => reject(error));
+          } else {
+            reject('TOKEN无效');
+          }
+       })
+       .catch(error => reject(error));
+    });
+  }
+
+  // 获取验证码
+  getCode(mobile): Promise<any> {
+    return this.api.post('auth_codes', { mobile: mobile });
   }
 
   bindAccount(code: string): Promise<any> {

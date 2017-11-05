@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform, ModalController } from 'ionic-angular';
+import { Platform, ModalController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from "../pages/tabs/tabs";
@@ -31,6 +31,7 @@ export class MyApp {
               private locService: LocationService,
               // private qqMaps: QQMaps,
               // private _ionicApp: IonicApp,
+              private events: Events,
               ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -48,6 +49,14 @@ export class MyApp {
       this.checkLogin(splashScreen);
 
     });
+
+    this.listenToUserLogin();
+  }
+
+  private listenToUserLogin(): void {
+    this.events.subscribe('user:login', () => {
+      this.rootPage = TabsPage;
+    })
   }
 
   private checkLogin(splashScreen) {
