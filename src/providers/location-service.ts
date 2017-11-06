@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { ApiService } from "./api-service";
+import { NativeService } from './native-service';
 
 @Injectable()
 export class LocationService {
 
   constructor(private storage: Storage,
-              private api: ApiService) {
+              private api: ApiService, 
+              private nativeService: NativeService
+            ) {
       // console.log(`events:${events}`);
     // this.initSDK();
   }
@@ -17,15 +20,20 @@ export class LocationService {
    * @returns {Promise}
    */
   getUserPosition(reload: boolean = false): Promise<any> {
-    let ua = window.navigator.userAgent.toLowerCase();
-    console.log(ua);
-    if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i)[0] === 'micromessenger') { 
-      // 微信浏览器
-      return this._getWXPosition(reload);
-    } else { 
-      // 非微信浏览器
-      return this._getH5Location(reload);
+    if (this.nativeService.isMobile) {
+      return this.nativeService.getUserLocation();
+    } else {
+      let ua = window.navigator.userAgent.toLowerCase();
+      console.log(ua);
+      if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i)[0] === 'micromessenger') { 
+        // 微信浏览器
+        return this._getWXPosition(reload);
+      } else { 
+        // 非微信浏览器
+        return this._getH5Location(reload);
+      }
     }
+    
   }
 
   /**

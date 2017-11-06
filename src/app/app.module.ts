@@ -7,6 +7,11 @@ import { MyApp } from './app.component';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { Network } from '@ionic-native/network';
+
+import { NativeService } from '../providers/native-service';
+
 // 初次导入页面
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -115,7 +120,9 @@ import { WechatProvider } from '../providers/wechat/wechat';
     BadgesService,
     // OfferwallChannelService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
-    
+    InAppBrowser,
+    Network,
+    NativeService,
   ]
 })
 export class AppModule {}

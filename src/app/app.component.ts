@@ -11,6 +11,8 @@ import { ToolService } from '../providers/tool-service';
 import { LocationService } from "../providers/location-service";
 import { LoginPage } from '../pages/login/login';
 
+import { NativeService } from '../providers/native-service';
+
 ///<reference path="../node_modules/ifvisible.js/ifvisible.d.ts"/>
 import * as ifvisible from 'ifvisible.js';
 
@@ -33,6 +35,7 @@ export class MyApp {
               // private qqMaps: QQMaps,
               // private _ionicApp: IonicApp,
               private events: Events,
+              private nativeService: NativeService
               ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
@@ -40,9 +43,9 @@ export class MyApp {
       statusBar.styleLightContent();
       
       // 不确定能生效
-      // ifvisible.on("blur", () => {
-      //   this.sendUserSession('end');
-      // });
+      ifvisible.on("blur", () => {
+        this.sendUserSession2('end');
+      });
 
       // this.initWXJSSDK();
       // this.initWXAuth();
@@ -57,6 +60,8 @@ export class MyApp {
   private listenToUserLogin(): void {
     this.events.subscribe('user:login', () => {
       this.rootPage = TabsPage;
+
+      this.sendUserSession2('begin');
     })
   }
 
@@ -66,9 +71,23 @@ export class MyApp {
         this.rootPage = LoginPage;//'LoginPage';
       } else {
         this.rootPage = TabsPage;
+
+        this.sendUserSession2('begin');
       }
       // splashScreen.hide();
     });
+  }
+
+  private sendUserSession2(action: string) {
+    let network = this.nativeService.getNetworkType();
+
+    this.nativeService.getUserLocation()
+      .then(pos => {
+        this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
+      })
+      .catch(error => {
+        this._sendSessionReq(action, network, null);
+      });
   }
 
   private initWXAuth() {
