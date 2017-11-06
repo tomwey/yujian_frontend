@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage, App, Events } from 'ionic-angular';
 import { UserService } from '../../providers/user-service';
 import { ToolService } from "../../providers/tool-service";
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 /**
  * Generated class for the LoginPage page.
@@ -19,6 +20,8 @@ export class LoginPage {
 
   account: any = { mobile: '', code: '' };
   countDown: any = { timer: null, counter: '获取验证码', started: false, duration: 60 };
+  
+  hasHideSplash: boolean = false;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
@@ -26,7 +29,16 @@ export class LoginPage {
               private users: UserService,
               private tool: ToolService,
               private events: Events,
+              private splashScreen: SplashScreen,
             ) {
+  }
+
+  ionViewDidEnter() {
+    // this.splashScreen.hide();
+    if (!this.hasHideSplash) {
+      this.hasHideSplash = true;
+      this.splashScreen.hide();
+    }
   }
 
   login() {

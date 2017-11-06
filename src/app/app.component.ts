@@ -67,7 +67,7 @@ export class MyApp {
       } else {
         this.rootPage = TabsPage;
       }
-      splashScreen.hide();
+      // splashScreen.hide();
     });
   }
 

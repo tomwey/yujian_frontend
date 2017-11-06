@@ -7,6 +7,7 @@ import { LocationService } from "../../providers/location-service";
 import { PartinsService } from "../../providers/partins-service";
 import { BannersService } from '../../providers/banners-service';
 import { UserService } from '../../providers/user-service';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
 // import { EventDetailPage } from "../event-detail/event-detail";
 import { PartinDetailPage } from '../partin-detail/partin-detail';
@@ -28,6 +29,8 @@ export class HomeExplorePage {
   position: any = null;
 
   needShowEmptyResult: boolean = false;
+
+  hasHideSplash: boolean = false;
   
   constructor(public navCtrl: NavController, 
               // private events: EventsService,
@@ -39,6 +42,7 @@ export class HomeExplorePage {
               private toolService: ToolService,
               private users: UserService,
               private app: App,
+              private splashScreen: SplashScreen,
               ) 
   {
 
@@ -63,12 +67,16 @@ export class HomeExplorePage {
   ionViewDidEnter() {  
     // console.log(this.slides);
     this.app.setTitle('小优大惠');
+
+    if (!this.hasHideSplash) {
+      this.hasHideSplash = true;
+      this.splashScreen.hide();
+    }
     
     if (this.slides) {
       // this.slides.loop = true;
       this.slides.startAutoplay();
     }
-      
   }  
   
   //页面离开时停止自动播放  
