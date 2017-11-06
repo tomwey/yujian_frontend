@@ -116,12 +116,12 @@ export class HomeExplorePage {
   }
 
   openBanner(banner) {
-    if (banner.event) {
-      this.gotoDetail(banner.event);
+    if (banner.partin) {
+      this.gotoDetail(banner.partin);
     }
 
     if (banner.ad) {
-      this.navCtrl.push('CommWeb', { slug: banner.ad.slug, title: banner.ad.title });
+      this.app.getRootNavs()[0].push('CommWeb', { slug: banner.ad.slug, title: banner.ad.title });
     }
 
     if (banner.link && banner.link.length != 0) {
