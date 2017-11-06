@@ -73,11 +73,9 @@ export class LocationService {
       if (reload) {
         let geolocation = new qq.maps.Geolocation('EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ', 'yujian');
         geolocation.getLocation((pos) => {
-          console.log(pos);
           this._savePosition(pos);
           resolve({ lat: pos.lat, lng: pos.lng });
         }, (error) => {
-          // console.log(error);
           reject(error);
         }, {timeout: 8000});
       } else {
