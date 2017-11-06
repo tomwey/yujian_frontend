@@ -17,6 +17,21 @@ export class LocationService {
    * @returns {Promise}
    */
   getUserPosition(reload: boolean = false): Promise<any> {
+    let ua = window.navigator.userAgent.toLowerCase();
+    console.log(ua);
+    if (ua.match(/MicroMessenger/i) && ua.match(/MicroMessenger/i)[0] === 'micromessenger') { 
+      // 微信浏览器
+      return this._getWXPosition(reload);
+    } else { 
+      // 非微信浏览器
+      return this._getH5Location(reload);
+    }
+  }
+
+  /**
+   * 通过微信获取位置
+   */
+  private _getWXPosition(reload: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
       if (reload) {
         wx.getLocation({
@@ -46,6 +61,38 @@ export class LocationService {
             // console.log(error);
             reject(error);
           });
+      }
+    });
+  }
+
+  /**
+   * 通过腾讯前端定位组件获取位置
+   */
+  private _getH5Location(reload: boolean = false): Promise<any> {
+    return new Promise((resolve, reject) => {
+      if (reload) {
+        let geolocation = new qq.maps.Geolocation('EJZBZ-VCM34-QJ4UU-XUWNV-3G2HJ-DWBNJ', 'yujian');
+        geolocation.getLocation((pos) => {
+          console.log(pos);
+          this._savePosition(pos);
+          resolve({ lat: pos.lat, lng: pos.lng });
+        }, (error) => {
+          // console.log(error);
+          reject(error);
+        }, {timeout: 8000});
+      } else {
+        this.storage.get(this._getUserPositionKey())
+        .then(data => {
+          if (!data) {
+            resolve({ lat: 0, lng: 0 });
+          } else {
+            resolve(JSON.parse(data));
+          }
+        })
+        .catch(error => {
+          // console.log(error);
+          reject(error);
+        });
       }
     });
   }
