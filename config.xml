@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.kekestudio.smallbest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Smallbest</name>
+    <name>小优大惠</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
@@ -33,6 +33,8 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
+    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-targetSdkVersion" value="23" />
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
@@ -82,19 +84,19 @@
     <allow-navigation href="http://192.168.43.180:8100" />
     <allow-navigation href="http://192.168.43.180:8101" />
     <allow-navigation href="http://192.168.3.15:8101" />
+    <allow-navigation href="http://192.168.0.105:8102" />
+    <allow-navigation href="http://192.168.0.105:8101" />
+    <preference name="SplashScreenDelay" value="3000" />
+    <engine name="android" spec="^6.2.3" />
+    <engine name="ios" spec="^4.4.0" />
+    <plugin name="com.kit.cordova.amaplocation" spec="git+https://github.com/yanxiaojun617/com.kit.cordova.amaplocation.git" />
     <plugin name="cordova-plugin-console" spec="1.0.5" />
     <plugin name="cordova-plugin-device" spec="1.1.4" />
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.15" />
+    <plugin name="cordova-plugin-network-information" spec="^1.3.3" />
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="2.2.1" />
     <plugin name="cordova-plugin-whitelist" spec="1.3.1" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <allow-navigation href="http://192.168.0.105:8102" />
-    <allow-navigation href="http://192.168.0.105:8101" />
-    <plugin name="com.kit.cordova.amaplocation" spec="https://github.com/yanxiaojun617/com.kit.cordova.amaplocation" />
-    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
-    <plugin name="cordova-plugin-network-information" spec="^1.3.3" />
-    <preference name="SplashScreenDelay" value="3000" />
-    <engine name="ios" spec="~4.4.0" />
-    <engine name="android" spec="~6.2.3" />
 </widget>
