@@ -3,6 +3,10 @@ import { ApiService } from './api-service';
 import { Storage } from '@ionic/storage';
 import { APP_VERSION } from './api-service';
 import { Device } from "@ionic-native/device";
+
+import { NativeService } from './native-service';
+import { AlertController } from 'ionic-angular';
+
 // import { Http } from '@angular/http';
 // import 'rxjs/add/operator/map';
 
@@ -18,6 +22,8 @@ export class UserService {
   constructor(private api: ApiService,
               private storage: Storage,
               private device: Device,
+              private nativeService: NativeService,
+              private alertCtrl: AlertController,
             ) {
     // console.log('Hello UserService Provider');
     
@@ -193,6 +199,51 @@ export class UserService {
         } else {
           resolve(false);
         }
+      });
+    });
+  }
+
+  /**
+   * 用户版本更新
+   */
+  checkVersion(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        this.nativeService.getAppVersion().then(value => {
+          this.api.get('user/check_version', 
+          { token: token, 
+            m: this.device.model,
+            os: this.device.platform,
+            osv: this.device.version,
+            bv: value,
+           }).then(data => {
+            // this.nativeService.downloadApp();
+            // alert(data);
+            let buttons;
+            if (data.must_upgrade === true) {
+              buttons = [{ text: '立即更新',
+                           handler: data => {
+                            // this.nativeService.downloadApp(data.url);
+                           } }];
+            } else {
+              buttons = [{ text: '不了',
+              handler: data => {
+              //  this.nativeService.downloadApp(data.url);
+              } },
+              { text: '立即更新',
+              handler: data => {
+              //  this.nativeService.downloadApp(data.url);
+              } },
+            ];
+            }
+            this.alertCtrl.create({
+              title: `发现新版本${data.version}`,
+              subTitle: data.change_log,
+              buttons: buttons,
+              enableBackdropDismiss: false,
+            }).present();
+           }).catch(error => { });
+        });
       });
     });
   }

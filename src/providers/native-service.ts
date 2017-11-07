@@ -3,6 +3,9 @@ import { Platform } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
 
+import { AppVersion } from '@ionic-native/app-version';
+import { Device } from '@ionic-native/device';
+
 declare var LocationPlugin;
 
 @Injectable()
@@ -12,7 +15,16 @@ export class NativeService {
     private platform: Platform,
     private network: Network,
     private inAppBrowser: InAppBrowser,
+    private appVersion: AppVersion,
+    private device: Device,
   ) {
+  }
+
+  /**
+   * 获取app相关信息
+   */
+  getAppVersion(): Promise<any> {
+    return this.appVersion.getVersionNumber();
   }
 
   /**

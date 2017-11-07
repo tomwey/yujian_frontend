@@ -80,7 +80,7 @@ export class MyApp {
 
   private sendUserSession2(action: string) {
     let network = this.nativeService.getNetworkType();
-
+    
     this.nativeService.getUserLocation()
       .then(pos => {
         this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);

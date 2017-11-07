@@ -56,6 +56,9 @@ export class HomeExplorePage {
     this.platform.ready().then(() => {
       // this.startLocation();
       this.loadData(null);
+
+      // this.users.checkVersion();
+
     });
   }
 
