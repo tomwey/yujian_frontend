@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from './api-service';
 import { Storage } from '@ionic/storage';
 import { APP_VERSION } from './api-service';
+import { Device } from "@ionic-native/device";
 // import { Http } from '@angular/http';
 // import 'rxjs/add/operator/map';
 
@@ -15,7 +16,9 @@ import { APP_VERSION } from './api-service';
 export class UserService {
   // authToken: string = '';
   constructor(private api: ApiService,
-              private storage: Storage) {
+              private storage: Storage,
+              private device: Device,
+            ) {
     // console.log('Hello UserService Provider');
     
   }
@@ -154,12 +157,20 @@ export class UserService {
     return new Promise((resolve, reject) => {
       this.token().then(token => {
         if (token) {
+          let device = `${this.device.model},${this.device.platform}${this.device.version},${this.device.isVirtual},${this.device.uuid}`;
           if (action === 'end') {
             this.storage.get('session_id').then(sid => {
               if (!sid) {
                 resolve(false);
               } else {
-                this.api.post('user/session/end', { token: token, sid: sid, loc: loc, network: network, version: APP_VERSION })
+                this.api.post('user/session/end', 
+                  { token: token, 
+                    sid: sid, 
+                    loc: loc, 
+                    network: network, 
+                    version: APP_VERSION,
+                    device: device,
+                   })
                   .then(data => {
                     // if (data.sid === sid)
                     //   this.storage.remove('session_id');
@@ -169,7 +180,9 @@ export class UserService {
               }
             });
           } else {
-            this.api.post('user/session/begin', { token: token, loc: loc, network: network, version: APP_VERSION })
+            this.api.post('user/session/begin', 
+              { token: token, loc: loc, network: network, 
+                version: APP_VERSION, device: device })
               .then(data => {
                 if (data.sid)
                   this.storage.set('session_id', data.sid);

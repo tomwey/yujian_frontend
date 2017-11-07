@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
+import { Device } from '@ionic-native/device';
 
 import { NativeService } from '../providers/native-service';
 
@@ -123,6 +124,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     InAppBrowser,
     Network,
     NativeService,
+    Device,
   ]
 })
 export class AppModule {}
