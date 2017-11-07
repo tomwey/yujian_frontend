@@ -53,9 +53,13 @@
       <ion-icon name="ios-custom-wallet-outline" item-left></ion-icon> 钱包
       <ion-note class="balance" item-right>{{user.balance}} 元</ion-note>
     </button>
-    <button ion-item (click)="gotoUserPay()">
-      <ion-icon name="ios-dikou-outline" item-left></ion-icon> 余额抵扣
+
+    <button ion-item (click)="gotoHBHistory()">
+      <ion-icon name="ios-list-box-outline" item-left></ion-icon> 广告参与历史
     </button>
+    <!-- <button ion-item (click)="gotoUserPay()">
+      <ion-icon name="ios-dikou-outline" item-left></ion-icon> 余额抵扣
+    </button> -->
     <!-- <button ion-item (click)="gotoInvite()">
       <ion-icon name="ios-share-invite-outline" item-left></ion-icon> 炫耀一下
     </button>
@@ -63,14 +67,14 @@
       <ion-icon name="ios-list-box-outline" item-left></ion-icon> 抢红包历史
     </button> -->
   </ion-list>
-  <ion-list>
-    <button ion-item (click)="gotoInvite()">
+  <!-- <ion-list> -->
+    <!-- <button ion-item (click)="gotoInvite()">
       <ion-icon name="ios-share-invite-outline" item-left></ion-icon> 炫耀一下
-    </button>
-    <button ion-item (click)="gotoHBHistory()">
+    </button> -->
+    <!-- <button ion-item (click)="gotoHBHistory()">
       <ion-icon name="ios-list-box-outline" item-left></ion-icon> 广告参与历史
     </button>
-  </ion-list>
+  </ion-list> -->
   <!-- <ion-list>
     <button ion-item (click)="gotoStats()">
       <ion-icon name="ios-stats-outline" item-left></ion-icon> 数据统计
@@ -86,8 +90,8 @@
     <!--<ion-item-divider color="light"></ion-item-divider>-->
     <button ion-item (click)="gotoUserAgreement()">
       <ion-icon name="ios-flash-outline" item-left></ion-icon> 用户协议</button>
-    <button ion-item (click)="gotoFeedback()">
-      <ion-icon name="ios-create-outline" item-left></ion-icon> 意见反馈</button>
+    <!-- <button ion-item (click)="gotoFeedback()">
+      <ion-icon name="ios-create-outline" item-left></ion-icon> 意见反馈</button> -->
     <button ion-item (click)="gotoHelp()">
       <ion-icon name="ios-help-circle-outline" item-left></ion-icon> 帮助中心</button>
     <button ion-item (click)="gotoAbout()"><ion-icon name="ios-information-circle-outline" item-left></ion-icon> 关于</button>
