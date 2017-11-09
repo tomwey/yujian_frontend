@@ -45,7 +45,7 @@ export class HomeExplorePage {
               private splashScreen: SplashScreen,
               ) 
   {
-
+    this.loadData(null);
   }
 
   ionViewDidLoad() {
@@ -53,13 +53,15 @@ export class HomeExplorePage {
     //   this.content.enableJsScroll();
     // }
 
-    this.platform.ready().then(() => {
-      // this.startLocation();
-      this.loadData(null);
+    // this.platform.ready().then(() => {
+    //   // this.startLocation();
+    //   this.users.token().then(token => {
+    //     if (!token) {
 
-      // this.users.checkVersion();
-
-    });
+    //     }
+    //   })
+    //   this.loadData(null);
+    // });
   }
 
   // gotoNewEvent() {
@@ -105,21 +107,26 @@ export class HomeExplorePage {
     if (!refresher)
       this.toolService.showLoading('拼命加载中...');
 
-    let promises: any[] = [];
-    promises.push(this.users.token().then(token => this.token = token));
-    promises.push(this.locService.getUserPosition().then(pos => this.position = pos)
-                  .catch(error => {}));
+    this.users.token().then(token => {
+      if (!token) {
+        // 账号注册
+        this.users.signup().then(data => {
+          this.token = data.token;
 
-    Promise.all(promises)
-      .then(() => {
-        // console.log(this.token);
-        // console.log(this.position);
+          // this.doLoadData(refresher);
+          this._loadBannersAndEvents(refresher);
+        }).catch(error => {
+          this.toolService.hideLoading();
+
+          this.toolService.showToast('账号注册失败,请重试!');
+        })
+      } else {
+        this.token = token;
+
+        // this.doLoadData(refresher);
         this._loadBannersAndEvents(refresher);
-      })
-      .catch((error) => {
-        // console.log(error);
-        this._loadBannersAndEvents(refresher);
-      });
+      }
+    })
   }
 
   gotoDetail(hb): void {

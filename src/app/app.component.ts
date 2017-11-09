@@ -20,7 +20,7 @@ import * as ifvisible from 'ifvisible.js';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any;//TabsPage;//'TabsPage';
+  rootPage:any = TabsPage;//'TabsPage';
 
   constructor(platform: Platform, 
               statusBar: StatusBar, 
@@ -42,7 +42,6 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       
-      // 不确定能生效
       ifvisible.on("blur", () => {
         this.sendUserSession2('end');
       });
@@ -50,11 +49,11 @@ export class MyApp {
       // this.initWXJSSDK();
       // this.initWXAuth();
 
-      this.checkLogin(splashScreen);
+      // this.checkLogin(splashScreen);
 
     });
 
-    this.listenToUserLogin();
+    // this.listenToUserLogin();
   }
 
   private listenToUserLogin(): void {
@@ -65,18 +64,18 @@ export class MyApp {
     })
   }
 
-  private checkLogin(splashScreen) {
-    this.users.token().then(token => {
-      if (!token) {
-        this.rootPage = LoginPage;//'LoginPage';
-      } else {
-        this.rootPage = TabsPage;
+  // private checkLogin(splashScreen) {
+  //   this.users.token().then(token => {
+  //     if (!token) {
+  //       this.rootPage = LoginPage;//'LoginPage';
+  //     } else {
+  //       this.rootPage = TabsPage;
 
-        this.sendUserSession2('begin');
-      }
-      // splashScreen.hide();
-    });
-  }
+  //       this.sendUserSession2('begin');
+  //     }
+  //     // splashScreen.hide();
+  //   });
+  // }
 
   private sendUserSession2(action: string) {
     let network = this.nativeService.getNetworkType();
