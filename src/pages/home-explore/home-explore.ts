@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { NavController, Platform, Slides, App } from 'ionic-angular';
+import { NavController, Platform, Slides, App, AlertController } from 'ionic-angular';
 import { ToolService } from '../../providers/tool-service';
 // import { QQMaps } from '../../providers/qq-maps';
 import { LocationService } from "../../providers/location-service";
@@ -38,11 +38,12 @@ export class HomeExplorePage {
               private banners: BannersService,
               // private qqMaps: QQMaps,
               private locService: LocationService,
-              private platform: Platform,
+              // private platform: Platform,
               private toolService: ToolService,
               private users: UserService,
               private app: App,
               private splashScreen: SplashScreen,
+              private alertCtrl: AlertController
               ) 
   {
     this.loadData(null);
@@ -118,7 +119,8 @@ export class HomeExplorePage {
         }).catch(error => {
           this.toolService.hideLoading();
 
-          this.toolService.showToast('账号注册失败,请重试!');
+          this.loginAgain();
+          // this.toolService.showToast('账号注册失败,请重试!');
         })
       } else {
         this.token = token;
@@ -127,6 +129,24 @@ export class HomeExplorePage {
         this._loadBannersAndEvents(refresher);
       }
     })
+  }
+
+  loginAgain() {
+    setTimeout(() => {
+      let buttons = [
+        { text: '重试',
+        handler: data => {
+          this.loadData(null);
+        }}];
+    
+      this.alertCtrl.create({
+        title: '账号获取失败,请重试!',
+        subTitle: '',
+        buttons: buttons,
+        enableBackdropDismiss: false,
+      }).present();
+
+    }, 100);
   }
 
   gotoDetail(hb): void {
