@@ -42,18 +42,32 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleLightContent();
       
-      ifvisible.on("blur", () => {
-        this.sendUserSession2('end');
-      });
+      if (platform.is('cordova')) {
+        platform.pause.subscribe(() => {
+          this.onPause();
+        });
+        platform.resume.subscribe(() => {
+          this.onResume();
+        });
+      }
+
+      this.sendUserSession2('begin');
+      
+      // ifvisible.on("blur", () => {
+      //   this.sendUserSession2('end');
+      // });
 
       // this.initWXJSSDK();
       // this.initWXAuth();
-
-      // this.checkLogin(splashScreen);
-
     });
+  }
 
-    // this.listenToUserLogin();
+  private onPause() {
+    this.sendUserSession2('end');
+  }
+
+  private onResume() {
+    this.sendUserSession2('begin');
   }
 
   private listenToUserLogin(): void {
