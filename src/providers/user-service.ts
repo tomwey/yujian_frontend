@@ -280,7 +280,7 @@ export class UserService {
             }
             this.alertCtrl.create({
               title: `发现新版本${data.version}`,
-              subTitle: data.change_log,
+              subTitle: data.change_log.replace('\n', '<br>'),
               buttons: buttons,
               enableBackdropDismiss: false,
             }).present();

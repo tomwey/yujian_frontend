@@ -9,7 +9,7 @@ import { WechatProvider } from "../providers/wechat/wechat";
 import { UtilsServiceProvider } from "../providers/utils-service/utils-service";
 import { ToolService } from '../providers/tool-service';
 import { LocationService } from "../providers/location-service";
-import { LoginPage } from '../pages/login/login';
+// import { LoginPage } from '../pages/login/login';
 
 import { NativeService } from '../providers/native-service';
 
@@ -22,7 +22,7 @@ import * as ifvisible from 'ifvisible.js';
 export class MyApp {
   rootPage:any = TabsPage;//'TabsPage';
 
-  constructor(platform: Platform, 
+  constructor(private platform: Platform, 
               statusBar: StatusBar, 
               splashScreen: SplashScreen,
               private users: UserService,
@@ -52,13 +52,15 @@ export class MyApp {
       }
 
       this.sendUserSession2('begin');
-      
+
       // ifvisible.on("blur", () => {
       //   this.sendUserSession2('end');
       // });
 
       // this.initWXJSSDK();
       // this.initWXAuth();
+
+      this.checkVersion();
     });
   }
 
@@ -68,6 +70,18 @@ export class MyApp {
 
   private onResume() {
     this.sendUserSession2('begin');
+
+    this.checkVersion();
+  }
+
+  private checkVersion() {
+    if (this.platform.is('cordova')) {
+      setTimeout(() => {
+        this.users.checkVersion().then(data => {
+          
+                }).catch(error => {});
+      }, 1000);
+    }
   }
 
   private listenToUserLogin(): void {

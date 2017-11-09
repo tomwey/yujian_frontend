@@ -23,12 +23,12 @@ import { HomeExplorePage } from "../pages/home-explore/home-explore";
 // import { ShareListPage } from "../pages/share-list/share-list";
 import { NearbyPage } from "../pages/nearby/nearby";
 import { SettingPage } from "../pages/setting/setting";
-import { AccountBindPage } from "../pages/account-bind/account-bind";
-import { EventDetailPage } from "../pages/event-detail/event-detail";
+// import { AccountBindPage } from "../pages/account-bind/account-bind";
+// import { EventDetailPage } from "../pages/event-detail/event-detail";
 import { PartinDetailPage } from '../pages/partin-detail/partin-detail';
 // import { TaskPage } from '../pages/task/task';
 // import { NewRedbagPage } from "../pages/new-redbag/new-redbag";
-import { LoginPage } from '../pages/login/login';
+// import { LoginPage } from '../pages/login/login';
 
 import { CardPage } from "../pages/card/card";
 
@@ -59,8 +59,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     MyApp,
     TabsPage,
     HomeExplorePage,
-    AccountBindPage,
-    LoginPage,
+    // AccountBindPage,
+    // LoginPage,
     // ExplorePage,
     // ShareListPage,
     NearbyPage,
@@ -68,7 +68,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // NewRedbagPage,
     // TaskPage,
     SettingPage,
-    EventDetailPage,
+    // EventDetailPage,
     PartinDetailPage,
     CardPage,
   ],
@@ -90,8 +90,8 @@ import { WechatProvider } from '../providers/wechat/wechat';
     MyApp,
     TabsPage,
     HomeExplorePage,
-    AccountBindPage,
-    LoginPage,
+    // AccountBindPage,
+    // LoginPage,
     // ExplorePage,
     // ShareListPage,
     NearbyPage,
@@ -99,7 +99,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     // MyEventsPage,
     // NewRedbagPage,
     // TaskPage,
-    EventDetailPage,
+    // EventDetailPage,
     PartinDetailPage,
     CardPage,
   ],
