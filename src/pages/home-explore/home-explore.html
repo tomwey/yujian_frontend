@@ -23,7 +23,7 @@
 
   <!-- banner -->
   <div class="banners">
-    <ion-slides *ngIf="bannersData.length > 0" loop="bannersData.length > 1" pager="bannersData.length > 1" autoplay="3000">
+    <ion-slides *ngIf="bannersData.length > 0" [loop]="bannersData.length > 1" [pager]="bannersData.length > 1" autoplay="3000">
       <ion-slide *ngFor="let banner of bannersData">
         <div class="banner-btn" (tap)="openBanner(banner)">
           <img [src]="banner.image">

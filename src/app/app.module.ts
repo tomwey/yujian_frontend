@@ -11,6 +11,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
 import { Device } from '@ionic-native/device';
 import { AppVersion } from '@ionic-native/app-version';
+import { Market } from '@ionic-native/market';
 
 import { NativeService } from '../providers/native-service';
 
@@ -127,6 +128,7 @@ import { WechatProvider } from '../providers/wechat/wechat';
     NativeService,
     Device,
     AppVersion,
+    Market,
   ]
 })
 export class AppModule {}

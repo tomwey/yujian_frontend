@@ -3,7 +3,7 @@ import { Platform, ModalController, Events } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { TabsPage } from "../pages/tabs/tabs";
-import { AccountBindPage } from '../pages/account-bind/account-bind';
+// import { AccountBindPage } from '../pages/account-bind/account-bind';
 import { UserService } from '../providers/user-service';
 import { WechatProvider } from "../providers/wechat/wechat";
 import { UtilsServiceProvider } from "../providers/utils-service/utils-service";
@@ -140,11 +140,11 @@ export class MyApp {
               this.tool.hideLoading();
               setTimeout(() => {
                 this.tool.showToast('登录失败，请重新登录！');
-                this.rootPage = AccountBindPage;
+                // this.rootPage = AccountBindPage;
               }, 200);
             });
         } else {
-          this.rootPage = AccountBindPage;//'account-bind';
+          // this.rootPage = AccountBindPage;//'account-bind';
         }
       } else {
         // this.nav.setRoot(TabsPage);

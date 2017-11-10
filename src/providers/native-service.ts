@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { Network } from '@ionic-native/network';
+import { Market } from '@ionic-native/market';
 
 import { AppVersion } from '@ionic-native/app-version';
 import { Device } from '@ionic-native/device';
@@ -17,6 +18,7 @@ export class NativeService {
     private inAppBrowser: InAppBrowser,
     private appVersion: AppVersion,
     private device: Device,
+    private market: Market,
   ) {
   }
 
@@ -40,6 +42,14 @@ export class NativeService {
    */
   openUrlByBrowser(url: string): void {
     this.inAppBrowser.create(url, '_system');
+  }
+
+  downloadApp(appIdOrUrl) {
+    if (this.isIos) {
+      this.market.open(appIdOrUrl);
+    } else {
+
+    }
   }
 
   /**

@@ -265,7 +265,7 @@ export class UserService {
             if (data.must_upgrade === true) {
               buttons = [{ text: '立即更新',
                            handler: data => {
-                            // this.nativeService.downloadApp(data.url);
+                            this.nativeService.downloadApp(data.url);
                            } }];
             } else {
               buttons = [{ text: '不了',
@@ -274,7 +274,7 @@ export class UserService {
               } },
               { text: '立即更新',
               handler: data => {
-              //  this.nativeService.downloadApp(data.url);
+               this.nativeService.downloadApp('894026206');
               } },
             ];
             }
