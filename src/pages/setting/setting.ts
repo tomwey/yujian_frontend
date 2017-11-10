@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, App, Platform } from 'ionic-angular';
+import { NavController, ModalController, App, Platform, Events } from 'ionic-angular';
 // import { WalletPage } from '../wallet/wallet';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
@@ -25,8 +25,12 @@ export class SettingPage {
               private modalCtrl: ModalController,
               private app: App,
               private platform: Platform,
+              private events: Events,
               ) {
       // this.loadUserProfile();
+    this.events.subscribe('user:bind', () => {
+      this.loadUserProfile();
+    });
   }
 
   ionViewDidLoad() {
@@ -70,6 +74,10 @@ export class SettingPage {
     this.users.token().then(token => {
       window.location.href = `http://b.hb.small-best.com/wx/share/invite?token=${token}`;
     });
+  }
+
+  bindWX(): void {
+    this.app.getRootNavs()[0].push('WechatBindPage');
   }
 
   gotoSendHBHistory(): void {

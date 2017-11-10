@@ -14,7 +14,8 @@
 
 <ion-content style="background-color:rgb(247,247,247)">
   <div *ngIf="!!withdrawData">
-    <div class="fee-tip" *ngIf="withdrawData.fee > 0">每笔提现会收取{{withdrawData.fee}}元的手续费</div>
+    
+    <div class="fee-tip">一天只能提现一次</div>
     <ion-list>
       <ion-item *ngIf="type === 0">
         <ion-label>账号</ion-label>

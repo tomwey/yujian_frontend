@@ -87,6 +87,9 @@
     </button>
   </ion-list> -->
   <ion-list>
+    <button ion-item (click)="bindWX();" *ngIf="user.bind_wx === false">
+      <ion-icon name="ios-link-outline" item-left></ion-icon> 绑定微信
+    </button>
     <!--<ion-item-divider color="light"></ion-item-divider>-->
     <button ion-item (click)="gotoUserAgreement()">
       <ion-icon name="ios-flash-outline" item-left></ion-icon> 用户协议</button>

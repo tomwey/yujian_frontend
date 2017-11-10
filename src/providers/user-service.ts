@@ -122,6 +122,20 @@ export class UserService {
     });
   }
 
+  bindWX(code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        this.api.post('account/bind', { code: code, token: token })
+        .then(data => {
+          this.storage.set('token', data.token).then(data=>{
+            resolve(data);
+          }).catch(error=>reject(error));
+        })
+        .catch(error=>reject(error));
+      });
+    });
+  }
+
   applyPay(money): Promise<any> {
     return new Promise((resolve, reject) => {
       this.token().then(token => {

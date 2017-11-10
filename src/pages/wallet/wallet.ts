@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, App } from 'ionic-angular';
 import { UserService } from '../../providers/user-service'; 
 import { ToolService } from '../../providers/tool-service';
 
@@ -22,6 +22,7 @@ export class WalletPage {
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
               private users: UserService,
+              private app: App,
               private tool: ToolService) {
     this.user = this.navParams.data;
   }
@@ -46,7 +47,12 @@ export class WalletPage {
   }
 
   gotoWithdraw(type: number): void {
+    if (type === 1) {
+      if (this.user.bind_wx === false) {
+        this.app.getRootNavs()[0].push('WechatBindPage');
+        return;
+      }
+    }
     this.navCtrl.push('WithdrawPage', { user: this.user, type: type });
   }
-
 }
