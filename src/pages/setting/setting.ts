@@ -33,12 +33,12 @@ export class SettingPage {
     // if (this.platform.is('mobileweb') && this.platform.is('ios')) {
     //   this.content.enableJsScroll();
     // }
-    
-    this.loadUserProfile();
   }
 
   ionViewDidEnter() {
     this.app.setTitle('我的');
+
+    this.loadUserProfile();
   }
 
   loadUserProfile(): void {
