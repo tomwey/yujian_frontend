@@ -12,8 +12,12 @@ import { Network } from '@ionic-native/network';
 import { Device } from '@ionic-native/device';
 import { AppVersion } from '@ionic-native/app-version';
 import { Market } from '@ionic-native/market';
+import { Diagnostic } from '@ionic-native/diagnostic';
+import {File} from "@ionic-native/file";
+import {FileTransfer } from '@ionic-native/file-transfer';
 
 import { NativeService } from '../providers/native-service';
+import { GlobalData } from '../providers/global-data';
 
 // 初次导入页面
 
@@ -129,6 +133,11 @@ import { WechatProvider } from '../providers/wechat/wechat';
     Device,
     AppVersion,
     Market,
+    Diagnostic,
+    File,
+    FileTransfer,
+    GlobalData,
+    // FileTransferObject,
   ]
 })
 export class AppModule {}

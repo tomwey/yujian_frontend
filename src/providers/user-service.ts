@@ -214,6 +214,66 @@ export class UserService {
     });
   }
 
+  // 提交用户会话
+  sendSession(action: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.token().then(token => {
+        if (token) {
+          this.nativeService.getUserLocation().then(pos => {
+            this._sendSession(action, token, `${pos.lng},${pos.lat}`).then(data => {
+              resolve(data);
+            }).catch(error => reject(error));
+          }).catch(error => {
+            this._sendSession(action, token, null).then(data => {
+              resolve(data);
+            }).catch(error => reject(error));
+          });
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  }
+
+  private _sendSession(action, token, loc) {
+    return new Promise((resolve, reject) => {
+      let device = `${this.device.model},${this.device.platform}${this.device.version},${this.device.isVirtual},${this.device.uuid}`;
+      if (action === 'end') {
+        this.storage.get('session_id').then(sid => {
+          if (!sid) {
+            resolve(false);
+          } else {
+            this.api.post('user/session/end', 
+              { token: token, 
+                sid: sid, 
+                loc: loc, 
+                network: this.nativeService.getNetworkType(), 
+                version: APP_VERSION,
+                device: device,
+               })
+              .then(data => {
+                // if (data.sid === sid)
+                //   this.storage.remove('session_id');
+                resolve(true);
+              })
+              .catch(error => reject(error));
+          }
+        });
+      } else {
+        this.api.post('user/session/begin', 
+          { token: token, loc: loc, network: this.nativeService.getNetworkType(), 
+            version: APP_VERSION, device: device })
+          .then(data => {
+            if (data.sid)
+              this.storage.set('session_id', data.sid);
+            resolve(data);
+          })
+          .catch(error => reject(error));
+      }
+    });
+    
+  }
+
   // 处理用户会话
   handleSession(action: string, loc: string = null, network: string = null): Promise<any> {
     return new Promise((resolve, reject) => {

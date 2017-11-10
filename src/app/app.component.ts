@@ -106,15 +106,16 @@ export class MyApp {
   // }
 
   private sendUserSession2(action: string) {
-    let network = this.nativeService.getNetworkType();
+    // let network = this.nativeService.getNetworkType();
     
-    this.nativeService.getUserLocation()
-      .then(pos => {
-        this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
-      })
-      .catch(error => {
-        this._sendSessionReq(action, network, null);
-      });
+    this.users.sendSession(action);
+    // this.nativeService.getUserLocation()
+    //   .then(pos => {
+    //     this._sendSessionReq(action, network, `${pos.lng},${pos.lat}`);
+    //   })
+    //   .catch(error => {
+    //     this._sendSessionReq(action, network, null);
+    //   });
   }
 
   private initWXAuth() {
